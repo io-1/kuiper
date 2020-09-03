@@ -2,7 +2,6 @@ package servers
 
 import (
 	"context"
-	"errors"
 
 	"github.com/n7down/kuiper/internal/devices/persistence"
 
@@ -49,10 +48,11 @@ func (s *DevicesServer) UpdateBatCaveSetting(ctx context.Context, req *devices_p
 }
 
 func (s *DevicesServer) GetBatCaveSetting(ctx context.Context, req *devices_pb.GetBatCaveDeviceSettingRequest) (*devices_pb.GetBatCaveDeviceSettingResponse, error) {
-	recordNotFound, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
-	if recordNotFound {
-		return &devices_pb.GetBatCaveDeviceSettingResponse{}, errors.New("record not found")
-	}
+	_, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
+	// recordNotFound, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
+	// if recordNotFound {
+	// 	return &devices_pb.GetBatCaveDeviceSettingResponse{}, errors.New("record not found")
+	// }
 
 	return &devices_pb.GetBatCaveDeviceSettingResponse{
 		DeviceID:       setting.DeviceID,

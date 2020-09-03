@@ -2,9 +2,9 @@ package mysql
 
 import "github.com/n7down/kuiper/internal/users/persistence"
 
-func (p *MysqlPersistence) CreateUser(user persistence.User) int64 {
+func (p *MysqlPersistence) CreateUser(user persistence.User) (int64, persistence.User) {
 	rowsAffected := p.db.Create(&user).RowsAffected
-	return rowsAffected
+	return rowsAffected, user
 }
 
 func (p *MysqlPersistence) GetUser(username string) (bool, persistence.User) {

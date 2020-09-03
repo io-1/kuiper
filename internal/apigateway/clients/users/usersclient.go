@@ -1,9 +1,16 @@
 package users
 
 import (
+	"context"
+	"net/http"
 	"time"
 
 	"google.golang.org/grpc"
+
+	"github.com/gin-gonic/gin"
+	"github.com/n7down/kuiper/internal/apigateway/clients/users/request"
+	"github.com/n7down/kuiper/internal/apigateway/clients/users/response"
+	"github.com/n7down/kuiper/internal/utils"
 
 	users_pb "github.com/n7down/kuiper/internal/pb/users"
 )
@@ -28,138 +35,188 @@ func NewUsersClient(serverEnv string) (*UsersClient, error) {
 	return client, nil
 }
 
-func NewDevicesClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClient {
+func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClient {
 	client := &UsersClient{
 		usersClient: usersClient,
 	}
 	return client
 }
 
-// func (client *DevicesClient) CreateBatCaveSetting(c *gin.Context) {
-// 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-// 	defer cancel()
+func (client *UsersClient) CreateUser(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-// 	var (
-// 		req request.CreateBatCaveSettingRequest
-// 		res response.CreateBatCaveSettingResponse
-// 	)
+	var (
+		req request.CreateUserRequest
+		res response.CreateUserResponse
+	)
 
-// 	if err := c.BindJSON(&req); err != nil {
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
 
-// 	req.DeviceID = strings.ToLower(req.DeviceID)
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
 
-// 	if validationErrors := req.Validate(); len(validationErrors) > 0 {
-// 		err := map[string]interface{}{"validationError": validationErrors}
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	// FIXME: does this need to be done on the user service?
+	// bcrypt
+	encryptedPassword, err := utils.CreateBcryptHashString(req.Password)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
 
-// 	r, err := client.settingsClient.CreateBatCaveSetting(ctx, &devices_pb.CreateBatCaveSettingRequest{DeviceID: req.DeviceID, DeepSleepDelay: req.DeepSleepDelay})
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	r, err := client.usersClient.CreateUser(ctx, &users_pb.CreateUserRequest{
+		Username: req.Username,
+		Password: encryptedPassword,
+		Name:     req.Name,
+		Email:    req.Email,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
 
-// 	res = response.CreateBatCaveSettingResponse{
-// 		DeviceID:       r.DeviceID,
-// 		DeepSleepDelay: r.DeepSleepDelay,
-// 	}
+	res = response.CreateUserResponse{
+		Username: r.Username,
+		Name:     r.Name,
+		Email:    r.Email,
+	}
 
-// 	c.JSON(http.StatusOK, res)
-// }
+	c.JSON(http.StatusOK, res)
+}
 
-// func (client *DevicesClient) GetBatCaveSetting(c *gin.Context) {
-// 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-// 	defer cancel()
+func (client *UsersClient) GetUser(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-// 	var (
-// 		req request.GetBatCaveSettingRequest
-// 		res response.GetBatCaveSettingResponse
-// 	)
+	var (
+		req request.GetUserRequest
+		res response.GetUserResponse
+	)
 
-// 	deviceID := c.Params.ByName("device_id")
+	username := c.Params.ByName("username")
 
-// 	req = request.GetBatCaveSettingRequest{
-// 		DeviceID: deviceID,
-// 	}
+	req = request.GetUserRequest{
+		Username: username,
+	}
 
-// 	req.DeviceID = strings.ToLower(req.DeviceID)
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
 
-// 	if validationErrors := req.Validate(); len(validationErrors) > 0 {
-// 		err := map[string]interface{}{"validationError": validationErrors}
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: req.Username})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
 
-// 	r, err := client.settingsClient.GetBatCaveSetting(ctx, &devices_pb.GetBatCaveSettingRequest{DeviceID: req.DeviceID})
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	if r.Username == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-// 	if r.DeviceID == "" {
-// 		c.JSON(http.StatusNoContent, res)
-// 		return
-// 	}
+	res = response.GetUserResponse{
+		Username: r.Username,
+		Password: r.Password,
+		Name:     r.Name,
+		Email:    r.Email,
+	}
 
-// 	res = response.GetBatCaveSettingResponse{
-// 		DeviceID:       r.DeviceID,
-// 		DeepSleepDelay: r.DeepSleepDelay,
-// 	}
+	c.JSON(http.StatusOK, res)
+}
 
-// 	c.JSON(http.StatusOK, res)
-// }
+func (client *UsersClient) UpdateUser(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-// func (client *DevicesClient) UpdateBatCaveSetting(c *gin.Context) {
-// 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-// 	defer cancel()
+	var (
+		req request.UpdateUserRequest
+		res response.UpdateUserResponse
+	)
 
-// 	var (
-// 		req request.UpdateBatCaveSettingRequest
-// 		res response.UpdateBatCaveSettingResponse
-// 	)
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
 
-// 	if err := c.BindJSON(&req); err != nil {
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	username := c.Params.ByName("username")
+	req.Username = username
 
-// 	deviceID := c.Params.ByName("device_id")
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
 
-// 	req = request.UpdateBatCaveSettingRequest{
-// 		DeviceID:       deviceID,
-// 		DeepSleepDelay: req.DeepSleepDelay,
-// 	}
+	r, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
+		Username: req.Username,
+		Password: req.Password,
+		Name:     req.Name,
+		Email:    req.Email,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
 
-// 	req.DeviceID = strings.ToLower(req.DeviceID)
+	if r.Username == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-// 	if validationErrors := req.Validate(); len(validationErrors) > 0 {
-// 		err := map[string]interface{}{"validationError": validationErrors}
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	res = response.UpdateUserResponse{
+		Username: r.Username,
+		Name:     r.Name,
+		Email:    r.Email,
+	}
 
-// 	r, err := client.settingsClient.UpdateBatCaveSetting(ctx, &devices_pb.UpdateBatCaveSettingRequest{
-// 		DeviceID:       req.DeviceID,
-// 		DeepSleepDelay: req.DeepSleepDelay,
-// 	})
-// 	if err != nil {
-// 		c.JSON(http.StatusBadRequest, err)
-// 		return
-// 	}
+	c.JSON(http.StatusOK, res)
+}
 
-// 	if r.DeviceID == "" {
-// 		c.JSON(http.StatusNoContent, res)
-// 		return
-// 	}
+func (client *UsersClient) DeleteUser(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-// 	res = response.UpdateBatCaveSettingResponse{
-// 		DeviceID:       r.DeviceID,
-// 		DeepSleepDelay: r.DeepSleepDelay,
-// 	}
+	var (
+		req request.DeleteUserRequest
+		res response.DeleteUserResponse
+	)
 
-// 	c.JSON(http.StatusOK, res)
-// }
+	username := c.Params.ByName("username")
+
+	req = request.DeleteUserRequest{
+		Username: username,
+	}
+
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+
+	r, err := client.usersClient.DeleteUser(ctx, &users_pb.DeleteUserRequest{
+		Username: username,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
+
+	if r.Username == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
+
+	res = response.DeleteUserResponse{
+		Username: r.Username,
+	}
+
+	c.JSON(http.StatusOK, res)
+}

@@ -2,7 +2,6 @@ package servers
 
 import (
 	"context"
-	"errors"
 
 	"github.com/n7down/kuiper/internal/users/persistence"
 
@@ -28,24 +27,27 @@ func (s *UsersServer) CreateUser(ctx context.Context, req *users_pb.CreateUserRe
 		Email:    req.Email,
 	}
 
-	s.persistence.CreateUser(user)
+	_, newUser := s.persistence.CreateUser(user)
 
 	return &users_pb.CreateUserResponse{
-		Username: req.Username,
-		Name:     req.Name,
-		Email:    req.Email,
+		Username: newUser.Username,
+		Name:     newUser.Name,
+		Email:    newUser.Email,
 	}, nil
 }
 
 func (s *UsersServer) GetUser(ctx context.Context, req *users_pb.GetUserRequest) (*users_pb.GetUserResponse, error) {
-	recordNotFound, user := s.persistence.GetUser(req.Username)
-	if recordNotFound {
-		return &users_pb.GetUserResponse{}, errors.New("record not found")
-	}
+	_, user := s.persistence.GetUser(req.Username)
+	// recordNotFound, user := s.persistence.GetUser(req.Username)
+	// if recordNotFound {
+	// 	return &users_pb.GetUserResponse{}, errors.New("record not found")
+	// }
 
 	return &users_pb.GetUserResponse{
-		Name:  user.Name,
-		Email: user.Email,
+		Username: user.Username,
+		Password: user.Password,
+		Name:     user.Name,
+		Email:    user.Email,
 	}, nil
 }
 
@@ -57,15 +59,16 @@ func (s *UsersServer) UpdateUser(ctx context.Context, req *users_pb.UpdateUserRe
 		Email:    req.Email,
 	}
 
-	rowsAffected := s.persistence.UpdateUser(user)
-	if rowsAffected == 0 {
-		return &users_pb.UpdateUserResponse{}, errors.New("record not found")
-	}
+	s.persistence.UpdateUser(user)
+	// rowsAffected, updatedUser := s.persistence.UpdateUser(user)
+	// if rowsAffected == 0 {
+	// 	return &users_pb.UpdateUserResponse{}, errors.New("record not found")
+	// }
 
 	return &users_pb.UpdateUserResponse{
-		Password: req.Username,
-		Name:     req.Name,
-		Email:    req.Email,
+		Username: user.Username,
+		Name:     user.Name,
+		Email:    user.Email,
 	}, nil
 }
 
@@ -74,10 +77,11 @@ func (s *UsersServer) DeleteUser(ctx context.Context, req *users_pb.DeleteUserRe
 		Username: req.Username,
 	}
 
-	rowsAffected := s.persistence.DeleteUser(user)
-	if rowsAffected == 0 {
-		return &users_pb.DeleteUserResponse{}, errors.New("record not found")
-	}
+	s.persistence.DeleteUser(user)
+	// rowsAffected := s.persistence.DeleteUser(user)
+	// if rowsAffected == 0 {
+	// 	return &users_pb.DeleteUserResponse{}, errors.New("record not found")
+	// }
 
 	return &users_pb.DeleteUserResponse{
 		Username: req.Username,

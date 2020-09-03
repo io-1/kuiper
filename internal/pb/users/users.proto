@@ -22,8 +22,10 @@ message GetUserRequest {
 }
 
 message GetUserResponse {
-    string Name = 1;
-    string Email = 2;
+    string Username = 1;
+    string Password = 2;
+    string Name = 3;
+    string Email = 4;
 }
 
 message UpdateUserRequest {
@@ -34,10 +36,10 @@ message UpdateUserRequest {
 }
 
 message UpdateUserResponse {
-    string Password = 1;
+    string Username = 1;
     string Name = 2;
     string Email = 3;
-}
+3}
 
 message DeleteUserRequest {
   string Username = 1;
