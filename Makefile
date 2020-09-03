@@ -26,7 +26,7 @@ generate:
 .PHONY: test-unit
 test-unit:
 	echo "running unit tests..."
-	go test --tags unit -v ./...
+	go test -v --tags unit ./...
 	echo "done"
 
 # .PHONY: test-integration

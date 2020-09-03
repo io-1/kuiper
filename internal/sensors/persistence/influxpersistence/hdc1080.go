@@ -46,7 +46,7 @@ func (i InfluxPersistence) CreateHDC1080Measurement(sensor *sensors.HDC1080Measu
 }
 
 func (i InfluxPersistence) GetHDC1080TemperatureMeasurements(mac string, startTime, endTime time.Time) (sensors.HDC1080TemperatureMeasurements, error) {
-	query := fmt.Sprintf("select temp from hdc1080_listener where mac = '%s' and time => '%s' and time < '%s'", mac, startTime.String, endTime.String)
+	query := fmt.Sprintf("select temp from hdc1080_listener where mac = '%s' and time => '%s' and time < '%s'", mac, startTime.String(), endTime.String())
 	q := client.NewQuery(query, i.database, "s")
 	response, err := i.client.Query(q)
 	if err != nil {
@@ -63,7 +63,7 @@ func (i InfluxPersistence) GetHDC1080TemperatureMeasurements(mac string, startTi
 }
 
 func (i InfluxPersistence) GetHDC1080HumidityMeasurements(mac string, startTime, endTime time.Time) (sensors.HDC1080HumidityMeasurements, error) {
-	query := fmt.Sprintf("select humidity from hdc1080_listener where mac = '%s' and time => '%s' and time < '%s'", mac, startTime.String, endTime.String)
+	query := fmt.Sprintf("select humidity from hdc1080_listener where mac = '%s' and time => '%s' and time < '%s'", mac, startTime.String(), endTime.String())
 	q := client.NewQuery(query, i.database, "s")
 	response, err := i.client.Query(q)
 	if err != nil {

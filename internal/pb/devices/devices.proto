@@ -33,7 +33,6 @@ message UpdateBatCaveDeviceSettingResponse {
     uint32 DeepSleepDelay = 2;
 }
 
-// FIXME: change to DeviceService
 service DevicesService {
    rpc CreateBatCaveDeviceSetting(CreateBatCaveDeviceSettingRequest) returns (CreateBatCaveDeviceSettingResponse);
    rpc GetBatCaveDeviceSetting(GetBatCaveDeviceSettingRequest) returns (GetBatCaveDeviceSettingResponse);
