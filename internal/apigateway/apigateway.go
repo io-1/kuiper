@@ -174,6 +174,17 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		usersGroup.DELETE("/:username", g.usersClient.DeleteUser)
 	}
 
+	// FIXME: use auth middleware
+	authGroup := v1.Group("/auth")
+	{
+		authGroup.GET("/hello", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				// FIXME: get user info from the claims
+				"text": "Hello World.",
+			})
+		})
+	}
+
 	return nil
 }
 
