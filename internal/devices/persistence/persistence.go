@@ -2,7 +2,7 @@
 package persistence
 
 type Persistence interface {
-	CreateBatCaveSetting(settings BatCaveSetting) int64
-	GetBatCaveSetting(deviceID string) (bool, BatCaveSetting)
-	UpdateBatCaveSetting(settings BatCaveSetting) int64
+	CreateBatCaveDeviceSetting(settings BatCaveDeviceSetting) int64
+	GetBatCaveDeviceSetting(deviceID string) (bool, BatCaveDeviceSetting)
+	UpdateBatCaveDeviceSetting(settings BatCaveDeviceSetting) int64
 }

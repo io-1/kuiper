@@ -18,13 +18,13 @@ const (
 	ONE_MINUTE = 1 * time.Minute
 )
 
-func (e *SettingsListenersEnv) BatCaveSettingsListenerMessageHandler(client mqtt.Client, msg mqtt.Message) {
+func (e *DeviceSettingsListenersEnv) BatCaveDeviceSettingsListenerMessageHandler(client mqtt.Client, msg mqtt.Message) {
 	e.logger.Infof("Received message: %s\n", msg.Payload())
 
 	// unmashal payload
 	var (
-		req request.BatCaveSettingRequest
-		res response.BatCaveSettingResponse
+		req request.BatCaveDeviceSettingRequest
+		res response.BatCaveDeviceSettingResponse
 	)
 
 	err := json.Unmarshal([]byte(msg.Payload()), &req)
@@ -34,19 +34,19 @@ func (e *SettingsListenersEnv) BatCaveSettingsListenerMessageHandler(client mqtt
 	}
 
 	// get the settings
-	recordNotFound, settingInPersistence := e.persistence.GetBatCaveSetting(req.DeviceID)
+	recordNotFound, settingInPersistence := e.persistence.GetBatCaveDeviceSetting(req.DeviceID)
 	if recordNotFound {
 
 		// send back default values
-		res = response.GetBatCaveSettingDefault()
+		res = response.GetBatCaveDeviceSettingDefault()
 
-		newSetting := persistence.BatCaveSetting{
+		newSetting := persistence.BatCaveDeviceSetting{
 			DeviceID:       req.DeviceID,
 			DeepSleepDelay: res.DeepSleepDelay,
 		}
 
 		// create the new setting
-		e.persistence.CreateBatCaveSetting(newSetting)
+		e.persistence.CreateBatCaveDeviceSetting(newSetting)
 
 	} else {
 
@@ -74,7 +74,7 @@ func (e *SettingsListenersEnv) BatCaveSettingsListenerMessageHandler(client mqtt
 	token.WaitTimeout(ONE_MINUTE)
 }
 
-func (e *SettingsListenersEnv) NewBatCaveSettingsListener(listenerName string, mqttURL string) (*listeners.Listener, error) {
+func (e *DeviceSettingsListenersEnv) NewBatCaveDeviceSettingsListener(listenerName string, mqttURL string) (*listeners.Listener, error) {
 	i := &listeners.Listener{}
 
 	u, err := url.Parse(mqttURL)
@@ -93,7 +93,7 @@ func (e *SettingsListenersEnv) NewBatCaveSettingsListener(listenerName string, m
 	opts.SetPassword(password)
 	opts.SetClientID(listenerName)
 
-	var f mqtt.MessageHandler = e.BatCaveSettingsListenerMessageHandler
+	var f mqtt.MessageHandler = e.BatCaveDeviceSettingsListenerMessageHandler
 
 	opts.SetDefaultPublishHandler(f)
 

@@ -18,13 +18,13 @@ const (
 	ONE_MINUTE = 1 * time.Minute
 )
 
-func (p MosquittoPubSub) BatCaveSettingsListenerMessageHandler(client mqtt.Client, msg mqtt.Message) {
+func (p MosquittoPubSub) BatCaveDeviceSettingsListenerMessageHandler(client mqtt.Client, msg mqtt.Message) {
 	p.logger.Infof("Received message: %s\n", msg.Payload())
 
 	// unmashal payload
 	var (
-		req request.BatCaveSettingRequest
-		res response.BatCaveSettingResponse
+		req request.BatCaveDeviceSettingRequest
+		res response.BatCaveDeviceSettingResponse
 	)
 
 	err := json.Unmarshal([]byte(msg.Payload()), &req)
@@ -34,19 +34,19 @@ func (p MosquittoPubSub) BatCaveSettingsListenerMessageHandler(client mqtt.Clien
 	}
 
 	// get the settings
-	recordNotFound, settingInPersistence := p.persistence.GetBatCaveSetting(req.DeviceID)
+	recordNotFound, settingInPersistence := p.persistence.GetBatCaveDeviceSetting(req.DeviceID)
 	if recordNotFound {
 
 		// send back default values
-		res = response.GetBatCaveSettingDefault()
+		res = response.GetBatCaveDeviceSettingDefault()
 
-		newSetting := persistence.BatCaveSetting{
+		newSetting := persistence.BatCaveDeviceSetting{
 			DeviceID:       req.DeviceID,
 			DeepSleepDelay: res.DeepSleepDelay,
 		}
 
 		// create the new setting
-		p.persistence.CreateBatCaveSetting(newSetting)
+		p.persistence.CreateBatCaveDeviceSetting(newSetting)
 
 	} else {
 
@@ -74,7 +74,7 @@ func (p MosquittoPubSub) BatCaveSettingsListenerMessageHandler(client mqtt.Clien
 	token.WaitTimeout(ONE_MINUTE)
 }
 
-func (p MosquittoPubSub) NewBatCaveSettingsListener(listenerName string, mqttURL string) error {
+func (p MosquittoPubSub) NewBatCaveDeviceSettingsListener(listenerName string, mqttURL string) error {
 	mqttUrl, err := url.Parse(mqttURL)
 	if err != nil {
 		return err
@@ -91,7 +91,7 @@ func (p MosquittoPubSub) NewBatCaveSettingsListener(listenerName string, mqttURL
 	opts.SetPassword(password)
 	opts.SetClientID(listenerName)
 
-	var f mqtt.MessageHandler = p.BatCaveSettingsListenerMessageHandler
+	var f mqtt.MessageHandler = p.BatCaveDeviceSettingsListenerMessageHandler
 
 	opts.SetDefaultPublishHandler(f)
 

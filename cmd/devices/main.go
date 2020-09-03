@@ -46,7 +46,7 @@ func init() {
 
 		server = devices.NewDevicesServer(persistence)
 		pubSub := mosquitto.NewMosquittoPubSub(persistence, log)
-		err = pubSub.NewBatCaveSettingsListener("bat_cave_settings_listener", batCaveSettingsMQTTURL)
+		err = pubSub.NewBatCaveDeviceSettingsListener("bat_cave_settings_listener", batCaveSettingsMQTTURL)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -64,7 +64,7 @@ func main() {
 
 		log.Infof("Listening on port: %s\n", port)
 		grpcServer := grpc.NewServer()
-		devices_pb.RegisterSettingsServiceServer(grpcServer, server)
+		devices_pb.RegisterDevicesServiceServer(grpcServer, server)
 		grpcServer.Serve(lis)
 	}
 }

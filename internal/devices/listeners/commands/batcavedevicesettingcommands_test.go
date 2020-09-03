@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_BatCaveSettingCommands_GetCommands_Should_Set_Commands_When_DeepSleepDelay_Values_Are_Added(t *testing.T) {
+func Test_BatCaveDeviceSettingCommands_GetCommands_Should_Set_Commands_When_DeepSleepDelay_Values_Are_Added(t *testing.T) {
 	testCases := []struct {
 		name           string
 		deepSleepDelay uint32
@@ -32,7 +32,7 @@ func Test_BatCaveSettingCommands_GetCommands_Should_Set_Commands_When_DeepSleepD
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			c := BatCaveSettingCommands{}
+			c := BatCaveDeviceSettingCommands{}
 			c.AddDeepSleepDelayCommand(testCase.deepSleepDelay)
 			commands := c.GetCommands()
 			assert.Equal(t, testCase.expectedValue, commands, "should have the same commands")
@@ -40,7 +40,7 @@ func Test_BatCaveSettingCommands_GetCommands_Should_Set_Commands_When_DeepSleepD
 	}
 }
 
-func Test_BatCaveSettingCommands_GetCommandsInt_Should_Set_Commands_When_DeepSleepDelay_Values_Are_Added(t *testing.T) {
+func Test_BatCaveDeviceSettingCommands_GetCommandsInt_Should_Set_Commands_When_DeepSleepDelay_Values_Are_Added(t *testing.T) {
 	testCases := []struct {
 		name           string
 		deepSleepDelay uint32
@@ -64,7 +64,7 @@ func Test_BatCaveSettingCommands_GetCommandsInt_Should_Set_Commands_When_DeepSle
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			c := BatCaveSettingCommands{}
+			c := BatCaveDeviceSettingCommands{}
 			c.AddDeepSleepDelayCommand(testCase.deepSleepDelay)
 			commands := c.GetCommandsInt()
 			assert.Equal(t, testCase.expectedValue, commands, "should have the same commands")

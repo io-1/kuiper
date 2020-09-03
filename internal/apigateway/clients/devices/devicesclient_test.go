@@ -17,7 +17,7 @@ import (
 	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
 )
 
-func Test_CreateBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_Has_Upper_Case_Characters_In_Request(t *testing.T) {
+func Test_CreateBatCaveDeviceSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_Has_Upper_Case_Characters_In_Request(t *testing.T) {
 	var (
 		deviceIDUpperCase string = "0011001100FF"
 		deviceIDLowerCase string = "0011001100ff"
@@ -33,24 +33,24 @@ func Test_CreateBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceI
 	c, r := gin.CreateTestContext(w)
 
 	mockCtrl := gomock.NewController(t)
-	mockSettingsServiceClient := mock.NewMockSettingsServiceClient(mockCtrl)
+	mockDevicesServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient)
 
-	mockSettingsServiceClient.EXPECT().CreateBatCaveSetting(
+	mockDevicesServiceClient.EXPECT().CreateBatCaveDeviceSetting(
 		gomock.Any(),
-		&devices_pb.CreateBatCaveSettingRequest{
+		&devices_pb.CreateBatCaveDeviceSettingRequest{
 			DeviceID:       deviceIDLowerCase,
 			DeepSleepDelay: deepSleepDelay,
 		},
 	).Return(
-		&devices_pb.CreateBatCaveSettingResponse{
+		&devices_pb.CreateBatCaveDeviceSettingResponse{
 			DeviceID:       deviceIDLowerCase,
 			DeepSleepDelay: deepSleepDelay,
 		}, nil,
 	)
 
-	r.POST("/bc", devicesClient.CreateBatCaveSetting)
+	r.POST("/bc", devicesClient.CreateBatCaveDeviceSetting)
 
 	c.Request, err = http.NewRequest("POST", "/bc", strings.NewReader(string(reqParam)))
 	assert.NoError(t, err)
@@ -64,7 +64,7 @@ func Test_CreateBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceI
 	assert.Equal(t, expectedRes, actualRes)
 }
 
-func Test_GetBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_Has_Upper_Case_Characters_In_Request(t *testing.T) {
+func Test_GetBatCaveDeviceSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_Has_Upper_Case_Characters_In_Request(t *testing.T) {
 	var (
 		deviceIDUpperCase string = "0011001100FF"
 		deviceIDLowerCase string = "0011001100ff"
@@ -79,23 +79,23 @@ func Test_GetBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_H
 	c, r := gin.CreateTestContext(w)
 
 	mockCtrl := gomock.NewController(t)
-	mockSettingsServiceClient := mock.NewMockSettingsServiceClient(mockCtrl)
+	mockSettingsServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	settingsClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
 
-	mockSettingsServiceClient.EXPECT().GetBatCaveSetting(
+	mockSettingsServiceClient.EXPECT().GetBatCaveDeviceSetting(
 		gomock.Any(),
-		&devices_pb.GetBatCaveSettingRequest{
+		&devices_pb.GetBatCaveDeviceSettingRequest{
 			DeviceID: deviceIDLowerCase,
 		},
 	).Return(
-		&devices_pb.GetBatCaveSettingResponse{
+		&devices_pb.GetBatCaveDeviceSettingResponse{
 			DeviceID:       deviceIDLowerCase,
 			DeepSleepDelay: deepSleepDelay,
 		}, nil,
 	)
 
-	r.GET("/bc/:device_id", settingsClient.GetBatCaveSetting)
+	r.GET("/bc/:device_id", devicesClient.GetBatCaveDeviceSetting)
 
 	url := fmt.Sprintf("/bc/%s", deviceIDUpperCase)
 	c.Request, err = http.NewRequest("GET", url, nil)
@@ -110,7 +110,7 @@ func Test_GetBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_H
 	assert.Equal(t, expectedRes, actualRes)
 }
 
-func Test_GetBatCaveSetting_Should_Return_StatusNoContent_When_DeviceID_Is_Empty(t *testing.T) {
+func Test_GetBatCaveDeviceSetting_Should_Return_StatusNoContent_When_DeviceID_Is_Empty(t *testing.T) {
 	var (
 		deviceID     string = "0011001100ff"
 		expectedCode        = http.StatusNoContent
@@ -123,20 +123,20 @@ func Test_GetBatCaveSetting_Should_Return_StatusNoContent_When_DeviceID_Is_Empty
 	c, r := gin.CreateTestContext(w)
 
 	mockCtrl := gomock.NewController(t)
-	mockSettingsServiceClient := mock.NewMockSettingsServiceClient(mockCtrl)
+	mockDevicesServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	settingsClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient)
 
-	mockSettingsServiceClient.EXPECT().GetBatCaveSetting(
+	mockDevicesServiceClient.EXPECT().GetBatCaveDeviceSetting(
 		gomock.Any(),
-		&devices_pb.GetBatCaveSettingRequest{
+		&devices_pb.GetBatCaveDeviceSettingRequest{
 			DeviceID: deviceID,
 		},
 	).Return(
-		&devices_pb.GetBatCaveSettingResponse{}, nil,
+		&devices_pb.GetBatCaveDeviceSettingResponse{}, nil,
 	)
 
-	r.GET("/bc/:device_id", settingsClient.GetBatCaveSetting)
+	r.GET("/bc/:device_id", devicesClient.GetBatCaveDeviceSetting)
 
 	url := fmt.Sprintf("/bc/%s", deviceID)
 	c.Request, err = http.NewRequest("GET", url, nil)
@@ -151,7 +151,7 @@ func Test_GetBatCaveSetting_Should_Return_StatusNoContent_When_DeviceID_Is_Empty
 	assert.Equal(t, expectedRes, actualRes)
 }
 
-func Test_UpdateBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_Has_Upper_Case_Characters_In_Request(t *testing.T) {
+func Test_UpdateBatCaveDeviceSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_Has_Upper_Case_Characters_In_Request(t *testing.T) {
 	var (
 		deviceIDUpperCase string = "0011001100FF"
 		deviceIDLowerCase string = "0011001100ff"
@@ -167,24 +167,24 @@ func Test_UpdateBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceI
 	c, r := gin.CreateTestContext(w)
 
 	mockCtrl := gomock.NewController(t)
-	mockSettingsServiceClient := mock.NewMockSettingsServiceClient(mockCtrl)
+	mockSettingsServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	settingsClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
 
-	mockSettingsServiceClient.EXPECT().UpdateBatCaveSetting(
+	mockSettingsServiceClient.EXPECT().UpdateBatCaveDeviceSetting(
 		gomock.Any(),
-		&devices_pb.UpdateBatCaveSettingRequest{
+		&devices_pb.UpdateBatCaveDeviceSettingRequest{
 			DeviceID:       deviceIDLowerCase,
 			DeepSleepDelay: deepSleepDelay,
 		},
 	).Return(
-		&devices_pb.UpdateBatCaveSettingResponse{
+		&devices_pb.UpdateBatCaveDeviceSettingResponse{
 			DeviceID:       deviceIDLowerCase,
 			DeepSleepDelay: deepSleepDelay,
 		}, nil,
 	)
 
-	r.PUT("/bc/:device_id", settingsClient.UpdateBatCaveSetting)
+	r.PUT("/bc/:device_id", devicesClient.UpdateBatCaveDeviceSetting)
 
 	url := fmt.Sprintf("/bc/%s", deviceIDUpperCase)
 	c.Request, err = http.NewRequest("PUT", url, strings.NewReader(string(reqParam)))
@@ -199,7 +199,7 @@ func Test_UpdateBatCaveSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceI
 	assert.Equal(t, expectedRes, actualRes)
 }
 
-func Test_UpdateBatCaveSetting_Should_Return_StatusNoContent_When_DeviceID_Is_Empty(t *testing.T) {
+func Test_UpdateBatCaveDeviceSetting_Should_Return_StatusNoContent_When_DeviceID_Is_Empty(t *testing.T) {
 	var (
 		deviceID       string = "0011001100ff"
 		deepSleepDelay uint32 = 15
@@ -214,21 +214,21 @@ func Test_UpdateBatCaveSetting_Should_Return_StatusNoContent_When_DeviceID_Is_Em
 	c, r := gin.CreateTestContext(w)
 
 	mockCtrl := gomock.NewController(t)
-	mockSettingsServiceClient := mock.NewMockSettingsServiceClient(mockCtrl)
+	mockSettingsServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	settingsClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
 
-	mockSettingsServiceClient.EXPECT().UpdateBatCaveSetting(
+	mockSettingsServiceClient.EXPECT().UpdateBatCaveDeviceSetting(
 		gomock.Any(),
-		&devices_pb.UpdateBatCaveSettingRequest{
+		&devices_pb.UpdateBatCaveDeviceSettingRequest{
 			DeviceID:       deviceID,
 			DeepSleepDelay: deepSleepDelay,
 		},
 	).Return(
-		&devices_pb.UpdateBatCaveSettingResponse{}, nil,
+		&devices_pb.UpdateBatCaveDeviceSettingResponse{}, nil,
 	)
 
-	r.PUT("/bc/:device_id", settingsClient.UpdateBatCaveSetting)
+	r.PUT("/bc/:device_id", devicesClient.UpdateBatCaveDeviceSetting)
 
 	url := fmt.Sprintf("/bc/%s", deviceID)
 	c.Request, err = http.NewRequest("PUT", url, strings.NewReader(string(reqParam)))

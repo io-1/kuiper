@@ -2,7 +2,7 @@ package persistence
 
 import "time"
 
-type BatCaveSetting struct {
+type BatCaveDeviceSetting struct {
 	DeviceID       string `gorm:"primary_key"`
 	DeepSleepDelay uint32
 	CreatedAt      *time.Time `gorm:"index" json:"created_at"`
@@ -10,7 +10,7 @@ type BatCaveSetting struct {
 	DeletedAt      *time.Time `gorm:"index" json:"deleted_at"`
 }
 
-func (s BatCaveSetting) Equal(ss BatCaveSetting) bool {
+func (s BatCaveDeviceSetting) Equal(ss BatCaveDeviceSetting) bool {
 	if s.DeviceID != ss.DeviceID {
 		return false
 	}

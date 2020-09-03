@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = ".;devices_pb";
+
+package devices_pb;
+
+message CreateBatCaveDeviceSettingRequest {
+    string DeviceID = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+message CreateBatCaveDeviceSettingResponse {
+    string DeviceID = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+message GetBatCaveDeviceSettingRequest {
+    string DeviceID = 1;
+}
+
+message GetBatCaveDeviceSettingResponse {
+    string DeviceID = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+message UpdateBatCaveDeviceSettingRequest {
+    string DeviceID = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+message UpdateBatCaveDeviceSettingResponse {
+    string DeviceID = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+// FIXME: change to DeviceService
+service DevicesService {
+   rpc CreateBatCaveDeviceSetting(CreateBatCaveDeviceSettingRequest) returns (CreateBatCaveDeviceSettingResponse);
+   rpc GetBatCaveDeviceSetting(GetBatCaveDeviceSettingRequest) returns (GetBatCaveDeviceSettingResponse);
+   rpc UpdateBatCaveDeviceSetting(UpdateBatCaveDeviceSettingRequest) returns (UpdateBatCaveDeviceSettingResponse);
+}

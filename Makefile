@@ -17,9 +17,9 @@ get:
 generate:
 	echo "generating dependency files..."
 	protoc --go-grpc_out=internal/pb/sensors --go_out=internal/pb/sensors internal/pb/sensors/sensors.proto
-	protoc --go-grpc_out=internal/pb/devices --go_out=internal/pb/devices internal/pb/devices/settings.proto
 	protoc --go-grpc_out=internal/pb/users --go_out=internal/pb/users internal/pb/users/users.proto
-	mockgen -source internal/pb/devices/settings_grpc.pb.go -destination=internal/mock/mocksettingsserviceclient.go -package=mock
+	protoc --go-grpc_out=internal/pb/devices --go_out=internal/pb/devices internal/pb/devices/devices.proto
+	mockgen -source internal/pb/devices/devices_grpc.pb.go -destination=internal/mock/mockdevicesserviceclient.go -package=mock
 	go generate ./...
 	echo "done"
 

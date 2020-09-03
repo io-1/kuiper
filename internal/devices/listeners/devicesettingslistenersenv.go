@@ -6,13 +6,13 @@ import (
 	logger "github.com/n7down/kuiper/internal/logger"
 )
 
-type SettingsListenersEnv struct {
+type DeviceSettingsListenersEnv struct {
 	persistence persistence.Persistence
 	logger      logger.Logger
 }
 
-func NewSettingsListenersEnv(persistence persistence.Persistence, logger logger.Logger) *SettingsListenersEnv {
-	return &SettingsListenersEnv{
+func NewDeviceSettingsListenersEnv(persistence persistence.Persistence, logger logger.Logger) *DeviceSettingsListenersEnv {
+	return &DeviceSettingsListenersEnv{
 		persistence: persistence,
 		logger:      logger,
 	}

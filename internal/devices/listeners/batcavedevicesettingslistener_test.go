@@ -17,7 +17,7 @@ import (
 	mockobject "github.com/n7down/kuiper/internal/mock"
 )
 
-func Test_BatCaveSettingsListenerMessageHandler_Should_Return_When_Message_And_Persistence_Settings_Are_The_Same(t *testing.T) {
+func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Return_When_Message_And_Persistence_Settings_Are_The_Same(t *testing.T) {
 	var (
 		publishedCalled bool   = false
 		mac             string = "111111111111"
@@ -26,9 +26,9 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Return_When_Message_And_P
 
 	mockCtrl := gomock.NewController(t)
 	mockPersistence := mock.NewMockPersistence(mockCtrl)
-	mockPersistence.EXPECT().GetBatCaveSetting(mac).Return(
+	mockPersistence.EXPECT().GetBatCaveDeviceSetting(mac).Return(
 		false,
-		persistence.BatCaveSetting{
+		persistence.BatCaveDeviceSetting{
 			DeviceID:       mac,
 			DeepSleepDelay: deepSleepDelay,
 			CreatedAt:      nil,
@@ -104,8 +104,8 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Return_When_Message_And_P
 	}
 
 	log := blanklogger.NewBlankLogger()
-	settingsListenersEnv := NewSettingsListenersEnv(mockPersistence, log)
-	settingsListenersEnv.BatCaveSettingsListenerMessageHandler(mockClient, mockMessage)
+	deviceSettingsListenersEnv := NewDeviceSettingsListenersEnv(mockPersistence, log)
+	deviceSettingsListenersEnv.BatCaveDeviceSettingsListenerMessageHandler(mockClient, mockMessage)
 
 	publishedCalledExpected := false
 	publishedCalledActual := publishedCalled
@@ -113,7 +113,7 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Return_When_Message_And_P
 	assert.Equal(t, publishedCalledExpected, publishedCalledActual, fmt.Sprintf("publishedCalled should return true instead returned %t", publishedCalled))
 }
 
-func Test_BatCaveSettingsListenerMessageHandler_Should_Publish_Changes_When_Message_And_Persistence_Are_Not_The_Same(t *testing.T) {
+func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Publish_Changes_When_Message_And_Persistence_Are_Not_The_Same(t *testing.T) {
 	var (
 		publishedCalled bool = false
 		publishedData   interface{}
@@ -122,9 +122,9 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Publish_Changes_When_Mess
 
 	mockCtrl := gomock.NewController(t)
 	mockPersistence := mock.NewMockPersistence(mockCtrl)
-	mockPersistence.EXPECT().GetBatCaveSetting(mac).Return(
+	mockPersistence.EXPECT().GetBatCaveDeviceSetting(mac).Return(
 		false,
-		persistence.BatCaveSetting{
+		persistence.BatCaveDeviceSetting{
 			DeviceID:       mac,
 			DeepSleepDelay: 30,
 			CreatedAt:      nil,
@@ -201,8 +201,8 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Publish_Changes_When_Mess
 	}
 
 	log := blanklogger.NewBlankLogger()
-	settingsListenersEnv := NewSettingsListenersEnv(mockPersistence, log)
-	settingsListenersEnv.BatCaveSettingsListenerMessageHandler(mockClient, mockMessage)
+	deviceSettingsListenersEnv := NewDeviceSettingsListenersEnv(mockPersistence, log)
+	deviceSettingsListenersEnv.BatCaveDeviceSettingsListenerMessageHandler(mockClient, mockMessage)
 
 	publishedDataActual := publishedData
 	publishedDataExpected := []byte(`{"s":30}`)
@@ -214,7 +214,7 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Publish_Changes_When_Mess
 	assert.Equal(t, publishedDataExpected, publishedDataActual, fmt.Sprintf("publishedData should return %s instead returned %s", publishedDataExpected, publishedDataActual))
 }
 
-func Test_BatCaveSettingsListenerMessageHandler_Should_Send_Default_Settings_When_Setting_Does_Not_Exist_In_Persistence(t *testing.T) {
+func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Send_Default_Settings_When_Setting_Does_Not_Exist_In_Persistence(t *testing.T) {
 	var (
 		publishedCalled bool = false
 		publishedData   interface{}
@@ -223,13 +223,13 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Send_Default_Settings_Whe
 
 	mockCtrl := gomock.NewController(t)
 	mockPersistence := mock.NewMockPersistence(mockCtrl)
-	mockPersistence.EXPECT().GetBatCaveSetting(mac).Return(
+	mockPersistence.EXPECT().GetBatCaveDeviceSetting(mac).Return(
 		true,
-		persistence.BatCaveSetting{})
+		persistence.BatCaveDeviceSetting{})
 
-	mockPersistence.EXPECT().CreateBatCaveSetting(
+	mockPersistence.EXPECT().CreateBatCaveDeviceSetting(
 
-		persistence.BatCaveSetting{
+		persistence.BatCaveDeviceSetting{
 			DeviceID:       mac,
 			DeepSleepDelay: 15,
 			CreatedAt:      nil,
@@ -307,8 +307,8 @@ func Test_BatCaveSettingsListenerMessageHandler_Should_Send_Default_Settings_Whe
 	}
 
 	log := blanklogger.NewBlankLogger()
-	settingsListenersEnv := NewSettingsListenersEnv(mockPersistence, log)
-	settingsListenersEnv.BatCaveSettingsListenerMessageHandler(mockClient, mockMessage)
+	settingsListenersEnv := NewDeviceSettingsListenersEnv(mockPersistence, log)
+	settingsListenersEnv.BatCaveDeviceSettingsListenerMessageHandler(mockClient, mockMessage)
 
 	publishedDataActual := publishedData
 	publishedDataExpected := []byte(`{"s":15}`)

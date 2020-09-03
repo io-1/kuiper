@@ -19,29 +19,29 @@ const (
 )
 
 type DevicesClient struct {
-	settingsClient devices_pb.SettingsServiceClient
+	deviceSettingsClient devices_pb.DevicesServiceClient
 }
 
 func NewDevicesClient(serverEnv string) (*DevicesClient, error) {
-	settingsConn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
+	conn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
 	if err != nil {
 		return nil, err
 	}
 
 	client := &DevicesClient{
-		settingsClient: devices_pb.NewSettingsServiceClient(settingsConn),
+		deviceSettingsClient: devices_pb.NewDevicesServiceClient(conn),
 	}
 	return client, nil
 }
 
-func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.SettingsServiceClient) *DevicesClient {
+func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient) *DevicesClient {
 	client := &DevicesClient{
-		settingsClient: mockSettingsServiceClient,
+		deviceSettingsClient: mockSettingsServiceClient,
 	}
 	return client
 }
 
-func (client *DevicesClient) CreateBatCaveSetting(c *gin.Context) {
+func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -63,7 +63,7 @@ func (client *DevicesClient) CreateBatCaveSetting(c *gin.Context) {
 		return
 	}
 
-	r, err := client.settingsClient.CreateBatCaveSetting(ctx, &devices_pb.CreateBatCaveSettingRequest{DeviceID: req.DeviceID, DeepSleepDelay: req.DeepSleepDelay})
+	r, err := client.deviceSettingsClient.CreateBatCaveDeviceSetting(ctx, &devices_pb.CreateBatCaveDeviceSettingRequest{DeviceID: req.DeviceID, DeepSleepDelay: req.DeepSleepDelay})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
@@ -77,7 +77,7 @@ func (client *DevicesClient) CreateBatCaveSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-func (client *DevicesClient) GetBatCaveSetting(c *gin.Context) {
+func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -100,7 +100,7 @@ func (client *DevicesClient) GetBatCaveSetting(c *gin.Context) {
 		return
 	}
 
-	r, err := client.settingsClient.GetBatCaveSetting(ctx, &devices_pb.GetBatCaveSettingRequest{DeviceID: req.DeviceID})
+	r, err := client.deviceSettingsClient.GetBatCaveDeviceSetting(ctx, &devices_pb.GetBatCaveDeviceSettingRequest{DeviceID: req.DeviceID})
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
@@ -119,7 +119,7 @@ func (client *DevicesClient) GetBatCaveSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-func (client *DevicesClient) UpdateBatCaveSetting(c *gin.Context) {
+func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -148,7 +148,7 @@ func (client *DevicesClient) UpdateBatCaveSetting(c *gin.Context) {
 		return
 	}
 
-	r, err := client.settingsClient.UpdateBatCaveSetting(ctx, &devices_pb.UpdateBatCaveSettingRequest{
+	r, err := client.deviceSettingsClient.UpdateBatCaveDeviceSetting(ctx, &devices_pb.UpdateBatCaveDeviceSettingRequest{
 		DeviceID:       req.DeviceID,
 		DeepSleepDelay: req.DeepSleepDelay,
 	})

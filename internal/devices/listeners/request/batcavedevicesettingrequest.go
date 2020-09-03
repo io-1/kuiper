@@ -6,13 +6,13 @@ import (
 	"github.com/n7down/kuiper/internal/devices/persistence"
 )
 
-type BatCaveSettingRequest struct {
+type BatCaveDeviceSettingRequest struct {
 	DeviceID       string `json:"m"`
 	DeepSleepDelay uint32 `json:"s"`
 }
 
-func (s *BatCaveSettingRequest) IsEqual(settings persistence.BatCaveSetting) (bool, response.BatCaveSettingResponse) {
-	res := response.BatCaveSettingResponse{}
+func (s *BatCaveDeviceSettingRequest) IsEqual(settings persistence.BatCaveDeviceSetting) (bool, response.BatCaveDeviceSettingResponse) {
+	res := response.BatCaveDeviceSettingResponse{}
 	isEqual := true
 
 	if s.DeepSleepDelay != settings.DeepSleepDelay {
@@ -25,8 +25,8 @@ func (s *BatCaveSettingRequest) IsEqual(settings persistence.BatCaveSetting) (bo
 	return isEqual, res
 }
 
-func (s *BatCaveSettingRequest) IsEqualAndGetCommands(settings persistence.BatCaveSetting) (bool, []string) {
-	commands := commands.BatCaveSettingCommands{}
+func (s *BatCaveDeviceSettingRequest) IsEqualAndGetCommands(settings persistence.BatCaveDeviceSetting) (bool, []string) {
+	commands := commands.BatCaveDeviceSettingCommands{}
 	hasChanges := false
 
 	if s.DeepSleepDelay != settings.DeepSleepDelay {

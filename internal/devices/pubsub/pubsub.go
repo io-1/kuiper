@@ -1,5 +1,5 @@
 package pubsub
 
 type PubSub interface {
-	NewBatCaveSettingsListener(listenerName string, mqttURL string) error
+	NewBatCaveDeviceSettingsListener(listenerName string, mqttURL string) error
 }
