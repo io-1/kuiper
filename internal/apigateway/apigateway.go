@@ -4,27 +4,39 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/client/settings"
+	devices "github.com/n7down/kuiper/internal/apigateway/clients/devices"
+	"github.com/n7down/kuiper/internal/apigateway/clients/users"
 )
 
 type APIGateway struct {
-	settingsClient *settings.SettingsClient
+	devicesClient *devices.DevicesClient
+	usersClient   *users.UsersClient
 }
 
-func NewAPIGateway(s *settings.SettingsClient) *APIGateway {
+func NewAPIGateway(c *devices.DevicesClient, u *users.UsersClient) *APIGateway {
 	return &APIGateway{
-		settingsClient: s,
+		devicesClient: c,
+		usersClient:   u,
 	}
 }
 
 func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	v1 := r.Group("/api/v1")
-	deviceGroup := v1.Group("/settings")
+	deviceGroup := v1.Group("/devices")
 	{
-		deviceGroup.POST("/bc", g.settingsClient.CreateBatCaveSetting)
-		deviceGroup.GET("/bc/:device_id", g.settingsClient.GetBatCaveSetting)
-		deviceGroup.PUT("/bc/:device_id", g.settingsClient.UpdateBatCaveSetting)
+		deviceGroup.POST("/bc", g.devicesClient.CreateBatCaveSetting)
+		deviceGroup.GET("/bc/:device_id", g.devicesClient.GetBatCaveSetting)
+		deviceGroup.PUT("/bc/:device_id", g.devicesClient.UpdateBatCaveSetting)
 	}
+
+	usersGroup := v1.Group("/users")
+	{
+		usersGroup.POST("/create", nil)
+		usersGroup.GET("/:user_id", nil)
+		usersGroup.PUT("/:user_id", nil)
+		usersGroup.DELETE("/:user_id", nil)
+	}
+
 	return nil
 }
 

@@ -7,7 +7,7 @@ import (
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	listeners "github.com/n7down/kuiper/internal/common/listeners"
-	sensors "github.com/n7down/kuiper/internal/sensors/persistence/devicesensors"
+	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
 )
 
 func (e SensorsListenersEnv) NewDHT22Listener(listenerName string, dht22MqttURL string) (*listeners.Listener, error) {
@@ -33,15 +33,15 @@ func (e SensorsListenersEnv) NewDHT22Listener(listenerName string, dht22MqttURL 
 		e.logger.Infof("Received message: %s\n", msg.Payload())
 
 		// unmashal payload
-		sensor := &sensors.DHT22Sensor{}
-		err := json.Unmarshal([]byte(msg.Payload()), sensor)
+		measurement := &sensors.DHT22Measurement{}
+		err := json.Unmarshal([]byte(msg.Payload()), measurement)
 		if err != nil {
 			e.logger.Error(err.Error())
 		}
 
 		if err == nil {
-			err = e.persistence.CreateDHT22(sensor)
-			e.logger.Infof("Logged sensor: %v", sensor)
+			err = e.persistence.CreateDHT22Measurement(measurement)
+			e.logger.Infof("Logged measurement: %v", measurement)
 			if err != nil {
 				e.logger.Error(err.Error())
 			}

@@ -9,7 +9,7 @@ import (
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	listeners "github.com/n7down/kuiper/internal/common/listeners"
-	sensors "github.com/n7down/kuiper/internal/sensors/persistence/devicesensors"
+	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
 )
 
 func (e SensorsListenersEnv) NewBMP280Listener(listenerName string, bmp280MqttURL string) (*listeners.Listener, error) {
@@ -35,15 +35,15 @@ func (e SensorsListenersEnv) NewBMP280Listener(listenerName string, bmp280MqttUR
 		logrus.Infof("Received message: %s\n", msg.Payload())
 
 		// unmashal payload
-		sensor := &sensors.BMP280Sensor{}
-		err := json.Unmarshal([]byte(msg.Payload()), sensor)
+		measurement := &sensors.BMP280Measurement{}
+		err := json.Unmarshal([]byte(msg.Payload()), measurement)
 		if err != nil {
 			logrus.Error(err.Error())
 		}
 
 		if err == nil {
-			err = e.persistence.CreateBMP280(sensor)
-			logrus.Infof("Logged sensor: %v", sensor)
+			err = e.persistence.CreateBMP280Measurement(measurement)
+			logrus.Infof("Logged measurement: %v", measurement)
 			if err != nil {
 				logrus.Error(err.Error())
 			}

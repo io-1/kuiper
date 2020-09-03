@@ -7,7 +7,7 @@ import (
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	listeners "github.com/n7down/kuiper/internal/common/listeners"
-	sensors "github.com/n7down/kuiper/internal/sensors/persistence/devicesensors"
+	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
 )
 
 func (e SensorsListenersEnv) NewHDC1080Listener(listenerName string, urlString string) (*listeners.Listener, error) {
@@ -31,15 +31,15 @@ func (e SensorsListenersEnv) NewHDC1080Listener(listenerName string, urlString s
 
 	var f mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 		e.logger.Infof("Received message: %s\n", msg.Payload())
-		sensor := &sensors.HDC1080Sensor{}
-		err := json.Unmarshal([]byte(msg.Payload()), sensor)
+		measurement := &sensors.HDC1080Measurement{}
+		err := json.Unmarshal([]byte(msg.Payload()), measurement)
 		if err != nil {
 			e.logger.Error(err.Error())
 		}
 
 		if err == nil {
-			err = e.persistence.CreateHDC1080(sensor)
-			e.logger.Infof("Logged sensor: %v", sensor)
+			err = e.persistence.CreateHDC1080Measurement(measurement)
+			e.logger.Infof("Logged measurement: %v", measurement)
 			if err != nil {
 				e.logger.Error(err.Error())
 			}

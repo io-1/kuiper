@@ -5,7 +5,7 @@ import (
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
-	sensors "github.com/n7down/kuiper/internal/sensors/persistence/devicesensors"
+	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
 )
 
 func (i InfluxPersistence) CreateHDC1080Measurement(sensor *sensors.HDC1080Measurement) error {

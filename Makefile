@@ -16,10 +16,10 @@ get:
 .PHONY: generate
 generate:
 	echo "generating dependency files..."
-	# protoc --go_out=plugins=grpc:internal/pb/settings internal/pb/settings/settings.proto
 	protoc --go-grpc_out=internal/pb/sensors --go_out=internal/pb/sensors internal/pb/sensors/sensors.proto
-	protoc --go-grpc_out=internal/pb/settings --go_out=internal/pb/settings internal/pb/settings/settings.proto
-	mockgen -source internal/pb/settings/settings.pb.go -destination=internal/mock/mocksettingsserviceclient.go -package=mock
+	protoc --go-grpc_out=internal/pb/devices --go_out=internal/pb/devices internal/pb/devices/settings.proto
+	protoc --go-grpc_out=internal/pb/users --go_out=internal/pb/users internal/pb/users/users.proto
+	mockgen -source internal/pb/devices/settings_grpc.pb.go -destination=internal/mock/mocksettingsserviceclient.go -package=mock
 	go generate ./...
 	echo "done"
 

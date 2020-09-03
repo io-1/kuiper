@@ -8,7 +8,7 @@ import (
 	"net/url"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	sensors "github.com/n7down/kuiper/internal/sensors/persistence/devicesensors"
+	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
 )
 
 func (p MosquittoPubSub) NewVoltageListener(ctx context.Context, listenerName string, subscription string) error {

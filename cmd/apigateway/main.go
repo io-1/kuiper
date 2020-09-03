@@ -6,8 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/n7down/kuiper/internal/apigateway"
-	"github.com/n7down/kuiper/internal/client/settings"
 
+	devices "github.com/n7down/kuiper/internal/apigateway/clients/devices"
+	"github.com/n7down/kuiper/internal/apigateway/clients/users"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -18,14 +19,20 @@ func main() {
 	log.SetReportCaller(true)
 
 	port := os.Getenv("PORT")
-	settingsHost := os.Getenv("SETTINGS_HOST")
+	devicesHost := os.Getenv("DEVICES_HOST")
+	usersHost := os.Getenv("USERS_HOST")
 
-	settingsClient, err := settings.NewSettingsClient(settingsHost)
+	devicesClient, err := devices.NewDevicesClient(devicesHost)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	apiGateway := apigateway.NewAPIGateway(settingsClient)
+	usersClient, err := users.NewUsersClient(usersHost)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	apiGateway := apigateway.NewAPIGateway(devicesClient, usersClient)
 	router := gin.Default()
 
 	err = apiGateway.InitV1Routes(router)

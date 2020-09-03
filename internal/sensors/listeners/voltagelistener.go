@@ -7,7 +7,7 @@ import (
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	listeners "github.com/n7down/kuiper/internal/common/listeners"
-	sensors "github.com/n7down/kuiper/internal/sensors/persistence/devicesensors"
+	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
 )
 
 func (e SensorsListenersEnv) NewVoltageListener(listenerName string, statsMqttURL string) (*listeners.Listener, error) {
@@ -33,15 +33,15 @@ func (e SensorsListenersEnv) NewVoltageListener(listenerName string, statsMqttUR
 		e.logger.Infof("Received message: %s\n", msg.Payload())
 
 		// unmashal payload
-		sensors := &sensors.VoltageSensor{}
-		err := json.Unmarshal([]byte(msg.Payload()), sensors)
+		measurement := &sensors.VoltageMeasurement{}
+		err := json.Unmarshal([]byte(msg.Payload()), measurement)
 		if err != nil {
 			e.logger.Error(err.Error())
 		}
 
 		if err == nil {
-			err = e.persistence.CreateVoltage(sensors)
-			e.logger.Infof("Logged sensor: %v", sensors)
+			err = e.persistence.CreateVoltageMeasurement(measurement)
+			e.logger.Infof("Logged sensor: %v", measurement)
 			if err != nil {
 				e.logger.Error(err.Error())
 			}
