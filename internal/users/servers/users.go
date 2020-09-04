@@ -2,8 +2,10 @@ package servers
 
 import (
 	"context"
+	"errors"
 
 	"github.com/n7down/kuiper/internal/users/persistence"
+	"github.com/n7down/kuiper/internal/utils"
 
 	users_pb "github.com/n7down/kuiper/internal/pb/users"
 )
@@ -20,9 +22,16 @@ func NewUsersServer(persistence persistence.Persistence) *UsersServer {
 }
 
 func (s *UsersServer) CreateUser(ctx context.Context, req *users_pb.CreateUserRequest) (*users_pb.CreateUserResponse, error) {
+
+	// bcrypt
+	encryptedPassword, err := utils.CreateBcryptHashString(req.Password)
+	if err != nil {
+		return &users_pb.CreateUserResponse{}, errors.New("error encrypting password")
+	}
+
 	user := persistence.User{
 		Username: req.Username,
-		Password: req.Password,
+		Password: encryptedPassword,
 		Name:     req.Name,
 		Email:    req.Email,
 	}

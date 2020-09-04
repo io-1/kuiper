@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/n7down/kuiper/internal/apigateway"
 
+	"github.com/n7down/kuiper/internal/apigateway/auth/ginauth"
 	devices "github.com/n7down/kuiper/internal/apigateway/clients/devices"
 	"github.com/n7down/kuiper/internal/apigateway/clients/users"
 	log "github.com/sirupsen/logrus"
@@ -32,7 +33,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	apiGateway := apigateway.NewAPIGateway(devicesClient, usersClient)
+	ginAuth := ginauth.NewGinAuth(usersClient)
+	authMiddleware, err := ginAuth.GetAuthMiddleware()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	apiGateway := apigateway.NewAPIGateway(authMiddleware, devicesClient, usersClient)
 	router := gin.Default()
 
 	err = apiGateway.InitV1Routes(router)

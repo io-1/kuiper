@@ -10,7 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/n7down/kuiper/internal/apigateway/clients/users/request"
 	"github.com/n7down/kuiper/internal/apigateway/clients/users/response"
-	"github.com/n7down/kuiper/internal/utils"
 
 	users_pb "github.com/n7down/kuiper/internal/pb/users"
 )
@@ -62,17 +61,9 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 		return
 	}
 
-	// FIXME: does this need to be done on the user service?
-	// bcrypt
-	encryptedPassword, err := utils.CreateBcryptHashString(req.Password)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
-		return
-	}
-
 	r, err := client.usersClient.CreateUser(ctx, &users_pb.CreateUserRequest{
 		Username: req.Username,
-		Password: encryptedPassword,
+		Password: req.Password,
 		Name:     req.Name,
 		Email:    req.Email,
 	})
@@ -130,6 +121,36 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, res)
+}
+
+func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResponse, error) {
+	var (
+		res response.UserLoginResponse
+		ctx = context.Background()
+	)
+
+	// req = request.GetUserRequest{
+	// 	Username: username,
+	// }
+
+	// if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	// 	err := map[string]interface{}{"validationError": validationErrors}
+	// return "", validationErrors
+	// }
+
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: username})
+	if err != nil {
+		return response.UserLoginResponse{}, err
+	}
+
+	res = response.UserLoginResponse{
+		Username: r.Username,
+		Password: r.Password,
+		Name:     r.Name,
+		Email:    r.Email,
+	}
+
+	return res, nil
 }
 
 func (client *UsersClient) UpdateUser(c *gin.Context) {
