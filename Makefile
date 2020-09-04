@@ -111,14 +111,20 @@ build-sensors:
 	docker build -t "$(PROJECTNAME)"/sensors:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/apigateway/Dockerfile .
 	echo "done"
 
-.PHONY: build-settings
-build-settings:
-	echo "building settings..."
-	docker build -t "$(PROJECTNAME)"/settings:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/apigateway/Dockerfile .
+.PHONY: build-devices
+build-devices:
+	echo "building devices..."
+	docker build -t "$(PROJECTNAME)"/devices:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/devices/Dockerfile .
+	echo "done"
+.PHONY: build-devices
+
+build-users:
+	echo "building users..."
+	docker build -t "$(PROJECTNAME)"/users:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/users/Dockerfile .
 	echo "done"
 
 .PHONY: build-all
-build-all: build-apigateway build-sensors build-settings
+build-all: build-apigateway build-sensors build-devices build-users
 
 .PHONY: up
 up: 

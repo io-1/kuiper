@@ -4,6 +4,6 @@ ENV MYSQL_USER=root
 ENV MYSQL_ROOT_PASSWORD=password
 
 ADD schema.sql /docker-entrypoint-initdb.d/1.sql
-ADD seed-data.sql /docker-entrypoint-initdb.d/2.sql
+ADD seed_data.sql /docker-entrypoint-initdb.d/2.sql
 
 EXPOSE 3306

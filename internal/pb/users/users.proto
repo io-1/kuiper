@@ -39,7 +39,7 @@ message UpdateUserResponse {
     string Username = 1;
     string Name = 2;
     string Email = 3;
-3}
+}
 
 message DeleteUserRequest {
   string Username = 1;

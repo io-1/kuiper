@@ -14,6 +14,7 @@ func (r *CreateUserRequest) Validate() url.Values {
 	// FIXME: username 50 characters
 	// FIXME: password 100 characters
 	// FIXME: name 100 character
-	// FIXME: password 100 characters
+	// FIXME: email 100 characters
+	// FIXME: check that email is valid
 	return errs
 }
