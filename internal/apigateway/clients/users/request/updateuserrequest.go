@@ -3,6 +3,7 @@ package request
 import "net/url"
 
 type UpdateUserRequest struct {
+	ID       string `json:"id" binding:"required"`
 	Username string
 	Password string `json:"password" binding:"required"`
 	Name     string `json:"name" binding:"required"`

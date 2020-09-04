@@ -27,11 +27,9 @@ func NewAPIGateway(ginJWTMiddleware *jwt.GinJWTMiddleware, devicesClient *device
 func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	v1 := r.Group("/api/v1")
 
-	r.NoRoute(g.authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
-		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
-	})
-
 	v1.POST("/login", g.authMiddleware.LoginHandler)
+	v1.GET("/refresh_token", g.authMiddleware.RefreshHandler)
+
 	authGroup := v1.Group("/auth")
 	authGroup.Use(g.authMiddleware.MiddlewareFunc())
 	{
@@ -57,6 +55,10 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		usersGroup.PUT("/:username", g.usersClient.UpdateUser)
 		usersGroup.DELETE("/:username", g.usersClient.DeleteUser)
 	}
+
+	r.NoRoute(g.authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+	})
 
 	return nil
 }

@@ -5,48 +5,54 @@ option go_package = ".;users_pb";
 package users_pb;
 
 message CreateUserRequest {
-    string Username = 1;
-    string Password = 2;
-    string Name = 3;
-    string Email = 4;
+  string Username = 1;
+  string Password = 2;
+  string Name = 3;
+  string Email = 4;
 }
 
 message CreateUserResponse {
-    string Username = 1;
-    string Name = 2;
-    string Email = 3;
+  string ID = 1;
+  string Username = 2;
+  string Name = 3;
+  string Email = 4;
 }
 
 message GetUserRequest {
-    string Username = 1;
+  string Username = 1;
 }
 
 message GetUserResponse {
-    string Username = 1;
-    string Password = 2;
-    string Name = 3;
-    string Email = 4;
+  string ID = 1;
+  string Username = 2;
+  string Password = 3;
+  string Name = 4;
+  string Email = 5;
 }
 
 message UpdateUserRequest {
-    string Username = 1;
-    string Password = 2;
-    string Name = 3;
-    string Email = 4;
+  string ID = 1;
+  string Username = 2;
+  string Password = 3;
+  string Name = 4;
+  string Email = 5;
 }
 
 message UpdateUserResponse {
-    string Username = 1;
-    string Name = 2;
-    string Email = 3;
+  string ID = 1;
+  string Username = 2;
+  string Name = 3;
+  string Email = 4;
 }
 
 message DeleteUserRequest {
-  string Username = 1;
+  string ID = 1;
+  string Username = 2;
 }
 
 message DeleteUserResponse {
-  string Username = 1;
+  string ID = 1;
+  string Username = 2;
 }
 
 service UsersService {

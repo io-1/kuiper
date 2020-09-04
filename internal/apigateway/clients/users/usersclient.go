@@ -41,6 +41,7 @@ func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClien
 	return client
 }
 
+// FIXME: switch to ID from username
 func (client *UsersClient) CreateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -73,6 +74,7 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	}
 
 	res = response.CreateUserResponse{
+		ID:       r.ID,
 		Username: r.Username,
 		Name:     r.Name,
 		Email:    r.Email,
@@ -81,6 +83,7 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// FIXME: switch to ID from username
 func (client *UsersClient) GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -114,6 +117,7 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 	}
 
 	res = response.GetUserResponse{
+		ID:       r.ID,
 		Username: r.Username,
 		Password: r.Password,
 		Name:     r.Name,
@@ -144,6 +148,7 @@ func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResp
 	}
 
 	res = response.UserLoginResponse{
+		ID:       r.ID,
 		Username: r.Username,
 		Password: r.Password,
 		Name:     r.Name,
@@ -153,6 +158,7 @@ func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResp
 	return res, nil
 }
 
+// FIXME: switch to ID from username
 func (client *UsersClient) UpdateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -177,6 +183,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	}
 
 	r, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
+		ID:       req.ID,
 		Username: req.Username,
 		Password: req.Password,
 		Name:     req.Name,
@@ -193,6 +200,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	}
 
 	res = response.UpdateUserResponse{
+		ID:       r.ID,
 		Username: r.Username,
 		Name:     r.Name,
 		Email:    r.Email,
@@ -201,6 +209,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// FIXME: switch to ID from username
 func (client *UsersClient) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()

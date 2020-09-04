@@ -3,7 +3,8 @@ package persistence
 import "time"
 
 type User struct {
-	Username  string `gorm:"primary_key"`
+	ID        string `grom:"primary_key"`
+	Username  string
 	Password  string
 	Name      string
 	Email     string

@@ -79,6 +79,7 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 
 			if isValidPassword {
 				loginResponse = &response.LoginResponse{
+					ID:       res.ID,
 					Username: res.Username,
 					Name:     res.Name,
 					Email:    res.Email,
