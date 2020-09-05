@@ -11,6 +11,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
+	"github.com/n7down/kuiper/internal/logger/blanklogger"
 	"github.com/n7down/kuiper/internal/mock"
 	"github.com/stretchr/testify/assert"
 
@@ -35,7 +36,8 @@ func Test_CreateBatCaveDeviceSetting_Should_Change_DeviceID_To_Lower_Case_When_D
 	mockCtrl := gomock.NewController(t)
 	mockDevicesServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient)
+	logger := blanklogger.NewBlankLogger()
+	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient, logger)
 
 	mockDevicesServiceClient.EXPECT().CreateBatCaveDeviceSetting(
 		gomock.Any(),
@@ -81,7 +83,8 @@ func Test_GetBatCaveDeviceSetting_Should_Change_DeviceID_To_Lower_Case_When_Devi
 	mockCtrl := gomock.NewController(t)
 	mockSettingsServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	logger := blanklogger.NewBlankLogger()
+	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient, logger)
 
 	mockSettingsServiceClient.EXPECT().GetBatCaveDeviceSetting(
 		gomock.Any(),
@@ -125,7 +128,8 @@ func Test_GetBatCaveDeviceSetting_Should_Return_StatusNoContent_When_DeviceID_Is
 	mockCtrl := gomock.NewController(t)
 	mockDevicesServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient)
+	logger := blanklogger.NewBlankLogger()
+	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient, logger)
 
 	mockDevicesServiceClient.EXPECT().GetBatCaveDeviceSetting(
 		gomock.Any(),
@@ -169,7 +173,8 @@ func Test_UpdateBatCaveDeviceSetting_Should_Change_DeviceID_To_Lower_Case_When_D
 	mockCtrl := gomock.NewController(t)
 	mockSettingsServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	logger := blanklogger.NewBlankLogger()
+	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient, logger)
 
 	mockSettingsServiceClient.EXPECT().UpdateBatCaveDeviceSetting(
 		gomock.Any(),
@@ -216,7 +221,8 @@ func Test_UpdateBatCaveDeviceSetting_Should_Return_StatusNoContent_When_DeviceID
 	mockCtrl := gomock.NewController(t)
 	mockSettingsServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	logger := blanklogger.NewBlankLogger()
+	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient, logger)
 
 	mockSettingsServiceClient.EXPECT().UpdateBatCaveDeviceSetting(
 		gomock.Any(),

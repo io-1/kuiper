@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/n7down/kuiper/internal/apigateway/clients/devices/request"
 	"github.com/n7down/kuiper/internal/apigateway/clients/devices/response"
+	"github.com/n7down/kuiper/internal/logger"
 	"google.golang.org/grpc"
 
 	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
@@ -20,9 +21,10 @@ const (
 
 type DevicesClient struct {
 	deviceSettingsClient devices_pb.DevicesServiceClient
+	logger               logger.Logger
 }
 
-func NewDevicesClient(serverEnv string) (*DevicesClient, error) {
+func NewDevicesClient(serverEnv string, logger logger.Logger) (*DevicesClient, error) {
 	conn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
 	if err != nil {
 		return nil, err
@@ -30,13 +32,15 @@ func NewDevicesClient(serverEnv string) (*DevicesClient, error) {
 
 	client := &DevicesClient{
 		deviceSettingsClient: devices_pb.NewDevicesServiceClient(conn),
+		logger:               logger,
 	}
 	return client, nil
 }
 
-func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient) *DevicesClient {
+func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient, logger logger.Logger) *DevicesClient {
 	client := &DevicesClient{
 		deviceSettingsClient: mockSettingsServiceClient,
+		logger:               logger,
 	}
 	return client
 }
@@ -129,6 +133,7 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 	)
 
 	if err := c.BindJSON(&req); err != nil {
+		client.logger.Error(err)
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
@@ -144,6 +149,7 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 
 	if validationErrors := req.Validate(); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
+		client.logger.Error(err)
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
@@ -153,11 +159,13 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 		DeepSleepDelay: req.DeepSleepDelay,
 	})
 	if err != nil {
+		client.logger.Error(err)
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
 
 	if r.DeviceID == "" {
+		client.logger.Error(err)
 		c.JSON(http.StatusNoContent, res)
 		return
 	}

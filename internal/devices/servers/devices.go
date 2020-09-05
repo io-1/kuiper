@@ -33,7 +33,7 @@ func (s *DevicesServer) CreateBatCaveDeviceSetting(ctx context.Context, req *dev
 	}, nil
 }
 
-func (s *DevicesServer) UpdateBatCaveSetting(ctx context.Context, req *devices_pb.UpdateBatCaveDeviceSettingRequest) (*devices_pb.UpdateBatCaveDeviceSettingResponse, error) {
+func (s *DevicesServer) UpdateBatCaveDeviceSetting(ctx context.Context, req *devices_pb.UpdateBatCaveDeviceSettingRequest) (*devices_pb.UpdateBatCaveDeviceSettingResponse, error) {
 	setting := persistence.BatCaveDeviceSetting{
 		DeviceID:       req.DeviceID,
 		DeepSleepDelay: req.DeepSleepDelay,
@@ -47,7 +47,7 @@ func (s *DevicesServer) UpdateBatCaveSetting(ctx context.Context, req *devices_p
 	}, nil
 }
 
-func (s *DevicesServer) GetBatCaveSetting(ctx context.Context, req *devices_pb.GetBatCaveDeviceSettingRequest) (*devices_pb.GetBatCaveDeviceSettingResponse, error) {
+func (s *DevicesServer) GetBatCaveDeviceSetting(ctx context.Context, req *devices_pb.GetBatCaveDeviceSettingRequest) (*devices_pb.GetBatCaveDeviceSettingResponse, error) {
 	_, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
 	// recordNotFound, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
 	// if recordNotFound {
