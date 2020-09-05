@@ -27,6 +27,7 @@ func NewAPIGateway(ginJWTMiddleware *jwt.GinJWTMiddleware, devicesClient *device
 func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	v1 := r.Group("/api/v1")
 
+	// FIXME: take out middlewrae for error
 	v1.POST("/login", g.authMiddleware.LoginHandler)
 	v1.GET("/refresh_token", g.authMiddleware.RefreshHandler)
 

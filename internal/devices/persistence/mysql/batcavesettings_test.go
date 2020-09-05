@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/n7down/kuiper/internal/settings/persistence"
+	"github.com/n7down/kuiper/internal/devices/persistence"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,7 +17,7 @@ var (
 
 func Test_CreateBatCaveSetting(t *testing.T) {
 	var (
-		setting = persistence.BatCaveSetting{
+		setting = persistence.BatCaveDeviceSetting{
 			DeviceID:       "000000000000",
 			DeepSleepDelay: 30,
 			CreatedAt:      nil,
@@ -27,14 +27,14 @@ func Test_CreateBatCaveSetting(t *testing.T) {
 		rowsAffectedExpected int64 = 1
 	)
 
-	rowsAffectedActual := db.CreateBatCaveSetting(setting)
+	rowsAffectedActual := db.CreateBatCaveDeviceSetting(setting)
 	assert.Equal(t, rowsAffectedExpected, rowsAffectedActual)
 }
 
 func Test_GetBatCaveSetting(t *testing.T) {
 	var (
 		deviceID        = "000000000011"
-		settingExpected = persistence.BatCaveSetting{
+		settingExpected = persistence.BatCaveDeviceSetting{
 			DeviceID:       deviceID,
 			DeepSleepDelay: 30,
 			CreatedAt:      nil,
@@ -44,7 +44,7 @@ func Test_GetBatCaveSetting(t *testing.T) {
 		recordNotFoundExpected = false
 	)
 
-	recordNotFoundActual, settingActual := db.GetBatCaveSetting(deviceID)
+	recordNotFoundActual, settingActual := db.GetBatCaveDeviceSetting(deviceID)
 	assert.Equal(t, recordNotFoundExpected, recordNotFoundActual)
 	assert.True(t, settingExpected.Equal(settingActual))
 }
@@ -54,7 +54,7 @@ func Test_UpdateBatCaveSetting(t *testing.T) {
 		deviceID              = "000000001111"
 		deepSleepDelay uint32 = 32
 
-		setting = persistence.BatCaveSetting{
+		setting = persistence.BatCaveDeviceSetting{
 			DeviceID:       deviceID,
 			DeepSleepDelay: deepSleepDelay,
 			CreatedAt:      nil,
@@ -62,7 +62,7 @@ func Test_UpdateBatCaveSetting(t *testing.T) {
 			DeletedAt:      nil,
 		}
 
-		settingExpected = persistence.BatCaveSetting{
+		settingExpected = persistence.BatCaveDeviceSetting{
 			DeviceID:       deviceID,
 			DeepSleepDelay: deepSleepDelay,
 			CreatedAt:      nil,
@@ -73,10 +73,10 @@ func Test_UpdateBatCaveSetting(t *testing.T) {
 		recordNotFoundExpected       = false
 	)
 
-	rowsAffectedActual := db.UpdateBatCaveSetting(setting)
+	rowsAffectedActual := db.UpdateBatCaveDeviceSetting(setting)
 	assert.Equal(t, rowsAffectedExpected, rowsAffectedActual)
 
-	recordNotFoundActual, settingActual := db.GetBatCaveSetting(deviceID)
+	recordNotFoundActual, settingActual := db.GetBatCaveDeviceSetting(deviceID)
 	assert.Equal(t, recordNotFoundExpected, recordNotFoundActual)
 	assert.Equal(t, settingExpected.DeviceID, settingActual.DeviceID)
 	assert.Equal(t, settingExpected.DeepSleepDelay, settingActual.DeepSleepDelay)

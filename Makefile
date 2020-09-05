@@ -78,7 +78,7 @@ clean-containers:
 .PHONY: test-build
 test-build:
 	echo "building test db..."
-	docker build -t "$(PROJECTNAME)"/test-db:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/db/Dockerfile.test build/dockerfiles/db/.
+	docker build -t "$(PROJECTNAME)"/test-db:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/db/devices/Dockerfile.test build/dockerfiles/db/devices/.
 	echo "done"
 
 .PHONY: test-start
@@ -89,7 +89,7 @@ test-start:
 
 .PHONY: test-run
 test-run:
-	DB_CONN="root:password@tcp(127.0.0.1:3306)/device_settings?charset=utf8&parseTime=True&loc=Local" go test --tags integration -v ./...
+	DB_CONN="root:password@tcp(127.0.0.1:3306)/devices?charset=utf8&parseTime=True&loc=Local" go test --tags integration -v ./...
 	echo "done"
 
 .PHONY: test-clean
