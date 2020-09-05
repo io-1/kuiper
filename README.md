@@ -1,13 +1,14 @@
 # Kuiper
 Kuiper is a project built for the collection and interaction of IOT devices.
 
-## Hardware
-### Parts
-- [ESP8266](https://learn.adafruit.com/adafruit-huzzah-esp8266-breakout)
-- [DHT22](https://www.adafruit.com/product/385)
-- [Adafruit BMP280 I2C or SPI Barometric Pressure & Altitude Sensor](https://www.adafruit.com/product/2651?gclid=CjwKCAjwm4rqBRBUEiwAwaWjjF3XTMTRwt6PhmwsGnPRPdA7HlE_gyvQVNLfKLg5y95S2kj3FOktUxoCvwYQAvD_BwE)
-- [Lithium Ion Cylindrical Battery - 3.7v 2200mAh](https://www.adafruit.com/product/1781) - not sure if this will work with the charging board
-- [D1 Mini Single Lithium Battery Charging Board](https://www.amazon.com/WINGONEER-Single-Lithium-Battery-Charging/dp/B077VNW5RP/ref=sr_1_3?keywords=d1+mini+battery+shield&qid=1565500842&s=gateway&sr=8-3)
+## Prerequisites
+1. [Docker](https://docs.docker.com/get-docker)
+2. [Docker Compose](https://docs.docker.com/compose/install)
+
+## Getting Started
+1. Clone this repository and `cd` into the directory.
+2. Run `docker-compose up -d` to start the services.
+
 ## Notes
 - [A battery fed MQTT weatherstation](https://arduinodiy.wordpress.com/2018/02/04/a-battery-fed-mqtt-weatherstation/)
 - [Monitoring LiPo battery voltage with Wemos D1 minibattery shield](https://arduinodiy.wordpress.com/2016/12/25/monitoring-lipo-battery-voltage-with-wemos-d1-minibattery-shield-and-thingspeak/)
@@ -21,3 +22,8 @@ Kuiper is a project built for the collection and interaction of IOT devices.
 - [Battery powered raspberry pi](https://github.com/NeonHorizon/lipopi)
 - [Analog Inputs for Raspberry Pi Using the MCP3008](https://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi/overview)
 - [ESP8266 Pro Tips](https://www.instructables.com/id/ESP8266-Pro-Tips)
+- [ESP8266](https://learn.adafruit.com/adafruit-huzzah-esp8266-breakout)
+- [DHT22](https://www.adafruit.com/product/385)
+- [Adafruit BMP280 I2C or SPI Barometric Pressure & Altitude Sensor](https://www.adafruit.com/product/2651?gclid=CjwKCAjwm4rqBRBUEiwAwaWjjF3XTMTRwt6PhmwsGnPRPdA7HlE_gyvQVNLfKLg5y95S2kj3FOktUxoCvwYQAvD_BwE)
+- [Lithium Ion Cylindrical Battery - 3.7v 2200mAh](https://www.adafruit.com/product/1781) - not sure if this will work with the charging board
+- [D1 Mini Single Lithium Battery Charging Board](https://www.amazon.com/WINGONEER-Single-Lithium-Battery-Charging/dp/B077VNW5RP/ref=sr_1_3?keywords=d1+mini+battery+shield&qid=1565500842&s=gateway&sr=8-3)
