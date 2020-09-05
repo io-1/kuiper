@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/n7down/kuiper/internal/apigateway"
-	"github.com/n7down/kuiper/internal/logger/logruslogger"
 
 	"github.com/n7down/kuiper/internal/apigateway/auth/ginauth"
 	devices "github.com/n7down/kuiper/internal/apigateway/clients/devices"
@@ -24,9 +23,7 @@ func main() {
 	devicesHost := os.Getenv("DEVICES_HOST")
 	usersHost := os.Getenv("USERS_HOST")
 
-	logger := logruslogger.NewLogrusLogger(true)
-
-	devicesClient, err := devices.NewDevicesClient(devicesHost, logger)
+	devicesClient, err := devices.NewDevicesClient(devicesHost)
 	if err != nil {
 		log.Fatal(err)
 	}

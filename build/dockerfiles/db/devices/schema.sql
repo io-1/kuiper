@@ -1,9 +1,9 @@
 CREATE DATABASE devices;
 use devices;
 
+/* FIXME: add id and change device_id to mac
+   FIXME: add unique index for mac
+   FIXME: set primary key to mac
+   FIXME: update devices service to use mac instead of device_id */
 CREATE TABLE bat_cave_device_settings(device_id VARCHAR(12) NOT NULL, deep_sleep_delay INT NOT NULL, created_at TIMESTAMP, updated_at TIMESTAMP, deleted_at TIMESTAMP, PRIMARY KEY (device_id));
 
-/* CREATE DATABASE users; */
-/* use users; */
-
-/* CREATE TABLE users(username VARCHAR(50) NOT NULL, name VARCHAR(100) NOT NULL, email VARCHAR(100), password VARCHAR(100), created_at TIMESTAMP, updated_at TIMESTAMP, deleted_at TIMESTAMP, PRIMARY KEY (device_id)); */

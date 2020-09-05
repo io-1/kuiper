@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/n7down/kuiper/internal/apigateway/clients/devices/request"
 	"github.com/n7down/kuiper/internal/apigateway/clients/devices/response"
-	"github.com/n7down/kuiper/internal/logger"
 	"google.golang.org/grpc"
 
 	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
@@ -23,7 +22,7 @@ type DevicesClient struct {
 	deviceSettingsClient devices_pb.DevicesServiceClient
 }
 
-func NewDevicesClient(serverEnv string, logger logger.Logger) (*DevicesClient, error) {
+func NewDevicesClient(serverEnv string) (*DevicesClient, error) {
 	conn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
 	if err != nil {
 		return nil, err

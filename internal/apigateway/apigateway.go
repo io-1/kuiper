@@ -26,8 +26,6 @@ func NewAPIGateway(ginJWTMiddleware *jwt.GinJWTMiddleware, devicesClient *device
 
 func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	v1 := r.Group("/api/v1")
-
-	// FIXME: take out middlewrae for error
 	v1.POST("/login", g.authMiddleware.LoginHandler)
 	v1.GET("/refresh_token", g.authMiddleware.RefreshHandler)
 
@@ -35,9 +33,13 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	authGroup.Use(g.authMiddleware.MiddlewareFunc())
 	{
 		authGroup.GET("/hello", func(c *gin.Context) {
+			claims := jwt.ExtractClaims(c)
 			c.JSON(200, gin.H{
-				// FIXME: get user info from the claims
-				"text": "Hello World.",
+				"id":       claims["id"],
+				"username": claims["username"],
+				"name":     claims["name"],
+				"email":    claims["email"],
+				"text":     "Hello World.",
 			})
 		})
 	}

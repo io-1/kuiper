@@ -190,7 +190,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		Email:    req.Email,
 	})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -235,7 +235,7 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 		Username: username,
 	})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 

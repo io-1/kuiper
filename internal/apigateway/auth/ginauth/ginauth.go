@@ -13,6 +13,10 @@ import (
 	jwt "github.com/appleboy/gin-jwt"
 )
 
+const (
+	identityKey = "id"
+)
+
 var (
 	loginResponse *response.LoginResponse
 )
@@ -33,21 +37,24 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 		Key:         []byte("43deio1"),
 		Timeout:     time.Duration(3) * time.Hour,
 		MaxRefresh:  time.Duration(3) * time.Hour,
-		IdentityKey: "username",
-		// PayloadFunc: func(data interface{}) jwt.MapClaims {
-		// 	if v, ok := data.(*User); ok {
-		// 		return jwt.MapClaims{
-		// 			identityKey: v.UserName,
-		// 		}
-		// 	}
-		// 	return jwt.MapClaims{}
-		// },
-		// IdentityHandler: func(c *gin.Context) interface{} {
-		// 	claims := jwt.ExtractClaims(c)
-		// 	return &User{
-		// 		UserName: claims[identityKey].(string),
-		// 	}
-		// },
+		IdentityKey: identityKey,
+		PayloadFunc: func(data interface{}) jwt.MapClaims {
+			if v, ok := data.(*response.LoginResponse); ok {
+				return jwt.MapClaims{
+					identityKey: v.ID,
+					"username":  v.Username,
+					"name":      v.Name,
+					"email":     v.Email,
+				}
+			}
+			return jwt.MapClaims{}
+		},
+		IdentityHandler: func(c *gin.Context) interface{} {
+			claims := jwt.ExtractClaims(c)
+			return &response.LoginResponse{
+				ID: claims[identityKey].(string),
+			}
+		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
 			var (
 				req request.LoginRequest
@@ -90,6 +97,11 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 			return nil, jwt.ErrFailedAuthentication
 		},
 		Authorizator: func(data interface{}, c *gin.Context) bool {
+			// TODO: use this to see if the user has access to the route - used to implement permissions
+			// if v, ok := data.(*response.LoginResponse); ok && v.ID == "some-id" {
+			// 	return true
+			// }
+
 			return true
 		},
 		Unauthorized: func(c *gin.Context, code int, message string) {
