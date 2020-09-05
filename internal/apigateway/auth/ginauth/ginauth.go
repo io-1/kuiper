@@ -1,7 +1,6 @@
 package ginauth
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -113,7 +112,10 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 		LoginResponse: func(c *gin.Context, statusCode int, token string, tokenExpires time.Time) {
 			loginResponse.Token = token
 			loginResponse.Expires = tokenExpires
-			c.JSON(http.StatusOK, loginResponse)
+			c.JSON(statusCode, loginResponse)
+		},
+		LogoutResponse: func(c *gin.Context, statusCode int) {
+			c.Status(statusCode)
 		},
 		// TokenLookup is a string in the form of "<source>:<name>" that is used
 		// to extract token from the request.

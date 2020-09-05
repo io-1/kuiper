@@ -42,6 +42,7 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 				"text":     "Hello World.",
 			})
 		})
+		authGroup.POST("/logout", g.authMiddleware.LogoutHandler)
 	}
 
 	deviceGroup := v1.Group("/devices")
