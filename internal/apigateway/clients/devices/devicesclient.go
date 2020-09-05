@@ -21,7 +21,6 @@ const (
 
 type DevicesClient struct {
 	deviceSettingsClient devices_pb.DevicesServiceClient
-	logger               logger.Logger
 }
 
 func NewDevicesClient(serverEnv string, logger logger.Logger) (*DevicesClient, error) {
@@ -32,15 +31,13 @@ func NewDevicesClient(serverEnv string, logger logger.Logger) (*DevicesClient, e
 
 	client := &DevicesClient{
 		deviceSettingsClient: devices_pb.NewDevicesServiceClient(conn),
-		logger:               logger,
 	}
 	return client, nil
 }
 
-func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient, logger logger.Logger) *DevicesClient {
+func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient) *DevicesClient {
 	client := &DevicesClient{
 		deviceSettingsClient: mockSettingsServiceClient,
-		logger:               logger,
 	}
 	return client
 }
@@ -55,7 +52,7 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	)
 
 	if err := c.BindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -69,7 +66,7 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 
 	r, err := client.deviceSettingsClient.CreateBatCaveDeviceSetting(ctx, &devices_pb.CreateBatCaveDeviceSettingRequest{DeviceID: req.DeviceID, DeepSleepDelay: req.DeepSleepDelay})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -106,7 +103,7 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 
 	r, err := client.deviceSettingsClient.GetBatCaveDeviceSetting(ctx, &devices_pb.GetBatCaveDeviceSettingRequest{DeviceID: req.DeviceID})
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -133,8 +130,7 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 	)
 
 	if err := c.BindJSON(&req); err != nil {
-		client.logger.Error(err)
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -149,7 +145,6 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 
 	if validationErrors := req.Validate(); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
-		client.logger.Error(err)
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
@@ -159,13 +154,11 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 		DeepSleepDelay: req.DeepSleepDelay,
 	})
 	if err != nil {
-		client.logger.Error(err)
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
 	if r.DeviceID == "" {
-		client.logger.Error(err)
 		c.JSON(http.StatusNoContent, res)
 		return
 	}

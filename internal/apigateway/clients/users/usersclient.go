@@ -52,7 +52,7 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	)
 
 	if err := c.BindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -69,7 +69,7 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 		Email:    req.Email,
 	})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -107,7 +107,7 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 
 	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: req.Username})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -169,7 +169,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	)
 
 	if err := c.BindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
