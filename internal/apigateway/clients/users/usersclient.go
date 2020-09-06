@@ -119,7 +119,6 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 	res = response.GetUserResponse{
 		ID:       r.ID,
 		Username: r.Username,
-		Password: r.Password,
 		Name:     r.Name,
 		Email:    r.Email,
 	}
@@ -185,7 +184,6 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	r, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
 		ID:       req.ID,
 		Username: req.Username,
-		Password: req.Password,
 		Name:     req.Name,
 		Email:    req.Email,
 	})

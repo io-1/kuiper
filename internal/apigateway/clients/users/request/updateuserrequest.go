@@ -4,8 +4,7 @@ import "net/url"
 
 type UpdateUserRequest struct {
 	ID       string `json:"id" binding:"required"`
-	Username string
-	Password string `json:"password" binding:"required"`
+	Username string `json:"-"`
 	Name     string `json:"name" binding:"required"`
 	Email    string `json:"email" binding:"required"`
 }

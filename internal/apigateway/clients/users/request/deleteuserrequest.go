@@ -3,7 +3,7 @@ package request
 import "net/url"
 
 type DeleteUserRequest struct {
-	Username string
+	Username string `json:"-"`
 }
 
 func (r *DeleteUserRequest) Validate() url.Values {
