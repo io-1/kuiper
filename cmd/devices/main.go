@@ -7,14 +7,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/n7down/kuiper/internal/devices/persistence/mysql"
-	"github.com/n7down/kuiper/internal/devices/pubsub/mosquitto"
-	"github.com/n7down/kuiper/internal/logger"
-	"github.com/n7down/kuiper/internal/logger/logruslogger"
+	"github.com/io-1/kuiper/internal/devices/persistence/mysql"
+	"github.com/io-1/kuiper/internal/devices/pubsub/mosquitto"
+	"github.com/io-1/kuiper/internal/logger"
+	"github.com/io-1/kuiper/internal/logger/logruslogger"
 	"google.golang.org/grpc"
 
-	devices "github.com/n7down/kuiper/internal/devices/servers"
-	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
+	devices "github.com/io-1/kuiper/internal/devices/servers"
+	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
 
 const (

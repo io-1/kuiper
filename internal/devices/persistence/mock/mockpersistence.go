@@ -6,7 +6,7 @@ package mock
 
 import (
 	gomock "github.com/golang/mock/gomock"
-	persistence "github.com/n7down/kuiper/internal/devices/persistence"
+	persistence "github.com/io-1/kuiper/internal/devices/persistence"
 	reflect "reflect"
 )
 

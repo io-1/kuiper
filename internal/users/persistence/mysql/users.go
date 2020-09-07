@@ -1,6 +1,6 @@
 package mysql
 
-import "github.com/n7down/kuiper/internal/users/persistence"
+import "github.com/io-1/kuiper/internal/users/persistence"
 
 func (p *MysqlPersistence) CreateUser(user persistence.User) int64 {
 	rowsAffected := p.db.Create(&user).RowsAffected

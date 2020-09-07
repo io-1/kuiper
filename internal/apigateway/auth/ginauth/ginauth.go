@@ -4,10 +4,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/apigateway/auth/request"
-	"github.com/n7down/kuiper/internal/apigateway/auth/response"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users"
-	"github.com/n7down/kuiper/internal/utils"
+	"github.com/io-1/kuiper/internal/apigateway/auth/request"
+	"github.com/io-1/kuiper/internal/apigateway/auth/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/users"
+	"github.com/io-1/kuiper/internal/utils"
 
 	jwt "github.com/appleboy/gin-jwt"
 )

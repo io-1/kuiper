@@ -5,16 +5,13 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/apigateway"
+	"github.com/io-1/kuiper/internal/apigateway"
 
-	"github.com/n7down/kuiper/internal/apigateway/auth/ginauth"
-	devices "github.com/n7down/kuiper/internal/apigateway/clients/devices"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users"
+	ginauth "github.com/io-1/kuiper/internal/apigateway/auth/ginauth"
+	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
+	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
 	log "github.com/sirupsen/logrus"
 )
-
-func init() {
-}
 
 func main() {
 	log.SetReportCaller(true)
@@ -22,6 +19,7 @@ func main() {
 	port := os.Getenv("PORT")
 	devicesHost := os.Getenv("DEVICES_HOST")
 	usersHost := os.Getenv("USERS_HOST")
+	env := os.Getenv("ENV")
 
 	devicesClient, err := devices.NewDevicesClient(devicesHost)
 	if err != nil {
@@ -39,7 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	apiGateway := apigateway.NewAPIGateway(authMiddleware, devicesClient, usersClient)
+	apiGateway := apigateway.NewAPIGateway(env, authMiddleware, devicesClient, usersClient)
 	router := gin.Default()
 
 	err = apiGateway.InitV1Routes(router)

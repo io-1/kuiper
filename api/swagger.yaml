@@ -1,0 +1,41 @@
+basePath: /api/v1/users
+consumes:
+- application/json
+info:
+  description: Documentation of the Users API.
+  title: Kuiper API users
+  version: 0.5.9
+paths:
+  /create:
+    post:
+      consumes:
+      - application/json
+      description: This will create a user.
+      operationId: users
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/CreateUserResponse'
+      summary: Creates a user.
+produces:
+- application/json
+responses:
+  CreateUserResponse:
+    description: CreateUserResponse is a response when a user has been successfully created.
+    headers:
+      email:
+        description: The email of the user created.
+        type: string
+      id:
+        description: The ID of the user that was created.
+        type: string
+      name:
+        description: The name of the user created.
+        type: string
+      username:
+        description: The username of the user created.
+        type: string
+schemes:
+- http
+swagger: "2.0"

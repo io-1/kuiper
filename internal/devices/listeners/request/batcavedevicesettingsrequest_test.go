@@ -5,8 +5,8 @@ package request
 import (
 	"testing"
 
-	"github.com/n7down/kuiper/internal/devices/listeners/response"
-	"github.com/n7down/kuiper/internal/devices/persistence"
+	"github.com/io-1/kuiper/internal/devices/listeners/response"
+	"github.com/io-1/kuiper/internal/devices/persistence"
 	"github.com/stretchr/testify/assert"
 )
 

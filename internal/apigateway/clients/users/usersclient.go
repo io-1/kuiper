@@ -1,3 +1,18 @@
+// Package users Kuiper Users API
+//
+// Documentation of the Users API.
+//
+// Schemes: http
+// BasePath: /api/v1/users
+// Version: 0.5.9
+//
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
+//
+// swagger:meta
 package users
 
 import (
@@ -8,10 +23,10 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users/request"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/users/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/users/response"
 
-	users_pb "github.com/n7down/kuiper/internal/pb/users"
+	users_pb "github.com/io-1/kuiper/internal/pb/users"
 )
 
 const (
@@ -41,7 +56,20 @@ func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClien
 	return client
 }
 
-// FIXME: switch to ID from username
+// swagger:route POST /create users
+//
+// Creates a user.
+//
+// This will create a user.
+//
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
+//
+// responses:
+//  200: CreateUserResponse
 func (client *UsersClient) CreateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -83,7 +111,20 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// FIXME: switch to ID from username
+// swagger:route GET /:user_id users
+//
+// Gets a user.
+//
+// This will get a user.
+//
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
+//
+// responses:
+//  200: GetUserResponse
 func (client *UsersClient) GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -157,7 +198,20 @@ func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResp
 	return res, nil
 }
 
-// FIXME: switch to ID from username
+// swagger:route PUT /:user_id users
+//
+// Updates a user.
+//
+// This will update a user.
+//
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
+//
+// responses:
+//  200: UpdateUserResponse
 func (client *UsersClient) UpdateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -207,7 +261,20 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// FIXME: switch to ID from username
+// swagger:route DELETE /:user_id users
+//
+// Deletes a user.
+//
+// This will delete a user.
+//
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
+//
+// responses:
+//  200: DeleteUserResponse
 func (client *UsersClient) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()

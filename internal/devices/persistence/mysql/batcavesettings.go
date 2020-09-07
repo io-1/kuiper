@@ -1,6 +1,6 @@
 package mysql
 
-import "github.com/n7down/kuiper/internal/devices/persistence"
+import "github.com/io-1/kuiper/internal/devices/persistence"
 
 func (p *MysqlPersistence) CreateBatCaveDeviceSetting(setting persistence.BatCaveDeviceSetting) int64 {
 	rowsAffected := p.db.Create(&setting).RowsAffected

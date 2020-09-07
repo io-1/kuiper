@@ -129,6 +129,7 @@ services:
             PORT: "9090"
             DEVICES_HOST: "172.28.1.9:8081"
             USERS_HOST: "172.28.1.11:8084"
+            ENV: "dev"
         build:
             context: .
             dockerfile: ./build/dockerfiles/apigateway/Dockerfile

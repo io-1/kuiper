@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/n7down/kuiper/internal/devices/persistence"
+	"github.com/io-1/kuiper/internal/devices/persistence"
 
-	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
 
 type DevicesServer struct {

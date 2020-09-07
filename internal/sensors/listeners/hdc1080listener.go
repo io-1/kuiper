@@ -6,8 +6,8 @@ import (
 	"net/url"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	listeners "github.com/n7down/kuiper/internal/common/listeners"
-	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
+	listeners "github.com/io-1/kuiper/internal/common/listeners"
+	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
 func (e SensorsListenersEnv) NewHDC1080Listener(listenerName string, urlString string) (*listeners.Listener, error) {

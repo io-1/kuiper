@@ -4,27 +4,49 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-openapi/runtime/middleware"
 
 	jwt "github.com/appleboy/gin-jwt"
-	devices "github.com/n7down/kuiper/internal/apigateway/clients/devices"
-	users "github.com/n7down/kuiper/internal/apigateway/clients/users"
+	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
+	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
+)
+
+const (
+	DEV = "dev"
 )
 
 type APIGateway struct {
+	env            string
 	authMiddleware *jwt.GinJWTMiddleware
 	devicesClient  *devices.DevicesClient
 	usersClient    *users.UsersClient
 }
 
-func NewAPIGateway(ginJWTMiddleware *jwt.GinJWTMiddleware, devicesClient *devices.DevicesClient, usersClient *users.UsersClient) *APIGateway {
+func NewAPIGateway(env string, ginJWTMiddleware *jwt.GinJWTMiddleware, devicesClient *devices.DevicesClient, usersClient *users.UsersClient) *APIGateway {
 	return &APIGateway{
+		env:            env,
 		authMiddleware: ginJWTMiddleware,
 		devicesClient:  devicesClient,
 		usersClient:    usersClient,
 	}
 }
 
+func (g *APIGateway) wrapH(h http.Handler) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		h.ServeHTTP(c.Writer, c.Request)
+	}
+}
+
 func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
+	if g.env == DEV {
+		opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
+		sh := middleware.Redoc(opts, nil)
+		r.GET("/swagger.yaml", func(c *gin.Context) {
+			c.File("api/swagger.yaml")
+		})
+		r.GET("/docs", g.wrapH(sh))
+	}
+
 	v1 := r.Group("/api/v1")
 	v1.POST("/login", g.authMiddleware.LoginHandler)
 	v1.GET("/refresh_token", g.authMiddleware.RefreshHandler)

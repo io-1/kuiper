@@ -6,12 +6,12 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/n7down/kuiper/internal/devices/listeners/request"
-	"github.com/n7down/kuiper/internal/devices/listeners/response"
-	"github.com/n7down/kuiper/internal/devices/persistence"
+	"github.com/io-1/kuiper/internal/devices/listeners/request"
+	"github.com/io-1/kuiper/internal/devices/listeners/response"
+	"github.com/io-1/kuiper/internal/devices/persistence"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	listeners "github.com/n7down/kuiper/internal/common/listeners"
+	listeners "github.com/io-1/kuiper/internal/common/listeners"
 )
 
 const (

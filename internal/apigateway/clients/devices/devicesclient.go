@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/apigateway/clients/devices/request"
-	"github.com/n7down/kuiper/internal/apigateway/clients/devices/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/devices/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/devices/response"
 	"google.golang.org/grpc"
 
-	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
 
 const (
