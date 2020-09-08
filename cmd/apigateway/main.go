@@ -1,3 +1,18 @@
+// Package users Kuiper API
+//
+// Documentation of the Kuiper API.
+//
+// Schemes: http
+// BasePath: /
+// Version: 0.5.9
+//
+// Consumes:
+// - application/json
+//
+// Produces:
+// - application/json
+//
+// swagger:meta
 package main
 
 import (

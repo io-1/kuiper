@@ -1,26 +1,119 @@
-basePath: /api/v1/users
+basePath: /
 consumes:
 - application/json
 info:
-  description: Documentation of the Users API.
-  title: Kuiper API users
+  description: Documentation of the Kuiper API.
+  title: Kuiper API
   version: 0.5.9
 paths:
-  /create:
+  /api/v1/devices/bc:
     post:
       consumes:
       - application/json
-      description: This will create a user.
+      description: Allows a Bat Cave device setting to be crated.
+      operationId: devices
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/CreateBatCaveDeviceSettingResponse'
+      schemes:
+      - http
+      summary: Create a Bat Cave device setting.
+  /api/v1/devices/bc/:device_id:
+    post:
+      consumes:
+      - application/json
+      description: Get a Bat Cave device setting to be crated.
+      operationId: devices
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/GetBatCaveDeviceSettingResponse'
+      schemes:
+      - http
+      summary: Get a Bat Cave device setting.
+    put:
+      consumes:
+      - application/json
+      description: Update a Bat Cave device setting to be crated.
+      operationId: devices
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/UpdateBatCaveDeviceSettingResponse'
+      schemes:
+      - http
+      summary: Update a Bat Cave device setting.
+  /api/v1/users/:username:
+    delete:
+      consumes:
+      - application/json
+      description: Allows a user to be soft deleted.
+      operationId: users
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/DeleteUserResponse'
+      schemes:
+      - http
+      summary: Deletes a user.
+    get:
+      consumes:
+      - application/json
+      description: Get information about a user.
+      operationId: users
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/GetUserResponse'
+      schemes:
+      - http
+      summary: Gets a user.
+    put:
+      consumes:
+      - application/json
+      description: This will a user to be updated.
+      operationId: users
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/UpdateUserResponse'
+      schemes:
+      - http
+      summary: Update a user.
+  /api/v1/users/create:
+    post:
+      consumes:
+      - application/json
+      description: Allows a user to be created.
       operationId: users
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/CreateUserResponse'
-      summary: Creates a user.
+      schemes:
+      - http
+      summary: Create a user.
 produces:
 - application/json
 responses:
+  CreateBatCaveDeviceSettingResponse:
+    description: CreateBatCaveSettingResponse is a response when successfully creating a Bat Cave device setting.
+    headers:
+      deepSleepDelay:
+        description: The deep sleep delay of the device.
+        format: uint32
+        type: integer
+      deviceID:
+        description: The device ID of the device.
+        type: string
   CreateUserResponse:
     description: CreateUserResponse is a response when a user has been successfully created.
     headers:
@@ -35,6 +128,62 @@ responses:
         type: string
       username:
         description: The username of the user created.
+        type: string
+  DeleteUserResponse:
+    description: DeleteUserResponse is a response when a user has been successfully deleted.
+    headers:
+      username:
+        description: The username of the user that was deleted.
+        type: string
+  GetBatCaveDeviceSettingResponse:
+    description: GetBatCaveDeviceSettingResponse is a response when successfully getting a Bat Cave device setting.
+    headers:
+      deepSleepDelay:
+        description: The deep sleep delay of the device.
+        format: uint32
+        type: integer
+      deviceID:
+        description: The device ID of the device.
+        type: string
+  GetUserResponse:
+    description: GetUserResponse is a response when getting a user successfully.
+    headers:
+      email:
+        description: The email of the user.
+        type: string
+      id:
+        description: The ID of the user.
+        type: string
+      name:
+        description: The name of the user.
+        type: string
+      username:
+        description: The username of the user.
+        type: string
+  UpdateBatCaveDeviceSettingResponse:
+    description: UpdateBatCaveDviceSettingResonse is the response when successfully updated a Bat Cave device setting.
+    headers:
+      deepSleepDelay:
+        description: The deep sleep delay of the device.
+        format: uint32
+        type: integer
+      deviceID:
+        description: The device ID of the device.
+        type: string
+  UpdateUserResponse:
+    description: Updates a user.
+    headers:
+      email:
+        description: The email of the user that is being updated.
+        type: string
+      id:
+        description: The ID of the user that is being updated.
+        type: string
+      name:
+        description: The name of the user that is being updated.
+        type: string
+      username:
+        description: The username of the user that is being updated.
         type: string
 schemes:
 - http

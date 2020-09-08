@@ -18,7 +18,7 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 	}{
 		{
 			name: "DeviceID_Length_Is_Greater_Then_12_Characters_Long",
-			req: UpdateBatCaveSettingRequest{
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeviceID:       "34e5c9a441111",
 				DeepSleepDelay: 10,
 			},
@@ -32,7 +32,7 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Length_Is_Less_Then_12_Characters_Long",
-			req: UpdateBatCaveSettingRequest{
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeviceID:       "34e5c9a4411",
 				DeepSleepDelay: 10,
 			},
@@ -46,7 +46,7 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Contains_An_Invalid_Mac_Address_Charater",
-			req: UpdateBatCaveSettingRequest{
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeviceID:       "44cbagbe2e4f",
 				DeepSleepDelay: 15,
 			},
@@ -60,7 +60,7 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Is_Empty",
-			req: UpdateBatCaveSettingRequest{
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeviceID:       "",
 				DeepSleepDelay: 20,
 			},
@@ -91,7 +91,7 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeepSlee
 	}{
 		{
 			name: "Deep_Sleep_Delay_Equals 0",
-			req: UpdateBatCaveSettingRequest{
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeviceID:       "123456789aae",
 				DeepSleepDelay: 0,
 			},

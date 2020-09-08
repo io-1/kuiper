@@ -1,18 +1,3 @@
-// Package users Kuiper Users API
-//
-// Documentation of the Users API.
-//
-// Schemes: http
-// BasePath: /api/v1/users
-// Version: 0.5.9
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// swagger:meta
 package users
 
 import (
@@ -56,21 +41,24 @@ func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClien
 	return client
 }
 
-// swagger:route POST /create users
+// swagger:route POST /api/v1/users/create users
 //
-// Creates a user.
+// Create a user.
 //
-// This will create a user.
+// Allows a user to be created.
 //
-// Consumes:
-// - application/json
+//     Consumes:
+//     - application/json
 //
-// Produces:
-// - application/json
+//     Produces:
+//     - application/json
 //
-// responses:
-//  200: CreateUserResponse
+//     Schemes: http
+//
+//     Responses:
+//       200: CreateUserResponse
 func (client *UsersClient) CreateUser(c *gin.Context) {
+
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -111,20 +99,22 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route GET /:user_id users
+// swagger:route GET /api/v1/users/:username users
 //
 // Gets a user.
 //
-// This will get a user.
+// Get information about a user.
 //
-// Consumes:
-// - application/json
+//     Consumes:
+//     - application/json
 //
-// Produces:
-// - application/json
+//     Produces:
+//     - application/json
 //
-// responses:
-//  200: GetUserResponse
+//     Schemes: http
+//
+//     Responses:
+//       200: GetUserResponse
 func (client *UsersClient) GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -198,20 +188,22 @@ func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResp
 	return res, nil
 }
 
-// swagger:route PUT /:user_id users
+// swagger:route PUT /api/v1/users/:username users
 //
-// Updates a user.
+// Update a user.
 //
-// This will update a user.
+// This will a user to be updated.
 //
-// Consumes:
-// - application/json
+//     Consumes:
+//     - application/json
 //
-// Produces:
-// - application/json
+//     Produces:
+//     - application/json
 //
-// responses:
-//  200: UpdateUserResponse
+//     Schemes: http
+//
+//     Responses:
+//       200: UpdateUserResponse
 func (client *UsersClient) UpdateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -261,20 +253,22 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route DELETE /:user_id users
+// swagger:route DELETE /api/v1/users/:username users
 //
 // Deletes a user.
 //
-// This will delete a user.
+// Allows a user to be soft deleted.
 //
-// Consumes:
-// - application/json
+//     Consumes:
+//     - application/json
 //
-// Produces:
-// - application/json
+//     Produces:
+//     - application/json
 //
-// responses:
-//  200: DeleteUserResponse
+//     Schemes: http
+//
+//     Responses:
+//       200: DeleteUserResponse
 func (client *UsersClient) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()

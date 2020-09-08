@@ -41,13 +41,29 @@ func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServic
 	return client
 }
 
+// swagger:route POST /api/v1/devices/bc devices
+//
+// Create a Bat Cave device setting.
+//
+// Allows a Bat Cave device setting to be crated.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//     Responses:
+//       200: CreateBatCaveDeviceSettingResponse
 func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req request.CreateBatCaveSettingRequest
-		res response.CreateBatCaveSettingResponse
+		req request.CreateBatCaveDeviceSettingRequest
+		res response.CreateBatCaveDeviceSettingResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -69,7 +85,7 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 		return
 	}
 
-	res = response.CreateBatCaveSettingResponse{
+	res = response.CreateBatCaveDeviceSettingResponse{
 		DeviceID:       r.DeviceID,
 		DeepSleepDelay: r.DeepSleepDelay,
 	}
@@ -77,18 +93,34 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// swagger:route POST /api/v1/devices/bc/:device_id devices
+//
+// Get a Bat Cave device setting.
+//
+// Get a Bat Cave device setting to be crated.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//     Responses:
+//       200: GetBatCaveDeviceSettingResponse
 func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req request.GetBatCaveSettingRequest
-		res response.GetBatCaveSettingResponse
+		req request.GetBatCaveDeviceSettingRequest
+		res response.GetBatCaveDeviceSettingResponse
 	)
 
 	deviceID := c.Params.ByName("device_id")
 
-	req = request.GetBatCaveSettingRequest{
+	req = request.GetBatCaveDeviceSettingRequest{
 		DeviceID: deviceID,
 	}
 
@@ -111,7 +143,7 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 		return
 	}
 
-	res = response.GetBatCaveSettingResponse{
+	res = response.GetBatCaveDeviceSettingResponse{
 		DeviceID:       r.DeviceID,
 		DeepSleepDelay: r.DeepSleepDelay,
 	}
@@ -119,13 +151,29 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// swagger:route PUT /api/v1/devices/bc/:device_id devices
+//
+// Update a Bat Cave device setting.
+//
+// Update a Bat Cave device setting to be crated.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//     Responses:
+//       200: UpdateBatCaveDeviceSettingResponse
 func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req request.UpdateBatCaveSettingRequest
-		res response.UpdateBatCaveSettingResponse
+		req request.UpdateBatCaveDeviceSettingRequest
+		res response.UpdateBatCaveDeviceSettingResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -135,7 +183,7 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 
 	deviceID := c.Params.ByName("device_id")
 
-	req = request.UpdateBatCaveSettingRequest{
+	req = request.UpdateBatCaveDeviceSettingRequest{
 		DeviceID:       deviceID,
 		DeepSleepDelay: req.DeepSleepDelay,
 	}
@@ -162,7 +210,7 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 		return
 	}
 
-	res = response.UpdateBatCaveSettingResponse{
+	res = response.UpdateBatCaveDeviceSettingResponse{
 		DeviceID:       r.DeviceID,
 		DeepSleepDelay: r.DeepSleepDelay,
 	}
