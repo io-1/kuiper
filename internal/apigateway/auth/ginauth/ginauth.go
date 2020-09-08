@@ -115,7 +115,7 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 			c.JSON(statusCode, loginResponse)
 		},
 		LogoutResponse: func(c *gin.Context, statusCode int) {
-			c.JSON(statusCode, gin.H{})
+			c.JSON(statusCode, response.LogoutResponse{})
 		},
 		// TokenLookup is a string in the form of "<source>:<name>" that is used
 		// to extract token from the request.

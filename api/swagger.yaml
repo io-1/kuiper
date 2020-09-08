@@ -160,6 +160,30 @@ responses:
       username:
         description: The username of the user.
         type: string
+  LoginResponse:
+    description: LoginRespose is the response that is returned when a user has successfully login.
+    headers:
+      email:
+        description: The email of the user
+        type: string
+      expired:
+        description: The expire time for the given JWT token
+        format: date-time
+        type: string
+      id:
+        description: The ID of the login user
+        type: string
+      name:
+        description: The name of the user
+        type: string
+      token:
+        description: The JWT token for the user
+        type: string
+      username:
+        description: The users username
+        type: string
+  LogoutResponse:
+    description: LogoutRespose is the response that is returned when a user has successfully logout.
   UpdateBatCaveDeviceSettingResponse:
     description: UpdateBatCaveDviceSettingResonse is the response when successfully updated a Bat Cave device setting.
     headers:

@@ -37,6 +37,50 @@ func (g *APIGateway) wrapH(h http.Handler) gin.HandlerFunc {
 	}
 }
 
+// swagger:route POST /api/v1/login auth
+//
+// Login as a user.
+//
+// Allows a user to login.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//     Responses:
+//       200: LoginResponse
+func (g *APIGateway) loginHandler(c *gin.Context) {
+	g.authMiddleware.LoginHandler(c)
+}
+
+// swagger:route POST /api/v1/auth/logout auth
+//
+// Logout as a user.
+//
+// Allows a user to logout.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//     Responses:
+//       200: LogoutResponse
+func (g *APIGateway) logoutHandler(c *gin.Context) {
+	g.authMiddleware.LogoutHandler(c)
+}
+
+func (g *APIGateway) refreshTokenHandler(c *gin.Context) {
+	g.authMiddleware.RefreshHandler(c)
+}
+
 func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	if g.env == DEV {
 		opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
@@ -48,12 +92,13 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	}
 
 	v1 := r.Group("/api/v1")
-	v1.POST("/login", g.authMiddleware.LoginHandler)
-	v1.GET("/refresh_token", g.authMiddleware.RefreshHandler)
+	v1.POST("/login", g.loginHandler)
 
 	authGroup := v1.Group("/auth")
 	authGroup.Use(g.authMiddleware.MiddlewareFunc())
 	{
+		authGroup.GET("/refresh_token", g.refreshTokenHandler)
+
 		authGroup.GET("/hello", func(c *gin.Context) {
 			claims := jwt.ExtractClaims(c)
 			c.JSON(200, gin.H{
@@ -64,7 +109,8 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 				"text":     "Hello World.",
 			})
 		})
-		authGroup.POST("/logout", g.authMiddleware.LogoutHandler)
+
+		authGroup.POST("/logout", g.logoutHandler)
 	}
 
 	deviceGroup := v1.Group("/devices")
