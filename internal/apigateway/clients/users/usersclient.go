@@ -41,9 +41,9 @@ func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClien
 	return client
 }
 
-// swagger:route POST /api/v1/users/create users
+// swagger:route POST /api/v1/users/create createUser
 //
-// Create a user.
+// Create User
 //
 // Allows a user to be created.
 //
@@ -99,9 +99,9 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route GET /api/v1/users/:username users
+// swagger:route GET /api/v1/users/:username getUser
 //
-// Gets a user.
+// Get User
 //
 // Get information about a user.
 //
@@ -188,11 +188,11 @@ func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResp
 	return res, nil
 }
 
-// swagger:route PUT /api/v1/users/:username users
+// swagger:route PUT /api/v1/users/:username updateUser
 //
-// Update a user.
+// Update User
 //
-// This will a user to be updated.
+// Updates a user.
 //
 //     Consumes:
 //     - application/json
@@ -253,9 +253,9 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route DELETE /api/v1/users/:username users
+// swagger:route DELETE /api/v1/users/:username deleteUser
 //
-// Deletes a user.
+// Delete User
 //
 // Allows a user to be soft deleted.
 //

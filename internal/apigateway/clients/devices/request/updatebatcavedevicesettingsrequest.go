@@ -5,8 +5,14 @@ import (
 	"regexp"
 )
 
+// The request used to update a Bat Cave device setting
+// swagger:parameters UpdateBatCaveDeviceSettingRequest updateBatCaveDeviceSetting
 type UpdateBatCaveDeviceSettingRequest struct {
-	DeviceID       string `json:"-"`
+
+	// The device ID of thd device
+	DeviceID string `json:"-"`
+
+	// The deep sleep deley of the device
 	DeepSleepDelay uint32 `json:"deepSleepDelay" binding:"required"`
 }
 

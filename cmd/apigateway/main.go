@@ -46,13 +46,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ginAuth := ginauth.NewGinAuth(usersClient)
-	authMiddleware, err := ginAuth.GetAuthMiddleware()
+	ginAuth, err := ginauth.NewGinAuth(usersClient)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	apiGateway := apigateway.NewAPIGateway(env, authMiddleware, devicesClient, usersClient)
+	apiGateway := apigateway.NewAPIGateway(env, ginAuth, devicesClient, usersClient)
 	router := gin.Default()
 
 	err = apiGateway.InitV1Routes(router)

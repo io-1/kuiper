@@ -2,6 +2,7 @@ package request
 
 import "net/url"
 
+// The request used to delete a user
 type DeleteUserRequest struct {
 	Username string `json:"-"`
 }

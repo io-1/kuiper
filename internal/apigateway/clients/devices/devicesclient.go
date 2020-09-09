@@ -41,11 +41,11 @@ func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServic
 	return client
 }
 
-// swagger:route POST /api/v1/devices/bc devices
+// swagger:route POST /api/v1/devices/bc createBatCaveDeviceSetting
 //
-// Create a Bat Cave device setting.
+// Create Bat Cave Device Setting
 //
-// Allows a Bat Cave device setting to be crated.
+// Allows a Bat Cave device setting to be created.
 //
 //     Consumes:
 //     - application/json
@@ -93,11 +93,11 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route POST /api/v1/devices/bc/:device_id devices
+// swagger:route GET /api/v1/devices/bc/:device_id getBatCaveDeviceSetting
+//
+// Get Bat Cave Device Setting
 //
 // Get a Bat Cave device setting.
-//
-// Get a Bat Cave device setting to be crated.
 //
 //     Consumes:
 //     - application/json
@@ -151,11 +151,11 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route PUT /api/v1/devices/bc/:device_id devices
+// swagger:route PUT /api/v1/devices/bc/:device_id updateBatCaveDeviceSetting
+//
+// Update Bat Cave Device Setting
 //
 // Update a Bat Cave device setting.
-//
-// Update a Bat Cave device setting to be crated.
 //
 //     Consumes:
 //     - application/json

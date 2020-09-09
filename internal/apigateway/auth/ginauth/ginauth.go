@@ -21,16 +21,11 @@ var (
 )
 
 type GinAuth struct {
-	usersClient *users.UsersClient
+	usersClient    *users.UsersClient
+	authMiddleware *jwt.GinJWTMiddleware
 }
 
-func NewGinAuth(u *users.UsersClient) *GinAuth {
-	return &GinAuth{
-		usersClient: u,
-	}
-}
-
-func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
+func NewGinAuth(u *users.UsersClient) (*GinAuth, error) {
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "dev",
 		Key:         []byte("43deio1"),
@@ -68,7 +63,7 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 			}
 
 			// get the user
-			res, err := a.usersClient.GetUserLogin(req.Username)
+			res, err := u.GetUserLogin(req.Username)
 			if err != nil {
 				return nil, err
 			}
@@ -137,13 +132,64 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 	})
 
 	if err != nil {
-		return authMiddleware, err
+		return &GinAuth{}, err
 	}
 
 	err = authMiddleware.MiddlewareInit()
 	if err != nil {
-		return authMiddleware, err
+		return &GinAuth{}, err
 	}
 
-	return authMiddleware, nil
+	return &GinAuth{
+		authMiddleware: authMiddleware,
+		usersClient:    u,
+	}, nil
+}
+
+func (a *GinAuth) UseAuthMiddleware(c *gin.Context) {
+	a.authMiddleware.MiddlewareFunc()
+}
+
+// swagger:route POST /api/v1/login login
+//
+// Login
+//
+// Allows a user to login.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//     Responses:
+//       200: LoginResponse
+func (a *GinAuth) LoginHandler(c *gin.Context) {
+	a.authMiddleware.LoginHandler(c)
+}
+
+// swagger:route POST /api/v1/auth/logout logout
+//
+// Logout
+//
+// Allows a user to logout.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//     Responses:
+//       200: LogoutResponse
+func (a *GinAuth) LogoutHandler(c *gin.Context) {
+	a.authMiddleware.LogoutHandler(c)
+}
+
+func (a *GinAuth) RefreshTokenHandler(c *gin.Context) {
+	a.authMiddleware.RefreshHandler(c)
 }

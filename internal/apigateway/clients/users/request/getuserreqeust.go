@@ -2,6 +2,8 @@ package request
 
 import "net/url"
 
+// Request used to get a user
+// swagger:parameters getUser
 type GetUserRequest struct {
 	Username string `json:"-"`
 }

@@ -5,8 +5,14 @@ import (
 	"regexp"
 )
 
+// The request used to create a Bat Cave device setting
+// swagger:parameters createBatCaveDeviceSetting
 type CreateBatCaveDeviceSettingRequest struct {
-	DeviceID       string `json:"deviceID" binding:"required"`
+
+	// The deviceID of the device
+	DeviceID string `json:"deviceID" binding:"required"`
+
+	// The deep sleep delay of the device
 	DeepSleepDelay uint32 `json:"deepSleepDelay" binding:"required"`
 }
 

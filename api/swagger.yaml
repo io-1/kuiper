@@ -6,12 +6,38 @@ info:
   title: Kuiper API
   version: 0.5.9
 paths:
+  /api/v1/auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Allows a user to logout.
+      operationId: logout
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/LogoutResponse'
+      schemes:
+      - http
+      summary: Logout
   /api/v1/devices/bc:
     post:
       consumes:
       - application/json
-      description: Allows a Bat Cave device setting to be crated.
-      operationId: devices
+      description: Allows a Bat Cave device setting to be created.
+      operationId: createBatCaveDeviceSetting
+      parameters:
+      - description: The deviceID of the device
+        in: query
+        name: deviceID
+        type: string
+        x-go-name: DeviceID
+      - description: The deep sleep delay of the device
+        format: uint32
+        in: query
+        name: deepSleepDelay
+        type: integer
+        x-go-name: DeepSleepDelay
       produces:
       - application/json
       responses:
@@ -19,13 +45,13 @@ paths:
           $ref: '#/responses/CreateBatCaveDeviceSettingResponse'
       schemes:
       - http
-      summary: Create a Bat Cave device setting.
+      summary: Create Bat Cave Device Setting
   /api/v1/devices/bc/:device_id:
-    post:
+    get:
       consumes:
       - application/json
-      description: Get a Bat Cave device setting to be crated.
-      operationId: devices
+      description: Get a Bat Cave device setting.
+      operationId: getBatCaveDeviceSetting
       produces:
       - application/json
       responses:
@@ -33,12 +59,19 @@ paths:
           $ref: '#/responses/GetBatCaveDeviceSettingResponse'
       schemes:
       - http
-      summary: Get a Bat Cave device setting.
+      summary: Get Bat Cave Device Setting
     put:
       consumes:
       - application/json
-      description: Update a Bat Cave device setting to be crated.
-      operationId: devices
+      description: Update a Bat Cave device setting.
+      operationId: updateBatCaveDeviceSetting
+      parameters:
+      - description: The deep sleep deley of the device
+        format: uint32
+        in: query
+        name: deepSleepDelay
+        type: integer
+        x-go-name: DeepSleepDelay
       produces:
       - application/json
       responses:
@@ -46,13 +79,38 @@ paths:
           $ref: '#/responses/UpdateBatCaveDeviceSettingResponse'
       schemes:
       - http
-      summary: Update a Bat Cave device setting.
+      summary: Update Bat Cave Device Setting
+  /api/v1/login:
+    post:
+      consumes:
+      - application/json
+      description: Allows a user to login.
+      operationId: login
+      parameters:
+      - description: The username for the user
+        in: query
+        name: username
+        type: string
+        x-go-name: Username
+      - description: The password for the user
+        in: query
+        name: password
+        type: string
+        x-go-name: Password
+      produces:
+      - application/json
+      responses:
+        "200":
+          $ref: '#/responses/LoginResponse'
+      schemes:
+      - http
+      summary: Login
   /api/v1/users/:username:
     delete:
       consumes:
       - application/json
       description: Allows a user to be soft deleted.
-      operationId: users
+      operationId: deleteUser
       produces:
       - application/json
       responses:
@@ -60,12 +118,12 @@ paths:
           $ref: '#/responses/DeleteUserResponse'
       schemes:
       - http
-      summary: Deletes a user.
+      summary: Delete User
     get:
       consumes:
       - application/json
       description: Get information about a user.
-      operationId: users
+      operationId: getUser
       produces:
       - application/json
       responses:
@@ -73,12 +131,28 @@ paths:
           $ref: '#/responses/GetUserResponse'
       schemes:
       - http
-      summary: Gets a user.
+      summary: Get User
     put:
       consumes:
       - application/json
-      description: This will a user to be updated.
-      operationId: users
+      description: Updates a user.
+      operationId: updateUser
+      parameters:
+      - description: The ID of the user being updated
+        in: query
+        name: id
+        type: string
+        x-go-name: ID
+      - description: The name of the user to update
+        in: query
+        name: name
+        type: string
+        x-go-name: Name
+      - description: The email of the user to update
+        in: query
+        name: email
+        type: string
+        x-go-name: Email
       produces:
       - application/json
       responses:
@@ -86,13 +160,34 @@ paths:
           $ref: '#/responses/UpdateUserResponse'
       schemes:
       - http
-      summary: Update a user.
+      summary: Update User
   /api/v1/users/create:
     post:
       consumes:
       - application/json
       description: Allows a user to be created.
-      operationId: users
+      operationId: createUser
+      parameters:
+      - description: The username for the user
+        in: query
+        name: username
+        type: string
+        x-go-name: Username
+      - description: The password for the user
+        in: query
+        name: password
+        type: string
+        x-go-name: Password
+      - description: The name of the uesr
+        in: query
+        name: name
+        type: string
+        x-go-name: Name
+      - description: The email of the user
+        in: query
+        name: email
+        type: string
+        x-go-name: Email
       produces:
       - application/json
       responses:
@@ -100,7 +195,7 @@ paths:
           $ref: '#/responses/CreateUserResponse'
       schemes:
       - http
-      summary: Create a user.
+      summary: Create User
 produces:
 - application/json
 responses:
