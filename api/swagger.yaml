@@ -73,7 +73,7 @@ paths:
           in: query
           name: deviceID
           x-go-name: DeviceID
-          scheme:
+          schema:
             type: string
       responses:
         "200":
