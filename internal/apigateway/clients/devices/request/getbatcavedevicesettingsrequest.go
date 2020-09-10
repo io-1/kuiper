@@ -5,8 +5,14 @@ import (
 	"regexp"
 )
 
+// Request userd to get a bat cave device setting
+// swagger:parameters getBatCaveDeviceSetting
 type GetBatCaveDeviceSettingRequest struct {
-	DeviceID string `json:"-"`
+
+	// The deviceID of the user
+	//
+	// in: query
+	DeviceID string `json:"deviceID"`
 }
 
 func (r *GetBatCaveDeviceSettingRequest) Validate() url.Values {

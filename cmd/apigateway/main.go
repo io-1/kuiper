@@ -2,15 +2,24 @@
 //
 // Documentation of the Kuiper API.
 //
-// Schemes: http
-// BasePath: /
-// Version: 0.5.9
+//     Schemes: http
+//     BasePath: /
+//     Version: 0.5.9
 //
-// Consumes:
-// - application/json
+//     Consumes:
+//     - application/json
 //
-// Produces:
-// - application/json
+//     Produces:
+//     - application/json
+//
+//     Security:
+//     - api_key:
+//
+//     SecurityDefinitions:
+//     Bearer:
+//          type: apiKey
+//          name: Authorization
+//          in: header
 //
 // swagger:meta
 package main

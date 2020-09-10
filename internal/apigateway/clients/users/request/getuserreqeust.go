@@ -5,7 +5,11 @@ import "net/url"
 // Request used to get a user
 // swagger:parameters getUser
 type GetUserRequest struct {
-	Username string `json:"-"`
+
+	// The username of the user
+	//
+	// in: query
+	Username string `json:"username"`
 }
 
 func (r *GetUserRequest) Validate() url.Values {

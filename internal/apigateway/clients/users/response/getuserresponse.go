@@ -1,7 +1,6 @@
 package response
 
 // GetUserResponse is a response when getting a user successfully.
-// swagger:response GetUserResponse
 type GetUserResponse struct {
 
 	// The ID of the user.
@@ -15,4 +14,11 @@ type GetUserResponse struct {
 
 	// The email of the user.
 	Email string `json:"email"`
+}
+
+// GetUserResponse is a response when getting a user successfully.
+// swagger:response GetUserResponse
+type GetUserResponseWrapper struct {
+	// in: body
+	Body GetUserResponse
 }

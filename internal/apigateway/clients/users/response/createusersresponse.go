@@ -1,7 +1,6 @@
 package response
 
 // CreateUserResponse is a response when a user has been successfully created.
-// swagger:response CreateUserResponse
 type CreateUserResponse struct {
 
 	// The ID of the user that was created.
@@ -15,4 +14,11 @@ type CreateUserResponse struct {
 
 	// The email of the user created.
 	Email string `json:"email"`
+}
+
+// CreateUserResponse is a response when a user has been successfully created.
+// swagger:response CreateUserResponse
+type CreateUserResponseWrapper struct {
+	// in: body
+	Body CreateUserResponse
 }

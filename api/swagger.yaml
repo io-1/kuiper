@@ -1,6 +1,226 @@
 basePath: /
 consumes:
 - application/json
+definitions:
+  CreateBatCaveDeviceSettingRequest:
+    description: The request used to create a Bat Cave device setting
+    properties:
+      deepSleepDelay:
+        description: The deep sleep delay of the device
+        format: uint32
+        type: integer
+        x-go-name: DeepSleepDelay
+      deviceID:
+        description: The deviceID of the device
+        type: string
+        x-go-name: DeviceID
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/request
+  CreateBatCaveDeviceSettingResponse:
+    properties:
+      deepSleepDelay:
+        description: The deep sleep delay of the device.
+        format: uint32
+        type: integer
+        x-go-name: DeepSleepDelay
+      deviceID:
+        description: The device ID of the device.
+        type: string
+        x-go-name: DeviceID
+    title: CreateBatCaveSettingResponse is a response when successfully creating a Bat Cave device setting.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/response
+  CreateUserRequest:
+    description: CreateUserRequest is the request that is used for creating a user
+    properties:
+      email:
+        description: The email of the user
+        type: string
+        x-go-name: Email
+      name:
+        description: The name of the uesr
+        type: string
+        x-go-name: Name
+      password:
+        description: The password for the user
+        type: string
+        x-go-name: Password
+      username:
+        description: The username for the user
+        type: string
+        x-go-name: Username
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+  CreateUserResponse:
+    properties:
+      email:
+        description: The email of the user created.
+        type: string
+        x-go-name: Email
+      id:
+        description: The ID of the user that was created.
+        type: string
+        x-go-name: ID
+      name:
+        description: The name of the user created.
+        type: string
+        x-go-name: Name
+      username:
+        description: The username of the user created.
+        type: string
+        x-go-name: Username
+    title: CreateUserResponse is a response when a user has been successfully created.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+  DeleteUserResponse:
+    properties:
+      username:
+        description: The username of the user that was deleted.
+        type: string
+        x-go-name: Username
+    title: DeleteUserResponse is a response when a user has been successfully deleted.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+  GetBatCaveDeviceSettingResponse:
+    properties:
+      deepSleepDelay:
+        description: The deep sleep delay of the device.
+        format: uint32
+        type: integer
+        x-go-name: DeepSleepDelay
+      deviceID:
+        description: The device ID of the device.
+        type: string
+        x-go-name: DeviceID
+    title: GetBatCaveDeviceSettingResponse is a response when successfully getting a Bat Cave device setting.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/response
+  GetUserResponse:
+    properties:
+      email:
+        description: The email of the user.
+        type: string
+        x-go-name: Email
+      id:
+        description: The ID of the user.
+        type: string
+        x-go-name: ID
+      name:
+        description: The name of the user.
+        type: string
+        x-go-name: Name
+      username:
+        description: The username of the user.
+        type: string
+        x-go-name: Username
+    title: GetUserResponse is a response when getting a user successfully.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+  LoginRequest:
+    properties:
+      password:
+        description: The password for the user
+        type: string
+        x-go-name: Password
+      username:
+        description: The username for the user
+        type: string
+        x-go-name: Username
+    title: LoginRequest is the request for login.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/auth/request
+  LoginResponse:
+    properties:
+      email:
+        description: The email of the user
+        type: string
+        x-go-name: Email
+      expired:
+        description: The expire time for the given JWT token
+        format: date-time
+        type: string
+        x-go-name: Expires
+      id:
+        description: The ID of the login user
+        type: string
+        x-go-name: ID
+      name:
+        description: The name of the user
+        type: string
+        x-go-name: Name
+      token:
+        description: The 'JWT' token for the user
+        type: string
+        x-go-name: Token
+      username:
+        description: The users username
+        type: string
+        x-go-name: Username
+    title: LoginRespose is the response that is returned when a user has successfully login.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/auth/response
+  UpdateBatCaveDeviceSettingRequest:
+    description: The request used to update a Bat Cave device setting
+    properties:
+      deepSleepDelay:
+        description: The deep sleep deley of the device
+        format: uint32
+        type: integer
+        x-go-name: DeepSleepDelay
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/request
+  UpdateBatCaveDeviceSettingResponse:
+    properties:
+      deepSleepDelay:
+        description: The deep sleep delay of the device.
+        format: uint32
+        type: integer
+        x-go-name: DeepSleepDelay
+      deviceID:
+        description: The device ID of the device.
+        type: string
+        x-go-name: DeviceID
+    title: UpdateBatCaveDviceSettingResonse is the response when successfully updated a Bat Cave device setting.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/response
+  UpdateUserRequest:
+    description: The request used to update a user
+    properties:
+      email:
+        description: The email of the user to update
+        type: string
+        x-go-name: Email
+      id:
+        description: The ID of the user being updated
+        type: string
+        x-go-name: ID
+      name:
+        description: The name of the user to update
+        type: string
+        x-go-name: Name
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+  UpdateUserResponse:
+    properties:
+      email:
+        description: The email of the user that is being updated.
+        type: string
+        x-go-name: Email
+      id:
+        description: The ID of the user that is being updated.
+        type: string
+        x-go-name: ID
+      name:
+        description: The name of the user that is being updated.
+        type: string
+        x-go-name: Name
+      username:
+        description: The username of the user that is being updated.
+        type: string
+        x-go-name: Username
+    title: UpdateUserResponse is a response that ire returned when a user was successfully updated.
+    type: object
+    x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
 info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
@@ -19,7 +239,31 @@ paths:
           $ref: '#/responses/LogoutResponse'
       schemes:
       - http
+      security:
+      - Bearer:
+        - '''JWT'''
       summary: Logout
+      tags:
+      - Auth
+  /api/v1/auth/refresh_token:
+    get:
+      consumes:
+      - application/json
+      description: Refresh a token for a user.
+      operationId: refreshToken
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ' Token successfully refreshed.'
+      schemes:
+      - http
+      security:
+      - Bearer:
+        - '''JWT'''
+      summary: Refresh token
+      tags:
+      - Auth
   /api/v1/devices/bc:
     post:
       consumes:
@@ -27,59 +271,87 @@ paths:
       description: Allows a Bat Cave device setting to be created.
       operationId: createBatCaveDeviceSetting
       parameters:
-      - description: The deviceID of the device
-        in: query
-        name: deviceID
-        type: string
-        x-go-name: DeviceID
-      - description: The deep sleep delay of the device
-        format: uint32
-        in: query
-        name: deepSleepDelay
-        type: integer
-        x-go-name: DeepSleepDelay
+      - in: body
+        name: Body
+        schema:
+          $ref: '#/definitions/CreateBatCaveDeviceSettingRequest'
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/CreateBatCaveDeviceSettingResponse'
+        "400":
+          description: ' Unable to bind request.'
+        "405":
+          description: ' Validation error.'
+        "500":
+          description: ' Error with the service.'
       schemes:
       - http
       summary: Create Bat Cave Device Setting
+      tags:
+      - Devices
   /api/v1/devices/bc/:device_id:
     get:
       consumes:
       - application/json
       description: Get a Bat Cave device setting.
       operationId: getBatCaveDeviceSetting
+      parameters:
+      - description: The deviceID of the user
+        in: query
+        name: deviceID
+        type: string
+        x-go-name: DeviceID
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/GetBatCaveDeviceSettingResponse'
+        "204":
+          description: ' No content.'
+        "405":
+          description: ' Validation error.'
+        "500":
+          description: ' Error with the service.'
       schemes:
       - http
       summary: Get Bat Cave Device Setting
+      tags:
+      - Devices
     put:
       consumes:
       - application/json
       description: Update a Bat Cave device setting.
       operationId: updateBatCaveDeviceSetting
       parameters:
-      - description: The deep sleep deley of the device
-        format: uint32
+      - description: The username of the user
         in: query
-        name: deepSleepDelay
-        type: integer
-        x-go-name: DeepSleepDelay
+        name: deviceID
+        type: string
+        x-go-name: DeviceID
+      - in: body
+        name: Body
+        schema:
+          $ref: '#/definitions/UpdateBatCaveDeviceSettingRequest'
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/UpdateBatCaveDeviceSettingResponse'
+        "204":
+          description: ' No content.'
+        "400":
+          description: ' Unable to bind request.'
+        "405":
+          description: ' Validation error.'
+        "500":
+          description: ' Error with the service.'
       schemes:
       - http
       summary: Update Bat Cave Device Setting
+      tags:
+      - Devices
   /api/v1/login:
     post:
       consumes:
@@ -87,16 +359,10 @@ paths:
       description: Allows a user to login.
       operationId: login
       parameters:
-      - description: The username for the user
-        in: query
-        name: username
-        type: string
-        x-go-name: Username
-      - description: The password for the user
-        in: query
-        name: password
-        type: string
-        x-go-name: Password
+      - in: body
+        name: Body
+        schema:
+          $ref: '#/definitions/LoginRequest'
       produces:
       - application/json
       responses:
@@ -105,62 +371,100 @@ paths:
       schemes:
       - http
       summary: Login
+      tags:
+      - Auth
   /api/v1/users/:username:
     delete:
       consumes:
       - application/json
       description: Allows a user to be soft deleted.
       operationId: deleteUser
+      parameters:
+      - description: The username of the user
+        in: query
+        name: username
+        type: string
+        x-go-name: Username
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/DeleteUserResponse'
+        "204":
+          description: ' No content.'
+        "400":
+          description: ' Unable to bind request.'
+        "405":
+          description: ' Validation error.'
+        "500":
+          description: ' Error with the service.'
       schemes:
       - http
       summary: Delete User
+      tags:
+      - Users
     get:
       consumes:
       - application/json
       description: Get information about a user.
       operationId: getUser
+      parameters:
+      - description: The username of the user
+        in: query
+        name: username
+        type: string
+        x-go-name: Username
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/GetUserResponse'
+        "204":
+          description: ' No content.'
+        "400":
+          description: ' Unable to bind request.'
+        "405":
+          description: ' Validation error.'
+        "500":
+          description: ' Error with the service.'
       schemes:
       - http
       summary: Get User
+      tags:
+      - Users
     put:
       consumes:
       - application/json
       description: Updates a user.
       operationId: updateUser
       parameters:
-      - description: The ID of the user being updated
+      - description: The username of the user
         in: query
-        name: id
+        name: username
         type: string
-        x-go-name: ID
-      - description: The name of the user to update
-        in: query
-        name: name
-        type: string
-        x-go-name: Name
-      - description: The email of the user to update
-        in: query
-        name: email
-        type: string
-        x-go-name: Email
+        x-go-name: Username
+      - in: body
+        name: Body
+        schema:
+          $ref: '#/definitions/UpdateUserRequest'
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/UpdateUserResponse'
+        "204":
+          description: ' No content.'
+        "400":
+          description: ' Unable to bind request.'
+        "405":
+          description: ' Validation error.'
+        "500":
+          description: ' Error with the service.'
       schemes:
       - http
       summary: Update User
+      tags:
+      - Users
   /api/v1/users/create:
     post:
       consumes:
@@ -168,142 +472,70 @@ paths:
       description: Allows a user to be created.
       operationId: createUser
       parameters:
-      - description: The username for the user
-        in: query
-        name: username
-        type: string
-        x-go-name: Username
-      - description: The password for the user
-        in: query
-        name: password
-        type: string
-        x-go-name: Password
-      - description: The name of the uesr
-        in: query
-        name: name
-        type: string
-        x-go-name: Name
-      - description: The email of the user
-        in: query
-        name: email
-        type: string
-        x-go-name: Email
+      - in: body
+        name: Body
+        schema:
+          $ref: '#/definitions/CreateUserRequest'
       produces:
       - application/json
       responses:
         "200":
           $ref: '#/responses/CreateUserResponse'
+        "400":
+          description: ' Unable to bind request.'
+        "405":
+          description: ' Validation error.'
+        "500":
+          description: ' Error with the service.'
       schemes:
       - http
       summary: Create User
+      tags:
+      - Users
 produces:
 - application/json
 responses:
   CreateBatCaveDeviceSettingResponse:
     description: CreateBatCaveSettingResponse is a response when successfully creating a Bat Cave device setting.
-    headers:
-      deepSleepDelay:
-        description: The deep sleep delay of the device.
-        format: uint32
-        type: integer
-      deviceID:
-        description: The device ID of the device.
-        type: string
+    schema:
+      $ref: '#/definitions/CreateBatCaveDeviceSettingResponse'
   CreateUserResponse:
     description: CreateUserResponse is a response when a user has been successfully created.
-    headers:
-      email:
-        description: The email of the user created.
-        type: string
-      id:
-        description: The ID of the user that was created.
-        type: string
-      name:
-        description: The name of the user created.
-        type: string
-      username:
-        description: The username of the user created.
-        type: string
+    schema:
+      $ref: '#/definitions/CreateUserResponse'
   DeleteUserResponse:
     description: DeleteUserResponse is a response when a user has been successfully deleted.
-    headers:
-      username:
-        description: The username of the user that was deleted.
-        type: string
+    schema:
+      $ref: '#/definitions/DeleteUserResponse'
   GetBatCaveDeviceSettingResponse:
     description: GetBatCaveDeviceSettingResponse is a response when successfully getting a Bat Cave device setting.
-    headers:
-      deepSleepDelay:
-        description: The deep sleep delay of the device.
-        format: uint32
-        type: integer
-      deviceID:
-        description: The device ID of the device.
-        type: string
+    schema:
+      $ref: '#/definitions/GetBatCaveDeviceSettingResponse'
   GetUserResponse:
     description: GetUserResponse is a response when getting a user successfully.
-    headers:
-      email:
-        description: The email of the user.
-        type: string
-      id:
-        description: The ID of the user.
-        type: string
-      name:
-        description: The name of the user.
-        type: string
-      username:
-        description: The username of the user.
-        type: string
+    schema:
+      $ref: '#/definitions/GetUserResponse'
   LoginResponse:
     description: LoginRespose is the response that is returned when a user has successfully login.
-    headers:
-      email:
-        description: The email of the user
-        type: string
-      expired:
-        description: The expire time for the given JWT token
-        format: date-time
-        type: string
-      id:
-        description: The ID of the login user
-        type: string
-      name:
-        description: The name of the user
-        type: string
-      token:
-        description: The JWT token for the user
-        type: string
-      username:
-        description: The users username
-        type: string
+    schema:
+      $ref: '#/definitions/LoginResponse'
   LogoutResponse:
     description: LogoutRespose is the response that is returned when a user has successfully logout.
   UpdateBatCaveDeviceSettingResponse:
     description: UpdateBatCaveDviceSettingResonse is the response when successfully updated a Bat Cave device setting.
-    headers:
-      deepSleepDelay:
-        description: The deep sleep delay of the device.
-        format: uint32
-        type: integer
-      deviceID:
-        description: The device ID of the device.
-        type: string
+    schema:
+      $ref: '#/definitions/UpdateBatCaveDeviceSettingResponse'
   UpdateUserResponse:
-    description: Updates a user.
-    headers:
-      email:
-        description: The email of the user that is being updated.
-        type: string
-      id:
-        description: The ID of the user that is being updated.
-        type: string
-      name:
-        description: The name of the user that is being updated.
-        type: string
-      username:
-        description: The username of the user that is being updated.
-        type: string
+    description: UpdateUserResponse is a response that ire returned when a user was successfully updated.
+    schema:
+      $ref: '#/definitions/UpdateUserResponse'
 schemes:
 - http
+security:
+- api_key: []
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

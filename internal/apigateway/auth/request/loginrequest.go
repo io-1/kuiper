@@ -3,7 +3,6 @@ package request
 import "net/url"
 
 // LoginRequest is the request for login.
-// swagger:parameters login
 type LoginRequest struct {
 
 	// The username for the user
@@ -11,6 +10,12 @@ type LoginRequest struct {
 
 	// The password for the user
 	Password string `json:"password" binding:"required"`
+}
+
+// swagger:parameters login
+type LoginRequestWrapper struct {
+	// in: body
+	Body LoginRequest
 }
 
 func (r *LoginRequest) Validate() url.Values {

@@ -150,7 +150,7 @@ func (a *GinAuth) UseAuthMiddleware(c *gin.Context) {
 	a.authMiddleware.MiddlewareFunc()
 }
 
-// swagger:route POST /api/v1/login login
+// swagger:route POST /api/v1/login Auth login
 //
 // Login
 //
@@ -170,7 +170,7 @@ func (a *GinAuth) LoginHandler(c *gin.Context) {
 	a.authMiddleware.LoginHandler(c)
 }
 
-// swagger:route POST /api/v1/auth/logout logout
+// swagger:route POST /api/v1/auth/logout Auth logout
 //
 // Logout
 //
@@ -184,12 +184,34 @@ func (a *GinAuth) LoginHandler(c *gin.Context) {
 //
 //     Schemes: http
 //
+//	   Security:
+//	   - Bearer: 'JWT'
+//
 //     Responses:
 //       200: LogoutResponse
 func (a *GinAuth) LogoutHandler(c *gin.Context) {
 	a.authMiddleware.LogoutHandler(c)
 }
 
+// swagger:route GET /api/v1/auth/refresh_token Auth refreshToken
+//
+// Refresh token
+//
+// Refresh a token for a user.
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Schemes: http
+//
+//	   Security:
+//	   - Bearer: 'JWT'
+//
+//     Responses:
+//       200: description: Token successfully refreshed.
 func (a *GinAuth) RefreshTokenHandler(c *gin.Context) {
 	a.authMiddleware.RefreshHandler(c)
 }

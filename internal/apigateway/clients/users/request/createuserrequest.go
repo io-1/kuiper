@@ -3,7 +3,6 @@ package request
 import "net/url"
 
 // CreateUserRequest is the request that is used for creating a user
-// swagger:parameters createUser
 type CreateUserRequest struct {
 
 	// The username for the user
@@ -17,6 +16,12 @@ type CreateUserRequest struct {
 
 	// The email of the user
 	Email string `json:"email" binding:"required"`
+}
+
+// swagger:parameters createUser
+type CreateUserRequestWrapper struct {
+	// in: body
+	Body CreateUserRequest
 }
 
 func (r *CreateUserRequest) Validate() url.Values {
