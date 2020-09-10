@@ -3,6 +3,13 @@ info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
   version: 0.6.0
+tags:
+  - name: Auth
+    description: API used to allow a user to authenicate against Kuiper.
+  - name: Users
+    description: API used for users.
+  - name: Devices
+    description: API to interact with devices.
 paths:
   /api/v1/auth/logout:
     post:
@@ -62,11 +69,11 @@ paths:
       description: Get a Bat Cave device setting.
       operationId: getBatCaveDeviceSetting
       parameters:
-        - description: The deviceID of the user
+        - description: The deviceID of the device
           in: query
           name: deviceID
           x-go-name: DeviceID
-          schema:
+          schem:
             type: string
       responses:
         "200":
@@ -533,3 +540,4 @@ components:
         successfully updated.
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+
