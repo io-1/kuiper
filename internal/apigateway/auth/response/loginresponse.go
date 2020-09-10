@@ -3,7 +3,6 @@ package response
 import "time"
 
 // LoginRespose is the response that is returned when a user has successfully login.
-// swagger:response LoginResponse
 type LoginResponse struct {
 
 	// The ID of the login user
@@ -23,11 +22,4 @@ type LoginResponse struct {
 
 	// The expire time for the given JWT token
 	Expires time.Time `json:"expired"`
-}
-
-// LoginRespose is the response that is returned when a user has successfully login.
-// swagger:response LoginResponse
-type LoginResponseWrapper struct {
-	// in: body
-	Body LoginResponse
 }

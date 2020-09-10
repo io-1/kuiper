@@ -12,12 +12,6 @@ type LoginRequest struct {
 	Password string `json:"password" binding:"required"`
 }
 
-// swagger:parameters login
-type LoginRequestWrapper struct {
-	// in: body
-	Body LoginRequest
-}
-
 func (r *LoginRequest) Validate() url.Values {
 	errs := url.Values{}
 

@@ -12,18 +12,6 @@ type UpdateBatCaveDeviceSettingRequest struct {
 	DeepSleepDelay uint32 `json:"deepSleepDelay" binding:"required"`
 }
 
-// swagger:parameters UpdateBatCaveDeviceSettingRequest updateBatCaveDeviceSetting
-type UpdateBatCaveDeviceSettingRequestWrapper struct {
-
-	// The deviceID of the device
-	//
-	// in: query
-	DeviceID string `json:"deviceID"`
-
-	// in: body
-	Body UpdateBatCaveDeviceSettingRequest
-}
-
 func (r *UpdateBatCaveDeviceSettingRequest) Validate(deviceID string) url.Values {
 	errs := url.Values{}
 

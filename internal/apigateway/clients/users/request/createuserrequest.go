@@ -18,12 +18,6 @@ type CreateUserRequest struct {
 	Email string `json:"email" binding:"required"`
 }
 
-// swagger:parameters createUser
-type CreateUserRequestWrapper struct {
-	// in: body
-	Body CreateUserRequest
-}
-
 func (r *CreateUserRequest) Validate() url.Values {
 	errs := url.Values{}
 	// FIXME: username 50 characters

@@ -15,13 +15,6 @@ type CreateBatCaveDeviceSettingRequest struct {
 	DeepSleepDelay uint32 `json:"deepSleepDelay" binding:"required"`
 }
 
-// The request used to create a Bat Cave device setting
-// swagger:parameters createBatCaveDeviceSetting
-type CreateBatCaveDeviceSettingRequestWrapper struct {
-	// in: body
-	Body CreateBatCaveDeviceSettingRequest
-}
-
 func (r *CreateBatCaveDeviceSettingRequest) Validate() url.Values {
 	errs := url.Values{}
 

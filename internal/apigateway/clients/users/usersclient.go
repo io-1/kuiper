@@ -41,25 +41,7 @@ func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClien
 	return client
 }
 
-// swagger:route POST /api/v1/users/create Users createUser
-//
 // Create User
-//
-// Allows a user to be created.
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// Schemes: http
-//
-// Responses:
-//  200: CreateUserResponse
-//  400: description: Unable to bind request.
-//  405: description: Validation error.
-//  500: description: Error with the service.
 func (client *UsersClient) CreateUser(c *gin.Context) {
 
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
@@ -103,25 +85,6 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 }
 
 // swagger:route GET /api/v1/users/:username Users getUser
-//
-// Get User
-//
-// Get information about a user.
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// Schemes: http
-//
-// Responses:
-//  200: GetUserResponse
-//  204: description: No content.
-//  400: description: Unable to bind request.
-//  405: description: Validation error.
-//  500: description: Error with the service.
 func (client *UsersClient) GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -133,17 +96,13 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 
 	username := c.Params.ByName("username")
 
-	req = request.GetUserRequest{
-		Username: username,
-	}
-
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
-	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: req.Username})
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: username})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
@@ -195,26 +154,7 @@ func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResp
 	return res, nil
 }
 
-// swagger:route PUT /api/v1/users/:username Users updateUser
-//
 // Update User
-//
-// Updates a user.
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// Schemes: http
-//
-// Responses:
-//  200: UpdateUserResponse
-//  204: description: No content.
-//  400: description: Unable to bind request.
-//  405: description: Validation error.
-//  500: description: Error with the service.
 func (client *UsersClient) UpdateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -231,7 +171,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 
 	username := c.Params.ByName("username")
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
@@ -263,26 +203,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route DELETE /api/v1/users/:username Users deleteUser
-//
 // Delete User
-//
-// Allows a user to be soft deleted.
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// Schemes: http
-//
-// Responses:
-//  200: DeleteUserResponse
-//  204: description: No content.
-//  400: description: Unable to bind request.
-//  405: description: Validation error.
-//  500: description: Error with the service.
 func (client *UsersClient) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -294,11 +215,7 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 
 	username := c.Params.ByName("username")
 
-	req = request.DeleteUserRequest{
-		Username: username,
-	}
-
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return

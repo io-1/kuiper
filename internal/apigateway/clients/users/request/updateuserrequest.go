@@ -15,19 +15,7 @@ type UpdateUserRequest struct {
 	Email string `json:"email" binding:"required"`
 }
 
-// swagger:parameters UpdateUserRequest updateUser
-type UpdateUserRequestWrapper struct {
-
-	// The username of the user
-	//
-	// in: query
-	Username string `json:"username"`
-
-	// in: body
-	Body UpdateUserRequest
-}
-
-func (r *UpdateUserRequest) Validate() url.Values {
+func (r *UpdateUserRequest) Validate(username string) url.Values {
 	errs := url.Values{}
 	// FIXME: password 100 characters
 	// FIXME: name 100 character

@@ -23,12 +23,6 @@ generate:
 	go generate ./...
 	echo "done"
 
-.PHONY swagger
-swagger:
-	mkdir -p ./api
-	swagger generate spec -o ./api/swagger-2.0.yaml
-	swagger validate ./api/swagger-2.0.yaml
-
 .PHONY: test-unit
 test-unit:
 	echo "running unit tests..."

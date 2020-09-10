@@ -9,10 +9,3 @@ type CreateBatCaveDeviceSettingResponse struct {
 	// The deep sleep delay of the device.
 	DeepSleepDelay uint32 `json:"deepSleepDelay"`
 }
-
-// CreateBatCaveSettingResponse is a response when successfully creating a Bat Cave device setting.
-// swagger:response CreateBatCaveDeviceSettingResponse
-type CreateBatCaveDeviceSettingResponseWrapper struct {
-	// in: body
-	Body CreateBatCaveDeviceSettingResponse
-}

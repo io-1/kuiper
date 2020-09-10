@@ -9,10 +9,3 @@ type GetBatCaveDeviceSettingResponse struct {
 	// The deep sleep delay of the device.
 	DeepSleepDelay uint32 `json:"deepSleepDelay"`
 }
-
-// GetBatCaveDeviceSettingResponse is a response when successfully getting a Bat Cave device setting.
-// swagger:response GetBatCaveDeviceSettingResponse
-type GetBatCaveDeviceSettingResponseWrapper struct {
-	// in: body
-	Body GetBatCaveDeviceSettingResponse
-}

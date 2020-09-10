@@ -41,25 +41,7 @@ func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServic
 	return client
 }
 
-// swagger:route POST /api/v1/devices/bc Devices createBatCaveDeviceSetting
-//
 // Create Bat Cave Device Setting
-//
-// Allows a Bat Cave device setting to be created.
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// Schemes: http
-//
-// Responses:
-//  200: CreateBatCaveDeviceSettingResponse
-//  400: description: Unable to bind request.
-//  405: description: Validation error.
-//  500: description: Error with the service.
 func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -96,25 +78,7 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route GET /api/v1/devices/bc/:device_id Devices getBatCaveDeviceSetting
-//
 // Get Bat Cave Device Setting
-//
-// Get a Bat Cave device setting.
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// Schemes: http
-//
-// Responses:
-//  200: GetBatCaveDeviceSettingResponse
-//  204: description: No content.
-//  405: description: Validation error.
-//  500: description: Error with the service.
 func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -125,20 +89,15 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	)
 
 	deviceID := c.Params.ByName("device_id")
+	deviceID = strings.ToLower(deviceID)
 
-	req = request.GetBatCaveDeviceSettingRequest{
-		DeviceID: deviceID,
-	}
-
-	req.DeviceID = strings.ToLower(req.DeviceID)
-
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(deviceID); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	r, err := client.deviceSettingsClient.GetBatCaveDeviceSetting(ctx, &devices_pb.GetBatCaveDeviceSettingRequest{DeviceID: req.DeviceID})
+	r, err := client.deviceSettingsClient.GetBatCaveDeviceSetting(ctx, &devices_pb.GetBatCaveDeviceSettingRequest{DeviceID: deviceID})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
@@ -157,26 +116,7 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route PUT /api/v1/devices/bc/:device_id Devices updateBatCaveDeviceSetting
-//
 // Update Bat Cave Device Setting
-//
-// Update a Bat Cave device setting.
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-//
-// Schemes: http
-//
-// Responses:
-//  200: UpdateBatCaveDeviceSettingResponse
-//  204: description: No content.
-//  400: description: Unable to bind request.
-//  405: description: Validation error.
-//  500: description: Error with the service.
 func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
