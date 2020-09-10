@@ -156,16 +156,17 @@ func (a *GinAuth) UseAuthMiddleware(c *gin.Context) {
 //
 // Allows a user to login.
 //
-//     Consumes:
-//     - application/json
+// Consumes:
+// - application/json
 //
-//     Produces:
-//     - application/json
+// Produces:
+// - application/json
 //
-//     Schemes: http
+// Schemes: http
 //
-//     Responses:
-//       200: LoginResponse
+// Responses:
+//  200: LoginResponse
+//  401: description: Unauthorized.
 func (a *GinAuth) LoginHandler(c *gin.Context) {
 	a.authMiddleware.LoginHandler(c)
 }
@@ -176,19 +177,19 @@ func (a *GinAuth) LoginHandler(c *gin.Context) {
 //
 // Allows a user to logout.
 //
-//     Consumes:
-//     - application/json
+// Consumes:
+// - application/json
 //
-//     Produces:
-//     - application/json
+// Produces:
+// - application/json
 //
-//     Schemes: http
+// Schemes: http
 //
-//	   Security:
-//	   - Bearer: 'JWT'
+// Security:
+// - Bearer: 'JWT'
 //
-//     Responses:
-//       200: LogoutResponse
+// Responses:
+//  200: LogoutResponse
 func (a *GinAuth) LogoutHandler(c *gin.Context) {
 	a.authMiddleware.LogoutHandler(c)
 }
@@ -199,19 +200,20 @@ func (a *GinAuth) LogoutHandler(c *gin.Context) {
 //
 // Refresh a token for a user.
 //
-//     Consumes:
-//     - application/json
+// Consumes:
+// - application/json
 //
-//     Produces:
-//     - application/json
+// Produces:
+// - application/json
 //
-//     Schemes: http
+// Schemes: http
 //
-//	   Security:
-//	   - Bearer: 'JWT'
+// Security:
+// - Bearer: 'JWT'
 //
-//     Responses:
-//       200: description: Token successfully refreshed.
+// Responses:
+//  200: description: Token successfully refreshed.
+//  401: description: Unauthorized.
 func (a *GinAuth) RefreshTokenHandler(c *gin.Context) {
 	a.authMiddleware.RefreshHandler(c)
 }

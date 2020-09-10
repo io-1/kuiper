@@ -199,7 +199,7 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 
 	deviceID = strings.ToLower(deviceID)
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(deviceID); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return

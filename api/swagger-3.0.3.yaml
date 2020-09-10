@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
@@ -7,7 +7,7 @@ paths:
   /api/v1/auth/logout:
     post:
       security:
-        - BearerToken: []
+        - bearerAuth: []
       description: Allows a user to logout.
       operationId: logout
       responses:
@@ -21,7 +21,7 @@ paths:
   /api/v1/auth/refresh_token:
     get:
       security:
-        - BearerToken: []
+        - bearerAuth: []
       description: Refresh a token for a user.
       operationId: refreshToken
       responses:
@@ -40,7 +40,7 @@ paths:
       operationId: createBatCaveDeviceSetting
       requestBody:
         content:
-          application/json:
+          appliction/json:
             schema:
               $ref: "#/components/schemas/CreateBatCaveDeviceSettingRequest"
       responses:
@@ -243,7 +243,7 @@ servers:
   - url: /
 components:
   securitySchemes:
-    BearerToken:            # arbitrary name for the security scheme
+    bearerAuth:            # arbitrary name for the security scheme
       type: http
       scheme: bearer
       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
@@ -532,4 +532,4 @@ components:
       title: UpdateUserResponse is a response that ire returned when a user was
         successfully updated.
       type: object
-      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/responsea

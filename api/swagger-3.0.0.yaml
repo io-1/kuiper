@@ -7,7 +7,7 @@ paths:
   /api/v1/auth/logout:
     post:
       security:
-        - BearerToken: []
+        - bearerAuth: []
       description: Allows a user to logout.
       operationId: logout
       responses:
@@ -21,7 +21,7 @@ paths:
   /api/v1/auth/refresh_token:
     get:
       security:
-        - BearerToken: []
+        - bearerAuth: []
       description: Refresh a token for a user.
       operationId: refreshToken
       responses:
@@ -243,7 +243,7 @@ servers:
   - url: /
 components:
   securitySchemes:
-    BearerToken:            # arbitrary name for the security scheme
+    bearerAuth:            # arbitrary name for the security scheme
       type: http
       scheme: bearer
       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
