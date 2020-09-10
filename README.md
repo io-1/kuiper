@@ -9,6 +9,10 @@ Kuiper is a project built for the collection and interaction of IOT devices.
 1. Clone this repository and `cd` into the directory.
 2. Run `docker-compose up -d` to start the services.
 
+## Docs
+1. Run `docker-compose up -d` to start the services.
+2. View the docs open [http://localhost:9090/docs](http://localhost:9090/docs).
+
 ## Notes
 - [A battery fed MQTT weatherstation](https://arduinodiy.wordpress.com/2018/02/04/a-battery-fed-mqtt-weatherstation/)
 - [Monitoring LiPo battery voltage with Wemos D1 minibattery shield](https://arduinodiy.wordpress.com/2016/12/25/monitoring-lipo-battery-voltage-with-wemos-d1-minibattery-shield-and-thingspeak/)
