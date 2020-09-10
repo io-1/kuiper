@@ -3,6 +3,7 @@ info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
   version: 0.6.0
+
 tags:
   - name: Auth
     description: API used to allow a user to authenicate against Kuiper.
@@ -10,6 +11,11 @@ tags:
     description: API used for users.
   - name: Devices
     description: API to interact with devices.
+
+servers:
+  - url: http://localhost:9090/
+    description: Local server
+
 paths:
   /api/v1/auth/logout:
     post:
@@ -23,8 +29,6 @@ paths:
       summary: Logout
       tags:
         - Auth
-      servers:
-        - url: http:/
   /api/v1/auth/refresh_token:
     get:
       security:
@@ -39,8 +43,6 @@ paths:
       summary: Refresh token
       tags:
         - Auth
-      servers:
-        - url: http:/
   /api/v1/devices/bc:
     post:
       description: Allows a Bat Cave device setting to be created.
@@ -62,8 +64,6 @@ paths:
       summary: Create Bat Cave Device Setting
       tags:
         - Devices
-      servers:
-        - url: http:/
   /api/v1/devices/bc/:device_id:
     get:
       description: Get a Bat Cave device setting.
@@ -73,7 +73,7 @@ paths:
           in: query
           name: deviceID
           x-go-name: DeviceID
-          schem:
+          scheme:
             type: string
       responses:
         "200":
@@ -87,8 +87,6 @@ paths:
       summary: Get Bat Cave Device Setting
       tags:
         - Devices
-      servers:
-        - url: http:/
     put:
       description: Update a Bat Cave device setting.
       operationId: updateBatCaveDeviceSetting
@@ -118,8 +116,6 @@ paths:
       summary: Update Bat Cave Device Setting
       tags:
         - Devices
-      servers:
-        - url: http:/
   /api/v1/login:
     post:
       description: Allows a user to login.
@@ -137,8 +133,6 @@ paths:
       summary: Login
       tags:
         - Auth
-      servers:
-        - url: http:/
   /api/v1/users/:username:
     delete:
       description: Allows a user to be soft deleted.
@@ -164,8 +158,6 @@ paths:
       summary: Delete User
       tags:
         - Users
-      servers:
-        - url: http:/
     get:
       description: Get information about a user.
       operationId: getUser
@@ -190,8 +182,6 @@ paths:
       summary: Get User
       tags:
         - Users
-      servers:
-        - url: http:/
     put:
       description: Updates a user.
       operationId: updateUser
@@ -221,8 +211,6 @@ paths:
       summary: Update User
       tags:
         - Users
-      servers:
-        - url: http:/
   /api/v1/users/create:
     post:
       description: Allows a user to be created.
@@ -244,10 +232,7 @@ paths:
       summary: Create User
       tags:
         - Users
-      servers:
-        - url: http:/
-servers:
-  - url: /
+
 components:
   securitySchemes:
     BearerToken:            # arbitrary name for the security scheme
