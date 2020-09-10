@@ -29,6 +29,12 @@ test-unit:
 	go test -v --tags unit ./...
 	echo "done"
 
+.PHONY: version
+version:
+	echo "setting versions"
+	sed -i 's/version:.*/version: $(VERSION)/g' ./api/swagger.yaml
+	echo "done"
+
 # .PHONY: test-integration
 # test-integration: build-test start-test wait-test run-test wait-test stop-test
 

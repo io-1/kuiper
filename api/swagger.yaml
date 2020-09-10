@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
-  version: 0.5.9
+  version: 0.6.0
 paths:
   /api/v1/auth/logout:
     post:
