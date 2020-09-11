@@ -64,15 +64,15 @@ paths:
       summary: Create Bat Cave Device Setting
       tags:
         - Devices
-  /api/v1/devices/bc/:device_id:
+  /api/v1/devices/bc/:id:
     get:
       description: Get a Bat Cave device setting.
       operationId: getBatCaveDeviceSetting
       parameters:
-        - description: The deviceID of the device
+        - description: The id of the device
           in: query
-          name: deviceID
-          x-go-name: DeviceID
+          name: id
+          x-go-name: ID  
           schema:
             type: string
       responses:
@@ -91,10 +91,10 @@ paths:
       description: Update a Bat Cave device setting.
       operationId: updateBatCaveDeviceSetting
       parameters:
-        - description: The deviceID of the device
+        - description: The id of the device
           in: query
-          name: deviceID
-          x-go-name: DeviceID
+          name: id
+          x-go-name: ID 
           schema:
             type: string
       requestBody:
@@ -307,10 +307,10 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The deviceID of the device
+        mac:
+          description: The mac of the device
           type: string
-          x-go-name: DeviceID
+          x-go-name: Mac
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/request
     CreateBatCaveDeviceSettingResponse:
@@ -320,10 +320,14 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The device ID of the device.
+        id:
+          description: The id of the device.
           type: string
-          x-go-name: DeviceID
+          x-go-name: ID
+        mac:
+          description: The mac of the device.
+          type: string
+          x-go-name: Mac 
       title: CreateBatCaveSettingResponse is a response when successfully creating a
         Bat Cave device setting.
       type: object
@@ -388,10 +392,10 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The device ID of the device.
+        id:
+          description: The id of the device.
           type: string
-          x-go-name: DeviceID
+          x-go-name: ID 
       title: GetBatCaveDeviceSettingResponse is a response when successfully getting
         a Bat Cave device setting.
       type: object
@@ -478,10 +482,10 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The device ID of the device.
+        id:
+          description: The id of the device.
           type: string
-          x-go-name: DeviceID
+          x-go-name: ID 
       title: UpdateBatCaveDviceSettingResonse is the response when successfully
         updated a Bat Cave device setting.
       type: object

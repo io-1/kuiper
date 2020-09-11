@@ -73,8 +73,8 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	deviceGroup := v1.Group("/devices")
 	{
 		deviceGroup.POST("/bc", g.devicesClient.CreateBatCaveDeviceSetting)
-		deviceGroup.GET("/bc/:device_id", g.devicesClient.GetBatCaveDeviceSetting)
-		deviceGroup.PUT("/bc/:device_id", g.devicesClient.UpdateBatCaveDeviceSetting)
+		deviceGroup.GET("/bc/:id", g.devicesClient.GetBatCaveDeviceSetting)
+		deviceGroup.PUT("/bc/:id", g.devicesClient.UpdateBatCaveDeviceSetting)
 	}
 
 	usersGroup := v1.Group("/users")
