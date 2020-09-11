@@ -5,8 +5,8 @@ import "net/url"
 // Request used to get a user
 type GetUserRequest struct{}
 
-func (r *GetUserRequest) Validate(username string) url.Values {
+func (r *GetUserRequest) Validate(id string) url.Values {
 	errs := url.Values{}
-	// FIXME: username 50 characters
+	// FIXME: uuids are in the form 8-4-4-4-12 for a total of 36 characters
 	return errs
 }

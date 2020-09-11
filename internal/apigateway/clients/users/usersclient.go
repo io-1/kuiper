@@ -2,6 +2,8 @@ package users
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -84,7 +86,7 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// swagger:route GET /api/v1/users/:username Users getUser
+// Get a user
 func (client *UsersClient) GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -94,21 +96,21 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 		res response.GetUserResponse
 	)
 
-	username := c.Params.ByName("username")
+	id := c.Params.ByName("id")
 
-	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
-	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: username})
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	if r.Username == "" {
+	if r.ID == "" {
 		c.JSON(http.StatusNoContent, res)
 		return
 	}
@@ -123,27 +125,24 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResponse, error) {
+func (client *UsersClient) GetUserByUsername(username string) (*response.GetUserByUsernameResponse, error) {
 	var (
-		res response.UserLoginResponse
+		req request.GetUserByUsernameRequest
+		res *response.GetUserByUsernameResponse
 		ctx = context.Background()
 	)
 
-	// req = request.GetUserRequest{
-	// 	Username: username,
-	// }
-
-	// if validationErrors := req.Validate(); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// return "", validationErrors
-	// }
-
-	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: username})
-	if err != nil {
-		return response.UserLoginResponse{}, err
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		return &response.GetUserByUsernameResponse{}, errors.New(fmt.Sprintf("%v", err))
 	}
 
-	res = response.UserLoginResponse{
+	r, err := client.usersClient.GetUserByUsername(ctx, &users_pb.GetUserByUsernameRequest{Username: username})
+	if err != nil {
+		return &response.GetUserByUsernameResponse{}, err
+	}
+
+	res = &response.GetUserByUsernameResponse{
 		ID:       r.ID,
 		Username: r.Username,
 		Password: r.Password,
@@ -169,17 +168,18 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	username := c.Params.ByName("username")
+	// username := c.Params.ByName("username")
+	id := c.Params.ByName("id")
 
-	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	r, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
-		ID:       req.ID,
-		Username: username,
+		ID:       id,
+		Username: req.Username,
 		Name:     req.Name,
 		Email:    req.Email,
 	})
@@ -188,7 +188,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	if r.Username == "" {
+	if r.ID == "" {
 		c.JSON(http.StatusNoContent, res)
 		return
 	}
@@ -213,29 +213,30 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 		res response.DeleteUserResponse
 	)
 
-	username := c.Params.ByName("username")
+	// username := c.Params.ByName("username")
+	id := c.Params.ByName("id")
 
-	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	r, err := client.usersClient.DeleteUser(ctx, &users_pb.DeleteUserRequest{
-		Username: username,
+		ID: id,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	if r.Username == "" {
+	if r.ID == "" {
 		c.JSON(http.StatusNoContent, res)
 		return
 	}
 
 	res = response.DeleteUserResponse{
-		Username: r.Username,
+		ID: r.ID,
 	}
 
 	c.JSON(http.StatusOK, res)

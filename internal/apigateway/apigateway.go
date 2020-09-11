@@ -80,9 +80,9 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	usersGroup := v1.Group("/users")
 	{
 		usersGroup.POST("/create", g.usersClient.CreateUser)
-		usersGroup.GET("/:username", g.usersClient.GetUser)
-		usersGroup.PUT("/:username", g.usersClient.UpdateUser)
-		usersGroup.DELETE("/:username", g.usersClient.DeleteUser)
+		usersGroup.GET("/:id", g.usersClient.GetUser)
+		usersGroup.PUT("/:id", g.usersClient.UpdateUser)
+		usersGroup.DELETE("/:id", g.usersClient.DeleteUser)
 	}
 
 	r.NoRoute(g.ginAuth.UseAuthMiddleware, func(c *gin.Context) {

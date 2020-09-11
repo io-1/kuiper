@@ -1,6 +1,7 @@
 package ginauth
 
 import (
+	"errors"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -63,13 +64,14 @@ func NewGinAuth(u *users.UsersClient) (*GinAuth, error) {
 			}
 
 			// get the user
-			res, err := u.GetUserLogin(req.Username)
+			res, err := u.GetUserByUsername(req.Username)
 			if err != nil {
 				return nil, err
 			}
 
 			if res.Username == "" {
-				return nil, jwt.ErrMissingLoginValues
+				// return nil, jwt.ErrMissingLoginValues
+				return nil, errors.New("user does not exist")
 			}
 
 			// check if password is valid with bcrypt

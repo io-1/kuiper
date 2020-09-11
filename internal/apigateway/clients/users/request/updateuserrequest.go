@@ -5,8 +5,8 @@ import "net/url"
 // The request used to update a user
 type UpdateUserRequest struct {
 
-	// The ID of the user being updated
-	ID string `json:"id" binding:"required"`
+	// The username of the user to update
+	Username string `json:"username" binding:"required"`
 
 	// The name of the user to update
 	Name string `json:"name" binding:"required"`
@@ -15,10 +15,11 @@ type UpdateUserRequest struct {
 	Email string `json:"email" binding:"required"`
 }
 
-func (r *UpdateUserRequest) Validate(username string) url.Values {
+func (r *UpdateUserRequest) Validate(id string) url.Values {
 	errs := url.Values{}
-	// FIXME: password 100 characters
+	// FIXME: uuids are in the form 8-4-4-4-12 for a total of 36 characters
+	// FIXME: username 50 character
 	// FIXME: name 100 character
-	// FIXME: password 100 characters
+	// FIXME: check email
 	return errs
 }

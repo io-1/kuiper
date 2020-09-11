@@ -1,6 +1,6 @@
 package response
 
-type UserLoginResponse struct {
+type GetUserByUsernameResponse struct {
 	ID       string
 	Username string
 	Password string
