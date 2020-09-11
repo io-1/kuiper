@@ -26,37 +26,39 @@ func (s *DevicesServer) CreateBatCaveDeviceSetting(ctx context.Context, req *dev
 
 	setting := persistence.BatCaveDeviceSetting{
 		ID:             id,
-		DeviceID:       req.DeviceID,
+		Mac:            req.Mac,
 		DeepSleepDelay: req.DeepSleepDelay,
 	}
 
 	s.persistence.CreateBatCaveDeviceSetting(setting)
 
 	return &devices_pb.CreateBatCaveDeviceSettingResponse{
-		DeviceID:       req.DeviceID,
-		DeepSleepDelay: req.DeepSleepDelay,
+		ID:             setting.ID,
+		Mac:            setting.Mac,
+		DeepSleepDelay: setting.DeepSleepDelay,
+	}, nil
+}
+
+func (s *DevicesServer) GetBatCaveDeviceSetting(ctx context.Context, req *devices_pb.GetBatCaveDeviceSettingRequest) (*devices_pb.GetBatCaveDeviceSettingResponse, error) {
+	_, setting := s.persistence.GetBatCaveDeviceSetting(req.ID)
+
+	return &devices_pb.GetBatCaveDeviceSettingResponse{
+		ID:             setting.ID,
+		Mac:            setting.Mac,
+		DeepSleepDelay: setting.DeepSleepDelay,
 	}, nil
 }
 
 func (s *DevicesServer) UpdateBatCaveDeviceSetting(ctx context.Context, req *devices_pb.UpdateBatCaveDeviceSettingRequest) (*devices_pb.UpdateBatCaveDeviceSettingResponse, error) {
 	setting := persistence.BatCaveDeviceSetting{
-		DeviceID:       req.DeviceID,
+		ID:             req.ID,
 		DeepSleepDelay: req.DeepSleepDelay,
 	}
 
 	s.persistence.UpdateBatCaveDeviceSetting(setting)
 
 	return &devices_pb.UpdateBatCaveDeviceSettingResponse{
-		DeviceID:       setting.DeviceID,
-		DeepSleepDelay: setting.DeepSleepDelay,
-	}, nil
-}
-
-func (s *DevicesServer) GetBatCaveDeviceSetting(ctx context.Context, req *devices_pb.GetBatCaveDeviceSettingRequest) (*devices_pb.GetBatCaveDeviceSettingResponse, error) {
-	_, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
-
-	return &devices_pb.GetBatCaveDeviceSettingResponse{
-		DeviceID:       setting.DeviceID,
+		ID:             setting.ID,
 		DeepSleepDelay: setting.DeepSleepDelay,
 	}, nil
 }

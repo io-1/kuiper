@@ -4,7 +4,7 @@ import "time"
 
 type BatCaveDeviceSetting struct {
 	ID             string `grom:"primary_key"`
-	DeviceID       string `grom:"unique"`
+	Mac            string `grom:"unique"`
 	DeepSleepDelay uint32
 	CreatedAt      *time.Time `gorm:"index" json:"created_at"`
 	UpdatedAt      *time.Time `gorm:"index" json:"updated_at"`
@@ -12,7 +12,7 @@ type BatCaveDeviceSetting struct {
 }
 
 func (s BatCaveDeviceSetting) Equal(ss BatCaveDeviceSetting) bool {
-	if s.DeviceID != ss.DeviceID {
+	if s.Mac != ss.Mac {
 		return false
 	}
 

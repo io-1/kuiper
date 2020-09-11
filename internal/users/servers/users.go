@@ -100,6 +100,6 @@ func (s *UsersServer) DeleteUser(ctx context.Context, req *users_pb.DeleteUserRe
 	s.persistence.DeleteUser(user)
 
 	return &users_pb.DeleteUserResponse{
-		ID: req.ID,
+		ID: user.ID,
 	}, nil
 }

@@ -7,7 +7,7 @@ import (
 )
 
 type BatCaveDeviceSettingRequest struct {
-	DeviceID       string `json:"m"`
+	Mac            string `json:"m"`
 	DeepSleepDelay uint32 `json:"s"`
 }
 

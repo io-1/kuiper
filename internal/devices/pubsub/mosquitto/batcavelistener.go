@@ -34,14 +34,14 @@ func (p MosquittoPubSub) BatCaveDeviceSettingsListenerMessageHandler(client mqtt
 	}
 
 	// get the settings
-	recordNotFound, settingInPersistence := p.persistence.GetBatCaveDeviceSetting(req.DeviceID)
+	recordNotFound, settingInPersistence := p.persistence.GetBatCaveDeviceSettingByMac(req.Mac)
 	if recordNotFound {
 
 		// send back default values
 		res = response.GetBatCaveDeviceSettingDefault()
 
 		newSetting := persistence.BatCaveDeviceSetting{
-			DeviceID:       req.DeviceID,
+			Mac:            req.Mac,
 			DeepSleepDelay: res.DeepSleepDelay,
 		}
 
@@ -68,7 +68,7 @@ func (p MosquittoPubSub) BatCaveDeviceSettingsListenerMessageHandler(client mqtt
 	}
 
 	// send back to the device the new settings
-	deviceTopic := fmt.Sprintf("devices/%s", req.DeviceID)
+	deviceTopic := fmt.Sprintf("devices/%s", req.Mac)
 	p.logger.Infof("Sending message %s to %s", json, deviceTopic)
 	token := client.Publish(deviceTopic, 0, false, json)
 	token.WaitTimeout(ONE_MINUTE)
