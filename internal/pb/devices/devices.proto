@@ -5,31 +5,33 @@ option go_package = ".;devices_pb";
 package devices_pb;
 
 message CreateBatCaveDeviceSettingRequest {
-    string DeviceID = 1;
+    string Mac = 1;
     uint32 DeepSleepDelay = 2;
 }
 
 message CreateBatCaveDeviceSettingResponse {
-    string DeviceID = 1;
-    uint32 DeepSleepDelay = 2;
+    string ID = 1;
+    string Mac = 2;
+    uint32 DeepSleepDelay = 3;
 }
 
 message GetBatCaveDeviceSettingRequest {
-    string DeviceID = 1;
+    string ID = 1;
 }
 
 message GetBatCaveDeviceSettingResponse {
-    string DeviceID = 1;
-    uint32 DeepSleepDelay = 2;
+    string ID = 1;
+    string Mac = 2;
+    uint32 DeepSleepDelay = 3;
 }
 
 message UpdateBatCaveDeviceSettingRequest {
-    string DeviceID = 1;
+    string ID = 1;
     uint32 DeepSleepDelay = 2;
 }
 
 message UpdateBatCaveDeviceSettingResponse {
-    string DeviceID = 1;
+    string ID = 1;
     uint32 DeepSleepDelay = 2;
 }
 

@@ -3,6 +3,19 @@ info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
   version: 0.6.0
+
+tags:
+  - name: Auth
+    description: API used to allow a user to authenicate against Kuiper.
+  - name: Users
+    description: API used for users.
+  - name: Devices
+    description: API to interact with devices.
+
+servers:
+  - url: http://localhost:9090/
+    description: Local server
+
 paths:
   /api/v1/auth/logout:
     post:
@@ -16,8 +29,6 @@ paths:
       summary: Logout
       tags:
         - Auth
-      servers:
-        - url: http:/
   /api/v1/auth/refresh_token:
     get:
       security:
@@ -32,8 +43,6 @@ paths:
       summary: Refresh token
       tags:
         - Auth
-      servers:
-        - url: http:/
   /api/v1/devices/bc:
     post:
       description: Allows a Bat Cave device setting to be created.
@@ -55,17 +64,15 @@ paths:
       summary: Create Bat Cave Device Setting
       tags:
         - Devices
-      servers:
-        - url: http:/
-  /api/v1/devices/bc/:device_id:
+  /api/v1/devices/bc/:id:
     get:
       description: Get a Bat Cave device setting.
       operationId: getBatCaveDeviceSetting
       parameters:
-        - description: The deviceID of the user
+        - description: The id of the device
           in: query
-          name: deviceID
-          x-go-name: DeviceID
+          name: id
+          x-go-name: ID  
           schema:
             type: string
       responses:
@@ -80,16 +87,14 @@ paths:
       summary: Get Bat Cave Device Setting
       tags:
         - Devices
-      servers:
-        - url: http:/
     put:
       description: Update a Bat Cave device setting.
       operationId: updateBatCaveDeviceSetting
       parameters:
-        - description: The deviceID of the device
+        - description: The id of the device
           in: query
-          name: deviceID
-          x-go-name: DeviceID
+          name: id
+          x-go-name: ID 
           schema:
             type: string
       requestBody:
@@ -111,8 +116,6 @@ paths:
       summary: Update Bat Cave Device Setting
       tags:
         - Devices
-      servers:
-        - url: http:/
   /api/v1/login:
     post:
       description: Allows a user to login.
@@ -130,17 +133,15 @@ paths:
       summary: Login
       tags:
         - Auth
-      servers:
-        - url: http:/
-  /api/v1/users/:username:
+  /api/v1/users/:id:
     delete:
       description: Allows a user to be soft deleted.
       operationId: deleteUser
       parameters:
-        - description: The username of the user
+        - description: The id of the user
           in: query
-          name: username
-          x-go-name: Username
+          name: id
+          x-go-name: ID 
           schema:
             type: string
       responses:
@@ -157,16 +158,14 @@ paths:
       summary: Delete User
       tags:
         - Users
-      servers:
-        - url: http:/
     get:
       description: Get information about a user.
       operationId: getUser
       parameters:
-        - description: The username of the user
+        - description: The id of the user
           in: query
-          name: username
-          x-go-name: Username
+          name: id 
+          x-go-name: ID 
           schema:
             type: string
       responses:
@@ -183,16 +182,14 @@ paths:
       summary: Get User
       tags:
         - Users
-      servers:
-        - url: http:/
     put:
       description: Updates a user.
       operationId: updateUser
       parameters:
-        - description: The username of the user
+        - description: The id of the user
           in: query
-          name: username
-          x-go-name: Username
+          name: id 
+          x-go-name: ID 
           schema:
             type: string
       requestBody:
@@ -214,8 +211,6 @@ paths:
       summary: Update User
       tags:
         - Users
-      servers:
-        - url: http:/
   /api/v1/users/create:
     post:
       description: Allows a user to be created.
@@ -237,10 +232,7 @@ paths:
       summary: Create User
       tags:
         - Users
-      servers:
-        - url: http:/
-servers:
-  - url: /
+
 components:
   securitySchemes:
     BearerToken:            # arbitrary name for the security scheme
@@ -315,10 +307,10 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The deviceID of the device
+        mac:
+          description: The mac of the device
           type: string
-          x-go-name: DeviceID
+          x-go-name: Mac
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/request
     CreateBatCaveDeviceSettingResponse:
@@ -328,10 +320,14 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The device ID of the device.
+        id:
+          description: The id of the device.
           type: string
-          x-go-name: DeviceID
+          x-go-name: ID
+        mac:
+          description: The mac of the device.
+          type: string
+          x-go-name: Mac 
       title: CreateBatCaveSettingResponse is a response when successfully creating a
         Bat Cave device setting.
       type: object
@@ -343,14 +339,14 @@ components:
           description: The email of the user
           type: string
           x-go-name: Email
+        password:
+          description: The password for the user
+          type: string
+          x-go-name: ID
         name:
           description: The name of the uesr
           type: string
           x-go-name: Name
-        password:
-          description: The password for the user
-          type: string
-          x-go-name: Password
         username:
           description: The username for the user
           type: string
@@ -381,10 +377,10 @@ components:
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
     DeleteUserResponse:
       properties:
-        username:
-          description: The username of the user that was deleted.
+        id:
+          description: The id of the user that was deleted.
           type: string
-          x-go-name: Username
+          x-go-name: ID
       title: DeleteUserResponse is a response when a user has been successfully
         deleted.
       type: object
@@ -396,10 +392,10 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The device ID of the device.
+        id:
+          description: The id of the device.
           type: string
-          x-go-name: DeviceID
+          x-go-name: ID 
       title: GetBatCaveDeviceSettingResponse is a response when successfully getting
         a Bat Cave device setting.
       type: object
@@ -411,7 +407,7 @@ components:
           type: string
           x-go-name: Email
         id:
-          description: The ID of the user.
+          description: The id of the user.
           type: string
           x-go-name: ID
         name:
@@ -450,7 +446,7 @@ components:
           type: string
           x-go-name: Expires
         id:
-          description: The ID of the login user
+          description: The id of the login user
           type: string
           x-go-name: ID
         name:
@@ -486,10 +482,10 @@ components:
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
-        deviceID:
-          description: The device ID of the device.
+        id:
+          description: The id of the device.
           type: string
-          x-go-name: DeviceID
+          x-go-name: ID 
       title: UpdateBatCaveDviceSettingResonse is the response when successfully
         updated a Bat Cave device setting.
       type: object
@@ -501,14 +497,14 @@ components:
           description: The email of the user to update
           type: string
           x-go-name: Email
-        id:
-          description: The ID of the user being updated
-          type: string
-          x-go-name: ID
         name:
           description: The name of the user to update
           type: string
           x-go-name: Name
+        username:
+          description: The username of the user being updated
+          type: string
+          x-go-name: username 
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
     UpdateUserResponse:
@@ -518,7 +514,7 @@ components:
           type: string
           x-go-name: Email
         id:
-          description: The ID of the user that is being updated.
+          description: The id of the user that is being updated.
           type: string
           x-go-name: ID
         name:
@@ -533,3 +529,4 @@ components:
         successfully updated.
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+

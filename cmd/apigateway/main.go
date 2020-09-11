@@ -1,27 +1,3 @@
-// Package users Kuiper API
-//
-// Documentation of the Kuiper API.
-//
-//     Schemes: http
-//     BasePath: /
-//     Version: 0.5.9
-//
-//     Consumes:
-//     - application/json
-//
-//     Produces:
-//     - application/json
-//
-//     Security:
-//     - api_key:
-//
-//     SecurityDefinitions:
-//     Bearer:
-//          type: apiKey
-//          name: Authorization
-//          in: header
-//
-// swagger:meta
 package main
 
 import (

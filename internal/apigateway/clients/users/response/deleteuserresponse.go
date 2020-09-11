@@ -5,5 +5,5 @@ package response
 type DeleteUserResponse struct {
 
 	// The username of the user that was deleted.
-	Username string `json:"username"`
+	ID string `json:"id"`
 }

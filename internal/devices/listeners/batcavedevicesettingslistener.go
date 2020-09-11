@@ -34,14 +34,14 @@ func (e *DeviceSettingsListenersEnv) BatCaveDeviceSettingsListenerMessageHandler
 	}
 
 	// get the settings
-	recordNotFound, settingInPersistence := e.persistence.GetBatCaveDeviceSetting(req.DeviceID)
+	recordNotFound, settingInPersistence := e.persistence.GetBatCaveDeviceSettingByMac(req.Mac)
 	if recordNotFound {
 
 		// send back default values
 		res = response.GetBatCaveDeviceSettingDefault()
 
 		newSetting := persistence.BatCaveDeviceSetting{
-			DeviceID:       req.DeviceID,
+			Mac:            req.Mac,
 			DeepSleepDelay: res.DeepSleepDelay,
 		}
 
@@ -68,7 +68,7 @@ func (e *DeviceSettingsListenersEnv) BatCaveDeviceSettingsListenerMessageHandler
 	}
 
 	// send back to the device the new settings
-	deviceTopic := fmt.Sprintf("devices/%s", req.DeviceID)
+	deviceTopic := fmt.Sprintf("devices/%s", req.Mac)
 	e.logger.Infof("Sending message %s to %s", json, deviceTopic)
 	token := client.Publish(deviceTopic, 0, false, json)
 	token.WaitTimeout(ONE_MINUTE)
