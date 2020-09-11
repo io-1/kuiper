@@ -133,15 +133,15 @@ paths:
       summary: Login
       tags:
         - Auth
-  /api/v1/users/:username:
+  /api/v1/users/:id:
     delete:
       description: Allows a user to be soft deleted.
       operationId: deleteUser
       parameters:
-        - description: The username of the user
+        - description: The id of the user
           in: query
-          name: username
-          x-go-name: Username
+          name: id
+          x-go-name: ID 
           schema:
             type: string
       responses:
@@ -162,10 +162,10 @@ paths:
       description: Get information about a user.
       operationId: getUser
       parameters:
-        - description: The username of the user
+        - description: The id of the user
           in: query
-          name: username
-          x-go-name: Username
+          name: id 
+          x-go-name: ID 
           schema:
             type: string
       responses:
@@ -186,10 +186,10 @@ paths:
       description: Updates a user.
       operationId: updateUser
       parameters:
-        - description: The username of the user
+        - description: The id of the user
           in: query
-          name: username
-          x-go-name: Username
+          name: id 
+          x-go-name: ID 
           schema:
             type: string
       requestBody:
@@ -335,14 +335,14 @@ components:
           description: The email of the user
           type: string
           x-go-name: Email
+        password:
+          description: The password for the user
+          type: string
+          x-go-name: ID
         name:
           description: The name of the uesr
           type: string
           x-go-name: Name
-        password:
-          description: The password for the user
-          type: string
-          x-go-name: Password
         username:
           description: The username for the user
           type: string
@@ -373,10 +373,10 @@ components:
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
     DeleteUserResponse:
       properties:
-        username:
-          description: The username of the user that was deleted.
+        id:
+          description: The id of the user that was deleted.
           type: string
-          x-go-name: Username
+          x-go-name: ID
       title: DeleteUserResponse is a response when a user has been successfully
         deleted.
       type: object
@@ -403,7 +403,7 @@ components:
           type: string
           x-go-name: Email
         id:
-          description: The ID of the user.
+          description: The id of the user.
           type: string
           x-go-name: ID
         name:
@@ -442,7 +442,7 @@ components:
           type: string
           x-go-name: Expires
         id:
-          description: The ID of the login user
+          description: The id of the login user
           type: string
           x-go-name: ID
         name:
@@ -493,14 +493,14 @@ components:
           description: The email of the user to update
           type: string
           x-go-name: Email
-        id:
-          description: The ID of the user being updated
-          type: string
-          x-go-name: ID
         name:
           description: The name of the user to update
           type: string
           x-go-name: Name
+        username:
+          description: The username of the user being updated
+          type: string
+          x-go-name: username 
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
     UpdateUserResponse:
@@ -510,7 +510,7 @@ components:
           type: string
           x-go-name: Email
         id:
-          description: The ID of the user that is being updated.
+          description: The id of the user that is being updated.
           type: string
           x-go-name: ID
         name:
