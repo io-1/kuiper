@@ -5,16 +5,18 @@ import (
 	"regexp"
 )
 
-type UpdateBatCaveSettingRequest struct {
-	DeviceID       string `json:"-"`
+// The request used to update a Bat Cave device setting
+type UpdateBatCaveDeviceSettingRequest struct {
+
+	// The deep sleep delay of the device
 	DeepSleepDelay uint32 `json:"deepSleepDelay" binding:"required"`
 }
 
-func (r *UpdateBatCaveSettingRequest) Validate() url.Values {
+func (r *UpdateBatCaveDeviceSettingRequest) Validate(deviceID string) url.Values {
 	errs := url.Values{}
 
 	regex, _ := regexp.Compile("^[a-f0-9]{12}$")
-	isMacAddress := regex.MatchString(r.DeviceID)
+	isMacAddress := regex.MatchString(deviceID)
 	if !isMacAddress {
 		errs.Add("deviceID", "The deviceID field needs to be a valid mac!")
 	}

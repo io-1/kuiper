@@ -1,3 +1,27 @@
+// Package users Kuiper API
+//
+// Documentation of the Kuiper API.
+//
+//     Schemes: http
+//     BasePath: /
+//     Version: 0.5.9
+//
+//     Consumes:
+//     - application/json
+//
+//     Produces:
+//     - application/json
+//
+//     Security:
+//     - api_key:
+//
+//     SecurityDefinitions:
+//     Bearer:
+//          type: apiKey
+//          name: Authorization
+//          in: header
+//
+// swagger:meta
 package main
 
 import (
@@ -5,16 +29,13 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/apigateway"
+	"github.com/io-1/kuiper/internal/apigateway"
 
-	"github.com/n7down/kuiper/internal/apigateway/auth/ginauth"
-	devices "github.com/n7down/kuiper/internal/apigateway/clients/devices"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users"
+	ginauth "github.com/io-1/kuiper/internal/apigateway/auth/ginauth"
+	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
+	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
 	log "github.com/sirupsen/logrus"
 )
-
-func init() {
-}
 
 func main() {
 	log.SetReportCaller(true)
@@ -22,6 +43,7 @@ func main() {
 	port := os.Getenv("PORT")
 	devicesHost := os.Getenv("DEVICES_HOST")
 	usersHost := os.Getenv("USERS_HOST")
+	env := os.Getenv("ENV")
 
 	devicesClient, err := devices.NewDevicesClient(devicesHost)
 	if err != nil {
@@ -33,13 +55,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ginAuth := ginauth.NewGinAuth(usersClient)
-	authMiddleware, err := ginAuth.GetAuthMiddleware()
+	ginAuth, err := ginauth.NewGinAuth(usersClient)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	apiGateway := apigateway.NewAPIGateway(authMiddleware, devicesClient, usersClient)
+	apiGateway := apigateway.NewAPIGateway(env, ginAuth, devicesClient, usersClient)
 	router := gin.Default()
 
 	err = apiGateway.InitV1Routes(router)

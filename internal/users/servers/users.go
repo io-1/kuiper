@@ -5,10 +5,10 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/n7down/kuiper/internal/users/persistence"
-	"github.com/n7down/kuiper/internal/utils"
+	"github.com/io-1/kuiper/internal/users/persistence"
+	"github.com/io-1/kuiper/internal/utils"
 
-	users_pb "github.com/n7down/kuiper/internal/pb/users"
+	users_pb "github.com/io-1/kuiper/internal/pb/users"
 )
 
 type UsersServer struct {

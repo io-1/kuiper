@@ -4,10 +4,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/apigateway/auth/request"
-	"github.com/n7down/kuiper/internal/apigateway/auth/response"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users"
-	"github.com/n7down/kuiper/internal/utils"
+	"github.com/io-1/kuiper/internal/apigateway/auth/request"
+	"github.com/io-1/kuiper/internal/apigateway/auth/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/users"
+	"github.com/io-1/kuiper/internal/utils"
 
 	jwt "github.com/appleboy/gin-jwt"
 )
@@ -21,16 +21,11 @@ var (
 )
 
 type GinAuth struct {
-	usersClient *users.UsersClient
+	usersClient    *users.UsersClient
+	authMiddleware *jwt.GinJWTMiddleware
 }
 
-func NewGinAuth(u *users.UsersClient) *GinAuth {
-	return &GinAuth{
-		usersClient: u,
-	}
-}
-
-func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
+func NewGinAuth(u *users.UsersClient) (*GinAuth, error) {
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "dev",
 		Key:         []byte("43deio1"),
@@ -68,7 +63,7 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 			}
 
 			// get the user
-			res, err := a.usersClient.GetUserLogin(req.Username)
+			res, err := u.GetUserLogin(req.Username)
 			if err != nil {
 				return nil, err
 			}
@@ -115,7 +110,7 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 			c.JSON(statusCode, loginResponse)
 		},
 		LogoutResponse: func(c *gin.Context, statusCode int) {
-			c.Status(statusCode)
+			c.JSON(statusCode, response.LogoutResponse{})
 		},
 		// TokenLookup is a string in the form of "<source>:<name>" that is used
 		// to extract token from the request.
@@ -137,13 +132,32 @@ func (a *GinAuth) GetAuthMiddleware() (*jwt.GinJWTMiddleware, error) {
 	})
 
 	if err != nil {
-		return authMiddleware, err
+		return &GinAuth{}, err
 	}
 
 	err = authMiddleware.MiddlewareInit()
 	if err != nil {
-		return authMiddleware, err
+		return &GinAuth{}, err
 	}
 
-	return authMiddleware, nil
+	return &GinAuth{
+		authMiddleware: authMiddleware,
+		usersClient:    u,
+	}, nil
+}
+
+func (a *GinAuth) UseAuthMiddleware(c *gin.Context) {
+	a.authMiddleware.MiddlewareFunc()
+}
+
+func (a *GinAuth) LoginHandler(c *gin.Context) {
+	a.authMiddleware.LoginHandler(c)
+}
+
+func (a *GinAuth) LogoutHandler(c *gin.Context) {
+	a.authMiddleware.LogoutHandler(c)
+}
+
+func (a *GinAuth) RefreshTokenHandler(c *gin.Context) {
+	a.authMiddleware.RefreshHandler(c)
 }

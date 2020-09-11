@@ -8,10 +8,10 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/gin-gonic/gin"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users/request"
-	"github.com/n7down/kuiper/internal/apigateway/clients/users/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/users/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/users/response"
 
-	users_pb "github.com/n7down/kuiper/internal/pb/users"
+	users_pb "github.com/io-1/kuiper/internal/pb/users"
 )
 
 const (
@@ -41,8 +41,9 @@ func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClien
 	return client
 }
 
-// FIXME: switch to ID from username
+// Create User
 func (client *UsersClient) CreateUser(c *gin.Context) {
+
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -58,7 +59,7 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 
 	if validationErrors := req.Validate(); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
@@ -83,7 +84,7 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// FIXME: switch to ID from username
+// swagger:route GET /api/v1/users/:username Users getUser
 func (client *UsersClient) GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -95,17 +96,13 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 
 	username := c.Params.ByName("username")
 
-	req = request.GetUserRequest{
-		Username: username,
-	}
-
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
-	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: req.Username})
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{Username: username})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
@@ -119,7 +116,6 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 	res = response.GetUserResponse{
 		ID:       r.ID,
 		Username: r.Username,
-		Password: r.Password,
 		Name:     r.Name,
 		Email:    r.Email,
 	}
@@ -158,7 +154,7 @@ func (client *UsersClient) GetUserLogin(username string) (response.UserLoginResp
 	return res, nil
 }
 
-// FIXME: switch to ID from username
+// Update User
 func (client *UsersClient) UpdateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -174,18 +170,16 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	}
 
 	username := c.Params.ByName("username")
-	req.Username = username
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	r, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
 		ID:       req.ID,
-		Username: req.Username,
-		Password: req.Password,
+		Username: username,
 		Name:     req.Name,
 		Email:    req.Email,
 	})
@@ -209,7 +203,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// FIXME: switch to ID from username
+// Delete User
 func (client *UsersClient) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -221,13 +215,9 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 
 	username := c.Params.ByName("username")
 
-	req = request.DeleteUserRequest{
-		Username: username,
-	}
-
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 

@@ -3,7 +3,8 @@ package persistence
 import "time"
 
 type BatCaveDeviceSetting struct {
-	DeviceID       string `gorm:"primary_key"`
+	ID             string `grom:"primary_key"`
+	DeviceID       string `grom:"unique"`
 	DeepSleepDelay uint32
 	CreatedAt      *time.Time `gorm:"index" json:"created_at"`
 	UpdatedAt      *time.Time `gorm:"index" json:"updated_at"`

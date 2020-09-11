@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/n7down/kuiper/internal/devices/persistence"
+	"github.com/io-1/kuiper/internal/devices/persistence"
 	"github.com/stretchr/testify/assert"
 )
 

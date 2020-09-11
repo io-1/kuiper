@@ -8,7 +8,7 @@ import (
 	"net/url"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
+	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
 func (p MosquittoPubSub) NewDHT22Listener(ctx context.Context, listenerName string, subscription string) error {

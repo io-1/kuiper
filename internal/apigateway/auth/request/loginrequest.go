@@ -2,8 +2,13 @@ package request
 
 import "net/url"
 
+// LoginRequest is the request for login.
 type LoginRequest struct {
+
+	// The username for the user
 	Username string `json:"username" binding:"required"`
+
+	// The password for the user
 	Password string `json:"password" binding:"required"`
 }
 

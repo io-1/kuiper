@@ -8,14 +8,14 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/n7down/kuiper/internal/logger"
-	"github.com/n7down/kuiper/internal/logger/logruslogger"
-	"github.com/n7down/kuiper/internal/sensors/persistence/influxpersistence"
-	"github.com/n7down/kuiper/internal/sensors/pubsub/mosquitto"
+	"github.com/io-1/kuiper/internal/logger"
+	"github.com/io-1/kuiper/internal/logger/logruslogger"
+	"github.com/io-1/kuiper/internal/sensors/persistence/influxpersistence"
+	"github.com/io-1/kuiper/internal/sensors/pubsub/mosquitto"
 	"google.golang.org/grpc"
 
-	sensors_pb "github.com/n7down/kuiper/internal/pb/sensors"
-	sensors "github.com/n7down/kuiper/internal/sensors/servers"
+	sensors_pb "github.com/io-1/kuiper/internal/pb/sensors"
+	sensors "github.com/io-1/kuiper/internal/sensors/servers"
 )
 
 var (

@@ -10,15 +10,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_CreateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID_Field_Is_Not_Valid(t *testing.T) {
+func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_DeviceID_Field_Is_Not_Valid(t *testing.T) {
 	testCases := []struct {
 		name           string
-		req            CreateBatCaveSettingRequest
+		req            CreateBatCaveDeviceSettingRequest
 		expectedErrors map[string]interface{}
 	}{
 		{
 			name: "DeviceID_Length_Is_Greater_Then_12_Characters_Long",
-			req: CreateBatCaveSettingRequest{
+			req: CreateBatCaveDeviceSettingRequest{
 				DeviceID:       "34e5c9a441111",
 				DeepSleepDelay: 10,
 			},
@@ -32,7 +32,7 @@ func Test_CreateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Length_Is_Less_Then_12_Characters_Long",
-			req: CreateBatCaveSettingRequest{
+			req: CreateBatCaveDeviceSettingRequest{
 				DeviceID:       "34e5c9a4411",
 				DeepSleepDelay: 10,
 			},
@@ -46,7 +46,7 @@ func Test_CreateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Contains_An_Invalid_Mac_Address_Character",
-			req: CreateBatCaveSettingRequest{
+			req: CreateBatCaveDeviceSettingRequest{
 				DeviceID:       "44cbagbe2e4f",
 				DeepSleepDelay: 15,
 			},
@@ -60,7 +60,7 @@ func Test_CreateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Is_Empty",
-			req: CreateBatCaveSettingRequest{
+			req: CreateBatCaveDeviceSettingRequest{
 				DeviceID:       "",
 				DeepSleepDelay: 20,
 			},
@@ -86,12 +86,12 @@ func Test_CreateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 func Test_CreateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeepSleepDelay_Field_Is_Not_Valid(t *testing.T) {
 	testCases := []struct {
 		name           string
-		req            CreateBatCaveSettingRequest
+		req            CreateBatCaveDeviceSettingRequest
 		expectedErrors map[string]interface{}
 	}{
 		{
 			name: "DeepSleepDelay_Equals_0",
-			req: CreateBatCaveSettingRequest{
+			req: CreateBatCaveDeviceSettingRequest{
 				DeviceID:       "123456789aae",
 				DeepSleepDelay: 0,
 			},

@@ -11,10 +11,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
-	"github.com/n7down/kuiper/internal/mock"
+	"github.com/io-1/kuiper/internal/mock"
 	"github.com/stretchr/testify/assert"
 
-	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
 
 func Test_CreateBatCaveDeviceSetting_Should_Change_DeviceID_To_Lower_Case_When_DeviceID_Has_Upper_Case_Characters_In_Request(t *testing.T) {

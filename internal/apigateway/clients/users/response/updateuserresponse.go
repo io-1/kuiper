@@ -1,9 +1,18 @@
 package response
 
+// UpdateUserResponse is a response that ire returned when a user was successfully updated.
+// swagger:response UpdateUserResponse
 type UpdateUserResponse struct {
-	ID       string `json:"id"`
+
+	// The ID of the user that is being updated.
+	ID string `json:"id"`
+
+	// The username of the user that is being updated.
 	Username string `json:"username"`
-	Password string `json:"password"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
+
+	// The name of the user that is being updated.
+	Name string `json:"name"`
+
+	// The email of the user that is being updated.
+	Email string `json:"email"`
 }

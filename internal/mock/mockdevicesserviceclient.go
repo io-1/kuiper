@@ -7,7 +7,7 @@ package mock
 import (
 	context "context"
 	gomock "github.com/golang/mock/gomock"
-	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 	grpc "google.golang.org/grpc"
 	reflect "reflect"
 )

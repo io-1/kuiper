@@ -7,13 +7,13 @@ import (
 	"os"
 	"time"
 
-	"github.com/n7down/kuiper/internal/logger"
-	"github.com/n7down/kuiper/internal/logger/logruslogger"
-	"github.com/n7down/kuiper/internal/users/persistence/mysql"
+	"github.com/io-1/kuiper/internal/logger"
+	"github.com/io-1/kuiper/internal/logger/logruslogger"
+	"github.com/io-1/kuiper/internal/users/persistence/mysql"
 	"google.golang.org/grpc"
 
-	users_pb "github.com/n7down/kuiper/internal/pb/users"
-	users "github.com/n7down/kuiper/internal/users/servers"
+	users_pb "github.com/io-1/kuiper/internal/pb/users"
+	users "github.com/io-1/kuiper/internal/users/servers"
 )
 
 const (

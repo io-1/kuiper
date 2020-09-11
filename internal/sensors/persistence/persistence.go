@@ -3,7 +3,7 @@ package persistence
 import (
 	"time"
 
-	sensors "github.com/n7down/kuiper/internal/sensors/devicesensors"
+	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
 type BMP280Sensor interface {

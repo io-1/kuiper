@@ -1,8 +1,17 @@
 package response
 
+// CreateUserResponse is a response when a user has been successfully created.
 type CreateUserResponse struct {
-	ID       string `json:"id"`
+
+	// The ID of the user that was created.
+	ID string `json:"id"`
+
+	// The username of the user created.
 	Username string `json:"username"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
+
+	// The name of the user created.
+	Name string `json:"name"`
+
+	// The email of the user created.
+	Email string `json:"email"`
 }

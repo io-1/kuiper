@@ -1,9 +1,9 @@
 package listeners
 
 import (
-	"github.com/n7down/kuiper/internal/devices/persistence"
+	"github.com/io-1/kuiper/internal/devices/persistence"
 
-	logger "github.com/n7down/kuiper/internal/logger"
+	logger "github.com/io-1/kuiper/internal/logger"
 )
 
 type DeviceSettingsListenersEnv struct {

@@ -13,15 +13,16 @@ import (
 func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID_Field_Is_Not_Valid(t *testing.T) {
 	testCases := []struct {
 		name           string
-		req            UpdateBatCaveSettingRequest
+		req            UpdateBatCaveDeviceSettingRequest
+		deviceID       string
 		expectedErrors map[string]interface{}
 	}{
 		{
 			name: "DeviceID_Length_Is_Greater_Then_12_Characters_Long",
-			req: UpdateBatCaveSettingRequest{
-				DeviceID:       "34e5c9a441111",
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeepSleepDelay: 10,
 			},
+			deviceID: "34e5c9a441111",
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
 					"deviceID": []string{
@@ -32,10 +33,10 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Length_Is_Less_Then_12_Characters_Long",
-			req: UpdateBatCaveSettingRequest{
-				DeviceID:       "34e5c9a4411",
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeepSleepDelay: 10,
 			},
+			deviceID: "34e5c9a4411",
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
 					"deviceID": []string{
@@ -46,10 +47,10 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Contains_An_Invalid_Mac_Address_Charater",
-			req: UpdateBatCaveSettingRequest{
-				DeviceID:       "44cbagbe2e4f",
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeepSleepDelay: 15,
 			},
+			deviceID: "44cbagbe2e4f",
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
 					"deviceID": []string{
@@ -60,10 +61,10 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 		},
 		{
 			name: "DeviceID_Is_Empty",
-			req: UpdateBatCaveSettingRequest{
-				DeviceID:       "",
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeepSleepDelay: 20,
 			},
+			deviceID: "",
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
 					"deviceID": []string{
@@ -75,7 +76,7 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 	}
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			validationErrors := testCase.req.Validate()
+			validationErrors := testCase.req.Validate(testCase.deviceID)
 			errs := map[string]interface{}{"validationError": validationErrors}
 			errorMessage := fmt.Sprintf("should have errors: %s", testCase.expectedErrors)
 			assert.Equal(t, testCase.expectedErrors, errs, errorMessage)
@@ -86,15 +87,16 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeviceID
 func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeepSleepDelayIs_Not_Valid(t *testing.T) {
 	testCases := []struct {
 		name           string
-		req            UpdateBatCaveSettingRequest
+		req            UpdateBatCaveDeviceSettingRequest
+		deviceID       string
 		expectedErrors map[string]interface{}
 	}{
 		{
 			name: "Deep_Sleep_Delay_Equals 0",
-			req: UpdateBatCaveSettingRequest{
-				DeviceID:       "123456789aae",
+			req: UpdateBatCaveDeviceSettingRequest{
 				DeepSleepDelay: 0,
 			},
+			deviceID: "123456789aae",
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
 					"deepSleepDelay": []string{
@@ -106,7 +108,7 @@ func Test_UpdateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeepSlee
 	}
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			validationErrors := testCase.req.Validate()
+			validationErrors := testCase.req.Validate(testCase.deviceID)
 			errs := map[string]interface{}{"validationError": validationErrors}
 			errorMessage := fmt.Sprintf("should have errors: %s", testCase.expectedErrors)
 			assert.Equal(t, testCase.expectedErrors, errs, errorMessage)

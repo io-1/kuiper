@@ -3,9 +3,10 @@ package servers
 import (
 	"context"
 
-	"github.com/n7down/kuiper/internal/devices/persistence"
+	"github.com/google/uuid"
+	"github.com/io-1/kuiper/internal/devices/persistence"
 
-	devices_pb "github.com/n7down/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
 
 type DevicesServer struct {
@@ -20,7 +21,11 @@ func NewDevicesServer(persistence persistence.Persistence) *DevicesServer {
 }
 
 func (s *DevicesServer) CreateBatCaveDeviceSetting(ctx context.Context, req *devices_pb.CreateBatCaveDeviceSettingRequest) (*devices_pb.CreateBatCaveDeviceSettingResponse, error) {
+
+	id := uuid.New().String()
+
 	setting := persistence.BatCaveDeviceSetting{
+		ID:             id,
 		DeviceID:       req.DeviceID,
 		DeepSleepDelay: req.DeepSleepDelay,
 	}
@@ -49,10 +54,6 @@ func (s *DevicesServer) UpdateBatCaveDeviceSetting(ctx context.Context, req *dev
 
 func (s *DevicesServer) GetBatCaveDeviceSetting(ctx context.Context, req *devices_pb.GetBatCaveDeviceSettingRequest) (*devices_pb.GetBatCaveDeviceSettingResponse, error) {
 	_, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
-	// recordNotFound, setting := s.persistence.GetBatCaveDeviceSetting(req.DeviceID)
-	// if recordNotFound {
-	// 	return &devices_pb.GetBatCaveDeviceSettingResponse{}, errors.New("record not found")
-	// }
 
 	return &devices_pb.GetBatCaveDeviceSettingResponse{
 		DeviceID:       setting.DeviceID,
