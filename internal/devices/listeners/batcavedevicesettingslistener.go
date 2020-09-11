@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/io-1/kuiper/internal/devices/listeners/request"
 	"github.com/io-1/kuiper/internal/devices/listeners/response"
 	"github.com/io-1/kuiper/internal/devices/persistence"
@@ -41,6 +42,7 @@ func (e *DeviceSettingsListenersEnv) BatCaveDeviceSettingsListenerMessageHandler
 		res = response.GetBatCaveDeviceSettingDefault()
 
 		newSetting := persistence.BatCaveDeviceSetting{
+			ID:             uuid.New().String(),
 			Mac:            req.Mac,
 			DeepSleepDelay: res.DeepSleepDelay,
 		}
