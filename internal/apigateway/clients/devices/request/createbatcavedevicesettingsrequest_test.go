@@ -10,16 +10,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_DeviceID_Field_Is_Not_Valid(t *testing.T) {
+func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_Mac_Field_Is_Not_Valid(t *testing.T) {
 	testCases := []struct {
 		name           string
 		req            CreateBatCaveDeviceSettingRequest
 		expectedErrors map[string]interface{}
 	}{
 		{
-			name: "DeviceID_Length_Is_Greater_Then_12_Characters_Long",
+			name: "Mac_Length_Is_Greater_Then_12_Characters_Long",
 			req: CreateBatCaveDeviceSettingRequest{
-				DeviceID:       "34e5c9a441111",
+				Mac:            "34e5c9a441111",
 				DeepSleepDelay: 10,
 			},
 			expectedErrors: map[string]interface{}{
@@ -31,9 +31,9 @@ func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_De
 			},
 		},
 		{
-			name: "DeviceID_Length_Is_Less_Then_12_Characters_Long",
+			name: "Mac_Length_Is_Less_Then_12_Characters_Long",
 			req: CreateBatCaveDeviceSettingRequest{
-				DeviceID:       "34e5c9a4411",
+				Mac:            "34e5c9a4411",
 				DeepSleepDelay: 10,
 			},
 			expectedErrors: map[string]interface{}{
@@ -45,9 +45,9 @@ func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_De
 			},
 		},
 		{
-			name: "DeviceID_Contains_An_Invalid_Mac_Address_Character",
+			name: "Mac_Contains_An_Invalid_Mac_Address_Character",
 			req: CreateBatCaveDeviceSettingRequest{
-				DeviceID:       "44cbagbe2e4f",
+				Mac:            "44cbagbe2e4f",
 				DeepSleepDelay: 15,
 			},
 			expectedErrors: map[string]interface{}{
@@ -59,9 +59,9 @@ func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_De
 			},
 		},
 		{
-			name: "DeviceID_Is_Empty",
+			name: "Mac_Is_Empty",
 			req: CreateBatCaveDeviceSettingRequest{
-				DeviceID:       "",
+				Mac:            "",
 				DeepSleepDelay: 20,
 			},
 			expectedErrors: map[string]interface{}{
@@ -92,7 +92,7 @@ func Test_CreateBatCaveSettingRequest_Validate_Should_Return_Error_When_DeepSlee
 		{
 			name: "DeepSleepDelay_Equals_0",
 			req: CreateBatCaveDeviceSettingRequest{
-				DeviceID:       "123456789aae",
+				Mac:            "123456789aae",
 				DeepSleepDelay: 0,
 			},
 			expectedErrors: map[string]interface{}{

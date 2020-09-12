@@ -48,18 +48,33 @@ func (mr *MockPersistenceMockRecorder) CreateBatCaveDeviceSetting(settings inter
 }
 
 // GetBatCaveDeviceSetting mocks base method.
-func (m *MockPersistence) GetBatCaveDeviceSetting(deviceID string) (bool, persistence.BatCaveDeviceSetting) {
+func (m *MockPersistence) GetBatCaveDeviceSetting(id string) (bool, persistence.BatCaveDeviceSetting) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetBatCaveDeviceSetting", deviceID)
+	ret := m.ctrl.Call(m, "GetBatCaveDeviceSetting", id)
 	ret0, _ := ret[0].(bool)
 	ret1, _ := ret[1].(persistence.BatCaveDeviceSetting)
 	return ret0, ret1
 }
 
 // GetBatCaveDeviceSetting indicates an expected call of GetBatCaveDeviceSetting.
-func (mr *MockPersistenceMockRecorder) GetBatCaveDeviceSetting(deviceID interface{}) *gomock.Call {
+func (mr *MockPersistenceMockRecorder) GetBatCaveDeviceSetting(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBatCaveDeviceSetting", reflect.TypeOf((*MockPersistence)(nil).GetBatCaveDeviceSetting), deviceID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBatCaveDeviceSetting", reflect.TypeOf((*MockPersistence)(nil).GetBatCaveDeviceSetting), id)
+}
+
+// GetBatCaveDeviceSettingByMac mocks base method.
+func (m *MockPersistence) GetBatCaveDeviceSettingByMac(mac string) (bool, persistence.BatCaveDeviceSetting) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetBatCaveDeviceSettingByMac", mac)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.BatCaveDeviceSetting)
+	return ret0, ret1
+}
+
+// GetBatCaveDeviceSettingByMac indicates an expected call of GetBatCaveDeviceSettingByMac.
+func (mr *MockPersistenceMockRecorder) GetBatCaveDeviceSettingByMac(mac interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetBatCaveDeviceSettingByMac", reflect.TypeOf((*MockPersistence)(nil).GetBatCaveDeviceSettingByMac), mac)
 }
 
 // UpdateBatCaveDeviceSetting mocks base method.
