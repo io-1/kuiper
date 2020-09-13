@@ -16,7 +16,8 @@ import (
 )
 
 const (
-	ONE_MINUTE = 1 * time.Minute
+	ONE_MINUTE               = 1 * time.Minute
+	DEFAULT_DEEP_SLEEP_DELAY = 15
 )
 
 func (p MosquittoPubSub) BatCaveDeviceSettingsListenerMessageHandler(client mqtt.Client, msg mqtt.Message) {
@@ -39,13 +40,13 @@ func (p MosquittoPubSub) BatCaveDeviceSettingsListenerMessageHandler(client mqtt
 	if recordNotFound {
 
 		// send back default values
-		res = response.GetBatCaveDeviceSettingDefault()
-
 		newSetting := persistence.BatCaveDeviceSetting{
 			ID:             uuid.New().String(),
 			Mac:            req.Mac,
-			DeepSleepDelay: res.DeepSleepDelay,
+			DeepSleepDelay: DEFAULT_DEEP_SLEEP_DELAY,
 		}
+
+		res.DeepSleepDelay = DEFAULT_DEEP_SLEEP_DELAY
 
 		// create the new setting
 		p.persistence.CreateBatCaveDeviceSetting(newSetting)

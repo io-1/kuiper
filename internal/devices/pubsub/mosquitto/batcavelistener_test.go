@@ -231,14 +231,7 @@ func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Send_Default_Settin
 	)
 
 	mockPersistence.EXPECT().CreateBatCaveDeviceSetting(
-		persistence.BatCaveDeviceSetting{
-			ID:             "",
-			Mac:            mac,
-			DeepSleepDelay: 15,
-			CreatedAt:      nil,
-			UpdatedAt:      nil,
-			DeletedAt:      nil,
-		},
+		gomock.Any(),
 	)
 
 	mockToken := &mockobject.MockToken{
