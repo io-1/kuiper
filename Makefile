@@ -11,6 +11,10 @@ GOFILES=$(GOPATH)/src/github.com/n7down/iota/cmd/kuiper/*.go
 get:
 	echo "getting go dependencies..."
 	go get -v -d ./...
+	go get -u github.com/stretchr/testify
+	go get -u github.com/jstemmer/go-junit-report
+	go get -u github.com/axw/gocov/...
+	go get -u github.com/AlekSi/gocov-xml
 	echo "done"
 
 .PHONY: generate
@@ -26,7 +30,7 @@ generate:
 .PHONY: test-unit
 test-unit:
 	echo "running unit tests..."
-	go test -v --tags unit ./...
+	CGO_ENABLED=0 go test -v --tags unit ./...
 	echo "done"
 
 .PHONY: version
@@ -49,6 +53,10 @@ cover-unit:
 .PHONY: cover-unit-html
 cover-unit-html:
 	go test --tags unit -v ./... -coverprofile c.out; go tool cover -html c.out
+
+.PHONY: cover-unit-html-file
+cover-unit-html-file:
+	go test --tags unit -v ./... -coverprofile c.out; go tool cover -html c.out -o coverage.html
 
 .PHONY: lint
 lint:
