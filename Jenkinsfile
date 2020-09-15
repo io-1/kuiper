@@ -51,6 +51,11 @@ pipeline {
                 echo 'deploying..'
             }
         }
+        stage('clean up') {
+            steps {
+                sh 'docker rmi $(docker images -aq) || exit 0'
+            }
+        }
     }
     post {
         always {
