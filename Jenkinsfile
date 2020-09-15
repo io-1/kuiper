@@ -26,6 +26,7 @@ pipeline {
                 // junit plugin
                 junit 'unit-report.xml'
 
+                // creating code coverage
                 sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
                 sh 'go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit ${GOPATH}/${SRC_PATH}/...'
 
