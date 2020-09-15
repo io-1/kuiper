@@ -30,10 +30,6 @@ pipeline {
                 sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
                 sh 'go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit ${GOPATH}/${SRC_PATH}/...'
 
-                // create coberuta report
-                sh 'gocov convert ${WORKSPACE}/coverage.out | gocov-xml > ${WORKSPACE}/coverage-report.xml'
-                cobertura coberturaReportFile: 'coverage-report.xml', enableNewApi: true
-
                 // create html and archive it
                 sh 'go tool cover -html ${WORKSPACE}/coverage.out -o ${WORKSPACE}/coverage.html'
                 publishHTML (target: [
