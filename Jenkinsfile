@@ -37,12 +37,12 @@ pipeline {
                 // create html and archive it
                 sh 'go tool cover -html ${WORKSPACE}/coverage.out -o ${WORKSPACE}/coverage.html'
                 publishHTML (target: [
-                  allowMissing: false,
-                  alwaysLinkToLastBuild: false,
-                  keepAll: true,
-                  reportDir: '.',
-                  reportFiles: 'coverage.html',
-                  reportName: "Code Coverage Report"
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'coverage.html',
+                    reportName: "Code Coverage Report"
                 ])
             }
         }
