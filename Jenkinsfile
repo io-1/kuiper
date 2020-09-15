@@ -30,6 +30,9 @@ pipeline {
                 sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
                 sh 'go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit ${GOPATH}/${SRC_PATH}/...'
 
+                // copy the file
+                /* sh 'cp ${WORKSPACE}/coverage.out ${WORKSPACE}/coverage_2.out' */
+
                 // create coberuta report
                 sh 'gocov convert ${WORKSPACE}/coverage.out | gocov-xml > ${WORKSPACE}/coverage-report.xml'
                 cobertura coberturaReportFile: 'coverage-report.xml', enableNewApi: true
