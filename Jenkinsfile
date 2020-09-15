@@ -11,6 +11,9 @@ pipeline {
                     args  '-e GOCACHE=/tmp'
                 } 
             }
+            enviroment {
+                KUIPER_SRC_PATH = 'src/github.com/io-1/kuiper'
+            }
             steps {
 
                 // copy over the workspace files into the correct dir
