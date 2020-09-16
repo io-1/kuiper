@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
-  version: 0.6.0
+  version: 0.6.3-3-g5a24825
 
 tags:
   - name: Auth
