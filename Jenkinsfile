@@ -21,15 +21,23 @@ pipeline {
                 sh 'make -C ${GOPATH}/${SRC_PATH} get'
 
                 // run tests - convert to junit
-                sh 'make -C ${GOPATH}/${SRC_PATH} test-unit 2>&1 | go-junit-report > ${WORKSPACE}/unit-report.xml'
+                /* sh 'make -C ${GOPATH}/${SRC_PATH} test-unit 2>&1 | go-junit-report > ${WORKSPACE}/unit-report.xml' */
+
+                // junit plugin
+                /* junit 'unit-report.xml' */
+
+                // run tests
+                sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
+                sh 'go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit ${GOPATH}/${SRC_PATH}/... > ${WORKSPACE}/unit-tests.txt 2>&1'
+
+                // archive unit tests 
+                archiveArtifacts artifacts: 'unit-tests.txt' 
+
+                sh 'cat ${WORKSPACE}/unit-tests.txt 2>&1 | go-junit-report > ${WORKSPACE}/unit-report.xml'
 
                 // junit plugin
                 junit 'unit-report.xml'
 
-                // creating code coverage
-                sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
-                sh 'go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit ${GOPATH}/${SRC_PATH}/... > ${WORKSPACE}/unit-tests.txt 2>&1'
-                archiveArtifacts artifacts: 'unit-tests.txt' 
 
                 // create html and archive it
                 sh 'go tool cover -html ${WORKSPACE}/coverage.out -o ${WORKSPACE}/coverage.html'
