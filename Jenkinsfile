@@ -28,7 +28,8 @@ pipeline {
 
                 // creating code coverage
                 sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
-                sh 'go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit ${GOPATH}/${SRC_PATH}/...'
+                sh 'go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit ${GOPATH}/${SRC_PATH}/... > ${WORKSPACE}/unit-tests.txt 2>&1'
+                archiveArtifacts artifacts: 'unit-tests.txt' 
 
                 // create html and archive it
                 sh 'go tool cover -html ${WORKSPACE}/coverage.out -o ${WORKSPACE}/coverage.html'
