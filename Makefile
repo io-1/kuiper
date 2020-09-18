@@ -30,7 +30,7 @@ generate:
 .PHONY: test-unit
 test-unit:
 	echo "running unit tests..."
-	CGO_ENABLED=0 go test -v --tags unit ./...
+	CGO_ENABLED=0 go test -v -tags unit ./...
 	echo "done"
 
 .PHONY: version
@@ -48,15 +48,15 @@ version:
 
 .PHONY: cover-unit
 cover-unit:
-	go test --tags unit -v ./... -coverprofile c.out; go tool cover -func c.out
+	go test -tags unit -v ./... -coverprofile c.out; go tool cover -func c.out
 
 .PHONY: cover-unit-html
 cover-unit-html:
-	go test --tags unit -v ./... -coverprofile c.out; go tool cover -html c.out
+	go test -tags unit -v ./... -coverprofile c.out; go tool cover -html c.out
 
 .PHONY: cover-unit-html-file
 cover-unit-html-file:
-	go test --tags unit -v ./... -coverprofile c.out; go tool cover -html c.out -o coverage.html
+	go test -tags unit -v ./... -coverprofile c.out; go tool cover -html c.out -o coverage.html
 
 .PHONY: lint
 lint:
@@ -87,7 +87,7 @@ test-start:
 
 .PHONY: test-run
 test-run:
-	DB_CONN="root:password@tcp(127.0.0.1:3306)/devices?charset=utf8&parseTime=True&loc=Local" go test --tags integration -v ./...
+	DB_CONN="root:password@tcp(127.0.0.1:3306)/devices?charset=utf8&parseTime=True&loc=Local" go test -tags integration -v ./...
 	echo "done"
 
 .PHONY: test-clean
