@@ -24,8 +24,8 @@ func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_Ma
 			},
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
-					"deviceID": []string{
-						"The deviceID field needs to be a valid mac!",
+					"mac": []string{
+						"The mac field needs to be a valid mac!",
 					},
 				},
 			},
@@ -38,8 +38,8 @@ func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_Ma
 			},
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
-					"deviceID": []string{
-						"The deviceID field needs to be a valid mac!",
+					"mac": []string{
+						"The mac field needs to be a valid mac!",
 					},
 				},
 			},
@@ -52,8 +52,8 @@ func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_Ma
 			},
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
-					"deviceID": []string{
-						"The deviceID field needs to be a valid mac!",
+					"mac": []string{
+						"The mac field needs to be a valid mac!",
 					},
 				},
 			},
@@ -66,8 +66,8 @@ func Test_CreateBatCaveDeviceSettingRequest_Validate_Should_Return_Error_When_Ma
 			},
 			expectedErrors: map[string]interface{}{
 				"validationError": url.Values{
-					"deviceID": []string{
-						"The deviceID field needs to be a valid mac!",
+					"mac": []string{
+						"The mac field needs to be a valid mac!",
 					},
 				},
 			},
