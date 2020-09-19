@@ -10,6 +10,7 @@ services:
             TIME_MQTT_URL: http://172.28.1.3:1883/time/utc
             STATS_MQTT_URL: http://172.28.1.3:1883/sensor/stats
             HDC1080_MQTT_URL: http://172.28.1.3:1883/sensor/hdc1080
+            MC38_MQTT_URL: http://172.28.1.3:1883/sensor/mc38
             INFLUX_URL: http://dbuser:password@172.28.1.4:8086/sensors
             PORT: "8082"
         build:

@@ -68,6 +68,11 @@ func init() {
 			log.Fatal(err)
 		}
 
+		err = pubSub.NewMC38Listener(ctx, "mc38_listener", os.Getenv("MC38_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		server = sensors.NewSensorsServer(persistence)
 	}
 }

@@ -7,21 +7,11 @@ import (
 	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
-func (i InfluxPersistence) CreateBMP280Measurement(sensor *sensors.BMP280Measurement) error {
+func (i InfluxPersistence) CreateMC38Measurement(sensor *sensors.MC38Measurement) error {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  i.database,
 		Precision: "s",
 	})
-	if err != nil {
-		return err
-	}
-
-	pressureFloat, err := sensor.GetPressureFloat()
-	if err != nil {
-		return err
-	}
-
-	temperatureFloat, err := sensor.GetTemperatureFloat()
 	if err != nil {
 		return err
 	}
@@ -33,12 +23,11 @@ func (i InfluxPersistence) CreateBMP280Measurement(sensor *sensors.BMP280Measure
 
 	// not indexed
 	fields := map[string]interface{}{
-		"pressure": pressureFloat,
-		"temp":     temperatureFloat,
+		"state": sensor.State,
 	}
 
 	point, err := client.NewPoint(
-		"bmp280_listener",
+		"mc83_listener",
 		tags,
 		fields,
 		time.Now().UTC(),
