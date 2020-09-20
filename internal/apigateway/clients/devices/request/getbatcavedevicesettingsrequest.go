@@ -2,6 +2,7 @@ package request
 
 import (
 	"net/url"
+	"regexp"
 )
 
 // Request userd to get a bat cave device setting
@@ -10,13 +11,12 @@ type GetBatCaveDeviceSettingRequest struct{}
 func (r *GetBatCaveDeviceSettingRequest) Validate(id string) url.Values {
 	errs := url.Values{}
 
-	// 	regex, _ := regexp.Compile("^[a-f0-9]{12}$")
-	// 	isMacAddress := regex.MatchString(deviceID)
-	// 	if !isMacAddress {
-	// 		errs.Add("deviceID", "The deviceID field needs to be a valid mac!")
-	// 	}
-
-	// FIXME: check for a valid uuid
+	// check for a valid uuid
+	regex, _ := regexp.Compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+	validID := regex.MatchString(id)
+	if !validID {
+		errs.Add("id", "The id field needs to be a valid!")
+	}
 
 	return errs
 }

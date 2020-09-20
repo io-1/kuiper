@@ -26,10 +26,11 @@ func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Return_When_Message
 
 	mockCtrl := gomock.NewController(t)
 	mockPersistence := mock.NewMockPersistence(mockCtrl)
-	mockPersistence.EXPECT().GetBatCaveDeviceSetting(mac).Return(
+	mockPersistence.EXPECT().GetBatCaveDeviceSettingByMac(mac).Return(
 		false,
 		persistence.BatCaveDeviceSetting{
-			DeviceID:       mac,
+			ID:             "00000000-1111-2222-3333-444444444444",
+			Mac:            mac,
 			DeepSleepDelay: deepSleepDelay,
 			CreatedAt:      nil,
 			UpdatedAt:      nil,
@@ -97,7 +98,7 @@ func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Return_When_Message
 			return 0
 		},
 		MockPayload: func() []byte {
-			return []byte(`{"m":"111111111111","s":30}`)
+			return []byte(fmt.Sprintf(`{"m":"%s","s":30}`, mac))
 		},
 		MockAck: func() {
 		},
@@ -122,10 +123,11 @@ func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Publish_Changes_Whe
 
 	mockCtrl := gomock.NewController(t)
 	mockPersistence := mock.NewMockPersistence(mockCtrl)
-	mockPersistence.EXPECT().GetBatCaveDeviceSetting(mac).Return(
+	mockPersistence.EXPECT().GetBatCaveDeviceSettingByMac(mac).Return(
 		false,
 		persistence.BatCaveDeviceSetting{
-			DeviceID:       mac,
+			ID:             "",
+			Mac:            mac,
 			DeepSleepDelay: 30,
 			CreatedAt:      nil,
 			UpdatedAt:      nil,
@@ -223,19 +225,13 @@ func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Send_Default_Settin
 
 	mockCtrl := gomock.NewController(t)
 	mockPersistence := mock.NewMockPersistence(mockCtrl)
-	mockPersistence.EXPECT().GetBatCaveDeviceSetting(mac).Return(
+	mockPersistence.EXPECT().GetBatCaveDeviceSettingByMac(mac).Return(
 		true,
-		persistence.BatCaveDeviceSetting{})
+		persistence.BatCaveDeviceSetting{},
+	)
 
 	mockPersistence.EXPECT().CreateBatCaveDeviceSetting(
-
-		persistence.BatCaveDeviceSetting{
-			DeviceID:       mac,
-			DeepSleepDelay: 15,
-			CreatedAt:      nil,
-			UpdatedAt:      nil,
-			DeletedAt:      nil,
-		},
+		gomock.Any(),
 	)
 
 	mockToken := &mockobject.MockToken{

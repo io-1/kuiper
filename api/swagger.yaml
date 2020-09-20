@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: Documentation of the Kuiper API.
   title: Kuiper API
-  version: 0.6.0
+  version: 0.6.3-3-g5a24825
 
 tags:
   - name: Auth
@@ -211,6 +211,35 @@ paths:
       summary: Update User
       tags:
         - Users
+    patch:
+      description: Patches a user.
+      operationId: patchUser
+      parameters:
+        - description: The id of the user
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchUserRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchUserResponse"
+        "204":
+          description: " No content."
+        "400":
+          description: " Unable to bind request."
+        "405":
+          description: " Validation error."
+        "500":
+          description: " Error with the service."
+      summary: Patch User
+      tags:
+        - Users
   /api/v1/users/create:
     post:
       description: Allows a user to be created.
@@ -298,6 +327,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/UpdateUserResponse"
+    PatchUserResponse:
+      description: PatchUserResponse is a response that ire returned when a user was
+        successfully patched.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchUserResponse"
   schemas:
     CreateBatCaveDeviceSettingRequest:
       description: The request used to create a Bat Cave device setting
@@ -507,6 +543,23 @@ components:
           x-go-name: username 
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchUserRequest:
+      description: The request used to patch a user
+      properties:
+        email:
+          description: The email of the user to update
+          type: string
+          x-go-name: Email
+        name:
+          description: The name of the user to update
+          type: string
+          x-go-name: Name
+        username:
+          description: The username of the user being updated
+          type: string
+          x-go-name: username 
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
     UpdateUserResponse:
       properties:
         email:
@@ -527,6 +580,28 @@ components:
           x-go-name: Username
       title: UpdateUserResponse is a response that ire returned when a user was
         successfully updated.
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+    PatchUserResponse:
+      properties:
+        email:
+          description: The email of the user that is being updated.
+          type: string
+          x-go-name: Email
+        id:
+          description: The id of the user that is being updated.
+          type: string
+          x-go-name: ID
+        name:
+          description: The name of the user that is being updated.
+          type: string
+          x-go-name: Name
+        username:
+          description: The username of the user that is being updated.
+          type: string
+          x-go-name: Username
+      title: PatchUserResponse is a response that ire returned when a user was
+        successfully patched.
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
 

@@ -168,7 +168,6 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	// username := c.Params.ByName("username")
 	id := c.Params.ByName("id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
@@ -203,6 +202,81 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// Patch a user
+func (client *UsersClient) PatchUser(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req request.PatchUserRequest
+		res response.PatchUserResponse
+	)
+
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	id := c.Params.ByName("id")
+
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	// get the user
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
+
+	// use the difference
+	if req.Username == "" {
+		req.Username = r.Username
+	}
+
+	if req.Name == "" {
+		req.Name = r.Name
+	}
+
+	if req.Email == "" {
+		req.Email = r.Email
+	}
+
+	// save the request difference
+	re, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
+		ID:       id,
+		Username: req.Username,
+		Name:     req.Name,
+		Email:    req.Email,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if re.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
+
+	res = response.PatchUserResponse{
+		ID:       re.ID,
+		Username: re.Username,
+		Name:     re.Name,
+		Email:    re.Email,
+	}
+
+	c.JSON(http.StatusOK, res)
+}
+
 // Delete User
 func (client *UsersClient) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
@@ -213,7 +287,6 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 		res response.DeleteUserResponse
 	)
 
-	// username := c.Params.ByName("username")
 	id := c.Params.ByName("id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {

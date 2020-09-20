@@ -10,7 +10,11 @@ GOFILES=$(GOPATH)/src/github.com/n7down/iota/cmd/kuiper/*.go
 .PHONY: get 
 get:
 	echo "getting go dependencies..."
-	@go get ./...
+	go get -v -d ./...
+	go get -u github.com/stretchr/testify
+	go get -u github.com/jstemmer/go-junit-report
+	go get -u github.com/axw/gocov/...
+	go get -u github.com/AlekSi/gocov-xml
 	echo "done"
 
 .PHONY: generate
@@ -26,7 +30,7 @@ generate:
 .PHONY: test-unit
 test-unit:
 	echo "running unit tests..."
-	go test -v --tags unit ./...
+	CGO_ENABLED=0 go test -v -tags unit ./...
 	echo "done"
 
 .PHONY: version
@@ -44,41 +48,29 @@ version:
 
 .PHONY: cover-unit
 cover-unit:
-	go test --tags unit -v ./... -coverprofile c.out; go tool cover -func c.out
+	go test -tags unit -v ./... -coverprofile c.out; go tool cover -func c.out
 
 .PHONY: cover-unit-html
 cover-unit-html:
-	go test --tags unit -v ./... -coverprofile c.out; go tool cover -html c.out
+	go test -tags unit -v ./... -coverprofile c.out; go tool cover -html c.out
+
+.PHONY: cover-unit-html-file
+cover-unit-html-file:
+	go test -tags unit -v ./... -coverprofile c.out; go tool cover -html c.out -o coverage.html
 
 .PHONY: lint
 lint:
 	golint ./...
 
-.PHONY: stop
-stop:
-	echo "stopping docker containers..."
-	docker-compose stop
-	echo "done"
-
-.PHONY: rm
-rm:
-	echo "removing docker containers..."
-	docker-compose rm
-	echo "done"
-
 .PHONY: clean
-clean: stop rm
+clean: 
+	go clean -cache
 
-.PHONY: clean-images
-clean-images:
-	echo "cleaning docker images"
-	docker rmi $(docker images -aq)
-	echo "done"
-
-.PHONY: clean-containers
-clean-containers:
-	echo "cleaning docker containers"
-	docker rm $(docker ps -a -f status=exited -q)
+.PHONY: clean-docker
+clean-docker: 
+	echo "cleaning docker"
+	dcp down
+	docker rmi
 	echo "done"
 
 .PHONY: test-build
@@ -95,7 +87,7 @@ test-start:
 
 .PHONY: test-run
 test-run:
-	DB_CONN="root:password@tcp(127.0.0.1:3306)/devices?charset=utf8&parseTime=True&loc=Local" go test --tags integration -v ./...
+	DB_CONN="root:password@tcp(127.0.0.1:3306)/devices?charset=utf8&parseTime=True&loc=Local" go test -tags integration -v ./...
 	echo "done"
 
 .PHONY: test-clean
@@ -122,8 +114,8 @@ build-devices:
 	echo "building devices..."
 	docker build -t "$(PROJECTNAME)"/devices:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/devices/Dockerfile .
 	echo "done"
-.PHONY: build-devices
 
+.PHONY: build-users
 build-users:
 	echo "building users..."
 	docker build -t "$(PROJECTNAME)"/users:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/users/Dockerfile .
@@ -136,7 +128,8 @@ build-all: build-apigateway build-sensors build-devices build-users
 up: 
 	docker-compose up -d "$(PROJECTNAME)"/apigateway:"$(VERSION)"
 	docker-compose up -d "$(PROJECTNAME)"/sensors:"$(VERSION)"
-	docker-compose up -d "$(PROJECTNAME)"/settings:"$(VERSION)"
+	docker-compose up -d "$(PROJECTNAME)"/devices:"$(VERSION)"
+	docker-compose up -d "$(PROJECTNAME)"/users:"$(VERSION)"
 
 .PHONY: help
 help:
