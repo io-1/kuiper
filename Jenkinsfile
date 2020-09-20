@@ -21,6 +21,7 @@ pipeline {
                 sh 'make -C ${GOPATH}/${SRC_PATH} get'
 
                 // run tests
+                sh 'go test -v --tags unit ${GOPATH}/${SRC_PATH}/...'
                 sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
                 sh '''
                     go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit \

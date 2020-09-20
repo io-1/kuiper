@@ -5,6 +5,7 @@ import "time"
 type MockToken struct {
 	MockWait        func() bool
 	MockWaitTimeout func(time.Duration) bool
+	MockDone        func() <-chan struct{}
 	MockError       func() error
 }
 
@@ -17,5 +18,9 @@ func (t *MockToken) WaitTimeout(d time.Duration) bool {
 }
 
 func (t *MockToken) Error() error {
-	return t.Error()
+	return t.MockError()
+}
+
+func (t *MockToken) Done() <-chan struct{} {
+	return t.MockDone()
 }
