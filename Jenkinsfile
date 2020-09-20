@@ -57,5 +57,8 @@ pipeline {
         always {
             sh 'docker rmi $(docker images -aq) || exit 0'
         }
+        cleanup { 
+            cleanWs() 
+        } 
     }
 }
