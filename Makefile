@@ -10,8 +10,17 @@ GOFILES=$(GOPATH)/src/github.com/n7down/iota/cmd/kuiper/*.go
 .PHONY: get 
 get:
 	echo "getting go dependencies..."
-	go get -v -d ./...
-	go get -u github.com/stretchr/testify
+	# go get -v -d ./...
+	# go get -u github.com/stretchr/testify
+	# go get -u github.com/jstemmer/go-junit-report
+	# go get -u github.com/axw/gocov/...
+	# go get -u github.com/AlekSi/gocov-xml
+	go mod download -x
+	echo "done"
+
+.PHONY: get-ci
+get-ci:
+	echo "getting ci go dependencies..."
 	go get -u github.com/jstemmer/go-junit-report
 	go get -u github.com/axw/gocov/...
 	go get -u github.com/AlekSi/gocov-xml

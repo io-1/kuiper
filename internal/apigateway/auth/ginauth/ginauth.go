@@ -10,7 +10,7 @@ import (
 	"github.com/io-1/kuiper/internal/apigateway/clients/users"
 	"github.com/io-1/kuiper/internal/utils"
 
-	jwt "github.com/appleboy/gin-jwt"
+	jwt "github.com/appleboy/gin-jwt/v2"
 )
 
 const (
