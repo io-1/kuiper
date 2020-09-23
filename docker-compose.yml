@@ -112,7 +112,7 @@ services:
         depends_on:
             - mosquitto
             - devices_mysql
-        command: "dockerize -wait tcp://172.28.1.8:3306 -timeout 30s /go/bin/main"
+        command: "dockerize -wait tcp://172.28.1.8:3306 -timeout 300s /go/bin/main"
         ports:
             - "8081:8081"
         networks:
@@ -150,7 +150,7 @@ services:
             dockerfile: ./build/dockerfiles/users/Dockerfile
         depends_on:
             - users_mysql
-        command: "dockerize -wait tcp://172.28.1.8:3306 -timeout 30s /go/bin/main"
+        command: "dockerize -wait tcp://172.28.1.8:3306 -timeout 300s /go/bin/main"
         ports:
             - "8084:8084"
         networks:
