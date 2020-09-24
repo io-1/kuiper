@@ -73,6 +73,11 @@ func init() {
 			log.Fatal(err)
 		}
 
+		err = pubSub.NewHCSR501Listener(ctx, "hcsr501_listener", os.Getenv("HCSR501_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		server = sensors.NewSensorsServer(persistence)
 	}
 }

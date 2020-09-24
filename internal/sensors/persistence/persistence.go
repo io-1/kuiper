@@ -24,6 +24,10 @@ type MC38Sensor interface {
 	CreateMC38Measurement(sensor *sensors.MC38Measurement) error
 }
 
+type HCSR501Sensor interface {
+	CreateHCSR501Measurement(sensor *sensors.HCSR501Measurement) error
+}
+
 type Stats interface {
 	CreateStatsMeasurement(sensor *sensors.StatsMeasurement) error
 }
@@ -37,6 +41,7 @@ type Persistence interface {
 	DHT22Sensor
 	HDC1080Sensor
 	MC38Sensor
+	HCSR501Sensor
 	Stats
 	Voltage
 }
