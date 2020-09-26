@@ -33,6 +33,7 @@ generate:
 	protoc --go-grpc_out=internal/pb/users --go_out=internal/pb/users internal/pb/users/users.proto
 	protoc --go-grpc_out=internal/pb/devices --go_out=internal/pb/devices internal/pb/devices/devices.proto
 	mockgen -source internal/pb/devices/devices_grpc.pb.go -destination=internal/mock/mockdevicesserviceclient.go -package=mock
+	mockgen -source internal/pb/users/users_grpc.pb.go -destination=internal/mock/mockusersserviceclient.go -package=mock
 	go generate ./...
 	echo "done"
 
