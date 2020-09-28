@@ -1,16 +1,16 @@
 openapi: 3.0.0
 info:
-  description: Documentation of the Kuiper API.
+  description: Documentation of the Kuiper API
   title: Kuiper API
   version: 0.6.3-3-g5a24825
 
 tags:
   - name: Auth
-    description: API used to allow a user to authenicate against Kuiper.
+    description: API used to allow a user to authenicate against Kuiper
   - name: Users
-    description: API used for users.
+    description: API used for users
   - name: Devices
-    description: API to interact with devices.
+    description: API to interact with devices
 
 servers:
   - url: http://localhost:9090/
@@ -21,7 +21,7 @@ paths:
     post:
       security:
         - BearerToken: []
-      description: Allows a user to logout.
+      description: Allows a user to logout
       operationId: logout
       responses:
         "200":
@@ -33,19 +33,19 @@ paths:
     get:
       security:
         - BearerToken: []
-      description: Refresh a token for a user.
+      description: Refresh a token for a user
       operationId: refreshToken
       responses:
         "200":
-          description: " Token successfully refreshed."
+          description: " Token successfully refreshed"
         "401":
-          description: " Unauthorized."
+          description: " Unauthorized"
       summary: Refresh token
       tags:
         - Auth
   /api/v1/devices/bc:
     post:
-      description: Allows a Bat Cave device setting to be created.
+      description: Allows a Bat Cave device setting to be created
       operationId: createBatCaveDeviceSetting
       requestBody:
         content:
@@ -56,17 +56,17 @@ paths:
         "200":
           $ref: "#/components/responses/CreateBatCaveDeviceSettingResponse"
         "400":
-          description: " Unable to bind request."
+          description: " Malformed data in the request body"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Create Bat Cave Device Setting
       tags:
         - Devices
   /api/v1/devices/bc/:id:
     get:
-      description: Get a Bat Cave device setting.
+      description: Get a Bat Cave device setting
       operationId: getBatCaveDeviceSetting
       parameters:
         - description: The id of the device
@@ -79,11 +79,11 @@ paths:
         "200":
           $ref: "#/components/responses/GetBatCaveDeviceSettingResponse"
         "204":
-          description: " No content."
+          description: " No content"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Get Bat Cave Device Setting
       tags:
         - Devices
@@ -106,13 +106,13 @@ paths:
         "200":
           $ref: "#/components/responses/UpdateBatCaveDeviceSettingResponse"
         "204":
-          description: " No content."
+          description: " No content"
         "400":
-          description: " Unable to bind request."
+          description: " Malformed data the in request body"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Update Bat Cave Device Setting
       tags:
         - Devices
@@ -129,7 +129,7 @@ paths:
         "200":
           $ref: "#/components/responses/LoginResponse"
         "401":
-          description: " Unauthorized."
+          description: " Unauthorized"
       summary: Login
       tags:
         - Auth
@@ -148,13 +148,13 @@ paths:
         "200":
           $ref: "#/components/responses/DeleteUserResponse"
         "204":
-          description: " No content."
+          description: " No content"
         "400":
-          description: " Unable to bind request."
+          description: " Malformed data in the request body"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Delete User
       tags:
         - Users
@@ -172,13 +172,13 @@ paths:
         "200":
           $ref: "#/components/responses/GetUserResponse"
         "204":
-          description: " No content."
+          description: " No content"
         "400":
-          description: " Unable to bind request."
+          description: " Malformed data the in request body"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Get User
       tags:
         - Users
@@ -201,13 +201,13 @@ paths:
         "200":
           $ref: "#/components/responses/UpdateUserResponse"
         "204":
-          description: " No content."
+          description: " No content"
         "400":
-          description: " Unable to bind request."
+          description: " Malformed data in the request body"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Update User
       tags:
         - Users
@@ -230,13 +230,13 @@ paths:
         "200":
           $ref: "#/components/responses/PatchUserResponse"
         "204":
-          description: " No content."
+          description: " No content"
         "400":
-          description: " Unable to bind request."
+          description: " Malformed data in the request body"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Patch User
       tags:
         - Users
@@ -253,11 +253,11 @@ paths:
         "200":
           $ref: "#/components/responses/CreateUserResponse"
         "400":
-          description: " Unable to bind request."
+          description: " Malformed data in the request body"
         "405":
-          description: " Validation error."
+          description: " Validation error"
         "500":
-          description: " Error with the service."
+          $ref: "#/components/responses/ErrorResponse"
       summary: Create User
       tags:
         - Users
@@ -270,66 +270,63 @@ components:
       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
   responses:
     CreateBatCaveDeviceSettingResponse:
-      description: CreateBatCaveSettingResponse is a response when successfully creating a
-        Bat Cave device setting.
+      description: Successful operation
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateBatCaveDeviceSettingResponse"
     CreateUserResponse:
-      description: CreateUserResponse is a response when a user has been successfully
-        created.
+      description: Successful operation
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateUserResponse"
     DeleteUserResponse:
-      description: DeleteUserResponse is a response when a user has been successfully
-        deleted.
+      description: Successful operation
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/DeleteUserResponse"
     GetBatCaveDeviceSettingResponse:
-      description: GetBatCaveDeviceSettingResponse is a response when successfully getting
-        a Bat Cave device setting.
+      description: Successful operation
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GetBatCaveDeviceSettingResponse"
     GetUserResponse:
-      description: GetUserResponse is a response when getting a user successfully.
+      description: Successful operation
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/GetUserResponse"
+    ErrorResponse:
+      description: Error with the service
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
     LoginResponse:
-      description: LoginRespose is the response that is returned when a user has
-        successfully login.
+      description: Successful login
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/LoginResponse"
     LogoutResponse:
-      description: LogoutRespose is the response that is returned when a user has
-        successfully logout.
+      description: Successful logout
     UpdateBatCaveDeviceSettingResponse:
-      description: UpdateBatCaveDviceSettingResonse is the response when successfully
-        updated a Bat Cave device setting.
+      description: Successful operation
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/UpdateBatCaveDeviceSettingResponse"
     UpdateUserResponse:
-      description: UpdateUserResponse is a response that ire returned when a user was
-        successfully updated.
+      description: Successful operation
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/UpdateUserResponse"
     PatchUserResponse:
-      description: PatchUserResponse is a response that ire returned when a user was
-        successfully patched.
+      description: Successful operation
       content:
         application/json:
           schema:
@@ -352,16 +349,16 @@ components:
     CreateBatCaveDeviceSettingResponse:
       properties:
         deepSleepDelay:
-          description: The deep sleep delay of the device.
+          description: The deep sleep delay of the device
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
         id:
-          description: The id of the device.
+          description: The id of the device
           type: string
           x-go-name: ID
         mac:
-          description: The mac of the device.
+          description: The mac of the device
           type: string
           x-go-name: Mac 
       title: CreateBatCaveSettingResponse is a response when successfully creating a
@@ -392,19 +389,19 @@ components:
     CreateUserResponse:
       properties:
         email:
-          description: The email of the user created.
+          description: The email of the user created
           type: string
           x-go-name: Email
         id:
-          description: The ID of the user that was created.
+          description: The ID of the user that was created
           type: string
           x-go-name: ID
         name:
-          description: The name of the user created.
+          description: The name of the user created
           type: string
           x-go-name: Name
         username:
-          description: The username of the user created.
+          description: The username of the user created
           type: string
           x-go-name: Username
       title: CreateUserResponse is a response when a user has been successfully
@@ -414,7 +411,7 @@ components:
     DeleteUserResponse:
       properties:
         id:
-          description: The id of the user that was deleted.
+          description: The id of the user that was deleted
           type: string
           x-go-name: ID
       title: DeleteUserResponse is a response when a user has been successfully
@@ -424,12 +421,12 @@ components:
     GetBatCaveDeviceSettingResponse:
       properties:
         deepSleepDelay:
-          description: The deep sleep delay of the device.
+          description: The deep sleep delay of the device
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
         id:
-          description: The id of the device.
+          description: The id of the device
           type: string
           x-go-name: ID 
       title: GetBatCaveDeviceSettingResponse is a response when successfully getting
@@ -439,22 +436,31 @@ components:
     GetUserResponse:
       properties:
         email:
-          description: The email of the user.
+          description: The email of the user
           type: string
           x-go-name: Email
         id:
-          description: The id of the user.
+          description: The id of the user
           type: string
           x-go-name: ID
         name:
-          description: The name of the user.
+          description: The name of the user
           type: string
           x-go-name: Name
         username:
-          description: The username of the user.
+          description: The username of the user
           type: string
           x-go-name: Username
-      title: GetUserResponse is a response when getting a user successfully.
+      title: GetUserResponse is a response when getting a user successfully
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
+    ErrorResponse:
+      properties:
+        message:
+          description: The error message
+          type: string
+          x-go-name: Message
+      title: ErrorResponse is a response when there was an error
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
     LoginRequest:
@@ -467,7 +473,7 @@ components:
           description: The username for the user
           type: string
           x-go-name: Username
-      title: LoginRequest is the request for login.
+      title: LoginRequest is the request for login
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/auth/request
     LoginResponse:
@@ -497,8 +503,7 @@ components:
           description: The users username
           type: string
           x-go-name: Username
-      title: LoginRespose is the response that is returned when a user has
-        successfully login.
+      title: Successful operation
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/auth/response
     UpdateBatCaveDeviceSettingRequest:
@@ -514,16 +519,15 @@ components:
     UpdateBatCaveDeviceSettingResponse:
       properties:
         deepSleepDelay:
-          description: The deep sleep delay of the device.
+          description: The deep sleep delay of the device
           format: uint32
           type: integer
           x-go-name: DeepSleepDelay
         id:
-          description: The id of the device.
+          description: The id of the device
           type: string
           x-go-name: ID 
-      title: UpdateBatCaveDviceSettingResonse is the response when successfully
-        updated a Bat Cave device setting.
+      title: Successful opertation
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/response
     UpdateUserRequest:
@@ -563,45 +567,43 @@ components:
     UpdateUserResponse:
       properties:
         email:
-          description: The email of the user that is being updated.
+          description: The email of the user that is being updated
           type: string
           x-go-name: Email
         id:
-          description: The id of the user that is being updated.
+          description: The id of the user that is being updated
           type: string
           x-go-name: ID
         name:
-          description: The name of the user that is being updated.
+          description: The name of the user that is being updated
           type: string
           x-go-name: Name
         username:
-          description: The username of the user that is being updated.
+          description: The username of the user that is being updated
           type: string
           x-go-name: Username
-      title: UpdateUserResponse is a response that ire returned when a user was
-        successfully updated.
+      title: Successful operation
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
     PatchUserResponse:
       properties:
         email:
-          description: The email of the user that is being updated.
+          description: The email of the user that is being updated
           type: string
           x-go-name: Email
         id:
-          description: The id of the user that is being updated.
+          description: The id of the user that is being updated
           type: string
           x-go-name: ID
         name:
-          description: The name of the user that is being updated.
+          description: The name of the user that is being updated
           type: string
           x-go-name: Name
         username:
-          description: The username of the user that is being updated.
+          description: The username of the user that is being updated
           type: string
           x-go-name: Username
-      title: PatchUserResponse is a response that ire returned when a user was
-        successfully patched.
+      title: Successful operation
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
 

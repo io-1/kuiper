@@ -11,6 +11,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
+	"github.com/io-1/kuiper/internal/logger/blanklogger"
 	"github.com/io-1/kuiper/internal/mock"
 	"github.com/stretchr/testify/assert"
 
@@ -37,7 +38,8 @@ func Test_PatchUser_Should_Update_Username_When_Username_Is_Not_Empty(t *testing
 	mockCtrl := gomock.NewController(t)
 	mockUsersServiceClient := mock.NewMockUsersServiceClient(mockCtrl)
 
-	usersClient := NewUsersClientWithMock(mockUsersServiceClient)
+	blankLogger := blanklogger.NewBlankLogger()
+	usersClient := NewUsersClientWithMock(mockUsersServiceClient, blankLogger)
 
 	mockUsersServiceClient.EXPECT().GetUser(
 		gomock.Any(),
@@ -103,7 +105,8 @@ func Test_PatchUser_Should_Update_Name_When_Name_Is_Not_Empty(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	mockUsersServiceClient := mock.NewMockUsersServiceClient(mockCtrl)
 
-	usersClient := NewUsersClientWithMock(mockUsersServiceClient)
+	blankLogger := blanklogger.NewBlankLogger()
+	usersClient := NewUsersClientWithMock(mockUsersServiceClient, blankLogger)
 
 	mockUsersServiceClient.EXPECT().GetUser(
 		gomock.Any(),
@@ -169,7 +172,8 @@ func Test_PatchUser_Should_Update_Email_When_Email_Is_Not_Empty(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	mockUsersServiceClient := mock.NewMockUsersServiceClient(mockCtrl)
 
-	usersClient := NewUsersClientWithMock(mockUsersServiceClient)
+	blankLogger := blanklogger.NewBlankLogger()
+	usersClient := NewUsersClientWithMock(mockUsersServiceClient, blankLogger)
 
 	mockUsersServiceClient.EXPECT().GetUser(
 		gomock.Any(),
@@ -232,7 +236,8 @@ func Test_PatchUser_Should_Return_NoContent_When_GetUser_Returns_Empty(t *testin
 	mockCtrl := gomock.NewController(t)
 	mockUsersServiceClient := mock.NewMockUsersServiceClient(mockCtrl)
 
-	usersClient := NewUsersClientWithMock(mockUsersServiceClient)
+	blankLogger := blanklogger.NewBlankLogger()
+	usersClient := NewUsersClientWithMock(mockUsersServiceClient, blankLogger)
 
 	mockUsersServiceClient.EXPECT().GetUser(
 		gomock.Any(),
@@ -282,7 +287,8 @@ func Test_PatchUser_Should_Return_NoContent_When_UpdateUser_Returns_Empty(t *tes
 	mockCtrl := gomock.NewController(t)
 	mockUsersServiceClient := mock.NewMockUsersServiceClient(mockCtrl)
 
-	usersClient := NewUsersClientWithMock(mockUsersServiceClient)
+	blankLogger := blanklogger.NewBlankLogger()
+	usersClient := NewUsersClientWithMock(mockUsersServiceClient, blankLogger)
 
 	mockUsersServiceClient.EXPECT().GetUser(
 		gomock.Any(),

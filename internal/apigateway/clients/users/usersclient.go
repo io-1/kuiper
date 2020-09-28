@@ -8,10 +8,12 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/status"
 
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/clients/users/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/users/response"
+	"github.com/io-1/kuiper/internal/logger"
 
 	users_pb "github.com/io-1/kuiper/internal/pb/users"
 )
@@ -21,10 +23,11 @@ const (
 )
 
 type UsersClient struct {
+	logger      logger.Logger
 	usersClient users_pb.UsersServiceClient
 }
 
-func NewUsersClient(serverEnv string) (*UsersClient, error) {
+func NewUsersClient(serverEnv string, logger logger.Logger) (*UsersClient, error) {
 	conn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
 	if err != nil {
 		return nil, err
@@ -36,7 +39,7 @@ func NewUsersClient(serverEnv string) (*UsersClient, error) {
 	return client, nil
 }
 
-func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient) *UsersClient {
+func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient, logger logger.Logger) *UsersClient {
 	client := &UsersClient{
 		usersClient: usersClient,
 	}
@@ -92,8 +95,9 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req request.GetUserRequest
-		res response.GetUserResponse
+		req           request.GetUserRequest
+		res           response.GetUserResponse
+		errorResponse response.ErrorResponse
 	)
 
 	id := c.Params.ByName("id")
@@ -106,7 +110,21 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 
 	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		st, ok := status.FromError(err)
+
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 
@@ -159,8 +177,9 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req request.UpdateUserRequest
-		res response.UpdateUserResponse
+		req           request.UpdateUserRequest
+		res           response.UpdateUserResponse
+		errorResponse response.ErrorResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -182,8 +201,23 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		Name:     req.Name,
 		Email:    req.Email,
 	})
+
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		st, ok := status.FromError(err)
+
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 
@@ -208,8 +242,9 @@ func (client *UsersClient) PatchUser(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req request.PatchUserRequest
-		res response.PatchUserResponse
+		req           request.PatchUserRequest
+		res           response.PatchUserResponse
+		errorResponse response.ErrorResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -227,8 +262,23 @@ func (client *UsersClient) PatchUser(c *gin.Context) {
 
 	// get the user
 	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
+
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		st, ok := status.FromError(err)
+
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 
@@ -257,8 +307,13 @@ func (client *UsersClient) PatchUser(c *gin.Context) {
 		Name:     req.Name,
 		Email:    req.Email,
 	})
+
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		st, _ := status.FromError(err)
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 
@@ -283,8 +338,9 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req request.DeleteUserRequest
-		res response.DeleteUserResponse
+		req           request.DeleteUserRequest
+		res           response.DeleteUserResponse
+		errorResponse response.ErrorResponse
 	)
 
 	id := c.Params.ByName("id")
@@ -298,8 +354,23 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 	r, err := client.usersClient.DeleteUser(ctx, &users_pb.DeleteUserRequest{
 		ID: id,
 	})
+
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		st, ok := status.FromError(err)
+
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 
