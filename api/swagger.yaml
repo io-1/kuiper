@@ -496,7 +496,7 @@ components:
           type: string
           x-go-name: Name
         token:
-          description: The 'JWT' token for the user
+          description: The JWT token for the user
           type: string
           x-go-name: Token
         username:

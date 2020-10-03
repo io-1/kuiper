@@ -5,6 +5,8 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/io-1/kuiper/internal/devices/persistence"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
@@ -40,7 +42,10 @@ func (s *DevicesServer) CreateBatCaveDeviceSetting(ctx context.Context, req *dev
 }
 
 func (s *DevicesServer) GetBatCaveDeviceSetting(ctx context.Context, req *devices_pb.GetBatCaveDeviceSettingRequest) (*devices_pb.GetBatCaveDeviceSettingResponse, error) {
-	_, setting := s.persistence.GetBatCaveDeviceSetting(req.ID)
+	recordNotFound, setting := s.persistence.GetBatCaveDeviceSetting(req.ID)
+	if recordNotFound {
+		return &devices_pb.GetBatCaveDeviceSettingResponse{}, status.Error(codes.NotFound, "id was not found")
+	}
 
 	return &devices_pb.GetBatCaveDeviceSettingResponse{
 		ID:             setting.ID,
@@ -55,7 +60,14 @@ func (s *DevicesServer) UpdateBatCaveDeviceSetting(ctx context.Context, req *dev
 		DeepSleepDelay: req.DeepSleepDelay,
 	}
 
-	s.persistence.UpdateBatCaveDeviceSetting(setting)
+	recordNotFound, err := s.persistence.UpdateBatCaveDeviceSetting(setting)
+	if recordNotFound {
+		return &devices_pb.UpdateBatCaveDeviceSettingResponse{}, status.Error(codes.NotFound, "id was not found")
+	}
+
+	if err != nil {
+		return &devices_pb.UpdateBatCaveDeviceSettingResponse{}, err
+	}
 
 	return &devices_pb.UpdateBatCaveDeviceSettingResponse{
 		ID:             setting.ID,

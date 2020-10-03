@@ -2,13 +2,16 @@ package devices
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/clients/devices/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/devices/response"
+	"github.com/io-1/kuiper/internal/logger"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/status"
 
 	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
@@ -18,23 +21,26 @@ const (
 )
 
 type DevicesClient struct {
+	logger               logger.Logger
 	deviceSettingsClient devices_pb.DevicesServiceClient
 }
 
-func NewDevicesClient(serverEnv string) (*DevicesClient, error) {
+func NewDevicesClient(serverEnv string, logger logger.Logger) (*DevicesClient, error) {
 	conn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
 	if err != nil {
 		return nil, err
 	}
 
 	client := &DevicesClient{
+		logger:               logger,
 		deviceSettingsClient: devices_pb.NewDevicesServiceClient(conn),
 	}
 	return client, nil
 }
 
-func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient) *DevicesClient {
+func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient, logger logger.Logger) *DevicesClient {
 	client := &DevicesClient{
+		logger:               logger,
 		deviceSettingsClient: mockSettingsServiceClient,
 	}
 	return client
@@ -46,8 +52,9 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req request.CreateBatCaveDeviceSettingRequest
-		res response.CreateBatCaveDeviceSettingResponse
+		req           request.CreateBatCaveDeviceSettingRequest
+		res           response.CreateBatCaveDeviceSettingResponse
+		errorResponse response.ErrorResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -63,7 +70,11 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 
 	r, err := client.deviceSettingsClient.CreateBatCaveDeviceSetting(ctx, &devices_pb.CreateBatCaveDeviceSettingRequest{Mac: req.Mac, DeepSleepDelay: req.DeepSleepDelay})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 
@@ -82,8 +93,9 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req request.GetBatCaveDeviceSettingRequest
-		res response.GetBatCaveDeviceSettingResponse
+		req           request.GetBatCaveDeviceSettingRequest
+		res           response.GetBatCaveDeviceSettingResponse
+		errorResponse response.ErrorResponse
 	)
 
 	id := c.Params.ByName("id")
@@ -96,7 +108,21 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 
 	r, err := client.deviceSettingsClient.GetBatCaveDeviceSetting(ctx, &devices_pb.GetBatCaveDeviceSettingRequest{ID: id})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		st, ok := status.FromError(err)
+
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 
@@ -120,8 +146,9 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req request.UpdateBatCaveDeviceSettingRequest
-		res response.UpdateBatCaveDeviceSettingResponse
+		req           request.UpdateBatCaveDeviceSettingRequest
+		res           response.UpdateBatCaveDeviceSettingResponse
+		errorResponse response.ErrorResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -142,7 +169,21 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 		DeepSleepDelay: req.DeepSleepDelay,
 	})
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		st, ok := status.FromError(err)
+
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
 		return
 	}
 

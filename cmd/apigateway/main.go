@@ -21,7 +21,7 @@ func main() {
 	usersHost := os.Getenv("USERS_HOST")
 	env := os.Getenv("ENV")
 
-	devicesClient, err := devices.NewDevicesClient(devicesHost)
+	devicesClient, err := devices.NewDevicesClient(devicesHost, logger)
 	if err != nil {
 		logger.Fatal(err)
 	}

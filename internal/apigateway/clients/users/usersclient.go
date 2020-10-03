@@ -41,6 +41,7 @@ func NewUsersClient(serverEnv string, logger logger.Logger) (*UsersClient, error
 
 func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient, logger logger.Logger) *UsersClient {
 	client := &UsersClient{
+		logger:      logger,
 		usersClient: usersClient,
 	}
 	return client

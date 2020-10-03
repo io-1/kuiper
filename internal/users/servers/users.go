@@ -90,7 +90,6 @@ func (s *UsersServer) UpdateUser(ctx context.Context, req *users_pb.UpdateUserRe
 	}
 
 	recordNotFound, err := s.persistence.UpdateUser(user)
-
 	if recordNotFound {
 		return &users_pb.UpdateUserResponse{}, status.Error(codes.NotFound, "id was not found")
 	}
