@@ -25,6 +25,7 @@ func (i InfluxPersistence) CreateStatsMeasurement(sensor *sensors.StatsMeasureme
 	fields := map[string]interface{}{
 		"voltage": sensor.Voltage,
 		"connect": sensor.ConnectionTime,
+		"rssi":    sensor.Rssi,
 	}
 
 	point, err := client.NewPoint(
