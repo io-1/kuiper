@@ -78,6 +78,11 @@ func init() {
 			log.Fatal(err)
 		}
 
+		err = pubSub.NewBH1750Listener(ctx, "bh1750_listener", os.Getenv("BH1750_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		server = sensors.NewSensorsServer(persistence)
 	}
 }
