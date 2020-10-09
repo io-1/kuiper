@@ -18,12 +18,10 @@ pipeline {
                 sh 'cp -r ${WORKSPACE}/* ${GOPATH}/${SRC_PATH}'
 
                 // get dependencies
-                /* sh 'make -C ${GOPATH}/${SRC_PATH} get' */
                 sh 'make -C ${GOPATH}/${SRC_PATH} get-ci'
                 sh 'cd ${GOPATH}/${SRC_PATH}'
 
                 // run tests
-                /* sh 'go test -v --tags unit ${GOPATH}/${SRC_PATH}/...' */
                 sh 'go test -v --tags unit ./...'
                 sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
                 sh '''
