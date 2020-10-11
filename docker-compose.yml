@@ -152,7 +152,7 @@ services:
             dockerfile: ./build/dockerfiles/users/Dockerfile
         depends_on:
             - users_mysql
-        command: "dockerize -wait tcp://172.28.1.8:3306 -timeout 300s /go/bin/main"
+        command: "dockerize -wait tcp://172.28.1.12:3306 -timeout 300s /go/bin/main"
         ports:
             - "8084:8084"
         networks:
@@ -170,6 +170,36 @@ services:
         networks:
             kuiper_net:
                 ipv4_address: 172.28.1.12
+
+    interactions:
+        container_name: interactions
+        image: kuiper/interactions
+        environment:
+            PORT: "8085"
+            DB_CONN: "root:password@tcp(172.28.1.15:3306)/interactions?charset=utf8&parseTime=True&loc=Local"
+        build:
+            context: .
+            dockerfile: ./build/dockerfiles/interactions/Dockerfile
+        depends_on:
+            - interactions_mysql
+        command: "dockerize -wait tcp://172.28.1.15:3306 -timeout 300s /go/bin/main"
+        ports:
+            - "8085:8085"
+        networks:
+            kuiper_net:
+                ipv4_address: 172.28.1.14
+
+    interactions_mysql:
+        container_name: interactions_mysql
+        image: kuiper/interactions_mysql
+        build:
+            context: ./build/dockerfiles/db/interactions/.
+            dockerfile: ./Dockerfile
+        ports:
+            - "3308:3306"
+        networks:
+            kuiper_net:
+                ipv4_address: 172.28.1.15
 
 networks:
     kuiper_net:
