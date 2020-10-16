@@ -16,9 +16,9 @@ type CreateInteractionActionRequest struct {
 }
 
 type CreateInteractionRequest struct {
-	Name       string                              `json:"name"`
-	Conditions []CreateInteractionConditionRequest `json:"conditions"`
-	Actions    []CreateInteractionActionRequest    `json:"actions"`
+	Name       string                            `json:"name"`
+	Conditions CreateInteractionConditionRequest `json:"conditions"`
+	Actions    CreateInteractionActionRequest    `json:"actions"`
 }
 
 func (r CreateInteractionRequest) Validate() url.Values {
