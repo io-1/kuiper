@@ -83,6 +83,11 @@ func init() {
 			log.Fatal(err)
 		}
 
+		err = pubSub.NewKeypadListener(ctx, "keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		server = sensors.NewSensorsServer(persistence)
 	}
 }

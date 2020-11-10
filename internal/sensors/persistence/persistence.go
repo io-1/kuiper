@@ -40,6 +40,10 @@ type Voltage interface {
 	CreateVoltageMeasurement(sensor *sensors.VoltageMeasurement) error
 }
 
+type Keypad interface {
+	CreateKeypadMeasurement(sensor *sensors.KeypadMeasurement) error
+}
+
 type Persistence interface {
 	BMP280Sensor
 	DHT22Sensor
@@ -49,4 +53,5 @@ type Persistence interface {
 	BH1750Sensor
 	Stats
 	Voltage
+	Keypad
 }

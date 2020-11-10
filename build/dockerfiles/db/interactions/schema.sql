@@ -1,6 +1,56 @@
 CREATE DATABASE interactions;
 use interactions;
 
+CREATE TABLE interactions(
+    id VARCHAR(36) NOT NULL, 
+    name VARCHAR(50) NOT NULL, 
+    description VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE keypad_conditions(
+    id VARCHAR(36) NOT NULL, 
+    interaction_id VARCHAR(36) NOT NULL,
+    mac VARCHAR(12) NOT NULL,
+    button_id INT NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    INDEX `idx_keypad_conditions_interaction`(interaction_id),
+    CONSTRAINT `fk_keypad_conditions_interaction` FOREIGN KEY(interaction_id) REFERENCES interactions(id),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE conditions_to_events(
+    id VARCHAR(36) NOT NULL, 
+    condition_id VARCHAR(36) NOT NULL, 
+    event_id VARCHAR(36) NOT NULL,
+
+    /* what type of event this is */
+    event_type VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    event_type VARCHAR(50) NOT NULL,
+
+    /* how long does the event last on the device */
+    duration INT NOT NULL,
+    color VARCHAR(10) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE bh1750_state(
     id VARCHAR(36) NOT NULL, 
     mac VARCHAR(12) NOT NULL, 
@@ -26,15 +76,6 @@ CREATE TABLE stats_state(
     rssi INT NOT NULL, 
     PRIMARY KEY(id), 
     UNIQUE KEY `unique_stats_state_mac`(mac)
-);
-
-CREATE TABLE interactions(
-    id VARCHAR(36) NOT NULL, 
-    name VARCHAR(100) NOT NULL, 
-    created_at TIMESTAMP, 
-    updated_at TIMESTAMP, 
-    deleted_at TIMESTAMP, 
-    PRIMARY KEY(id)
 );
 
 CREATE TABLE scheduled_conditions(
@@ -83,12 +124,3 @@ CREATE TABLE measurement_conditions(
     PRIMARY KEY(id)
 );
 
-CREATE TABLE actions(
-    id VARCHAR(36) NOT NULL, 
-    mac VARCHAR(12) NOT NULL,
-    action VARCHAR(6) NOT NULL,
-    created_at TIMESTAMP, 
-    updated_at TIMESTAMP, 
-    deleted_at TIMESTAMP, 
-    PRIMARY KEY(id)
-);
