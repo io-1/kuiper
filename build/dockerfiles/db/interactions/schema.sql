@@ -4,7 +4,7 @@ use interactions;
 CREATE TABLE interactions(
     id VARCHAR(36) NOT NULL, 
     name VARCHAR(50) NOT NULL, 
-    description VARCHAR(50) NOT NULL,
+    description VARCHAR(100) NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
     deleted_at TIMESTAMP, 

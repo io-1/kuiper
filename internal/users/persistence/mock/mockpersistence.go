@@ -78,11 +78,12 @@ func (mr *MockPersistenceMockRecorder) GetUserByUsername(username interface{}) *
 }
 
 // UpdateUser mocks base method.
-func (m *MockPersistence) UpdateUser(user persistence.User) int64 {
+func (m *MockPersistence) UpdateUser(user persistence.User) (bool, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", user)
-	ret0, _ := ret[0].(int64)
-	return ret0
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UpdateUser indicates an expected call of UpdateUser.
@@ -92,11 +93,12 @@ func (mr *MockPersistenceMockRecorder) UpdateUser(user interface{}) *gomock.Call
 }
 
 // DeleteUser mocks base method.
-func (m *MockPersistence) DeleteUser(user persistence.User) int64 {
+func (m *MockPersistence) DeleteUser(user persistence.User) (bool, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteUser", user)
-	ret0, _ := ret[0].(int64)
-	return ret0
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // DeleteUser indicates an expected call of DeleteUser.

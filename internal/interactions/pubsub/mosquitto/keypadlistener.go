@@ -11,7 +11,7 @@ import (
 	sensors "github.com/io-1/kuiper/internal/interactions/devicesensors"
 )
 
-func (p MosquittoPubSub) NewKeypadistener(ctx context.Context, listenerName string, subscription string) error {
+func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName string, subscription string) error {
 	mqttUrl, err := url.Parse(subscription)
 	if err != nil {
 		return err
@@ -47,10 +47,10 @@ func (p MosquittoPubSub) NewKeypadistener(ctx context.Context, listenerName stri
 		// }
 
 		// FIXME: when a button interaction comes in check the database for interactions
-		keypadConditions, err = p.persistence.GetKeypadConditions(sensor.ID, sensor.Mac)
-		if err != nil {
-			p.logger.Error(err.Error())
-		}
+		// keypadConditions, err = p.persistence.GetKeypadConditions(sensor.ID, sensor.Mac)
+		// if err != nil {
+		// 	p.logger.Error(err.Error())
+		// }
 
 		// FIXME: send off the button interactoins by the mac
 	}

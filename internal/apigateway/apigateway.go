@@ -93,6 +93,30 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		interactionsGroup.PUT("/:id", nil)
 		interactionsGroup.PATCH("/:id", nil)
 		interactionsGroup.DELETE("/:id", nil)
+
+		conditionsGroup := interactionsGroup.Group("/conditions")
+		{
+			keypadGroup := conditionsGroup.Group("/keypad")
+			{
+				keypadGroup.POST("", nil)
+				keypadGroup.GET("/:id", nil)
+				keypadGroup.PUT("/:id", nil)
+				keypadGroup.PATCH("/:id", nil)
+				keypadGroup.DELETE("/:id", nil)
+			}
+		}
+
+		eventsGroup := interactionsGroup.Group("/events")
+		{
+			lampGroup := eventsGroup.Group("/lamp")
+			{
+				lampGroup.POST("", nil)
+				lampGroup.GET("/:id", nil)
+				lampGroup.PUT("/:id", nil)
+				lampGroup.PATCH("/:id", nil)
+				lampGroup.DELETE("/:id", nil)
+			}
+		}
 	}
 
 	r.NoRoute(g.ginAuth.UseAuthMiddleware, func(c *gin.Context) {
