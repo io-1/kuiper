@@ -10,6 +10,7 @@ import (
 
 	ginauth "github.com/io-1/kuiper/internal/apigateway/auth/ginauth"
 	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions"
 	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
 )
 
@@ -19,6 +20,7 @@ func main() {
 	port := os.Getenv("PORT")
 	devicesHost := os.Getenv("DEVICES_HOST")
 	usersHost := os.Getenv("USERS_HOST")
+	interactionsHost := os.Getenv("INTERACTIONS_HOST")
 	env := os.Getenv("ENV")
 
 	devicesClient, err := devices.NewDevicesClient(devicesHost, logger)
@@ -31,12 +33,17 @@ func main() {
 		logger.Fatal(err)
 	}
 
+	interactionsClient, err := interactions.NewInteractionsClient(interactionsHost, logger)
+	if err != nil {
+		logger.Fatal(err)
+	}
+
 	ginAuth, err := ginauth.NewGinAuth(usersClient, logger)
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	apiGateway := apigateway.NewAPIGateway(env, ginAuth, devicesClient, usersClient)
+	apiGateway := apigateway.NewAPIGateway(env, ginAuth, devicesClient, usersClient, interactionsClient)
 	router := gin.Default()
 
 	err = apiGateway.InitV1Routes(router)

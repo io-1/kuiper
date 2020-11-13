@@ -129,6 +129,7 @@ services:
             PORT: "9090"
             DEVICES_HOST: "172.28.1.9:8081"
             USERS_HOST: "172.28.1.11:8084"
+            INTERACTIONS_HOST: "172.28.1.14:8085"
             ENV: "dev"
         build:
             context: .

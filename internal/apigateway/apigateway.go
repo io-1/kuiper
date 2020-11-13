@@ -9,6 +9,7 @@ import (
 	jwt "github.com/appleboy/gin-jwt"
 	"github.com/io-1/kuiper/internal/apigateway/auth/ginauth"
 	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions"
 	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
 )
 
@@ -17,18 +18,20 @@ const (
 )
 
 type APIGateway struct {
-	env           string
-	ginAuth       *ginauth.GinAuth
-	devicesClient *devices.DevicesClient
-	usersClient   *users.UsersClient
+	env                string
+	ginAuth            *ginauth.GinAuth
+	devicesClient      *devices.DevicesClient
+	usersClient        *users.UsersClient
+	interactionsClient *interactions.InteractionsClient
 }
 
-func NewAPIGateway(env string, ginAuth *ginauth.GinAuth, devicesClient *devices.DevicesClient, usersClient *users.UsersClient) *APIGateway {
+func NewAPIGateway(env string, ginAuth *ginauth.GinAuth, devicesClient *devices.DevicesClient, usersClient *users.UsersClient, interactionsClient *interactions.InteractionsClient) *APIGateway {
 	return &APIGateway{
-		env:           env,
-		ginAuth:       ginAuth,
-		devicesClient: devicesClient,
-		usersClient:   usersClient,
+		env:                env,
+		ginAuth:            ginAuth,
+		devicesClient:      devicesClient,
+		usersClient:        usersClient,
+		interactionsClient: interactionsClient,
 	}
 }
 
@@ -88,11 +91,11 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 	interactionsGroup := v1.Group("/interactions")
 	{
-		interactionsGroup.POST("", nil)
-		interactionsGroup.GET("/:id", nil)
-		interactionsGroup.PUT("/:id", nil)
-		interactionsGroup.PATCH("/:id", nil)
-		interactionsGroup.DELETE("/:id", nil)
+		interactionsGroup.POST("", g.interactionsClient.CreateInteraction)
+		interactionsGroup.GET("/:id", g.interactionsClient.GetInteraction)
+		interactionsGroup.PUT("/:id", g.interactionsClient.UpdateInteraction)
+		interactionsGroup.PATCH("/:id", g.interactionsClient.PatchInteraction)
+		interactionsGroup.DELETE("/:id", g.interactionsClient.DeleteInteraction)
 
 		conditionsGroup := interactionsGroup.Group("/conditions")
 		{

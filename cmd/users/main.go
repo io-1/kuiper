@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"time"
 
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/logger/logruslogger"
@@ -14,10 +13,6 @@ import (
 
 	users_pb "github.com/io-1/kuiper/internal/pb/users"
 	users "github.com/io-1/kuiper/internal/users/servers"
-)
-
-const (
-	ONE_MINUTE = 1 * time.Minute
 )
 
 var (

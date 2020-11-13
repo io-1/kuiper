@@ -49,7 +49,6 @@ func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient, logger logg
 
 // Create User
 func (client *UsersClient) CreateUser(c *gin.Context) {
-
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 

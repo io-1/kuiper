@@ -20,8 +20,9 @@ message GetInteractionRequest {
 }
 
 message GetInteractionResponse {
-  string Name = 1;
-  string Description = 2;
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
 }
 
 message UpdateInteractionRequest {
