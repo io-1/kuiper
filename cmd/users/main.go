@@ -43,7 +43,7 @@ func init() {
 
 func main() {
 	if *showVersion {
-		fmt.Printf("settings server: version %s build %s", Version, Build)
+		fmt.Printf("users server: version %s build %s", Version, Build)
 	} else {
 		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 		if err != nil {

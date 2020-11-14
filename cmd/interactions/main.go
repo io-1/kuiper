@@ -18,12 +18,12 @@ import (
 )
 
 var (
+	ctx         context.Context
+	showVersion *bool
 	Version     string
 	Build       string
-	showVersion *bool
 	port        string
 	log         logger.Logger
-	ctx         context.Context
 	server      *interactions.InteractionsServer
 )
 
@@ -63,7 +63,7 @@ func main() {
 	// FIXME: send alert message when keypad is pressed
 
 	if *showVersion {
-		fmt.Printf("settings server: version %s build %s", Version, Build)
+		fmt.Printf("interactions server: version %s build %s", Version, Build)
 	} else {
 		pubSub := mosquitto.NewMosquittoPubSub(log)
 		err := pubSub.NewKeypadListener(ctx, "keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))

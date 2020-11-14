@@ -1,9 +1,10 @@
 FROM golang:1.15.2-alpine3.12 as builder
-RUN apk update && apk add --no-cache git
+RUN apk update && apk add --no-cache git make
 WORKDIR $GOPATH/src/github.com/io-1/kuiper/
 COPY . .
-# RUN go get -v -d ./...
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /go/bin/main cmd/devices/main.go
+# RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /go/bin/main cmd/devices/main.go
+RUN make build-bin-devices
+RUN mv bin/devices /go/bin/main
 
 FROM alpine:latest
 ENV DOCKERIZE_VERSION v0.12.0

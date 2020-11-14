@@ -108,6 +108,36 @@ test-clean:
 	docker rmi "$(PROJECTNAME)"/test-db:"$(VERSION)"
 	echo "done"
 
+.PHONY: build-bin-apigeteway
+build-bin-apigateway:
+	echo "building apigateway binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/apigateway cmd/apigateway/main.go
+	echo "done"
+
+.PHONY: build-bin-sensors
+build-bin-sensors:
+	echo "building sensors binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/sensors cmd/sensors/main.go
+	echo "done"
+
+.PHONY: build-bin-devices
+build-bin-devices:
+	echo "building devices binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/devices cmd/devices/main.go
+	echo "done"
+
+.PHONY: build-bin-users
+build-bin-users:
+	echo "building users binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/users cmd/users/main.go
+	echo "done"
+
+.PHONY: build-bin-interactions
+build-bin-interactions:
+	echo "building interactions binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/interactions cmd/interactions/main.go
+	echo "done"
+
 .PHONY: build-apigeteway
 build-apigateway:
 	echo "building apigateway..."
@@ -132,8 +162,14 @@ build-users:
 	docker build -t "$(PROJECTNAME)"/users:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/users/Dockerfile .
 	echo "done"
 
+.PHONY: build-interactions
+build-interactions:
+	echo "building interactions..."
+	docker build -t "$(PROJECTNAME)"/interactions:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/interactions/Dockerfile .
+	echo "done"
+
 .PHONY: build-all
-build-all: build-apigateway build-sensors build-devices build-users
+build-all: build-apigateway build-sensors build-devices build-users build-interactions
 
 .PHONY: up
 up: 

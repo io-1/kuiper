@@ -6,10 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/runtime/middleware"
 
-	jwt "github.com/appleboy/gin-jwt"
 	"github.com/io-1/kuiper/internal/apigateway/auth/ginauth"
-	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactions"
+
+	jwt "github.com/appleboy/gin-jwt"
+	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
 	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
 )
 
@@ -19,15 +20,19 @@ const (
 
 type APIGateway struct {
 	env                string
+	version            string
+	build              string
 	ginAuth            *ginauth.GinAuth
 	devicesClient      *devices.DevicesClient
 	usersClient        *users.UsersClient
 	interactionsClient *interactions.InteractionsClient
 }
 
-func NewAPIGateway(env string, ginAuth *ginauth.GinAuth, devicesClient *devices.DevicesClient, usersClient *users.UsersClient, interactionsClient *interactions.InteractionsClient) *APIGateway {
+func NewAPIGateway(env, version, build string, ginAuth *ginauth.GinAuth, devicesClient *devices.DevicesClient, usersClient *users.UsersClient, interactionsClient *interactions.InteractionsClient) *APIGateway {
 	return &APIGateway{
 		env:                env,
+		version:            version,
+		build:              build,
 		ginAuth:            ginAuth,
 		devicesClient:      devicesClient,
 		usersClient:        usersClient,
@@ -49,6 +54,13 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 			c.File("api/swagger.yaml")
 		})
 		r.GET("/docs", g.wrapH(sh))
+
+		r.GET("", func(c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{
+				"version": g.version,
+				"build":   g.build,
+			})
+		})
 	}
 
 	v1 := r.Group("/api/v1")
@@ -61,7 +73,7 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 		authGroup.GET("/hello", func(c *gin.Context) {
 			claims := jwt.ExtractClaims(c)
-			c.JSON(200, gin.H{
+			c.JSON(http.StatusOK, gin.H{
 				"id":       claims["id"],
 				"username": claims["username"],
 				"name":     claims["name"],
@@ -97,29 +109,40 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		interactionsGroup.PATCH("/:id", g.interactionsClient.PatchInteraction)
 		interactionsGroup.DELETE("/:id", g.interactionsClient.DeleteInteraction)
 
-		conditionsGroup := interactionsGroup.Group("/conditions")
-		{
-			keypadGroup := conditionsGroup.Group("/keypad")
-			{
-				keypadGroup.POST("", nil)
-				keypadGroup.GET("/:id", nil)
-				keypadGroup.PUT("/:id", nil)
-				keypadGroup.PATCH("/:id", nil)
-				keypadGroup.DELETE("/:id", nil)
-			}
-		}
+	}
 
-		eventsGroup := interactionsGroup.Group("/events")
+	conditionsGroup := v1.Group("/conditions")
+	{
+		keypadGroup := conditionsGroup.Group("/keypad")
 		{
-			lampGroup := eventsGroup.Group("/lamp")
-			{
-				lampGroup.POST("", nil)
-				lampGroup.GET("/:id", nil)
-				lampGroup.PUT("/:id", nil)
-				lampGroup.PATCH("/:id", nil)
-				lampGroup.DELETE("/:id", nil)
-			}
+			keypadGroup.POST("", nil)
+			keypadGroup.GET("/:id", nil)
+			keypadGroup.PUT("/:id", nil)
+			keypadGroup.PATCH("/:id", nil)
+			keypadGroup.DELETE("/:id", nil)
 		}
+	}
+
+	eventsGroup := v1.Group("/events")
+	{
+		lampGroup := eventsGroup.Group("/lamp")
+		{
+			lampGroup.POST("", nil)
+			lampGroup.GET("/:id", nil)
+			lampGroup.PUT("/:id", nil)
+			lampGroup.PATCH("/:id", nil)
+			lampGroup.DELETE("/:id", nil)
+		}
+	}
+
+	// attach conditions to events
+	attachGroup := v1.Group("/attach")
+	{
+		attachGroup.POST("", nil)
+		attachGroup.GET("/:id", nil)
+		attachGroup.PUT("/:id", nil)
+		attachGroup.PATCH("/:id", nil)
+		attachGroup.DELETE("/:id", nil)
 	}
 
 	r.NoRoute(g.ginAuth.UseAuthMiddleware, func(c *gin.Context) {

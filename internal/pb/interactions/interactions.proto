@@ -4,6 +4,7 @@ option go_package = ".;interactions_pb";
 
 package interactions_pb;
 
+// interactions
 message CreateInteractionRequest {
   string Name = 1;
   string Description = 2;
@@ -45,9 +46,155 @@ message DeleteInteractionResponse {
   string ID = 1;
 }
 
+// conditions
+message CreateKeypadConditionRequest {
+  string Name = 1;
+  string Description = 2;
+}
+
+message CreateKeypadConditionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message GetKeypadConditionRequest {
+  string ID = 1;
+}
+
+message GetKeypadConditionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateKeypadConditionRequest {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateKeypadConditionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message DeleteKeypadConditionRequest {
+  string ID = 1;
+}
+
+message DeleteKeypadConditionResponse {
+  string ID = 1;
+}
+
+// events
+message CreateLampEventRequest {
+  string Name = 1;
+  string Description = 2;
+}
+
+message CreateLampEventResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message GetLampEventRequest {
+  string ID = 1;
+}
+
+message GetLampEventResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateLampEventRequest {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateLampEventResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message DeleteLampEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampEventResponse {
+  string ID = 1;
+}
+
+// attach
+message CreateAttachRequest {
+  string Name = 1;
+  string Description = 2;
+}
+
+message CreateAttachResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message GetAttachRequest {
+  string ID = 1;
+}
+
+message GetAttachResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateAttachRequest {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateAttachResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message DeleteAttachRequest {
+  string ID = 1;
+}
+
+message DeleteAttachResponse {
+  string ID = 1;
+}
+
 service InteractionsService {
+  
+  // interactions
   rpc CreateInteraction(CreateInteractionRequest) returns (CreateInteractionResponse);
   rpc GetInteraction(GetInteractionRequest) returns (GetInteractionResponse);
   rpc UpdateInteraction(UpdateInteractionRequest) returns (UpdateInteractionResponse);
   rpc DeleteInteraction(DeleteInteractionRequest) returns (DeleteInteractionResponse);
+
+  // keypad conditions
+  rpc CreateKeypadCondition(CreateKeypadConditionRequest) returns (CreateKeypadConditionResponse);
+  rpc GetKeypadCondition(GetKeypadConditionRequest) returns (GetKeypadConditionResponse);
+  rpc UpdateKeypadCondition(UpdateKeypadConditionRequest) returns (UpdateKeypadConditionResponse);
+  rpc DeleteKeypadCondition(DeleteKeypadConditionRequest) returns (DeleteKeypadConditionResponse);
+
+  // lamp events
+  rpc CreateLampEvent(CreateLampEventRequest) returns (CreateLampEventResponse);
+  rpc GetLampEvent(GetLampEventRequest) returns (GetLampEventResponse);
+  rpc UpdateLampEvent(UpdateLampEventRequest) returns (UpdateLampEventResponse);
+  rpc DeleteLampEvent(DeleteLampEventRequest) returns (DeleteLampEventResponse);
+
+  // attach
+  rpc CreateAttach(CreateAttachRequest) returns (CreateAttachResponse);
+  rpc GetAttach(GetAttachRequest) returns (GetAttachResponse);
+  rpc UpdateAttach(UpdateAttachRequest) returns (UpdateAttachResponse);
+  rpc DeleteAttach(DeleteAttachRequest) returns (DeleteAttachResponse);
 }

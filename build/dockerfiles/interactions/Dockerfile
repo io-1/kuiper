@@ -1,8 +1,10 @@
 FROM golang:1.15.2-alpine3.12 as builder
-RUN apk update && apk add --no-cache git
+RUN apk update && apk add --no-cache git make
 WORKDIR $GOPATH/src/github.com/io-1/kuiper/
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /go/bin/main cmd/interactions/main.go
+# RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /go/bin/main cmd/interactions/main.go
+RUN make build-bin-interactions
+RUN mv bin/interactions /go/bin/main
 
 FROM alpine:latest
 ENV DOCKERIZE_VERSION v0.12.0

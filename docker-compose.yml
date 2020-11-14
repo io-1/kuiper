@@ -137,6 +137,7 @@ services:
         depends_on:
             - devices
             - users
+            - interactions
         ports:
             - "9090:9090"
         networks:
