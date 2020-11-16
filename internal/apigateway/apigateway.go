@@ -95,43 +95,43 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	usersGroup := v1.Group("/users")
 	{
 		usersGroup.POST("", g.usersClient.CreateUser)
-		usersGroup.GET("/:id", g.usersClient.GetUser)
-		usersGroup.PUT("/:id", g.usersClient.UpdateUser)
-		usersGroup.PATCH("/:id", g.usersClient.PatchUser)
-		usersGroup.DELETE("/:id", g.usersClient.DeleteUser)
+		usersGroup.GET("/:user_id", g.usersClient.GetUser)
+		usersGroup.PUT("/:user_id", g.usersClient.UpdateUser)
+		usersGroup.PATCH("/:user_id", g.usersClient.PatchUser)
+		usersGroup.DELETE("/:user_id", g.usersClient.DeleteUser)
 	}
 
 	interactionsGroup := v1.Group("/interactions")
 	{
 		interactionsGroup.POST("", g.interactionsClient.CreateInteraction)
-		interactionsGroup.GET("/:id", g.interactionsClient.GetInteraction)
-		interactionsGroup.PUT("/:id", g.interactionsClient.UpdateInteraction)
-		interactionsGroup.PATCH("/:id", g.interactionsClient.PatchInteraction)
-		interactionsGroup.DELETE("/:id", g.interactionsClient.DeleteInteraction)
+		interactionsGroup.GET("/:interaction_id", g.interactionsClient.GetInteraction)
+		interactionsGroup.PUT("/:interaction_id", g.interactionsClient.UpdateInteraction)
+		interactionsGroup.PATCH("/:interaction_id", g.interactionsClient.PatchInteraction)
+		interactionsGroup.DELETE("/:interaction_id", g.interactionsClient.DeleteInteraction)
 
 	}
 
 	conditionsGroup := v1.Group("/conditions")
 	{
-		keypadGroup := conditionsGroup.Group("/keypad")
+		keypadConditionsGroup := conditionsGroup.Group("/keypad")
 		{
-			keypadGroup.POST("", nil)
-			keypadGroup.GET("/:id", nil)
-			keypadGroup.PUT("/:id", nil)
-			keypadGroup.PATCH("/:id", nil)
-			keypadGroup.DELETE("/:id", nil)
+			keypadConditionsGroup.POST("", nil)
+			keypadConditionsGroup.GET("/:id", nil)
+			keypadConditionsGroup.PUT("/:id", nil)
+			keypadConditionsGroup.PATCH("/:id", nil)
+			keypadConditionsGroup.DELETE("/:id", nil)
 		}
 	}
 
 	eventsGroup := v1.Group("/events")
 	{
-		lampGroup := eventsGroup.Group("/lamp")
+		lampEventGroup := eventsGroup.Group("/lamp")
 		{
-			lampGroup.POST("", nil)
-			lampGroup.GET("/:id", nil)
-			lampGroup.PUT("/:id", nil)
-			lampGroup.PATCH("/:id", nil)
-			lampGroup.DELETE("/:id", nil)
+			lampEventGroup.POST("", nil)
+			lampEventGroup.GET("/:id", nil)
+			lampEventGroup.PUT("/:id", nil)
+			lampEventGroup.PATCH("/:id", nil)
+			lampEventGroup.DELETE("/:id", nil)
 		}
 	}
 

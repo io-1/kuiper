@@ -1,60 +1,25 @@
-package users
+package interactions
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net/http"
-	"time"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/status"
 
 	"github.com/gin-gonic/gin"
-	"github.com/io-1/kuiper/internal/apigateway/clients/users/request"
-	"github.com/io-1/kuiper/internal/apigateway/clients/users/response"
-	"github.com/io-1/kuiper/internal/logger"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
+	"google.golang.org/grpc/status"
 
-	users_pb "github.com/io-1/kuiper/internal/pb/users"
+	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 
-const (
-	FIVE_MINUTES = 5 * time.Minute
-)
-
-type UsersClient struct {
-	logger      logger.Logger
-	usersClient users_pb.UsersServiceClient
-}
-
-func NewUsersClient(serverEnv string, logger logger.Logger) (*UsersClient, error) {
-	conn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
-	if err != nil {
-		return nil, err
-	}
-
-	client := &UsersClient{
-		usersClient: users_pb.NewUsersServiceClient(conn),
-	}
-	return client, nil
-}
-
-func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient, logger logger.Logger) *UsersClient {
-	client := &UsersClient{
-		logger:      logger,
-		usersClient: usersClient,
-	}
-	return client
-}
-
-// Create User
-func (client *UsersClient) CreateUser(c *gin.Context) {
+func (client InteractionsClient) CreateInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req request.CreateUserRequest
-		res response.CreateUserResponse
+		req request.CreateInteractionRequest
+		res response.CreateInteractionResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -68,39 +33,35 @@ func (client *UsersClient) CreateUser(c *gin.Context) {
 		return
 	}
 
-	r, err := client.usersClient.CreateUser(ctx, &users_pb.CreateUserRequest{
-		Username: req.Username,
-		Password: req.Password,
-		Name:     req.Name,
-		Email:    req.Email,
+	r, err := client.interactionsServiceClient.CreateInteraction(ctx, &interactions_pb.CreateInteractionRequest{
+		Name:        req.Name,
+		Description: req.Description,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	res = response.CreateUserResponse{
-		ID:       r.ID,
-		Username: r.Username,
-		Name:     r.Name,
-		Email:    r.Email,
+	res = response.CreateInteractionResponse{
+		ID:          r.ID,
+		Name:        r.Name,
+		Description: r.Description,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-// Get a user
-func (client *UsersClient) GetUser(c *gin.Context) {
+func (client InteractionsClient) GetInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.GetUserRequest
-		res           response.GetUserResponse
+		req           request.GetInteractionRequest
+		res           response.GetInteractionResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("user_id")
+	id := c.Params.ByName("interaction_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -108,7 +69,7 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 		return
 	}
 
-	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -133,52 +94,22 @@ func (client *UsersClient) GetUser(c *gin.Context) {
 		return
 	}
 
-	res = response.GetUserResponse{
-		ID:       r.ID,
-		Username: r.Username,
-		Name:     r.Name,
-		Email:    r.Email,
+	res = response.GetInteractionResponse{
+		ID:          r.ID,
+		Name:        r.Name,
+		Description: r.Description,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client *UsersClient) GetUserByUsername(username string) (*response.GetUserByUsernameResponse, error) {
-	var (
-		req request.GetUserByUsernameRequest
-		res *response.GetUserByUsernameResponse
-		ctx = context.Background()
-	)
-
-	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
-		err := map[string]interface{}{"validationError": validationErrors}
-		return &response.GetUserByUsernameResponse{}, errors.New(fmt.Sprintf("%v", err))
-	}
-
-	r, err := client.usersClient.GetUserByUsername(ctx, &users_pb.GetUserByUsernameRequest{Username: username})
-	if err != nil {
-		return &response.GetUserByUsernameResponse{}, err
-	}
-
-	res = &response.GetUserByUsernameResponse{
-		ID:       r.ID,
-		Username: r.Username,
-		Password: r.Password,
-		Name:     r.Name,
-		Email:    r.Email,
-	}
-
-	return res, nil
-}
-
-// Update User
-func (client *UsersClient) UpdateUser(c *gin.Context) {
+func (client InteractionsClient) UpdateInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.UpdateUserRequest
-		res           response.UpdateUserResponse
+		req           request.UpdateInteractionRequest
+		res           response.UpdateInteractionResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -187,7 +118,7 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("user_id")
+	id := c.Params.ByName("interaction_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -195,11 +126,10 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	r, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
-		ID:       id,
-		Username: req.Username,
-		Name:     req.Name,
-		Email:    req.Email,
+	r, err := client.interactionsServiceClient.UpdateInteraction(ctx, &interactions_pb.UpdateInteractionRequest{
+		ID:          id,
+		Name:        req.Name,
+		Description: req.Description,
 	})
 
 	if err != nil {
@@ -226,24 +156,22 @@ func (client *UsersClient) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	res = response.UpdateUserResponse{
-		ID:       r.ID,
-		Username: r.Username,
-		Name:     r.Name,
-		Email:    r.Email,
+	res = response.UpdateInteractionResponse{
+		ID:          r.ID,
+		Name:        r.Name,
+		Description: r.Description,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-// Patch a user
-func (client *UsersClient) PatchUser(c *gin.Context) {
+func (client InteractionsClient) PatchInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.PatchUserRequest
-		res           response.PatchUserResponse
+		req           request.PatchInteractionRequest
+		res           response.PatchInteractionResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -252,7 +180,7 @@ func (client *UsersClient) PatchUser(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("user_id")
+	id := c.Params.ByName("interaction_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -261,7 +189,7 @@ func (client *UsersClient) PatchUser(c *gin.Context) {
 	}
 
 	// get the user
-	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
 
 	if err != nil {
 		st, ok := status.FromError(err)
@@ -287,25 +215,19 @@ func (client *UsersClient) PatchUser(c *gin.Context) {
 		return
 	}
 
-	// use the difference
-	if req.Username == "" {
-		req.Username = r.Username
-	}
-
 	if req.Name == "" {
 		req.Name = r.Name
 	}
 
-	if req.Email == "" {
-		req.Email = r.Email
+	if req.Description == "" {
+		req.Description = r.Description
 	}
 
 	// save the request difference
-	re, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
-		ID:       id,
-		Username: req.Username,
-		Name:     req.Name,
-		Email:    req.Email,
+	re, err := client.interactionsServiceClient.UpdateInteraction(ctx, &interactions_pb.UpdateInteractionRequest{
+		ID:          id,
+		Name:        req.Name,
+		Description: req.Description,
 	})
 
 	if err != nil {
@@ -322,28 +244,26 @@ func (client *UsersClient) PatchUser(c *gin.Context) {
 		return
 	}
 
-	res = response.PatchUserResponse{
-		ID:       re.ID,
-		Username: re.Username,
-		Name:     re.Name,
-		Email:    re.Email,
+	res = response.PatchInteractionResponse{
+		ID:          re.ID,
+		Name:        re.Name,
+		Description: re.Description,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-// Delete User
-func (client *UsersClient) DeleteUser(c *gin.Context) {
+func (client InteractionsClient) DeleteInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.DeleteUserRequest
-		res           response.DeleteUserResponse
+		req           request.DeleteInteractionRequest
+		res           response.DeleteInteractionResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("user_id")
+	id := c.Params.ByName("interaction_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -351,7 +271,7 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 		return
 	}
 
-	r, err := client.usersClient.DeleteUser(ctx, &users_pb.DeleteUserRequest{
+	r, err := client.interactionsServiceClient.DeleteInteraction(ctx, &interactions_pb.DeleteInteractionRequest{
 		ID: id,
 	})
 
@@ -379,7 +299,7 @@ func (client *UsersClient) DeleteUser(c *gin.Context) {
 		return
 	}
 
-	res = response.DeleteUserResponse{
+	res = response.DeleteInteractionResponse{
 		ID: r.ID,
 	}
 

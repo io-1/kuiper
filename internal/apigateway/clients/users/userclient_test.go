@@ -70,7 +70,7 @@ func Test_PatchUser_Should_Update_Username_When_Username_Is_Not_Empty(t *testing
 		}, nil,
 	)
 
-	r.PATCH("/users/:id", usersClient.PatchUser)
+	r.PATCH("/users/:user_id", usersClient.PatchUser)
 
 	url := fmt.Sprintf("/users/%s", id)
 	c.Request, err = http.NewRequest("PATCH", url, strings.NewReader(string(reqParam)))
@@ -137,7 +137,7 @@ func Test_PatchUser_Should_Update_Name_When_Name_Is_Not_Empty(t *testing.T) {
 		}, nil,
 	)
 
-	r.PATCH("/users/:id", usersClient.PatchUser)
+	r.PATCH("/users/:user_id", usersClient.PatchUser)
 
 	url := fmt.Sprintf("/users/%s", id)
 	c.Request, err = http.NewRequest("PATCH", url, strings.NewReader(string(reqParam)))
@@ -204,7 +204,7 @@ func Test_PatchUser_Should_Update_Email_When_Email_Is_Not_Empty(t *testing.T) {
 		}, nil,
 	)
 
-	r.PATCH("/users/:id", usersClient.PatchUser)
+	r.PATCH("/users/:user_id", usersClient.PatchUser)
 
 	url := fmt.Sprintf("/users/%s", id)
 	c.Request, err = http.NewRequest("PATCH", url, strings.NewReader(string(reqParam)))
@@ -253,7 +253,7 @@ func Test_PatchUser_Should_Return_NoContent_When_GetUser_Returns_Empty(t *testin
 		&users_pb.UpdateUserResponse{}, nil,
 	)
 
-	r.PATCH("/users/:id", usersClient.PatchUser)
+	r.PATCH("/users/:user_id", usersClient.PatchUser)
 
 	url := fmt.Sprintf("/users/%s", id)
 	c.Request, err = http.NewRequest("PATCH", url, strings.NewReader(string(reqParam)))
@@ -309,7 +309,7 @@ func Test_PatchUser_Should_Return_NoContent_When_UpdateUser_Returns_Empty(t *tes
 		&users_pb.UpdateUserResponse{}, nil,
 	)
 
-	r.PATCH("/users/:id", usersClient.PatchUser)
+	r.PATCH("/users/:user_id", usersClient.PatchUser)
 
 	url := fmt.Sprintf("/users/%s", id)
 	c.Request, err = http.NewRequest("PATCH", url, strings.NewReader(string(reqParam)))
