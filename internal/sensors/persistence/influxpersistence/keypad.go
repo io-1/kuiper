@@ -26,7 +26,7 @@ func (i InfluxPersistence) CreateKeypadMeasurement(sensor *sensors.KeypadMeasure
 	}
 
 	point, err := client.NewPoint(
-		"button_listener",
+		"keypad_listener",
 		tags,
 		fields,
 		time.Now().UTC(),
