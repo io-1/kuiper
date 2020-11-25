@@ -115,11 +115,11 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	{
 		keypadConditionsGroup := conditionsGroup.Group("/keypad")
 		{
-			keypadConditionsGroup.POST("", nil)
-			keypadConditionsGroup.GET("/:id", nil)
-			keypadConditionsGroup.PUT("/:id", nil)
-			keypadConditionsGroup.PATCH("/:id", nil)
-			keypadConditionsGroup.DELETE("/:id", nil)
+			keypadConditionsGroup.POST("", g.interactionsClient.CreateKeypadCondition)
+			keypadConditionsGroup.GET("/:keypad_id", g.interactionsClient.GetKeypadCondition)
+			keypadConditionsGroup.PUT("/:keypad_id", g.interactionsClient.UpdateKeypadCondition)
+			keypadConditionsGroup.PATCH("/:keypad_id", g.interactionsClient.PatchKeypadCondition)
+			keypadConditionsGroup.DELETE("/:keypad_id", g.interactionsClient.DeleteKeypadCondition)
 		}
 	}
 
@@ -127,22 +127,22 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	{
 		lampEventGroup := eventsGroup.Group("/lamp")
 		{
-			lampEventGroup.POST("", nil)
-			lampEventGroup.GET("/:id", nil)
-			lampEventGroup.PUT("/:id", nil)
-			lampEventGroup.PATCH("/:id", nil)
-			lampEventGroup.DELETE("/:id", nil)
+			lampEventGroup.POST("", g.interactionsClient.CreateLampEvent)
+			lampEventGroup.GET("/:lamp_id", g.interactionsClient.GetLampEvent)
+			lampEventGroup.PUT("/:lamp_id", g.interactionsClient.UpdateLampEvent)
+			lampEventGroup.PATCH("/:lamp_id", g.interactionsClient.PatchLampEvent)
+			lampEventGroup.DELETE("/:lamp_id", g.interactionsClient.DeleteLampEvent)
 		}
 	}
 
 	// attach conditions to events
 	attachGroup := v1.Group("/attach")
 	{
-		attachGroup.POST("", nil)
-		attachGroup.GET("/:id", nil)
-		attachGroup.PUT("/:id", nil)
-		attachGroup.PATCH("/:id", nil)
-		attachGroup.DELETE("/:id", nil)
+		attachGroup.POST("", g.interactionsClient.CreateAttach)
+		attachGroup.GET("/:attach_id", g.interactionsClient.GetAttach)
+		attachGroup.PUT("/:attach_id", g.interactionsClient.UpdateAttach)
+		attachGroup.PATCH("/:attach_id", g.interactionsClient.PatchAttach)
+		attachGroup.DELETE("/:attach_id", g.interactionsClient.DeleteAttach)
 	}
 
 	r.NoRoute(g.ginAuth.UseAuthMiddleware, func(c *gin.Context) {

@@ -48,14 +48,16 @@ message DeleteInteractionResponse {
 
 // conditions
 message CreateKeypadConditionRequest {
-  string Name = 1;
-  string Description = 2;
+  string InteractionID = 1;
+  string Mac = 2;
+  int32 ButtonID = 3;
 }
 
 message CreateKeypadConditionResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string InteractionID = 2;
+  string Mac= 3;
+  int32 ButtonID = 4;
 }
 
 message GetKeypadConditionRequest {
@@ -64,20 +66,23 @@ message GetKeypadConditionRequest {
 
 message GetKeypadConditionResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string InteractionID = 2;
+  string Mac= 3;
+  int32 ButtonID = 4;
 }
 
 message UpdateKeypadConditionRequest {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string InteractionID = 2;
+  string Mac= 3;
+  int32 ButtonID = 4;
 }
 
 message UpdateKeypadConditionResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string InteractionID = 2;
+  string Mac= 3;
+  int32 ButtonID = 4;
 }
 
 message DeleteKeypadConditionRequest {
