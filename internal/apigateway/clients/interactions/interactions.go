@@ -6,9 +6,10 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"google.golang.org/grpc/status"
+
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
-	"google.golang.org/grpc/status"
 
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )

@@ -11,17 +11,6 @@ import (
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 
-type InteractionsServer struct {
-	persistence persistence.Persistence
-	interactions_pb.UnimplementedInteractionsServiceServer
-}
-
-func NewInteractionsServer(persistence persistence.Persistence) *InteractionsServer {
-	return &InteractionsServer{
-		persistence: persistence,
-	}
-}
-
 func (s *InteractionsServer) CreateInteraction(ctx context.Context, req *interactions_pb.CreateInteractionRequest) (*interactions_pb.CreateInteractionResponse, error) {
 
 	// generate uuid
