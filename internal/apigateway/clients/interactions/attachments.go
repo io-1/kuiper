@@ -2,12 +2,14 @@ package interactions
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
+	"google.golang.org/grpc/status"
 )
 
 func (client InteractionsClient) CreateAttach(c *gin.Context) {
@@ -51,260 +53,265 @@ func (client InteractionsClient) CreateAttach(c *gin.Context) {
 }
 
 func (client InteractionsClient) GetAttach(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.GetInteractionRequest
-	// 	res           response.GetInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.GetAttachRequest
+		res           response.GetAttachResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	r, err := client.interactionsServiceClient.GetAttach(ctx, &interactions_pb.GetAttachRequest{ID: id})
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// res = response.GetInteractionResponse{
-	// 	ID:          r.ID,
-	// 	Name:        r.Name,
-	// 	Description: r.Description,
-	// }
+	res = response.GetAttachResponse{
+		ID:          r.ID,
+		ConditionID: r.ConditionID,
+		EventID:     r.EventID,
+		EventType:   r.EventType,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) UpdateAttach(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.UpdateInteractionRequest
-	// 	res           response.UpdateInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.UpdateAttachRequest
+		res           response.UpdateAttachResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.UpdateInteraction(ctx, &interactions_pb.UpdateInteractionRequest{
-	// 	ID:          id,
-	// 	Name:        req.Name,
-	// 	Description: req.Description,
-	// })
+	r, err := client.interactionsServiceClient.UpdateAttach(ctx, &interactions_pb.UpdateAttachRequest{
+		ID:          id,
+		ConditionID: req.ConditionID,
+		EventID:     req.EventID,
+		EventType:   req.EventType,
+	})
 
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// res = response.UpdateInteractionResponse{
-	// 	ID:          r.ID,
-	// 	Name:        r.Name,
-	// 	Description: r.Description,
-	// }
+	res = response.UpdateAttachResponse{
+		ID:          r.ID,
+		ConditionID: r.ConditionID,
+		EventID:     r.EventID,
+		EventType:   r.EventType,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) PatchAttach(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.PatchInteractionRequest
-	// 	res           response.PatchInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.PatchAttachRequest
+		res           response.PatchAttachResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// // get the user
-	// r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
+	// get the user
+	r, err := client.interactionsServiceClient.GetAttach(ctx, &interactions_pb.GetAttachRequest{ID: id})
 
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// if req.Name == "" {
-	// 	req.Name = r.Name
-	// }
+	if req.ConditionID == "" {
+		req.ConditionID = r.ConditionID
+	}
 
-	// if req.Description == "" {
-	// 	req.Description = r.Description
-	// }
+	if req.EventID == "" {
+		req.EventID = r.EventID
+	}
 
-	// // save the request difference
-	// re, err := client.interactionsServiceClient.UpdateInteraction(ctx, &interactions_pb.UpdateInteractionRequest{
-	// 	ID:          id,
-	// 	Name:        req.Name,
-	// 	Description: req.Description,
-	// })
+	if req.EventType == "" {
+		req.EventType = r.EventType
+	}
 
-	// if err != nil {
-	// 	st, _ := status.FromError(err)
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+	// save the request difference
+	re, err := client.interactionsServiceClient.UpdateAttach(ctx, &interactions_pb.UpdateAttachRequest{
+		ID:          id,
+		ConditionID: req.ConditionID,
+		EventID:     req.EventID,
+		EventType:   req.EventType,
+	})
 
-	// if re.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if err != nil {
+		st, _ := status.FromError(err)
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// res = response.PatchInteractionResponse{
-	// 	ID:          re.ID,
-	// 	Name:        re.Name,
-	// 	Description: re.Description,
-	// }
+	if re.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	res = response.PatchAttachResponse{
+		ID:          re.ID,
+		ConditionID: re.ConditionID,
+		EventID:     re.EventID,
+		EventType:   re.EventType,
+	}
+
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) DeleteAttach(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.DeleteInteractionRequest
-	// 	res           response.DeleteInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.DeleteInteractionRequest
+		res           response.DeleteInteractionResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.DeleteInteraction(ctx, &interactions_pb.DeleteInteractionRequest{
-	// 	ID: id,
-	// })
+	r, err := client.interactionsServiceClient.DeleteInteraction(ctx, &interactions_pb.DeleteInteractionRequest{
+		ID: id,
+	})
 
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// res = response.DeleteInteractionResponse{
-	// 	ID: r.ID,
-	// }
+	res = response.DeleteInteractionResponse{
+		ID: r.ID,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }

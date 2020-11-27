@@ -5,9 +5,9 @@ import (
 	"regexp"
 )
 
-type DeleteInteractionRequest struct{}
+type DeleteAttachRequest struct{}
 
-func (r *DeleteInteractionRequest) Validate(id string) url.Values {
+func (r DeleteAttachRequest) Validate(id string) url.Values {
 	errs := url.Values{}
 
 	regex, _ := regexp.Compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
