@@ -1,48 +1,53 @@
 package interactions
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
+	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 
 func (client InteractionsClient) CreateAttach(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req request.CreateInteractionRequest
-	// 	res response.CreateInteractionResponse
-	// )
+	var (
+		req request.CreateAttachRequest
+		res response.CreateAttachResponse
+	)
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
-	// if validationErrors := req.Validate(); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.CreateInteraction(ctx, &interactions_pb.CreateInteractionRequest{
-	// 	Name:        req.Name,
-	// 	Description: req.Description,
-	// })
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, err.Error())
-	// 	return
-	// }
+	r, err := client.interactionsServiceClient.CreateAttach(ctx, &interactions_pb.CreateAttachRequest{
+		ConditionID: req.ConditionID,
+		EventID:     req.EventID,
+		EventType:   req.EventType,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
 
-	// res = response.CreateInteractionResponse{
-	// 	ID:          r.ID,
-	// 	Name:        r.Name,
-	// 	Description: r.Description,
-	// }
+	res = response.CreateAttachResponse{
+		ID:          r.ID,
+		ConditionID: r.ConditionID,
+		EventID:     r.EventID,
+		EventType:   r.EventType,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) GetAttach(c *gin.Context) {

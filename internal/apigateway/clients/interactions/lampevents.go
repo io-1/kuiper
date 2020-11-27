@@ -1,305 +1,314 @@
 package interactions
 
 import (
+	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
+	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
+	"google.golang.org/grpc/status"
 )
 
 func (client InteractionsClient) CreateLampEvent(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req request.CreateInteractionRequest
-	// 	res response.CreateInteractionResponse
-	// )
+	var (
+		req request.CreateLampEventRequest
+		res response.CreateLampEventResponse
+	)
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
-	// if validationErrors := req.Validate(); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.CreateInteraction(ctx, &interactions_pb.CreateInteractionRequest{
-	// 	Name:        req.Name,
-	// 	Description: req.Description,
-	// })
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, err.Error())
-	// 	return
-	// }
+	r, err := client.interactionsServiceClient.CreateLampEvent(ctx, &interactions_pb.CreateLampEventRequest{
+		Mac:       req.Mac,
+		EventType: req.EventType,
+		Color:     req.Color,
+	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
 
-	// res = response.CreateInteractionResponse{
-	// 	ID:          r.ID,
-	// 	Name:        r.Name,
-	// 	Description: r.Description,
-	// }
+	res = response.CreateLampEventResponse{
+		ID:        r.ID,
+		Mac:       r.Mac,
+		EventType: r.EventType,
+		Color:     r.Color,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) GetLampEvent(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.GetInteractionRequest
-	// 	res           response.GetInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.GetLampEventRequest
+		res           response.GetLampEventResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	r, err := client.interactionsServiceClient.GetLampEvent(ctx, &interactions_pb.GetLampEventRequest{ID: id})
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// res = response.GetInteractionResponse{
-	// 	ID:          r.ID,
-	// 	Name:        r.Name,
-	// 	Description: r.Description,
-	// }
+	res = response.GetLampEventResponse{
+		ID:        r.ID,
+		Mac:       r.Mac,
+		EventType: r.EventType,
+		Color:     r.Color,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.UpdateInteractionRequest
-	// 	res           response.UpdateInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.UpdateLampEventRequest
+		res           response.UpdateLampEventResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.UpdateInteraction(ctx, &interactions_pb.UpdateInteractionRequest{
-	// 	ID:          id,
-	// 	Name:        req.Name,
-	// 	Description: req.Description,
-	// })
+	r, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
+		ID: id,
+	})
 
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// res = response.UpdateInteractionResponse{
-	// 	ID:          r.ID,
-	// 	Name:        r.Name,
-	// 	Description: r.Description,
-	// }
+	res = response.UpdateLampEventResponse{
+		ID:        r.ID,
+		Mac:       r.Mac,
+		EventType: r.EventType,
+		Color:     r.Color,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.PatchInteractionRequest
-	// 	res           response.PatchInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.PatchLampEventRequest
+		res           response.PatchLampEventResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// // get the user
-	// r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
+	// get the user
+	r, err := client.interactionsServiceClient.GetLampEvent(ctx, &interactions_pb.GetLampEventRequest{ID: id})
 
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// if req.Name == "" {
-	// 	req.Name = r.Name
-	// }
+	if req.Mac == "" {
+		req.Mac = r.Mac
+	}
 
-	// if req.Description == "" {
-	// 	req.Description = r.Description
-	// }
+	if req.EventType == "" {
+		req.EventType = r.EventType
+	}
 
-	// // save the request difference
-	// re, err := client.interactionsServiceClient.UpdateInteraction(ctx, &interactions_pb.UpdateInteractionRequest{
-	// 	ID:          id,
-	// 	Name:        req.Name,
-	// 	Description: req.Description,
-	// })
+	if req.Color == "" {
+		req.Color = r.Color
+	}
 
-	// if err != nil {
-	// 	st, _ := status.FromError(err)
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+	// save the request difference
+	re, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
+		ID:        id,
+		Mac:       req.Mac,
+		EventType: req.EventType,
+		Color:     req.Color,
+	})
 
-	// if re.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if err != nil {
+		st, _ := status.FromError(err)
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// res = response.PatchInteractionResponse{
-	// 	ID:          re.ID,
-	// 	Name:        re.Name,
-	// 	Description: re.Description,
-	// }
+	if re.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	res = response.PatchLampEventResponse{
+		ID:        re.ID,
+		Mac:       re.Mac,
+		EventType: re.EventType,
+		Color:     re.Color,
+	}
+
+	c.JSON(http.StatusOK, res)
 }
 
 func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
-	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	// defer cancel()
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
 
-	// var (
-	// 	req           request.DeleteInteractionRequest
-	// 	res           response.DeleteInteractionResponse
-	// 	errorResponse response.ErrorResponse
-	// )
+	var (
+		req           request.DeleteLampEventRequest
+		res           response.DeleteLampEventResponse
+		errorResponse response.ErrorResponse
+	)
 
-	// id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("interaction_id")
 
-	// if validationErrors := req.Validate(id); len(validationErrors) > 0 {
-	// 	err := map[string]interface{}{"validationError": validationErrors}
-	// 	c.JSON(http.StatusMethodNotAllowed, err)
-	// 	return
-	// }
+	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
 
-	// r, err := client.interactionsServiceClient.DeleteInteraction(ctx, &interactions_pb.DeleteInteractionRequest{
-	// 	ID: id,
-	// })
+	r, err := client.interactionsServiceClient.DeleteLampEvent(ctx, &interactions_pb.DeleteLampEventRequest{
+		ID: id,
+	})
 
-	// if err != nil {
-	// 	st, ok := status.FromError(err)
+	if err != nil {
+		st, ok := status.FromError(err)
 
-	// 	// unknown error
-	// 	if !ok {
-	// 		client.logger.Errorf("unknown error: %v", err)
-	// 		errorResponse = response.ErrorResponse{
-	// 			Message: fmt.Sprintf("an error has occurred"),
-	// 		}
-	// 		c.JSON(http.StatusInternalServerError, errorResponse)
-	// 		return
-	// 	}
-	// 	errorResponse = response.ErrorResponse{
-	// 		Message: st.Message(),
-	// 	}
-	// 	c.JSON(http.StatusInternalServerError, errorResponse)
-	// 	return
-	// }
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
 
-	// if r.ID == "" {
-	// 	c.JSON(http.StatusNoContent, res)
-	// 	return
-	// }
+	if r.ID == "" {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
 
-	// res = response.DeleteInteractionResponse{
-	// 	ID: r.ID,
-	// }
+	res = response.DeleteLampEventResponse{
+		ID: r.ID,
+	}
 
-	// c.JSON(http.StatusOK, res)
-	c.JSON(http.StatusInternalServerError, gin.H{"message": "not implemented"})
+	c.JSON(http.StatusOK, res)
 }

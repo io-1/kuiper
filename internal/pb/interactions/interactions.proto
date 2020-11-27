@@ -95,14 +95,16 @@ message DeleteKeypadConditionResponse {
 
 // events
 message CreateLampEventRequest {
-  string Name = 1;
-  string Description = 2;
+  string Mac = 1;
+  string EventType = 2;
+  string Color = 3;
 }
 
 message CreateLampEventResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string Mac = 2;
+  string EventType = 3;
+  string Color = 4;
 }
 
 message GetLampEventRequest {
@@ -111,20 +113,23 @@ message GetLampEventRequest {
 
 message GetLampEventResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string Mac = 2;
+  string EventType = 3;
+  string Color = 4;
 }
 
 message UpdateLampEventRequest {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string Mac = 2;
+  string EventType = 3;
+  string Color = 4;
 }
 
 message UpdateLampEventResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string Mac = 2;
+  string EventType = 3;
+  string Color = 4;
 }
 
 message DeleteLampEventRequest {
@@ -137,14 +142,16 @@ message DeleteLampEventResponse {
 
 // attach
 message CreateAttachRequest {
-  string Name = 1;
-  string Description = 2;
+  string ConditionID = 1;
+  string EventID = 2;
+  string EventType = 3;
 }
 
 message CreateAttachResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string ConditionID = 2;
+  string EventID = 3;
+  string EventType = 4;
 }
 
 message GetAttachRequest {
@@ -153,20 +160,23 @@ message GetAttachRequest {
 
 message GetAttachResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string ConditionID = 2;
+  string EventID = 3;
+  string EventType = 4;
 }
 
 message UpdateAttachRequest {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string ConditionID = 2;
+  string EventID = 3;
+  string EventType = 4;
 }
 
 message UpdateAttachResponse {
   string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string ConditionID = 2;
+  string EventID = 3;
+  string EventType = 4;
 }
 
 message DeleteAttachRequest {

@@ -20,10 +20,6 @@ func (r *PatchInteractionRequest) Validate(id string) url.Values {
 		errs.Add("id", "The id field needs to be a valid!")
 	}
 
-	if len(id) > 36 {
-		errs.Add("id", "The id field is longer then 36 characters long!")
-	}
-
 	if len(r.Name) > 50 {
 		errs.Add("name", "The name field is longer then 50 characters long!")
 	}

@@ -20,9 +20,5 @@ func (r CreateKeypadConditionRequest) Validate() url.Values {
 		errs.Add("id", "The id field needs to be a valid!")
 	}
 
-	if len(r.InteractionID) > 36 {
-		errs.Add("id", "The id field is longer then 36 characters long!")
-	}
-
 	return errs
 }

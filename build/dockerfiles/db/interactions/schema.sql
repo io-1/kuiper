@@ -24,6 +24,8 @@ CREATE TABLE keypad_conditions(
     PRIMARY KEY(id)
 );
 
+/* !!!: should this be every permutation of conditions to events */
+/* !!!: for example keypad_conditions_to_lamp_events etc */
 CREATE TABLE conditions_to_events(
     id VARCHAR(36) NOT NULL, 
     condition_id VARCHAR(36) NOT NULL, 
@@ -41,9 +43,6 @@ CREATE TABLE lamp_events(
     id VARCHAR(36) NOT NULL, 
     mac VARCHAR(12) NOT NULL,
     event_type VARCHAR(50) NOT NULL,
-
-    /* how long does the event last on the device */
-    duration INT NOT NULL,
     color VARCHAR(10) NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
