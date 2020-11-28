@@ -11,4 +11,14 @@ type Persistence interface {
 	GetKeypadCondition(id string) (bool, KeypadCondition)
 	UpdateKeypadCondition(keypadCondition KeypadCondition) (bool, error)
 	DeleteKeypadCondition(keypadCondition KeypadCondition) (bool, error)
+
+	CreateLampEvent(keypadCondition LampEvent) int64
+	GetLampEvent(id string) (bool, LampEvent)
+	UpdateLampEvent(lampEvent LampEvent) (bool, error)
+	DeleteLampEvent(lampEvent LampEvent) (bool, error)
+
+	CreateConditionsToEvents(conditionsToEvents ConditionsToEvents) int64
+	GetConditionsToEvents(id string) (bool, ConditionsToEvents)
+	UpdateConditionsToEvents(conditionsToEvents ConditionsToEvents) (bool, error)
+	DeleteConditionsToEvents(conditionsToEvents ConditionsToEvents) (bool, error)
 }

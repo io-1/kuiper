@@ -35,28 +35,28 @@ func (s *InteractionsServer) CreateKeypadCondition(ctx context.Context, req *int
 }
 
 func (s *InteractionsServer) GetKeypadCondition(ctx context.Context, req *interactions_pb.GetKeypadConditionRequest) (*interactions_pb.GetKeypadConditionResponse, error) {
-	recordNotFound, interaction := s.persistence.GetKeypadCondition(req.ID)
+	recordNotFound, keypadCondition := s.persistence.GetKeypadCondition(req.ID)
 	if recordNotFound {
 		return &interactions_pb.GetKeypadConditionResponse{}, status.Error(codes.NotFound, "id was not found")
 	}
 
 	return &interactions_pb.GetKeypadConditionResponse{
-		ID:            interaction.ID,
-		InteractionID: interaction.InteractionID,
-		Mac:           interaction.Mac,
-		ButtonID:      interaction.ButtonID,
+		ID:            keypadCondition.ID,
+		InteractionID: keypadCondition.InteractionID,
+		Mac:           keypadCondition.Mac,
+		ButtonID:      keypadCondition.ButtonID,
 	}, nil
 }
 
 func (s *InteractionsServer) UpdateKeypadCondition(ctx context.Context, req *interactions_pb.UpdateKeypadConditionRequest) (*interactions_pb.UpdateKeypadConditionResponse, error) {
-	interaction := persistence.KeypadCondition{
+	keypadCondition := persistence.KeypadCondition{
 		ID:            req.ID,
 		InteractionID: req.InteractionID,
 		Mac:           req.Mac,
 		ButtonID:      req.ButtonID,
 	}
 
-	recordNotFound, err := s.persistence.UpdateKeypadCondition(interaction)
+	recordNotFound, err := s.persistence.UpdateKeypadCondition(keypadCondition)
 	if recordNotFound {
 		return &interactions_pb.UpdateKeypadConditionResponse{}, status.Error(codes.NotFound, "id was not found")
 	}
@@ -66,7 +66,7 @@ func (s *InteractionsServer) UpdateKeypadCondition(ctx context.Context, req *int
 	}
 
 	return &interactions_pb.UpdateKeypadConditionResponse{
-		ID:            interaction.ID,
+		ID:            keypadCondition.ID,
 		InteractionID: req.InteractionID,
 		Mac:           req.Mac,
 		ButtonID:      req.ButtonID,
@@ -74,11 +74,11 @@ func (s *InteractionsServer) UpdateKeypadCondition(ctx context.Context, req *int
 }
 
 func (s *InteractionsServer) DeleteKeypadCondition(ctx context.Context, req *interactions_pb.DeleteKeypadConditionRequest) (*interactions_pb.DeleteKeypadConditionResponse, error) {
-	interaction := persistence.KeypadCondition{
+	keypadCondition := persistence.KeypadCondition{
 		ID: req.ID,
 	}
 
-	recordNotFound, err := s.persistence.DeleteKeypadCondition(interaction)
+	recordNotFound, err := s.persistence.DeleteKeypadCondition(keypadCondition)
 	if recordNotFound {
 		return &interactions_pb.DeleteKeypadConditionResponse{}, status.Error(codes.NotFound, "id was not found")
 	}
@@ -88,6 +88,6 @@ func (s *InteractionsServer) DeleteKeypadCondition(ctx context.Context, req *int
 	}
 
 	return &interactions_pb.DeleteKeypadConditionResponse{
-		ID: interaction.ID,
+		ID: keypadCondition.ID,
 	}, nil
 }
