@@ -114,34 +114,36 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 	}
 
-	// FIXME: check to make sure that interactionsID exist in db - if not throw error
 	keypadGroup := v1.Group("/keypad")
 	{
 		keypadGroup.POST("/condition", g.interactionsClient.CreateKeypadCondition)
-		keypadGroup.GET("/:keypad_id/condition", g.interactionsClient.GetKeypadCondition)
-		keypadGroup.PUT("/:keypad_id/condition", g.interactionsClient.UpdateKeypadCondition)
-		keypadGroup.PATCH("/:keypad_id/condition", g.interactionsClient.PatchKeypadCondition)
-		keypadGroup.DELETE("/:keypad_id/condition", g.interactionsClient.DeleteKeypadCondition)
+		keypadGroup.GET("/:keypad_condition_id/condition", g.interactionsClient.GetKeypadCondition)
+		keypadGroup.PUT("/:keypad_condition_id/condition", g.interactionsClient.UpdateKeypadCondition)
+		keypadGroup.PATCH("/:keypad_condition_id/condition", g.interactionsClient.PatchKeypadCondition)
+		keypadGroup.DELETE("/:keypad_condition_id/condition", g.interactionsClient.DeleteKeypadCondition)
 	}
 
-	// FIXME: should this be /lamp/:lamp_id/events?
 	lampGroup := v1.Group("/lamp")
 	{
 		lampGroup.POST("/event", g.interactionsClient.CreateLampEvent)
-		lampGroup.GET("/:lamp_id/event", g.interactionsClient.GetLampEvent)
-		lampGroup.PUT("/:lamp_id/event", g.interactionsClient.UpdateLampEvent)
-		lampGroup.PATCH("/:lamp_id/event", g.interactionsClient.PatchLampEvent)
-		lampGroup.DELETE("/:lamp_id/event", g.interactionsClient.DeleteLampEvent)
+		lampGroup.GET("/:lamp_event_id/event", g.interactionsClient.GetLampEvent)
+		lampGroup.PUT("/:lamp_event_id/event", g.interactionsClient.UpdateLampEvent)
+		lampGroup.PATCH("/:lamp_event_id/event", g.interactionsClient.PatchLampEvent)
+		lampGroup.DELETE("/:lamp_event_id/event", g.interactionsClient.DeleteLampEvent)
 	}
 
-	// attach conditions to events
 	attachGroup := v1.Group("/attach")
 	{
-		attachGroup.POST("", g.interactionsClient.CreateAttach)
-		attachGroup.GET("/:attach_id", g.interactionsClient.GetAttach)
-		attachGroup.PUT("/:attach_id", g.interactionsClient.UpdateAttach)
-		attachGroup.PATCH("/:attach_id", g.interactionsClient.PatchAttach)
-		attachGroup.DELETE("/:attach_id", g.interactionsClient.DeleteAttach)
+
+		// FIXME: can i use /:condition/:event??
+		attachKeypadToLamp := attachGroup.Group("/keypad/lamp")
+		{
+			attachKeypadToLamp.POST("", g.interactionsClient.CreateAttach)
+			attachKeypadToLamp.GET("/:keypad_to_lamp_id", g.interactionsClient.GetAttach)
+			attachKeypadToLamp.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateAttach)
+			attachKeypadToLamp.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchAttach)
+			attachKeypadToLamp.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteAttach)
+		}
 	}
 
 	r.NoRoute(g.ginAuth.UseAuthMiddleware, func(c *gin.Context) {

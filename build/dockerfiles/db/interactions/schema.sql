@@ -24,8 +24,31 @@ CREATE TABLE keypad_conditions(
     PRIMARY KEY(id)
 );
 
-/* !!!: should this be every permutation of conditions to events */
-/* !!!: for example keypad_conditions_to_lamp_events etc */
+CREATE TABLE lamp_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    event_type VARCHAR(50) NOT NULL,
+    color VARCHAR(10) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE keypad_conditions_to_lamp_events (
+    id VARCHAR(36) NOT NULL, 
+    condition_id VARCHAR(36) NOT NULL, 
+    event_id VARCHAR(36) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    INDEX `idx_keypad_conditions_to_lamp_events_condition`(condition_id),
+    INDEX `idx_keypad_conditions_to_lamp_events_event`(event_id),
+    CONSTRAINT `fk_keypad_conditions_to_lamp_events_condition` FOREIGN KEY(condition_id) REFERENCES keypad_conditions(id),
+    CONSTRAINT `fk_keypad_conditions_to_lamp_events_event` FOREIGN KEY(event_id) REFERENCES lamp_events(id),
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE conditions_to_events(
     id VARCHAR(36) NOT NULL, 
     condition_id VARCHAR(36) NOT NULL, 
@@ -33,17 +56,6 @@ CREATE TABLE conditions_to_events(
 
     /* what type of event this is */
     event_type VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP, 
-    updated_at TIMESTAMP, 
-    deleted_at TIMESTAMP, 
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE lamp_events(
-    id VARCHAR(36) NOT NULL, 
-    mac VARCHAR(12) NOT NULL,
-    event_type VARCHAR(50) NOT NULL,
-    color VARCHAR(10) NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
     deleted_at TIMESTAMP, 

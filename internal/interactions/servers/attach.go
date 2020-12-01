@@ -20,7 +20,6 @@ func (s *InteractionsServer) CreateAttach(ctx context.Context, req *interactions
 		ID:          id,
 		ConditionID: req.ConditionID,
 		EventID:     req.EventID,
-		EventType:   req.EventType,
 	}
 
 	s.persistence.CreateConditionsToEvents(conditionsToEvents)
@@ -29,7 +28,6 @@ func (s *InteractionsServer) CreateAttach(ctx context.Context, req *interactions
 		ID:          id,
 		ConditionID: req.ConditionID,
 		EventID:     req.EventID,
-		EventType:   req.EventType,
 	}, nil
 }
 
@@ -43,7 +41,6 @@ func (s *InteractionsServer) GetAttach(ctx context.Context, req *interactions_pb
 		ID:          conditionsToEvents.ID,
 		ConditionID: conditionsToEvents.ConditionID,
 		EventID:     conditionsToEvents.EventID,
-		EventType:   conditionsToEvents.EventType,
 	}, nil
 }
 
@@ -52,7 +49,6 @@ func (s *InteractionsServer) UpdateAttach(ctx context.Context, req *interactions
 		ID:          req.ID,
 		ConditionID: req.ConditionID,
 		EventID:     req.EventID,
-		EventType:   req.EventType,
 	}
 
 	recordNotFound, err := s.persistence.UpdateConditionsToEvents(conditionsToEvents)
@@ -68,7 +64,6 @@ func (s *InteractionsServer) UpdateAttach(ctx context.Context, req *interactions
 		ID:          conditionsToEvents.ID,
 		ConditionID: conditionsToEvents.ConditionID,
 		EventID:     conditionsToEvents.EventID,
-		EventType:   conditionsToEvents.EventType,
 	}, nil
 }
 

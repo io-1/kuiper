@@ -8,7 +8,6 @@ import (
 type UpdateAttachRequest struct {
 	ConditionID string `json:"conditionID" binding:"required"`
 	EventID     string `json:"eventID" binding:"required"`
-	EventType   string `json:"eventType" binding:"required"`
 }
 
 func (r UpdateAttachRequest) Validate(id string) url.Values {
@@ -28,10 +27,6 @@ func (r UpdateAttachRequest) Validate(id string) url.Values {
 	validEventID := regex.MatchString(r.EventID)
 	if !validEventID {
 		errs.Add("id", "The id field needs to be a valid!")
-	}
-
-	if len(r.EventType) > 50 {
-		errs.Add("eventType", "The eventType field is longer then 50 characters!")
 	}
 
 	return errs

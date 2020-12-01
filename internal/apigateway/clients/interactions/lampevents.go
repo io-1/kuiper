@@ -62,7 +62,7 @@ func (client InteractionsClient) GetLampEvent(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("lamp_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -120,7 +120,7 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("lamp_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -181,7 +181,7 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("lamp_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -270,7 +270,7 @@ func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("lamp_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}

@@ -134,6 +134,35 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 	// 	return
 	// }
 
+	// FIXME: get the name and description
+	// r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
+	// if err != nil {
+	// 	st, ok := status.FromError(err)
+
+	// 	// unknown error
+	// 	if !ok {
+	// 		client.logger.Errorf("unknown error: %v", err)
+	// 		errorResponse = response.ErrorResponse{
+	// 			Message: fmt.Sprintf("an error has occurred"),
+	// 		}
+	// 		c.JSON(http.StatusInternalServerError, errorResponse)
+	// 		return
+	// 	}
+	// 	errorResponse = response.ErrorResponse{
+	// 		Message: st.Message(),
+	// 	}
+	// 	c.JSON(http.StatusInternalServerError, errorResponse)
+	// 	return
+	// }
+
+	// FIXME: throw error if the interaction does not exists
+	// if r.ID == "" {
+	// 	c.JSON(http.StatusNoContent, res)
+	// 	return
+	// }
+
+	// FIXME: get details about the interaction
+
 	// res = response.CreateInteractionResponse{
 	// 	ID:          r.ID,
 	// 	Name:        r.Name,

@@ -35,7 +35,6 @@ func (client InteractionsClient) CreateAttach(c *gin.Context) {
 	r, err := client.interactionsServiceClient.CreateAttach(ctx, &interactions_pb.CreateAttachRequest{
 		ConditionID: req.ConditionID,
 		EventID:     req.EventID,
-		EventType:   req.EventType,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
@@ -46,7 +45,6 @@ func (client InteractionsClient) CreateAttach(c *gin.Context) {
 		ID:          r.ID,
 		ConditionID: r.ConditionID,
 		EventID:     r.EventID,
-		EventType:   r.EventType,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -62,7 +60,7 @@ func (client InteractionsClient) GetAttach(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("keypad_to_lamp_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -99,7 +97,6 @@ func (client InteractionsClient) GetAttach(c *gin.Context) {
 		ID:          r.ID,
 		ConditionID: r.ConditionID,
 		EventID:     r.EventID,
-		EventType:   r.EventType,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -120,7 +117,7 @@ func (client InteractionsClient) UpdateAttach(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("keypad_to_lamp_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -132,7 +129,6 @@ func (client InteractionsClient) UpdateAttach(c *gin.Context) {
 		ID:          id,
 		ConditionID: req.ConditionID,
 		EventID:     req.EventID,
-		EventType:   req.EventType,
 	})
 
 	if err != nil {
@@ -163,7 +159,6 @@ func (client InteractionsClient) UpdateAttach(c *gin.Context) {
 		ID:          r.ID,
 		ConditionID: r.ConditionID,
 		EventID:     r.EventID,
-		EventType:   r.EventType,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -184,7 +179,7 @@ func (client InteractionsClient) PatchAttach(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("keypad_to_lamp_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -227,16 +222,11 @@ func (client InteractionsClient) PatchAttach(c *gin.Context) {
 		req.EventID = r.EventID
 	}
 
-	if req.EventType == "" {
-		req.EventType = r.EventType
-	}
-
 	// save the request difference
 	re, err := client.interactionsServiceClient.UpdateAttach(ctx, &interactions_pb.UpdateAttachRequest{
 		ID:          id,
 		ConditionID: req.ConditionID,
 		EventID:     req.EventID,
-		EventType:   req.EventType,
 	})
 
 	if err != nil {
@@ -257,7 +247,6 @@ func (client InteractionsClient) PatchAttach(c *gin.Context) {
 		ID:          re.ID,
 		ConditionID: re.ConditionID,
 		EventID:     re.EventID,
-		EventType:   re.EventType,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -273,7 +262,7 @@ func (client InteractionsClient) DeleteAttach(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("interaction_id")
+	id := c.Params.ByName("keypad_to_lamp_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
