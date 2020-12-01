@@ -8,7 +8,7 @@ import (
 type CreateKeypadConditionRequest struct {
 	InteractionID string `json:"interactionID" binding:"required"`
 	Mac           string `json:"mac" binding:"required"`
-	ButtonID      int32  `json:"buttonID" binding:"required"`
+	ButtonID      *int32 `json:"buttonID" binding:"required"`
 }
 
 func (r CreateKeypadConditionRequest) Validate() url.Values {

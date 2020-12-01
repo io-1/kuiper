@@ -104,6 +104,45 @@ func (client InteractionsClient) GetInteraction(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// FIXME: implement - get the interaction and all the conditions and events
+func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
+	// ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	// defer cancel()
+
+	// var (
+	// 	req request.CreateInteractionRequest
+	// 	res response.CreateInteractionResponse
+	// )
+
+	// if err := c.BindJSON(&req); err != nil {
+	// 	c.JSON(http.StatusBadRequest, err.Error())
+	// 	return
+	// }
+
+	// if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	// 	err := map[string]interface{}{"validationError": validationErrors}
+	// 	c.JSON(http.StatusMethodNotAllowed, err)
+	// 	return
+	// }
+
+	// r, err := client.interactionsServiceClient.CreateInteraction(ctx, &interactions_pb.CreateInteractionRequest{
+	// 	Name:        req.Name,
+	// 	Description: req.Description,
+	// })
+	// if err != nil {
+	// 	c.JSON(http.StatusInternalServerError, err.Error())
+	// 	return
+	// }
+
+	// res = response.CreateInteractionResponse{
+	// 	ID:          r.ID,
+	// 	Name:        r.Name,
+	// 	Description: r.Description,
+	// }
+
+	// c.JSON(http.StatusOK, res)
+}
+
 func (client InteractionsClient) UpdateInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()

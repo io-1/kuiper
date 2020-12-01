@@ -109,30 +109,29 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		interactionsGroup.PATCH("/:interaction_id", g.interactionsClient.PatchInteraction)
 		interactionsGroup.DELETE("/:interaction_id", g.interactionsClient.DeleteInteraction)
 
+		// FIXME: implement - get interaction and the conditions and events
+		interactionsGroup.GET("/:interaction_id/details", g.interactionsClient.GetInteractionDetails)
+
 	}
 
-	conditionsGroup := v1.Group("/conditions")
+	// FIXME: check to make sure that interactionsID exist in db - if not throw error
+	keypadGroup := v1.Group("/keypad")
 	{
-		keypadConditionsGroup := conditionsGroup.Group("/keypad")
-		{
-			keypadConditionsGroup.POST("", g.interactionsClient.CreateKeypadCondition)
-			keypadConditionsGroup.GET("/:keypad_id", g.interactionsClient.GetKeypadCondition)
-			keypadConditionsGroup.PUT("/:keypad_id", g.interactionsClient.UpdateKeypadCondition)
-			keypadConditionsGroup.PATCH("/:keypad_id", g.interactionsClient.PatchKeypadCondition)
-			keypadConditionsGroup.DELETE("/:keypad_id", g.interactionsClient.DeleteKeypadCondition)
-		}
+		keypadGroup.POST("/condition", g.interactionsClient.CreateKeypadCondition)
+		keypadGroup.GET("/:keypad_id/condition", g.interactionsClient.GetKeypadCondition)
+		keypadGroup.PUT("/:keypad_id/condition", g.interactionsClient.UpdateKeypadCondition)
+		keypadGroup.PATCH("/:keypad_id/condition", g.interactionsClient.PatchKeypadCondition)
+		keypadGroup.DELETE("/:keypad_id/condition", g.interactionsClient.DeleteKeypadCondition)
 	}
 
-	eventsGroup := v1.Group("/events")
+	// FIXME: should this be /lamp/:lamp_id/events?
+	lampGroup := v1.Group("/lamp")
 	{
-		lampEventGroup := eventsGroup.Group("/lamp")
-		{
-			lampEventGroup.POST("", g.interactionsClient.CreateLampEvent)
-			lampEventGroup.GET("/:lamp_id", g.interactionsClient.GetLampEvent)
-			lampEventGroup.PUT("/:lamp_id", g.interactionsClient.UpdateLampEvent)
-			lampEventGroup.PATCH("/:lamp_id", g.interactionsClient.PatchLampEvent)
-			lampEventGroup.DELETE("/:lamp_id", g.interactionsClient.DeleteLampEvent)
-		}
+		lampGroup.POST("/event", g.interactionsClient.CreateLampEvent)
+		lampGroup.GET("/:lamp_id/event", g.interactionsClient.GetLampEvent)
+		lampGroup.PUT("/:lamp_id/event", g.interactionsClient.UpdateLampEvent)
+		lampGroup.PATCH("/:lamp_id/event", g.interactionsClient.PatchLampEvent)
+		lampGroup.DELETE("/:lamp_id/event", g.interactionsClient.DeleteLampEvent)
 	}
 
 	// attach conditions to events
