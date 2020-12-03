@@ -62,6 +62,21 @@ func (mr *MockPersistenceMockRecorder) GetInteraction(id interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInteraction", reflect.TypeOf((*MockPersistence)(nil).GetInteraction), id)
 }
 
+// GetInteractionDetails mocks base method.
+func (m *MockPersistence) GetInteractionDetails(id string) ([]persistence.InteractionDetails, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetInteractionDetails", id)
+	ret0, _ := ret[0].([]persistence.InteractionDetails)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetInteractionDetails indicates an expected call of GetInteractionDetails.
+func (mr *MockPersistenceMockRecorder) GetInteractionDetails(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInteractionDetails", reflect.TypeOf((*MockPersistence)(nil).GetInteractionDetails), id)
+}
+
 // UpdateInteraction mocks base method.
 func (m *MockPersistence) UpdateInteraction(interaction persistence.Interaction) (bool, error) {
 	m.ctrl.T.Helper()

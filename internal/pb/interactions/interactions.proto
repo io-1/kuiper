@@ -26,6 +26,16 @@ message GetInteractionResponse {
   string Description = 3;
 }
 
+message GetInteractionDetailsRequest {
+  string ID = 1;
+}
+
+message GetInteractionDetailsResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
 message UpdateInteractionRequest {
   string ID = 1;
   string Name = 2;
@@ -187,6 +197,7 @@ service InteractionsService {
   // interactions
   rpc CreateInteraction(CreateInteractionRequest) returns (CreateInteractionResponse);
   rpc GetInteraction(GetInteractionRequest) returns (GetInteractionResponse);
+  rpc GetInteractionDetails(GetInteractionDetailsRequest) returns (GetInteractionDetailsResponse);
   rpc UpdateInteraction(UpdateInteractionRequest) returns (UpdateInteractionResponse);
   rpc DeleteInteraction(DeleteInteractionRequest) returns (DeleteInteractionResponse);
 

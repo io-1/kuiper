@@ -4,6 +4,7 @@ package persistence
 type Persistence interface {
 	CreateInteraction(interaction Interaction) int64
 	GetInteraction(id string) (bool, Interaction)
+	GetInteractionDetails(id string) ([]InteractionDetails, error)
 	UpdateInteraction(interaction Interaction) (bool, error)
 	DeleteInteraction(interaction Interaction) (bool, error)
 

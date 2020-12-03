@@ -111,7 +111,6 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 		// FIXME: implement - get interaction and the conditions and events
 		interactionsGroup.GET("/:interaction_id/details", g.interactionsClient.GetInteractionDetails)
-
 	}
 
 	keypadGroup := v1.Group("/keypad")
@@ -132,17 +131,17 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		lampGroup.DELETE("/:lamp_event_id/event", g.interactionsClient.DeleteLampEvent)
 	}
 
-	attachGroup := v1.Group("/attach")
+	interactGroup := v1.Group("/interact")
 	{
 
 		// FIXME: can i use /:condition/:event??
-		attachKeypadToLamp := attachGroup.Group("/keypad/lamp")
+		interactKeypadToLamp := interactGroup.Group("/keypad/lamp")
 		{
-			attachKeypadToLamp.POST("", g.interactionsClient.CreateAttach)
-			attachKeypadToLamp.GET("/:keypad_to_lamp_id", g.interactionsClient.GetAttach)
-			attachKeypadToLamp.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateAttach)
-			attachKeypadToLamp.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchAttach)
-			attachKeypadToLamp.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteAttach)
+			interactKeypadToLamp.POST("", g.interactionsClient.CreateAttach)
+			interactKeypadToLamp.GET("/:keypad_to_lamp_id", g.interactionsClient.GetAttach)
+			interactKeypadToLamp.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateAttach)
+			interactKeypadToLamp.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchAttach)
+			interactKeypadToLamp.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteAttach)
 		}
 	}
 

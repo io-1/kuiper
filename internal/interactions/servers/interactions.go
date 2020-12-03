@@ -44,6 +44,27 @@ func (s *InteractionsServer) GetInteraction(ctx context.Context, req *interactio
 	}, nil
 }
 
+func (s *InteractionsServer) GetInteractionDetails(ctx context.Context, req *interactions_pb.GetInteractionDetailsRequest) (*interactions_pb.GetInteractionDetailsResponse, error) {
+	recordNotFound, interaction := s.persistence.GetInteraction(req.ID)
+	if recordNotFound {
+		return &interactions_pb.GetInteractionDetailsResponse{}, status.Error(codes.NotFound, "id was not found")
+	}
+
+	// FIXME: implement - return details
+	_, err := s.persistence.GetInteractionDetails(req.ID)
+	if err != nil {
+
+		// FIXME: should return codes.Internal?
+		return &interactions_pb.GetInteractionDetailsResponse{}, err
+	}
+
+	return &interactions_pb.GetInteractionDetailsResponse{
+		ID:          interaction.ID,
+		Name:        interaction.Name,
+		Description: interaction.Description,
+	}, nil
+}
+
 func (s *InteractionsServer) UpdateInteraction(ctx context.Context, req *interactions_pb.UpdateInteractionRequest) (*interactions_pb.UpdateInteractionResponse, error) {
 	interaction := persistence.Interaction{
 		ID:          req.ID,
@@ -57,6 +78,8 @@ func (s *InteractionsServer) UpdateInteraction(ctx context.Context, req *interac
 	}
 
 	if err != nil {
+
+		// FIXME: should return codes.Internal?
 		return &interactions_pb.UpdateInteractionResponse{}, err
 	}
 
@@ -78,6 +101,8 @@ func (s *InteractionsServer) DeleteInteraction(ctx context.Context, req *interac
 	}
 
 	if err != nil {
+
+		// FIXME: should return codes.Internal?
 		return &interactions_pb.DeleteInteractionResponse{}, err
 	}
 

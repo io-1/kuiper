@@ -20,6 +20,7 @@ type InteractionsServiceClient interface {
 	// interactions
 	CreateInteraction(ctx context.Context, in *CreateInteractionRequest, opts ...grpc.CallOption) (*CreateInteractionResponse, error)
 	GetInteraction(ctx context.Context, in *GetInteractionRequest, opts ...grpc.CallOption) (*GetInteractionResponse, error)
+	GetInteractionDetails(ctx context.Context, in *GetInteractionDetailsRequest, opts ...grpc.CallOption) (*GetInteractionDetailsResponse, error)
 	UpdateInteraction(ctx context.Context, in *UpdateInteractionRequest, opts ...grpc.CallOption) (*UpdateInteractionResponse, error)
 	DeleteInteraction(ctx context.Context, in *DeleteInteractionRequest, opts ...grpc.CallOption) (*DeleteInteractionResponse, error)
 	// keypad conditions
@@ -59,6 +60,15 @@ func (c *interactionsServiceClient) CreateInteraction(ctx context.Context, in *C
 func (c *interactionsServiceClient) GetInteraction(ctx context.Context, in *GetInteractionRequest, opts ...grpc.CallOption) (*GetInteractionResponse, error) {
 	out := new(GetInteractionResponse)
 	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetInteraction", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetInteractionDetails(ctx context.Context, in *GetInteractionDetailsRequest, opts ...grpc.CallOption) (*GetInteractionDetailsResponse, error) {
+	out := new(GetInteractionDetailsResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetInteractionDetails", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -198,6 +208,7 @@ type InteractionsServiceServer interface {
 	// interactions
 	CreateInteraction(context.Context, *CreateInteractionRequest) (*CreateInteractionResponse, error)
 	GetInteraction(context.Context, *GetInteractionRequest) (*GetInteractionResponse, error)
+	GetInteractionDetails(context.Context, *GetInteractionDetailsRequest) (*GetInteractionDetailsResponse, error)
 	UpdateInteraction(context.Context, *UpdateInteractionRequest) (*UpdateInteractionResponse, error)
 	DeleteInteraction(context.Context, *DeleteInteractionRequest) (*DeleteInteractionResponse, error)
 	// keypad conditions
@@ -227,6 +238,9 @@ func (*UnimplementedInteractionsServiceServer) CreateInteraction(context.Context
 }
 func (*UnimplementedInteractionsServiceServer) GetInteraction(context.Context, *GetInteractionRequest) (*GetInteractionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInteraction not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetInteractionDetails(context.Context, *GetInteractionDetailsRequest) (*GetInteractionDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInteractionDetails not implemented")
 }
 func (*UnimplementedInteractionsServiceServer) UpdateInteraction(context.Context, *UpdateInteractionRequest) (*UpdateInteractionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateInteraction not implemented")
@@ -308,6 +322,24 @@ func _InteractionsService_GetInteraction_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(InteractionsServiceServer).GetInteraction(ctx, req.(*GetInteractionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetInteractionDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInteractionDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetInteractionDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetInteractionDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetInteractionDetails(ctx, req.(*GetInteractionDetailsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -575,6 +607,10 @@ var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetInteraction",
 			Handler:    _InteractionsService_GetInteraction_Handler,
+		},
+		{
+			MethodName: "GetInteractionDetails",
+			Handler:    _InteractionsService_GetInteractionDetails_Handler,
 		},
 		{
 			MethodName: "UpdateInteraction",
