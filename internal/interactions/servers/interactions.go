@@ -44,25 +44,40 @@ func (s *InteractionsServer) GetInteraction(ctx context.Context, req *interactio
 	}, nil
 }
 
-func (s *InteractionsServer) GetInteractionDetails(ctx context.Context, req *interactions_pb.GetInteractionDetailsRequest) (*interactions_pb.GetInteractionDetailsResponse, error) {
-	recordNotFound, interaction := s.persistence.GetInteraction(req.ID)
+func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInteractionDetailsRequest, stream interactions_pb.InteractionsService_GetInteractionDetailsServer) error {
+	recordNotFound, _ := s.persistence.GetInteraction(req.ID)
 	if recordNotFound {
-		return &interactions_pb.GetInteractionDetailsResponse{}, status.Error(codes.NotFound, "id was not found")
+		return status.Error(codes.NotFound, "id was not found")
 	}
 
-	// FIXME: implement - return details
-	_, err := s.persistence.GetInteractionDetails(req.ID)
+	interactionDetails, err := s.persistence.GetInteractionDetails(req.ID)
 	if err != nil {
 
 		// FIXME: should return codes.Internal?
-		return &interactions_pb.GetInteractionDetailsResponse{}, err
+		return err
 	}
 
-	return &interactions_pb.GetInteractionDetailsResponse{
-		ID:          interaction.ID,
-		Name:        interaction.Name,
-		Description: interaction.Description,
-	}, nil
+	if len(interactionDetails) == 0 {
+		return status.Error(codes.NotFound, "interactions were not found")
+	}
+
+	for _, interactionDetail := range interactionDetails {
+		res := &interactions_pb.GetInteractionDetailsResponse{
+			KeypadCondtionID:        *interactionDetail.KeypadCondition.ID,
+			KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+			KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+			LampEventID:             interactionDetail.LampEvent.ID,
+			LampEventMac:            interactionDetail.LampEvent.Mac,
+			LampEventEventType:      interactionDetail.LampEvent.EventType,
+			LampEventColor:          interactionDetail.LampEvent.Color,
+		}
+		err := stream.Send(res)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (s *InteractionsServer) UpdateInteraction(ctx context.Context, req *interactions_pb.UpdateInteractionRequest) (*interactions_pb.UpdateInteractionResponse, error) {

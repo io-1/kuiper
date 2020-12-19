@@ -3,6 +3,7 @@ package interactions
 import (
 	"context"
 	"fmt"
+	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -124,7 +125,7 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 	}
 
 	// FIXME: get the name and description
-	r, err := client.interactionsServiceClient.GetInteraction(ctx, &interactions_pb.GetInteractionRequest{ID: id})
+	stream, err := client.interactionsServiceClient.GetInteractionDetails(ctx, &interactions_pb.GetInteractionDetailsRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -144,21 +145,38 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 		return
 	}
 
-	// FIXME: throw error if the interaction does not exists
-	if r.ID == "" {
-		c.JSON(http.StatusNoContent, res)
-		return
+	i := []response.KeypadConditionsToLampEventsInteraction{}
+	for {
+		r, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+
+		re := response.KeypadConditionsToLampEventsInteraction{
+			KeypadCondition: response.KeypadCondition{
+				ID:       r.KeypadConditionID,
+				Mac:      r.KeypadConditionMac,
+				ButtonID: r.KeypadConditionButtonID,
+			},
+			LampEvent: response.LampEvent{
+
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventEventType,
+				Color:     r.LampEventColor,
+			},
+		}
+		i = append(i, re)
 	}
-
-	// FIXME: get the interactions
-
-	// FIXME: get details about the interaction
 	res = response.GetInteractionDetailsResponse{
-		ID:          r.ID,
-		Name:        r.Name,
-		Description: r.Description,
+		ID:           id,
+		Interactions: i,
 	}
-
 	c.JSON(http.StatusOK, res)
 }
 

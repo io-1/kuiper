@@ -31,9 +31,13 @@ message GetInteractionDetailsRequest {
 }
 
 message GetInteractionDetailsResponse {
-  string ID = 1;
-  string Name = 2;
-  string Description = 3;
+  string KeypadConditionID = 1;
+  string KeypadConditionMac = 2;
+  int32 KeypadConditionButtonID = 3;
+  string LampEventID = 4;
+  string LampEventMac = 5;
+  string LampEventEventType = 6;
+  string LampEventColor = 7;
 }
 
 message UpdateInteractionRequest {
@@ -197,7 +201,7 @@ service InteractionsService {
   // interactions
   rpc CreateInteraction(CreateInteractionRequest) returns (CreateInteractionResponse);
   rpc GetInteraction(GetInteractionRequest) returns (GetInteractionResponse);
-  rpc GetInteractionDetails(GetInteractionDetailsRequest) returns (GetInteractionDetailsResponse);
+  rpc GetInteractionDetails(GetInteractionDetailsRequest) returns (stream GetInteractionDetailsResponse);
   rpc UpdateInteraction(UpdateInteractionRequest) returns (UpdateInteractionResponse);
   rpc DeleteInteraction(DeleteInteractionRequest) returns (DeleteInteractionResponse);
 
