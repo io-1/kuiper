@@ -164,7 +164,6 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 				ButtonID: r.KeypadConditionButtonID,
 			},
 			LampEvent: response.LampEvent{
-
 				ID:        r.LampEventID,
 				Mac:       r.LampEventMac,
 				EventType: r.LampEventEventType,

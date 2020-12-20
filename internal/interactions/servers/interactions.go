@@ -63,7 +63,7 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 
 	for _, interactionDetail := range interactionDetails {
 		res := &interactions_pb.GetInteractionDetailsResponse{
-			KeypadCondtionID:        *interactionDetail.KeypadCondition.ID,
+			KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
 			KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
 			KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
 			LampEventID:             interactionDetail.LampEvent.ID,
