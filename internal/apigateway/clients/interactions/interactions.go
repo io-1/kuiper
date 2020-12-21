@@ -105,7 +105,6 @@ func (client InteractionsClient) GetInteraction(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// FIXME: implement - get the interaction and all the conditions and events
 func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -124,9 +123,9 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 		return
 	}
 
-	// FIXME: get the name and description
 	stream, err := client.interactionsServiceClient.GetInteractionDetails(ctx, &interactions_pb.GetInteractionDetailsRequest{ID: id})
 	if err != nil {
+		client.logger.Errorf("error with interaction service: %v", err)
 		st, ok := status.FromError(err)
 
 		// unknown error
@@ -172,6 +171,7 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 		}
 		i = append(i, re)
 	}
+
 	res = response.GetInteractionDetailsResponse{
 		ID:           id,
 		Interactions: i,

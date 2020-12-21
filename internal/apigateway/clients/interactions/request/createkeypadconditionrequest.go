@@ -20,5 +20,7 @@ func (r CreateKeypadConditionRequest) Validate() url.Values {
 		errs.Add("id", "The id field needs to be a valid!")
 	}
 
+	// FIXME: check for mac length is 12 - should check for lower case?
+
 	return errs
 }

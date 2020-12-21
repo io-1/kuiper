@@ -41,7 +41,7 @@ func init() {
 			log.Fatal(err)
 		}
 
-		server = interactions.NewInteractionsServer(persistence)
+		server = interactions.NewInteractionsServer(persistence, log)
 	}
 }
 

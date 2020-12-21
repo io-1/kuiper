@@ -54,6 +54,7 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 	if err != nil {
 
 		// FIXME: should return codes.Internal?
+		s.logger.Errorf("error with persistence: %v", err)
 		return err
 	}
 

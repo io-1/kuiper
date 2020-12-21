@@ -108,8 +108,6 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		interactionsGroup.PUT("/:interaction_id", g.interactionsClient.UpdateInteraction)
 		interactionsGroup.PATCH("/:interaction_id", g.interactionsClient.PatchInteraction)
 		interactionsGroup.DELETE("/:interaction_id", g.interactionsClient.DeleteInteraction)
-
-		// FIXME: implement - get interaction and the conditions and events
 		interactionsGroup.GET("/:interaction_id/details", g.interactionsClient.GetInteractionDetails)
 	}
 
