@@ -6,9 +6,8 @@ import (
 )
 
 type UpdateKeypadConditionRequest struct {
-	InteractionID string `json:"interactionID" binding:"required"`
-	Mac           string `json:"mac" binding:"required"`
-	ButtonID      int32  `json:"buttonID" binding:"required"`
+	Mac      string `json:"mac" binding:"required"`
+	ButtonID int32  `json:"buttonID" binding:"required"`
 }
 
 func (r UpdateKeypadConditionRequest) Validate(id string) url.Values {
@@ -18,11 +17,6 @@ func (r UpdateKeypadConditionRequest) Validate(id string) url.Values {
 	validID := regex.MatchString(id)
 	if !validID {
 		errs.Add("id", "The id field needs to be a valid!")
-	}
-
-	validInteractionID := regex.MatchString(r.InteractionID)
-	if !validInteractionID {
-		errs.Add("interactionID", "The interactionID field needs to be a valid!")
 	}
 
 	macRegex, _ := regexp.Compile("^([0-9a-f]{2}){5}([0-9a-f]{2})$")

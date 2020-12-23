@@ -15,7 +15,7 @@ func (p MysqlPersistence) GetKeypadCondition(id string) (bool, persistence.Keypa
 
 func (p MysqlPersistence) UpdateKeypadCondition(keypadCondition persistence.KeypadCondition) (bool, error) {
 	recordNotFound := p.db.Where("id=?", keypadCondition.ID).First(&persistence.KeypadCondition{}).RecordNotFound()
-	err := p.db.Model(&keypadCondition).Where("id=?", keypadCondition.ID).Updates(persistence.KeypadCondition{InteractionID: keypadCondition.InteractionID, Mac: keypadCondition.Mac, ButtonID: keypadCondition.ButtonID}).Error
+	err := p.db.Model(&keypadCondition).Where("id=?", keypadCondition.ID).Updates(persistence.KeypadCondition{Mac: keypadCondition.Mac, ButtonID: keypadCondition.ButtonID}).Error
 	return recordNotFound, err
 }
 

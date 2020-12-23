@@ -6,8 +6,9 @@ import (
 )
 
 type PatchAttachRequest struct {
-	ConditionID string `json:"conditionID"`
-	EventID     string `json:"eventID"`
+	InteractionID string `json:"interactionID"`
+	ConditionID   string `json:"conditionID"`
+	EventID       string `json:"eventID"`
 }
 
 func (r PatchAttachRequest) Validate(id string) url.Values {

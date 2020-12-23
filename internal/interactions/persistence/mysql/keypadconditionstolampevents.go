@@ -15,7 +15,7 @@ func (p MysqlPersistence) GetKeypadConditionToLampEvent(id string) (bool, persis
 
 func (p MysqlPersistence) UpdateKeypadConditionToLampEvent(keypadConditionsToLampEvents persistence.KeypadConditionsToLampEvents) (bool, error) {
 	recordNotFound := p.db.Where("id=?", keypadConditionsToLampEvents.ID).First(&persistence.KeypadConditionsToLampEvents{}).RecordNotFound()
-	err := p.db.Model(&keypadConditionsToLampEvents).Where("id=?", keypadConditionsToLampEvents.ID).Updates(persistence.KeypadConditionsToLampEvents{ConditionID: keypadConditionsToLampEvents.ConditionID, EventID: keypadConditionsToLampEvents.EventID}).Error
+	err := p.db.Model(&keypadConditionsToLampEvents).Where("id=?", keypadConditionsToLampEvents.ID).Updates(persistence.KeypadConditionsToLampEvents{InteractionID: keypadConditionsToLampEvents.InteractionID, ConditionID: keypadConditionsToLampEvents.ConditionID, EventID: keypadConditionsToLampEvents.EventID}).Error
 	return recordNotFound, err
 }
 

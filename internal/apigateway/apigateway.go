@@ -87,6 +87,7 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 	deviceGroup := v1.Group("/devices")
 	{
+		// FIXME: change to moister devices or something similiar
 		deviceGroup.POST("/bc", g.devicesClient.CreateBatCaveDeviceSetting)
 		deviceGroup.GET("/bc/:id", g.devicesClient.GetBatCaveDeviceSetting)
 		deviceGroup.PUT("/bc/:id", g.devicesClient.UpdateBatCaveDeviceSetting)
@@ -113,6 +114,8 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 	keypadGroup := v1.Group("/keypad")
 	{
+
+		// FIXME: remove the interactionID from the condition
 		keypadGroup.POST("/condition", g.interactionsClient.CreateKeypadCondition)
 		keypadGroup.GET("/:keypad_condition_id/condition", g.interactionsClient.GetKeypadCondition)
 		keypadGroup.PUT("/:keypad_condition_id/condition", g.interactionsClient.UpdateKeypadCondition)
@@ -132,14 +135,14 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	interactGroup := v1.Group("/interact")
 	{
 
-		// FIXME: can i use /:condition/:event??
 		interactKeypadToLamp := interactGroup.Group("/keypad/lamp")
 		{
-			interactKeypadToLamp.POST("", g.interactionsClient.CreateAttach)
-			interactKeypadToLamp.GET("/:keypad_to_lamp_id", g.interactionsClient.GetAttach)
-			interactKeypadToLamp.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateAttach)
-			interactKeypadToLamp.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchAttach)
-			interactKeypadToLamp.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteAttach)
+			// FIXME: add interactionID to the keypad condition - lamp event interaction
+			interactKeypadToLamp.POST("", g.interactionsClient.CreateKeypadConditionLampEventInteraction)
+			interactKeypadToLamp.GET("/:keypad_to_lamp_id", g.interactionsClient.GetKeypadConditionLampEventInteraction)
+			interactKeypadToLamp.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateKeypadConditionLampEventInteraction)
+			interactKeypadToLamp.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchKeypadConditionLampEventInteraction)
+			interactKeypadToLamp.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteKeypadConditionLampEventInteraction)
 		}
 	}
 

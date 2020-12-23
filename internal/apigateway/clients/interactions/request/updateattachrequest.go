@@ -6,8 +6,9 @@ import (
 )
 
 type UpdateAttachRequest struct {
-	ConditionID string `json:"conditionID" binding:"required"`
-	EventID     string `json:"eventID" binding:"required"`
+	InteractionID string `json:"interactionID" binding:"required"`
+	ConditionID   string `json:"conditionID" binding:"required"`
+	EventID       string `json:"eventID" binding:"required"`
 }
 
 func (r UpdateAttachRequest) Validate(id string) url.Values {
@@ -17,6 +18,11 @@ func (r UpdateAttachRequest) Validate(id string) url.Values {
 	validID := regex.MatchString(id)
 	if !validID {
 		errs.Add("id", "The id field needs to be a valid!")
+	}
+
+	validInteractionID := regex.MatchString(r.InteractionID)
+	if !validInteractionID {
+		errs.Add("interactionID", "The id field needs to be a valid!")
 	}
 
 	validConditionID := regex.MatchString(r.ConditionID)

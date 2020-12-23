@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/io-1/kuiper/internal/interactions/persistence/mysql"
-	"github.com/io-1/kuiper/internal/interactions/pubsub/mosquitto"
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/logger/logruslogger"
 	"google.golang.org/grpc"
@@ -65,11 +64,13 @@ func main() {
 	if *showVersion {
 		fmt.Printf("interactions server: version %s build %s", Version, Build)
 	} else {
-		pubSub := mosquitto.NewMosquittoPubSub(log)
-		err := pubSub.NewKeypadListener(ctx, "keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))
-		if err != nil {
-			log.Fatal(err)
-		}
+
+		// FIXME: this should get the data from the sensors service
+		// pubSub := mosquitto.NewMosquittoPubSub(log)
+		// err := pubSub.NewKeypadListener(ctx, "keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))
+		// if err != nil {
+		// 	log.Fatal(err)
+		// }
 
 		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 		if err != nil {

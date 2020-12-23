@@ -17,17 +17,19 @@ func (s *InteractionsServer) CreateAttach(ctx context.Context, req *interactions
 	id := uuid.New().String()
 
 	conditionsToEvents := persistence.ConditionsToEvents{
-		ID:          id,
-		ConditionID: req.ConditionID,
-		EventID:     req.EventID,
+		ID:            id,
+		InteractionID: req.InteractionID,
+		ConditionID:   req.ConditionID,
+		EventID:       req.EventID,
 	}
 
 	s.persistence.CreateConditionsToEvents(conditionsToEvents)
 
 	return &interactions_pb.CreateAttachResponse{
-		ID:          id,
-		ConditionID: req.ConditionID,
-		EventID:     req.EventID,
+		ID:            id,
+		InteractionID: req.InteractionID,
+		ConditionID:   req.ConditionID,
+		EventID:       req.EventID,
 	}, nil
 }
 
@@ -38,17 +40,19 @@ func (s *InteractionsServer) GetAttach(ctx context.Context, req *interactions_pb
 	}
 
 	return &interactions_pb.GetAttachResponse{
-		ID:          conditionsToEvents.ID,
-		ConditionID: conditionsToEvents.ConditionID,
-		EventID:     conditionsToEvents.EventID,
+		ID:            conditionsToEvents.ID,
+		InteractionID: conditionsToEvents.InteractionID,
+		ConditionID:   conditionsToEvents.ConditionID,
+		EventID:       conditionsToEvents.EventID,
 	}, nil
 }
 
 func (s *InteractionsServer) UpdateAttach(ctx context.Context, req *interactions_pb.UpdateAttachRequest) (*interactions_pb.UpdateAttachResponse, error) {
 	conditionsToEvents := persistence.ConditionsToEvents{
-		ID:          req.ID,
-		ConditionID: req.ConditionID,
-		EventID:     req.EventID,
+		ID:            req.ID,
+		InteractionID: req.InteractionID,
+		ConditionID:   req.ConditionID,
+		EventID:       req.EventID,
 	}
 
 	recordNotFound, err := s.persistence.UpdateConditionsToEvents(conditionsToEvents)
@@ -61,9 +65,10 @@ func (s *InteractionsServer) UpdateAttach(ctx context.Context, req *interactions
 	}
 
 	return &interactions_pb.UpdateAttachResponse{
-		ID:          conditionsToEvents.ID,
-		ConditionID: conditionsToEvents.ConditionID,
-		EventID:     conditionsToEvents.EventID,
+		ID:            conditionsToEvents.ID,
+		InteractionID: conditionsToEvents.InteractionID,
+		ConditionID:   conditionsToEvents.ConditionID,
+		EventID:       conditionsToEvents.EventID,
 	}, nil
 }
 

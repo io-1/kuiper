@@ -33,10 +33,10 @@ func (client InteractionsClient) CreateKeypadCondition(c *gin.Context) {
 		return
 	}
 
+	// FIXME: remove interactionID from the service
 	r, err := client.interactionsServiceClient.CreateKeypadCondition(ctx, &interactions_pb.CreateKeypadConditionRequest{
-		InteractionID: req.InteractionID,
-		Mac:           req.Mac,
-		ButtonID:      *req.ButtonID,
+		Mac:      req.Mac,
+		ButtonID: *req.ButtonID,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
@@ -44,10 +44,9 @@ func (client InteractionsClient) CreateKeypadCondition(c *gin.Context) {
 	}
 
 	res = response.CreateKeypadConditionResponse{
-		ID:            r.ID,
-		InteractionID: r.InteractionID,
-		Mac:           r.Mac,
-		ButtonID:      r.ButtonID,
+		ID:       r.ID,
+		Mac:      r.Mac,
+		ButtonID: r.ButtonID,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -71,6 +70,7 @@ func (client InteractionsClient) GetKeypadCondition(c *gin.Context) {
 		return
 	}
 
+	// FIXME: remove the interactionID from the service
 	r, err := client.interactionsServiceClient.GetKeypadCondition(ctx, &interactions_pb.GetKeypadConditionRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
@@ -97,10 +97,9 @@ func (client InteractionsClient) GetKeypadCondition(c *gin.Context) {
 	}
 
 	res = response.GetKeypadConditionResponse{
-		ID:            r.ID,
-		InteractionID: r.InteractionID,
-		Mac:           r.Mac,
-		ButtonID:      r.ButtonID,
+		ID:       r.ID,
+		Mac:      r.Mac,
+		ButtonID: r.ButtonID,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -129,11 +128,11 @@ func (client InteractionsClient) UpdateKeypadCondition(c *gin.Context) {
 		return
 	}
 
+	// FIXME: remove the interactionID from the service
 	r, err := client.interactionsServiceClient.UpdateKeypadCondition(ctx, &interactions_pb.UpdateKeypadConditionRequest{
-		ID:            id,
-		InteractionID: req.InteractionID,
-		Mac:           req.Mac,
-		ButtonID:      req.ButtonID,
+		ID:       id,
+		Mac:      req.Mac,
+		ButtonID: req.ButtonID,
 	})
 
 	if err != nil {
@@ -161,10 +160,9 @@ func (client InteractionsClient) UpdateKeypadCondition(c *gin.Context) {
 	}
 
 	res = response.UpdateKeypadConditionResponse{
-		ID:            r.ID,
-		InteractionID: r.InteractionID,
-		Mac:           r.Mac,
-		ButtonID:      r.ButtonID,
+		ID:       r.ID,
+		Mac:      r.Mac,
+		ButtonID: r.ButtonID,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -193,7 +191,7 @@ func (client InteractionsClient) PatchKeypadCondition(c *gin.Context) {
 		return
 	}
 
-	// get the user
+	// FIXME: remove the interactionID from the service
 	r, err := client.interactionsServiceClient.GetKeypadCondition(ctx, &interactions_pb.GetKeypadConditionRequest{ID: id})
 
 	if err != nil {
@@ -220,20 +218,16 @@ func (client InteractionsClient) PatchKeypadCondition(c *gin.Context) {
 		return
 	}
 
-	if req.InteractionID == "" {
-		req.InteractionID = r.InteractionID
-	}
-
 	if req.Mac == "" {
 		req.Mac = r.Mac
 	}
 
+	// FIXME: remove the interactionID from the service
 	// save the request difference
 	re, err := client.interactionsServiceClient.UpdateKeypadCondition(ctx, &interactions_pb.UpdateKeypadConditionRequest{
-		ID:            id,
-		InteractionID: req.InteractionID,
-		Mac:           req.Mac,
-		ButtonID:      req.ButtonID,
+		ID:       id,
+		Mac:      req.Mac,
+		ButtonID: req.ButtonID,
 	})
 
 	if err != nil {
@@ -251,10 +245,9 @@ func (client InteractionsClient) PatchKeypadCondition(c *gin.Context) {
 	}
 
 	res = response.PatchKeypadConditionResponse{
-		ID:            re.ID,
-		InteractionID: r.InteractionID,
-		Mac:           r.Mac,
-		ButtonID:      r.ButtonID,
+		ID:       re.ID,
+		Mac:      r.Mac,
+		ButtonID: r.ButtonID,
 	}
 
 	c.JSON(http.StatusOK, res)

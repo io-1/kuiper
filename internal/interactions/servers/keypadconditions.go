@@ -18,19 +18,17 @@ func (s *InteractionsServer) CreateKeypadCondition(ctx context.Context, req *int
 	id := uuid.New().String()
 
 	keypadCondition := persistence.KeypadCondition{
-		ID:            &id,
-		InteractionID: &req.InteractionID,
-		Mac:           &req.Mac,
-		ButtonID:      &req.ButtonID,
+		ID:       &id,
+		Mac:      &req.Mac,
+		ButtonID: &req.ButtonID,
 	}
 
 	s.persistence.CreateKeypadCondition(keypadCondition)
 
 	return &interactions_pb.CreateKeypadConditionResponse{
-		ID:            id,
-		InteractionID: req.InteractionID,
-		Mac:           req.Mac,
-		ButtonID:      req.ButtonID,
+		ID:       id,
+		Mac:      req.Mac,
+		ButtonID: req.ButtonID,
 	}, nil
 }
 
@@ -41,19 +39,17 @@ func (s *InteractionsServer) GetKeypadCondition(ctx context.Context, req *intera
 	}
 
 	return &interactions_pb.GetKeypadConditionResponse{
-		ID:            *keypadCondition.ID,
-		InteractionID: *keypadCondition.InteractionID,
-		Mac:           *keypadCondition.Mac,
-		ButtonID:      *keypadCondition.ButtonID,
+		ID:       *keypadCondition.ID,
+		Mac:      *keypadCondition.Mac,
+		ButtonID: *keypadCondition.ButtonID,
 	}, nil
 }
 
 func (s *InteractionsServer) UpdateKeypadCondition(ctx context.Context, req *interactions_pb.UpdateKeypadConditionRequest) (*interactions_pb.UpdateKeypadConditionResponse, error) {
 	keypadCondition := persistence.KeypadCondition{
-		ID:            &req.ID,
-		InteractionID: &req.InteractionID,
-		Mac:           &req.Mac,
-		ButtonID:      &req.ButtonID,
+		ID:       &req.ID,
+		Mac:      &req.Mac,
+		ButtonID: &req.ButtonID,
 	}
 
 	recordNotFound, err := s.persistence.UpdateKeypadCondition(keypadCondition)
@@ -66,10 +62,9 @@ func (s *InteractionsServer) UpdateKeypadCondition(ctx context.Context, req *int
 	}
 
 	return &interactions_pb.UpdateKeypadConditionResponse{
-		ID:            *keypadCondition.ID,
-		InteractionID: req.InteractionID,
-		Mac:           req.Mac,
-		ButtonID:      req.ButtonID,
+		ID:       *keypadCondition.ID,
+		Mac:      req.Mac,
+		ButtonID: req.ButtonID,
 	}, nil
 }
 

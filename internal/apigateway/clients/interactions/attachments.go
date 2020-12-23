@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (client InteractionsClient) CreateAttach(c *gin.Context) {
+func (client InteractionsClient) CreateKeypadConditionLampEventInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -33,8 +33,9 @@ func (client InteractionsClient) CreateAttach(c *gin.Context) {
 	}
 
 	r, err := client.interactionsServiceClient.CreateAttach(ctx, &interactions_pb.CreateAttachRequest{
-		ConditionID: req.ConditionID,
-		EventID:     req.EventID,
+		InteractionID: req.InteractionID,
+		ConditionID:   req.ConditionID,
+		EventID:       req.EventID,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
@@ -42,15 +43,16 @@ func (client InteractionsClient) CreateAttach(c *gin.Context) {
 	}
 
 	res = response.CreateAttachResponse{
-		ID:          r.ID,
-		ConditionID: r.ConditionID,
-		EventID:     r.EventID,
+		ID:            r.ID,
+		InteractionID: r.InteractionID,
+		ConditionID:   r.ConditionID,
+		EventID:       r.EventID,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) GetAttach(c *gin.Context) {
+func (client InteractionsClient) GetKeypadConditionLampEventInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -94,15 +96,16 @@ func (client InteractionsClient) GetAttach(c *gin.Context) {
 	}
 
 	res = response.GetAttachResponse{
-		ID:          r.ID,
-		ConditionID: r.ConditionID,
-		EventID:     r.EventID,
+		ID:            r.ID,
+		InteractionID: r.InteractionID,
+		ConditionID:   r.ConditionID,
+		EventID:       r.EventID,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) UpdateAttach(c *gin.Context) {
+func (client InteractionsClient) UpdateKeypadConditionLampEventInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -126,9 +129,10 @@ func (client InteractionsClient) UpdateAttach(c *gin.Context) {
 	}
 
 	r, err := client.interactionsServiceClient.UpdateAttach(ctx, &interactions_pb.UpdateAttachRequest{
-		ID:          id,
-		ConditionID: req.ConditionID,
-		EventID:     req.EventID,
+		ID:            id,
+		InteractionID: req.InteractionID,
+		ConditionID:   req.ConditionID,
+		EventID:       req.EventID,
 	})
 
 	if err != nil {
@@ -156,15 +160,16 @@ func (client InteractionsClient) UpdateAttach(c *gin.Context) {
 	}
 
 	res = response.UpdateAttachResponse{
-		ID:          r.ID,
-		ConditionID: r.ConditionID,
-		EventID:     r.EventID,
+		ID:            r.ID,
+		InteractionID: r.InteractionID,
+		ConditionID:   r.ConditionID,
+		EventID:       r.EventID,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) PatchAttach(c *gin.Context) {
+func (client InteractionsClient) PatchKeypadConditionLampEventInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
@@ -214,6 +219,10 @@ func (client InteractionsClient) PatchAttach(c *gin.Context) {
 		return
 	}
 
+	if req.InteractionID == "" {
+		req.InteractionID = r.InteractionID
+	}
+
 	if req.ConditionID == "" {
 		req.ConditionID = r.ConditionID
 	}
@@ -224,9 +233,10 @@ func (client InteractionsClient) PatchAttach(c *gin.Context) {
 
 	// save the request difference
 	re, err := client.interactionsServiceClient.UpdateAttach(ctx, &interactions_pb.UpdateAttachRequest{
-		ID:          id,
-		ConditionID: req.ConditionID,
-		EventID:     req.EventID,
+		ID:            id,
+		InteractionID: req.InteractionID,
+		ConditionID:   req.ConditionID,
+		EventID:       req.EventID,
 	})
 
 	if err != nil {
@@ -244,15 +254,16 @@ func (client InteractionsClient) PatchAttach(c *gin.Context) {
 	}
 
 	res = response.PatchAttachResponse{
-		ID:          re.ID,
-		ConditionID: re.ConditionID,
-		EventID:     re.EventID,
+		ID:            re.ID,
+		InteractionID: re.InteractionID,
+		ConditionID:   re.ConditionID,
+		EventID:       re.EventID,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) DeleteAttach(c *gin.Context) {
+func (client InteractionsClient) DeleteKeypadConditionLampEventInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 

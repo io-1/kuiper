@@ -62,16 +62,14 @@ message DeleteInteractionResponse {
 
 // conditions
 message CreateKeypadConditionRequest {
-  string InteractionID = 1;
-  string Mac = 2;
-  int32 ButtonID = 3;
+  string Mac = 1;
+  int32 ButtonID = 2;
 }
 
 message CreateKeypadConditionResponse {
   string ID = 1;
-  string InteractionID = 2;
-  string Mac= 3;
-  int32 ButtonID = 4;
+  string Mac= 2;
+  int32 ButtonID = 3;
 }
 
 message GetKeypadConditionRequest {
@@ -80,23 +78,20 @@ message GetKeypadConditionRequest {
 
 message GetKeypadConditionResponse {
   string ID = 1;
-  string InteractionID = 2;
-  string Mac= 3;
-  int32 ButtonID = 4;
+  string Mac= 2;
+  int32 ButtonID = 333;
 }
 
 message UpdateKeypadConditionRequest {
   string ID = 1;
-  string InteractionID = 2;
-  string Mac= 3;
-  int32 ButtonID = 4;
+  string Mac= 2;
+  int32 ButtonID = 3;
 }
 
 message UpdateKeypadConditionResponse {
   string ID = 1;
-  string InteractionID = 2;
-  string Mac= 3;
-  int32 ButtonID = 4;
+  string Mac= 2;
+  int32 ButtonID = 3;
 }
 
 message DeleteKeypadConditionRequest {
@@ -156,14 +151,16 @@ message DeleteLampEventResponse {
 
 // attach
 message CreateAttachRequest {
-  string ConditionID = 1;
-  string EventID = 2;
+  string InteractionID = 1;
+  string ConditionID = 2;
+  string EventID = 3;
 }
 
 message CreateAttachResponse {
   string ID = 1;
-  string ConditionID = 2;
-  string EventID = 3;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
 }
 
 message GetAttachRequest {
@@ -172,20 +169,23 @@ message GetAttachRequest {
 
 message GetAttachResponse {
   string ID = 1;
-  string ConditionID = 2;
-  string EventID = 3;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
 }
 
 message UpdateAttachRequest {
   string ID = 1;
-  string ConditionID = 2;
-  string EventID = 3;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
 }
 
 message UpdateAttachResponse {
   string ID = 1;
-  string ConditionID = 2;
-  string EventID = 3;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4; 
 }
 
 message DeleteAttachRequest {

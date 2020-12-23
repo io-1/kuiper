@@ -15,7 +15,7 @@ func (p MysqlPersistence) GetConditionsToEvents(id string) (bool, persistence.Co
 
 func (p MysqlPersistence) UpdateConditionsToEvents(conditionsToEvents persistence.ConditionsToEvents) (bool, error) {
 	recordNotFound := p.db.Where("id=?", conditionsToEvents.ID).First(&persistence.ConditionsToEvents{}).RecordNotFound()
-	err := p.db.Model(&conditionsToEvents).Where("id=?", conditionsToEvents.ID).Updates(persistence.ConditionsToEvents{ConditionID: conditionsToEvents.ConditionID, EventID: conditionsToEvents.EventID, EventType: conditionsToEvents.EventType}).Error
+	err := p.db.Model(&conditionsToEvents).Where("id=?", conditionsToEvents.ID).Updates(persistence.ConditionsToEvents{InteractionID: conditionsToEvents.InteractionID, ConditionID: conditionsToEvents.ConditionID, EventID: conditionsToEvents.EventID}).Error
 	return recordNotFound, err
 }
 
