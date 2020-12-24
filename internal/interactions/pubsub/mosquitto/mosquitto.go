@@ -1,15 +1,18 @@
 package mosquitto
 
 import (
+	"github.com/io-1/kuiper/internal/interactions/persistence"
 	"github.com/io-1/kuiper/internal/logger"
 )
 
 type MosquittoPubSub struct {
-	logger logger.Logger
+	persistence persistence.Persistence
+	logger      logger.Logger
 }
 
-func NewMosquittoPubSub(logger logger.Logger) *MosquittoPubSub {
+func NewMosquittoPubSub(persistence persistence.Persistence, logger logger.Logger) *MosquittoPubSub {
 	return &MosquittoPubSub{
-		logger: logger,
+		persistence: persistence,
+		logger:      logger,
 	}
 }

@@ -7,7 +7,9 @@ import (
 	"net"
 	"os"
 
+	"github.com/io-1/kuiper/internal/interactions/persistence"
 	"github.com/io-1/kuiper/internal/interactions/persistence/mysql"
+	"github.com/io-1/kuiper/internal/interactions/pubsub/mosquitto"
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/logger/logruslogger"
 	"google.golang.org/grpc"
@@ -22,6 +24,7 @@ var (
 	Version     string
 	Build       string
 	port        string
+	p           persistence.Persistence
 	log         logger.Logger
 	server      *interactions.InteractionsServer
 )
@@ -35,12 +38,13 @@ func init() {
 
 		log = logruslogger.NewLogrusLogger(true)
 		ctx = context.Background()
-		persistence, err := mysql.NewMysqlPersistence(dbConn)
+		var err error
+		p, err = mysql.NewMysqlPersistence(dbConn)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		server = interactions.NewInteractionsServer(persistence, log)
+		server = interactions.NewInteractionsServer(p, log)
 	}
 }
 
@@ -65,12 +69,11 @@ func main() {
 		fmt.Printf("interactions server: version %s build %s", Version, Build)
 	} else {
 
-		// FIXME: this should get the data from the sensors service
-		// pubSub := mosquitto.NewMosquittoPubSub(log)
-		// err := pubSub.NewKeypadListener(ctx, "keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
+		pubSub := mosquitto.NewMosquittoPubSub(p, log)
+		err := pubSub.NewKeypadListener(ctx, "keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 		if err != nil {
