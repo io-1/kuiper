@@ -26,15 +26,15 @@ func (r CreateLampEventRequest) Validate() url.Values {
 		errs.Add("eventType", "The eventType field needs to be less then 50 characters!")
 	}
 
-	if *r.Red > 255 {
+	if *r.Red > 256 {
 		errs.Add("red", "The red field needs to be less then 255!")
 	}
 
-	if *r.Green > 255 {
+	if *r.Green > 256 {
 		errs.Add("green", "The green field needs to be less then 255!")
 	}
 
-	if *r.Blue > 255 {
+	if *r.Blue > 256 {
 		errs.Add("blue", "The blue field needs to be less then 255!")
 	}
 
