@@ -136,6 +136,21 @@ func (mr *MockPersistenceMockRecorder) GetKeypadCondition(id interface{}) *gomoc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeypadCondition", reflect.TypeOf((*MockPersistence)(nil).GetKeypadCondition), id)
 }
 
+// GetKeypadConditionByMac mocks base method.
+func (m *MockPersistence) GetKeypadConditionByMac(mac string) (bool, persistence.KeypadCondition) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetKeypadConditionByMac", mac)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.KeypadCondition)
+	return ret0, ret1
+}
+
+// GetKeypadConditionByMac indicates an expected call of GetKeypadConditionByMac.
+func (mr *MockPersistenceMockRecorder) GetKeypadConditionByMac(mac interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeypadConditionByMac", reflect.TypeOf((*MockPersistence)(nil).GetKeypadConditionByMac), mac)
+}
+
 // UpdateKeypadCondition mocks base method.
 func (m *MockPersistence) UpdateKeypadCondition(keypadCondition persistence.KeypadCondition) (bool, error) {
 	m.ctrl.T.Helper()
@@ -193,6 +208,21 @@ func (m *MockPersistence) GetLampEvent(id string) (bool, persistence.LampEvent) 
 func (mr *MockPersistenceMockRecorder) GetLampEvent(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLampEvent", reflect.TypeOf((*MockPersistence)(nil).GetLampEvent), id)
+}
+
+// GetLampEventsByKeypadConditionID mocks base method.
+func (m *MockPersistence) GetLampEventsByKeypadConditionID(id string) ([]persistence.LampEvent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLampEventsByKeypadConditionID", id)
+	ret0, _ := ret[0].([]persistence.LampEvent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetLampEventsByKeypadConditionID indicates an expected call of GetLampEventsByKeypadConditionID.
+func (mr *MockPersistenceMockRecorder) GetLampEventsByKeypadConditionID(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLampEventsByKeypadConditionID", reflect.TypeOf((*MockPersistence)(nil).GetLampEventsByKeypadConditionID), id)
 }
 
 // UpdateLampEvent mocks base method.

@@ -1,9 +1,7 @@
 package response
 
 type GetInteractionDetailsResponse struct {
-	ID string `json:"id"`
-	// Name         string                                    `json:"name"`
-	// Description  string                                    `json:"description"`
+	ID           string                                    `json:"id"`
 	Interactions []KeypadConditionsToLampEventsInteraction `json:"interactions"`
 }
 
@@ -22,5 +20,7 @@ type LampEvent struct {
 	ID        string `json:"id"`
 	Mac       string `json:"mac"`
 	EventType string `json:"eventType"`
-	Color     string `json:"color"`
+	Red       int32  `json:"red"`
+	Green     int32  `json:"green"`
+	Blue      int32  `json:"blue"`
 }

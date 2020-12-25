@@ -3,25 +3,25 @@ package persistence
 
 type Persistence interface {
 	CreateInteraction(interaction Interaction) int64
-	GetInteraction(id string) (bool, Interaction)
+	GetInteraction(id string) (recordNotFound bool, interaction Interaction)
 	GetInteractionDetails(id string) ([]InteractionDetails, error)
-	UpdateInteraction(interaction Interaction) (bool, error)
-	DeleteInteraction(interaction Interaction) (bool, error)
+	UpdateInteraction(interaction Interaction) (recordNotFound bool, err error)
+	DeleteInteraction(interaction Interaction) (recordNotFound bool, err error)
 
 	CreateKeypadCondition(keypadCondition KeypadCondition) int64
-	GetKeypadCondition(id string) (bool, KeypadCondition)
-	GetKeypadConditionByMac(mac string) (bool, KeypadCondition)
-	UpdateKeypadCondition(keypadCondition KeypadCondition) (bool, error)
-	DeleteKeypadCondition(keypadCondition KeypadCondition) (bool, error)
+	GetKeypadCondition(id string) (recordNotFound bool, keypadCondition KeypadCondition)
+	GetKeypadConditionByMac(mac string) (recordNotFound bool, keypadCondition KeypadCondition)
+	UpdateKeypadCondition(keypadCondition KeypadCondition) (recordNotFound bool, err error)
+	DeleteKeypadCondition(keypadCondition KeypadCondition) (recordNotFound bool, err error)
 
 	CreateLampEvent(keypadCondition LampEvent) int64
-	GetLampEvent(id string) (bool, LampEvent)
+	GetLampEvent(id string) (recordNotFound bool, lampEvent LampEvent)
 	GetLampEventsByKeypadConditionID(id string) ([]LampEvent, error)
-	UpdateLampEvent(lampEvent LampEvent) (bool, error)
-	DeleteLampEvent(lampEvent LampEvent) (bool, error)
+	UpdateLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
+	DeleteLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 
 	CreateConditionsToEvents(conditionsToEvents ConditionsToEvents) int64
-	GetConditionsToEvents(id string) (bool, ConditionsToEvents)
-	UpdateConditionsToEvents(conditionsToEvents ConditionsToEvents) (bool, error)
-	DeleteConditionsToEvents(conditionsToEvents ConditionsToEvents) (bool, error)
+	GetConditionsToEvents(id string) (recordNotFound bool, conditionsToEvents ConditionsToEvents)
+	UpdateConditionsToEvents(conditionsToEvents ConditionsToEvents) (recordNotFound bool, err error)
+	DeleteConditionsToEvents(conditionsToEvents ConditionsToEvents) (recordNotFound bool, err error)
 }

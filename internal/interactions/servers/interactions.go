@@ -70,7 +70,9 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 			LampEventID:             interactionDetail.LampEvent.ID,
 			LampEventMac:            interactionDetail.LampEvent.Mac,
 			LampEventEventType:      interactionDetail.LampEvent.EventType,
-			LampEventColor:          interactionDetail.LampEvent.Color,
+			LampEventRed:            interactionDetail.LampEvent.Red,
+			LampEventGreen:          interactionDetail.LampEvent.Green,
+			LampEventBlue:           interactionDetail.LampEvent.Blue,
 		}
 		err := stream.Send(res)
 		if err != nil {

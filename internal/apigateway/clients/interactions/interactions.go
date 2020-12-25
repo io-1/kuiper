@@ -166,7 +166,9 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 				ID:        r.LampEventID,
 				Mac:       r.LampEventMac,
 				EventType: r.LampEventEventType,
-				Color:     r.LampEventColor,
+				Red:       r.LampEventRed,
+				Green:     r.LampEventGreen,
+				Blue:      r.LampEventBlue,
 			},
 		}
 		i = append(i, re)

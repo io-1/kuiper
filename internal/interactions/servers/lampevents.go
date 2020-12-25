@@ -13,15 +13,15 @@ import (
 )
 
 func (s *InteractionsServer) CreateLampEvent(ctx context.Context, req *interactions_pb.CreateLampEventRequest) (*interactions_pb.CreateLampEventResponse, error) {
-
-	// generate uuid
 	id := uuid.New().String()
 
 	lampEvent := persistence.LampEvent{
 		ID:        id,
 		Mac:       req.Mac,
 		EventType: req.EventType,
-		Color:     req.Color,
+		Red:       req.Red,
+		Green:     req.Green,
+		Blue:      req.Blue,
 	}
 
 	s.persistence.CreateLampEvent(lampEvent)
@@ -30,7 +30,9 @@ func (s *InteractionsServer) CreateLampEvent(ctx context.Context, req *interacti
 		ID:        id,
 		Mac:       req.Mac,
 		EventType: req.EventType,
-		Color:     req.Color,
+		Red:       req.Red,
+		Green:     req.Green,
+		Blue:      req.Blue,
 	}, nil
 }
 
@@ -44,7 +46,9 @@ func (s *InteractionsServer) GetLampEvent(ctx context.Context, req *interactions
 		ID:        lampEvent.ID,
 		Mac:       lampEvent.Mac,
 		EventType: lampEvent.EventType,
-		Color:     lampEvent.Color,
+		Red:       lampEvent.Red,
+		Green:     lampEvent.Green,
+		Blue:      lampEvent.Blue,
 	}, nil
 }
 
@@ -53,7 +57,9 @@ func (s *InteractionsServer) UpdateLampEvent(ctx context.Context, req *interacti
 		ID:        req.ID,
 		Mac:       req.Mac,
 		EventType: req.EventType,
-		Color:     req.Color,
+		Red:       req.Red,
+		Green:     req.Green,
+		Blue:      req.Blue,
 	}
 
 	recordNotFound, err := s.persistence.UpdateLampEvent(lampEvent)
@@ -69,7 +75,9 @@ func (s *InteractionsServer) UpdateLampEvent(ctx context.Context, req *interacti
 		ID:        lampEvent.ID,
 		Mac:       lampEvent.Mac,
 		EventType: lampEvent.EventType,
-		Color:     lampEvent.Color,
+		Red:       lampEvent.Red,
+		Green:     lampEvent.Green,
+		Blue:      lampEvent.Blue,
 	}, nil
 }
 

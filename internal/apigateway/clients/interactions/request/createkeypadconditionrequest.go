@@ -19,5 +19,9 @@ func (r CreateKeypadConditionRequest) Validate() url.Values {
 		errs.Add("mac", "The mac field needs to be a valid!")
 	}
 
+	if *r.ButtonID > 20 {
+		errs.Add("buttonID", "The buttonID field needs to be less then 20!")
+	}
+
 	return errs
 }

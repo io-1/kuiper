@@ -70,7 +70,6 @@ func (client InteractionsClient) GetKeypadCondition(c *gin.Context) {
 		return
 	}
 
-	// FIXME: remove the interactionID from the service
 	r, err := client.interactionsServiceClient.GetKeypadCondition(ctx, &interactions_pb.GetKeypadConditionRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)

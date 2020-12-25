@@ -35,7 +35,9 @@ func (client InteractionsClient) CreateLampEvent(c *gin.Context) {
 	r, err := client.interactionsServiceClient.CreateLampEvent(ctx, &interactions_pb.CreateLampEventRequest{
 		Mac:       req.Mac,
 		EventType: req.EventType,
-		Color:     req.Color,
+		Red:       *req.Red,
+		Green:     *req.Green,
+		Blue:      *req.Blue,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
@@ -46,7 +48,9 @@ func (client InteractionsClient) CreateLampEvent(c *gin.Context) {
 		ID:        r.ID,
 		Mac:       r.Mac,
 		EventType: r.EventType,
-		Color:     r.Color,
+		Red:       r.Red,
+		Green:     r.Green,
+		Blue:      r.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -99,7 +103,9 @@ func (client InteractionsClient) GetLampEvent(c *gin.Context) {
 		ID:        r.ID,
 		Mac:       r.Mac,
 		EventType: r.EventType,
-		Color:     r.Color,
+		Red:       r.Red,
+		Green:     r.Green,
+		Blue:      r.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -160,7 +166,9 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		ID:        r.ID,
 		Mac:       r.Mac,
 		EventType: r.EventType,
-		Color:     r.Color,
+		Red:       r.Red,
+		Green:     r.Green,
+		Blue:      r.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)
@@ -224,16 +232,27 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		req.EventType = r.EventType
 	}
 
-	if req.Color == "" {
-		req.Color = r.Color
-	}
+	// FIXME: not sure how to fix these
+	// if req.Red == nil {
+	// 	req.Red = r.Red
+	// }
+
+	// if req.Green == "" {
+	// 	req.Green = r.Green
+	// }
+
+	// if req.Blue == "" {
+	// 	req.Blue = r.Blue
+	// }
 
 	// save the request difference
 	re, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
 		ID:        id,
 		Mac:       req.Mac,
 		EventType: req.EventType,
-		Color:     req.Color,
+		Red:       *req.Red,
+		Green:     *req.Green,
+		Blue:      *req.Blue,
 	})
 
 	if err != nil {
@@ -254,7 +273,9 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		ID:        re.ID,
 		Mac:       re.Mac,
 		EventType: re.EventType,
-		Color:     re.Color,
+		Red:       re.Red,
+		Green:     re.Green,
+		Blue:      re.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)

@@ -8,7 +8,9 @@ import (
 type UpdateLampEventRequest struct {
 	Mac       string `json:"mac" binding:"required"`
 	EventType string `json:"eventType" binding:"required"`
-	Color     string `json:"color" binding:"required"`
+	Red       *int32 `json:"red" binding:"required"`
+	Green     *int32 `json:"green" binding:"required"`
+	Blue      *int32 `json:"blue" binding:"required"`
 }
 
 func (r UpdateLampEventRequest) Validate(id string) url.Values {
@@ -30,8 +32,16 @@ func (r UpdateLampEventRequest) Validate(id string) url.Values {
 		errs.Add("eventType", "The eventType field needs to be less then 50 characters!")
 	}
 
-	if len(r.Color) > 10 {
-		errs.Add("color", "The color field needs to be less then 10 characters!")
+	if *r.Red > 255 {
+		errs.Add("red", "The red field needs to be less then 255!")
+	}
+
+	if *r.Green > 255 {
+		errs.Add("green", "The green field needs to be less then 255!")
+	}
+
+	if *r.Blue > 255 {
+		errs.Add("blue", "The blue field needs to be less then 255!")
 	}
 
 	return errs

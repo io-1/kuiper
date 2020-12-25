@@ -37,7 +37,9 @@ message GetInteractionDetailsResponse {
   string LampEventID = 4;
   string LampEventMac = 5;
   string LampEventEventType = 6;
-  string LampEventColor = 7;
+  int32 LampEventRed = 7;
+  int32 LampEventGreen = 8;
+  int32 LampEventBlue = 9;
 }
 
 message UpdateInteractionRequest {
@@ -106,14 +108,18 @@ message DeleteKeypadConditionResponse {
 message CreateLampEventRequest {
   string Mac = 1;
   string EventType = 2;
-  string Color = 3;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
 }
 
 message CreateLampEventResponse {
   string ID = 1;
   string Mac = 2;
   string EventType = 3;
-  string Color = 4;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
 }
 
 message GetLampEventRequest {
@@ -124,21 +130,27 @@ message GetLampEventResponse {
   string ID = 1;
   string Mac = 2;
   string EventType = 3;
-  string Color = 4;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
 }
 
 message UpdateLampEventRequest {
   string ID = 1;
   string Mac = 2;
   string EventType = 3;
-  string Color = 4;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
 }
 
 message UpdateLampEventResponse {
   string ID = 1;
   string Mac = 2;
   string EventType = 3;
-  string Color = 4;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
 }
 
 message DeleteLampEventRequest {
