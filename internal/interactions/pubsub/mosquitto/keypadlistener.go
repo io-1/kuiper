@@ -74,7 +74,9 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 			for _, lampEvent := range lampEvents {
 				eventToSend := response.LampInteractionResponse{
 					EventType: lampEvent.EventType,
-					Color:     lampEvent.Color,
+					Red:       lampEvent.Red,
+					Green:     lampEvent.Green,
+					Blue:      lampEvent.Blue,
 				}
 
 				json, err := json.Marshal(eventToSend)

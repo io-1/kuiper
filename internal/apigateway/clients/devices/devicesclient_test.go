@@ -11,6 +11,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
+	"github.com/io-1/kuiper/internal/logger/blanklogger"
 	"github.com/io-1/kuiper/internal/mock"
 	"github.com/stretchr/testify/assert"
 
@@ -29,10 +30,12 @@ func Test_GetBatCaveDeviceSetting_Should_Return_StatusNoContent_When_ID_Is_Empty
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 
+	logger := blanklogger.NewBlankLogger()
+
 	mockCtrl := gomock.NewController(t)
 	mockDevicesServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient)
+	devicesClient := NewDevicesClientWithMock(mockDevicesServiceClient, logger)
 
 	mockDevicesServiceClient.EXPECT().GetBatCaveDeviceSetting(
 		gomock.Any(),
@@ -75,10 +78,12 @@ func Test_UpdateBatCaveDeviceSetting_Should_Return_StatusNoContent_When_ID_Is_Em
 	w := httptest.NewRecorder()
 	c, r := gin.CreateTestContext(w)
 
+	logger := blanklogger.NewBlankLogger()
+
 	mockCtrl := gomock.NewController(t)
 	mockSettingsServiceClient := mock.NewMockDevicesServiceClient(mockCtrl)
 
-	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient)
+	devicesClient := NewDevicesClientWithMock(mockSettingsServiceClient, logger)
 
 	mockSettingsServiceClient.EXPECT().UpdateBatCaveDeviceSetting(
 		gomock.Any(),

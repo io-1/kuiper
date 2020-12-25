@@ -35,14 +35,14 @@ func (e SensorsListenersEnv) NewKeypadListener(listenerName string, urlString st
 		logrus.Infof("Received message: %s\n", msg.Payload())
 
 		// unmashal payload
-		measurement := &sensors.ButtonMeasurement{}
+		measurement := &sensors.KeypadMeasurement{}
 		err := json.Unmarshal([]byte(msg.Payload()), measurement)
 		if err != nil {
 			logrus.Error(err.Error())
 		}
 
 		if err == nil {
-			err = e.persistence.CreateButtonMeasurement(measurement)
+			err = e.persistence.CreateKeypadMeasurement(measurement)
 			logrus.Infof("Logged measurement: %v", measurement)
 			if err != nil {
 				logrus.Error(err.Error())
