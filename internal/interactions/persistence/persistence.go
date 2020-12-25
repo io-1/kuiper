@@ -10,11 +10,13 @@ type Persistence interface {
 
 	CreateKeypadCondition(keypadCondition KeypadCondition) int64
 	GetKeypadCondition(id string) (bool, KeypadCondition)
+	GetKeypadConditionByMac(mac string) (bool, KeypadCondition)
 	UpdateKeypadCondition(keypadCondition KeypadCondition) (bool, error)
 	DeleteKeypadCondition(keypadCondition KeypadCondition) (bool, error)
 
 	CreateLampEvent(keypadCondition LampEvent) int64
 	GetLampEvent(id string) (bool, LampEvent)
+	GetLampEventsByKeypadConditionID(id string) ([]LampEvent, error)
 	UpdateLampEvent(lampEvent LampEvent) (bool, error)
 	DeleteLampEvent(lampEvent LampEvent) (bool, error)
 

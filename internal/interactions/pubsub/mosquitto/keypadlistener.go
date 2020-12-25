@@ -6,9 +6,16 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
+	"time"
+
+	"github.com/io-1/kuiper/internal/interactions/pubsub/mosquitto/response"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	sensors "github.com/io-1/kuiper/internal/interactions/devicesensors"
+)
+
+const (
+	ONE_MINUTE = 1 * time.Minute
 )
 
 func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName string, subscription string) error {
@@ -36,23 +43,50 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 		err := json.Unmarshal([]byte(msg.Payload()), sensor)
 		if err != nil {
 			p.logger.Error(err.Error())
+			return
 		}
 
-		// if err == nil {
-		// 	err = p.persistence.CreateButtonMeasurement(sensor)
-		// 	p.logger.Infof("Logged sensor: %v", sensor)
-		// 	if err != nil {
-		// 		p.logger.Error(err.Error())
-		// 	}
-		// }
+		// check if a condition has been met
+		exists, keypadCondition := p.persistence.GetKeypadConditionByMac(sensor.Mac)
 
-		// FIXME: when a button interaction comes in check the database for interactions
-		// keypadConditions, err = p.persistence.GetKeypadConditions(sensor.ID, sensor.Mac)
-		// if err != nil {
-		// 	p.logger.Error(err.Error())
-		// }
+		// if it has send off the event
+		if !exists {
+			return
+		}
 
-		// FIXME: send off the button interactoins by the mac
+		if keypadCondition.ButtonID == nil {
+			return
+		}
+
+		buttonIDInt := int(*keypadCondition.ButtonID)
+		if buttonIDInt == sensor.ID {
+
+			// get the event and send it to the device
+			lampEvents, err := p.persistence.GetLampEventsByKeypadConditionID(*keypadCondition.ID)
+			if err != nil {
+				p.logger.Error(err.Error())
+				return
+			}
+
+			// for each lamp event - send event to the device
+			for _, lampEvent := range lampEvents {
+				eventToSend := response.LampInteractionResponse{
+					EventType: lampEvent.EventType,
+					Color:     lampEvent.Color,
+				}
+
+				json, err := json.Marshal(eventToSend)
+				if err != nil {
+					p.logger.Error(err)
+					return
+				}
+
+				deviceTopic := fmt.Sprintf("devices/%s", lampEvent.Mac)
+				p.logger.Infof("Sending message %s to %s", json, deviceTopic)
+				token := client.Publish(deviceTopic, 0, false, json)
+				token.WaitTimeout(ONE_MINUTE)
+			}
+		}
 	}
 
 	opts.SetDefaultPublishHandler(f)
