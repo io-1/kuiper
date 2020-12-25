@@ -46,8 +46,12 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 			return
 		}
 
+		p.logger.Infof("Unmashalled message: %v\n", sensor)
+
 		// check if a condition has been met
 		exists, keypadCondition := p.persistence.GetKeypadConditionByMac(sensor.Mac)
+		p.logger.Infof("Keypad exists: %t\n", exists)
+		p.logger.Infof("Keypad condition: %v\n", keypadCondition)
 
 		// if it has send off the event
 		if !exists {
@@ -67,6 +71,8 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 				p.logger.Error(err.Error())
 				return
 			}
+
+			p.logger.Infof("Lamp events: %v\n", lampEvents)
 
 			// for each lamp event - send event to the device
 			for _, lampEvent := range lampEvents {
