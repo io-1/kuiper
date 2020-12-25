@@ -70,7 +70,7 @@ func main() {
 	} else {
 
 		pubSub := mosquitto.NewMosquittoPubSub(p, log)
-		err := pubSub.NewKeypadListener(ctx, "keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))
+		err := pubSub.NewKeypadListener(ctx, "interactions_keypad_listener", os.Getenv("KEYPAD_MQTT_URL"))
 		if err != nil {
 			log.Fatal(err)
 		}

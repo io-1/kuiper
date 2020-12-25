@@ -46,7 +46,7 @@ func init() {
 
 		server = devices.NewDevicesServer(persistence)
 		pubSub := mosquitto.NewMosquittoPubSub(persistence, log)
-		err = pubSub.NewBatCaveDeviceSettingsListener("bat_cave_settings_listener", batCaveSettingsMQTTURL)
+		err = pubSub.NewBatCaveDeviceSettingsListener("devices_bat_cave_settings_listener", batCaveSettingsMQTTURL)
 		if err != nil {
 			log.Fatal(err)
 		}
