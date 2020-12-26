@@ -56,40 +56,32 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 			return
 		}
 
-		if keypadCondition.ButtonID == nil {
+		// get the event and send it to the device
+		lampEvents, err := p.persistence.GetLampEventsByKeypadConditionID(*keypadCondition.ID)
+		if err != nil {
+			p.logger.Error(err.Error())
 			return
 		}
 
-		buttonIDInt := int(*keypadCondition.ButtonID)
-		if buttonIDInt == sensor.ID {
+		// for each lamp event - send event to the device
+		for _, lampEvent := range lampEvents {
+			eventToSend := response.LampInteractionResponse{
+				EventType: lampEvent.EventType,
+				Red:       lampEvent.Red,
+				Green:     lampEvent.Green,
+				Blue:      lampEvent.Blue,
+			}
 
-			// get the event and send it to the device
-			lampEvents, err := p.persistence.GetLampEventsByKeypadConditionID(*keypadCondition.ID)
+			json, err := json.Marshal(eventToSend)
 			if err != nil {
-				p.logger.Error(err.Error())
+				p.logger.Error(err)
 				return
 			}
 
-			// for each lamp event - send event to the device
-			for _, lampEvent := range lampEvents {
-				eventToSend := response.LampInteractionResponse{
-					EventType: lampEvent.EventType,
-					Red:       lampEvent.Red,
-					Green:     lampEvent.Green,
-					Blue:      lampEvent.Blue,
-				}
-
-				json, err := json.Marshal(eventToSend)
-				if err != nil {
-					p.logger.Error(err)
-					return
-				}
-
-				deviceTopic := fmt.Sprintf("devices/%s", lampEvent.Mac)
-				p.logger.Infof("Sending message %s to %s", json, deviceTopic)
-				token := client.Publish(deviceTopic, 0, false, json)
-				token.WaitTimeout(ONE_MINUTE)
-			}
+			deviceTopic := fmt.Sprintf("devices/%s", lampEvent.Mac)
+			p.logger.Infof("Sending message %s to %s", json, deviceTopic)
+			token := client.Publish(deviceTopic, 0, false, json)
+			token.WaitTimeout(ONE_MINUTE)
 		}
 	}
 
