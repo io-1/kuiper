@@ -13,7 +13,7 @@ func (p MysqlPersistence) GetLampEvent(id string) (recordNotFound bool, lampEven
 }
 
 func (p MysqlPersistence) GetLampEventsByKeypadConditionID(id string) ([]persistence.LampEvent, error) {
-	rows, err := p.db.Table("lamp_events").Select("lamp_events.id, lamp_events.mac, lamp_events.event_type, lamp_events.color, lamp_events.created_at, lamp_events.updated_at, lamp_events.deleted_at").Joins("left join conditions_to_events on conditions_to_events.event_id = lamp_events.id").Where("conditions_to_events.condition_id=?", id).Rows()
+	rows, err := p.db.Table("lamp_events").Select("lamp_events.id, lamp_events.mac, lamp_events.event_type, lamp_events.red, lamp_events.green, lamp_events.blue, lamp_events.created_at, lamp_events.updated_at, lamp_events.deleted_at").Joins("left join conditions_to_events on conditions_to_events.event_id = lamp_events.id").Where("conditions_to_events.condition_id=?", id).Rows()
 	if err != nil {
 		return []persistence.LampEvent{}, err
 	}
