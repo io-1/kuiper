@@ -11,6 +11,7 @@ type Persistence interface {
 	CreateKeypadCondition(keypadCondition KeypadCondition) int64
 	GetKeypadCondition(id string) (recordNotFound bool, keypadCondition KeypadCondition)
 	GetKeypadConditionByMac(mac string) (recordNotFound bool, keypadCondition KeypadCondition)
+	GetKeypadConditionByMacAndButtonID(mac string, buttonID int) (recordNotFound bool, keypadCondition KeypadCondition)
 	UpdateKeypadCondition(keypadCondition KeypadCondition) (recordNotFound bool, err error)
 	DeleteKeypadCondition(keypadCondition KeypadCondition) (recordNotFound bool, err error)
 

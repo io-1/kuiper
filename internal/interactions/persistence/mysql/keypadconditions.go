@@ -17,6 +17,11 @@ func (p MysqlPersistence) GetKeypadConditionByMac(mac string) (recordNotFound bo
 	return recordNotFound, keypadCondition
 }
 
+func (p MysqlPersistence) GetKeypadConditionByMacAndButtonID(mac string, buttonID int) (recordNotFound bool, keypadCondition persistence.KeypadCondition) {
+	recordNotFound = p.db.Where("mac=? AND button_id=?", mac, buttonID).First(&keypadCondition).RecordNotFound()
+	return recordNotFound, keypadCondition
+}
+
 func (p MysqlPersistence) UpdateKeypadCondition(keypadCondition persistence.KeypadCondition) (recordNotFound bool, err error) {
 	recordNotFound = p.db.Where("id=?", keypadCondition.ID).First(&persistence.KeypadCondition{}).RecordNotFound()
 	err = p.db.Model(&keypadCondition).Where("id=?", keypadCondition.ID).Updates(persistence.KeypadCondition{Mac: keypadCondition.Mac, ButtonID: keypadCondition.ButtonID}).Error
