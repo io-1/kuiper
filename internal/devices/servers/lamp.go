@@ -12,7 +12,7 @@ type LampPulseSetting struct {
 	EventType string `json:"e"`
 	Red       int32  `json:"r"`
 	Green     int32  `json:"g"`
-	Blue      int32  `json:'b'`
+	Blue      int32  `json:"b"`
 }
 
 func (s *DevicesServer) SendLampDevicePulseSetting(ctx context.Context, req *devices_pb.SendLampDevicePulseSettingRequest) (*devices_pb.SendLampDevicePulseSettingResponse, error) {
