@@ -35,8 +35,20 @@ message UpdateBatCaveDeviceSettingResponse {
     uint32 DeepSleepDelay = 2;
 }
 
+message SendLampDevicePulseSettingRequest {
+  string Mac = 1;
+  int32 Red = 2;
+  int32 Green = 3;
+  int32 Blue = 4;
+}
+
+message SendLampDevicePulseSettingResponse {
+}
+
 service DevicesService {
    rpc CreateBatCaveDeviceSetting(CreateBatCaveDeviceSettingRequest) returns (CreateBatCaveDeviceSettingResponse);
    rpc GetBatCaveDeviceSetting(GetBatCaveDeviceSettingRequest) returns (GetBatCaveDeviceSettingResponse);
    rpc UpdateBatCaveDeviceSetting(UpdateBatCaveDeviceSettingRequest) returns (UpdateBatCaveDeviceSettingResponse);
+
+   rpc SendLampDevicePulseSetting(SendLampDevicePulseSettingRequest) returns (SendLampDevicePulseSettingResponse);
 }

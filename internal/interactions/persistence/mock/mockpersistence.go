@@ -151,6 +151,21 @@ func (mr *MockPersistenceMockRecorder) GetKeypadConditionByMac(mac interface{}) 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeypadConditionByMac", reflect.TypeOf((*MockPersistence)(nil).GetKeypadConditionByMac), mac)
 }
 
+// GetKeypadConditionByMacAndButtonID mocks base method.
+func (m *MockPersistence) GetKeypadConditionByMacAndButtonID(mac string, buttonID int) (bool, persistence.KeypadCondition) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetKeypadConditionByMacAndButtonID", mac, buttonID)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.KeypadCondition)
+	return ret0, ret1
+}
+
+// GetKeypadConditionByMacAndButtonID indicates an expected call of GetKeypadConditionByMacAndButtonID.
+func (mr *MockPersistenceMockRecorder) GetKeypadConditionByMacAndButtonID(mac, buttonID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeypadConditionByMacAndButtonID", reflect.TypeOf((*MockPersistence)(nil).GetKeypadConditionByMacAndButtonID), mac, buttonID)
+}
+
 // UpdateKeypadCondition mocks base method.
 func (m *MockPersistence) UpdateKeypadCondition(keypadCondition persistence.KeypadCondition) (bool, error) {
 	m.ctrl.T.Helper()

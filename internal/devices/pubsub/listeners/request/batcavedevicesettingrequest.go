@@ -3,7 +3,7 @@ package request
 import (
 	"github.com/io-1/kuiper/internal/devices/commands"
 	"github.com/io-1/kuiper/internal/devices/persistence"
-	"github.com/io-1/kuiper/internal/devices/pubsub/response"
+	"github.com/io-1/kuiper/internal/devices/pubsub/listeners/response"
 )
 
 type BatCaveDeviceSettingRequest struct {

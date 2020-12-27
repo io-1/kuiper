@@ -91,6 +91,8 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		deviceGroup.POST("/bc", g.devicesClient.CreateBatCaveDeviceSetting)
 		deviceGroup.GET("/bc/:id", g.devicesClient.GetBatCaveDeviceSetting)
 		deviceGroup.PUT("/bc/:id", g.devicesClient.UpdateBatCaveDeviceSetting)
+
+		deviceGroup.POST("/lamp/setting/send/pulse", g.devicesClient.SendLampDevicePulseSetting)
 	}
 
 	usersGroup := v1.Group("/users")

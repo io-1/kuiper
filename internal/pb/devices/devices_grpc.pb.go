@@ -20,6 +20,7 @@ type DevicesServiceClient interface {
 	CreateBatCaveDeviceSetting(ctx context.Context, in *CreateBatCaveDeviceSettingRequest, opts ...grpc.CallOption) (*CreateBatCaveDeviceSettingResponse, error)
 	GetBatCaveDeviceSetting(ctx context.Context, in *GetBatCaveDeviceSettingRequest, opts ...grpc.CallOption) (*GetBatCaveDeviceSettingResponse, error)
 	UpdateBatCaveDeviceSetting(ctx context.Context, in *UpdateBatCaveDeviceSettingRequest, opts ...grpc.CallOption) (*UpdateBatCaveDeviceSettingResponse, error)
+	SendLampDevicePulseSetting(ctx context.Context, in *SendLampDevicePulseSettingRequest, opts ...grpc.CallOption) (*SendLampDevicePulseSettingResponse, error)
 }
 
 type devicesServiceClient struct {
@@ -57,6 +58,15 @@ func (c *devicesServiceClient) UpdateBatCaveDeviceSetting(ctx context.Context, i
 	return out, nil
 }
 
+func (c *devicesServiceClient) SendLampDevicePulseSetting(ctx context.Context, in *SendLampDevicePulseSettingRequest, opts ...grpc.CallOption) (*SendLampDevicePulseSettingResponse, error) {
+	out := new(SendLampDevicePulseSettingResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDevicePulseSetting", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DevicesServiceServer is the server API for DevicesService service.
 // All implementations must embed UnimplementedDevicesServiceServer
 // for forward compatibility
@@ -64,6 +74,7 @@ type DevicesServiceServer interface {
 	CreateBatCaveDeviceSetting(context.Context, *CreateBatCaveDeviceSettingRequest) (*CreateBatCaveDeviceSettingResponse, error)
 	GetBatCaveDeviceSetting(context.Context, *GetBatCaveDeviceSettingRequest) (*GetBatCaveDeviceSettingResponse, error)
 	UpdateBatCaveDeviceSetting(context.Context, *UpdateBatCaveDeviceSettingRequest) (*UpdateBatCaveDeviceSettingResponse, error)
+	SendLampDevicePulseSetting(context.Context, *SendLampDevicePulseSettingRequest) (*SendLampDevicePulseSettingResponse, error)
 	mustEmbedUnimplementedDevicesServiceServer()
 }
 
@@ -79,6 +90,9 @@ func (*UnimplementedDevicesServiceServer) GetBatCaveDeviceSetting(context.Contex
 }
 func (*UnimplementedDevicesServiceServer) UpdateBatCaveDeviceSetting(context.Context, *UpdateBatCaveDeviceSettingRequest) (*UpdateBatCaveDeviceSettingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBatCaveDeviceSetting not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDevicePulseSetting(context.Context, *SendLampDevicePulseSettingRequest) (*SendLampDevicePulseSettingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDevicePulseSetting not implemented")
 }
 func (*UnimplementedDevicesServiceServer) mustEmbedUnimplementedDevicesServiceServer() {}
 
@@ -140,6 +154,24 @@ func _DevicesService_UpdateBatCaveDeviceSetting_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DevicesService_SendLampDevicePulseSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDevicePulseSettingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDevicePulseSetting(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDevicePulseSetting",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDevicePulseSetting(ctx, req.(*SendLampDevicePulseSettingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _DevicesService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "devices_pb.DevicesService",
 	HandlerType: (*DevicesServiceServer)(nil),
@@ -155,6 +187,10 @@ var _DevicesService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateBatCaveDeviceSetting",
 			Handler:    _DevicesService_UpdateBatCaveDeviceSetting_Handler,
+		},
+		{
+			MethodName: "SendLampDevicePulseSetting",
+			Handler:    _DevicesService_SendLampDevicePulseSetting_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

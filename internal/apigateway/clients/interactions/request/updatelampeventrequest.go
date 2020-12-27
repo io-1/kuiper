@@ -33,15 +33,15 @@ func (r UpdateLampEventRequest) Validate(id string) url.Values {
 	}
 
 	if *r.Red > 256 {
-		errs.Add("red", "The red field needs to be less then 255!")
+		errs.Add("red", "The red field needs to be less then 256!")
 	}
 
 	if *r.Green > 256 {
-		errs.Add("green", "The green field needs to be less then 255!")
+		errs.Add("green", "The green field needs to be less then 256!")
 	}
 
 	if *r.Blue > 256 {
-		errs.Add("blue", "The blue field needs to be less then 255!")
+		errs.Add("blue", "The blue field needs to be less then 256!")
 	}
 
 	return errs

@@ -9,8 +9,8 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/io-1/kuiper/internal/devices/persistence"
-	"github.com/io-1/kuiper/internal/devices/pubsub/request"
-	"github.com/io-1/kuiper/internal/devices/pubsub/response"
+	"github.com/io-1/kuiper/internal/devices/pubsub/listeners/request"
+	"github.com/io-1/kuiper/internal/devices/pubsub/listeners/response"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )

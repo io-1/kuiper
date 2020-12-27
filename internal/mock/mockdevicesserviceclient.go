@@ -95,6 +95,26 @@ func (mr *MockDevicesServiceClientMockRecorder) UpdateBatCaveDeviceSetting(ctx, 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateBatCaveDeviceSetting", reflect.TypeOf((*MockDevicesServiceClient)(nil).UpdateBatCaveDeviceSetting), varargs...)
 }
 
+// SendLampDevicePulseSetting mocks base method.
+func (m *MockDevicesServiceClient) SendLampDevicePulseSetting(ctx context.Context, in *devices_pb.SendLampDevicePulseSettingRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDevicePulseSettingResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SendLampDevicePulseSetting", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDevicePulseSettingResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDevicePulseSetting indicates an expected call of SendLampDevicePulseSetting.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDevicePulseSetting(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDevicePulseSetting", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDevicePulseSetting), varargs...)
+}
+
 // MockDevicesServiceServer is a mock of DevicesServiceServer interface.
 type MockDevicesServiceServer struct {
 	ctrl     *gomock.Controller
@@ -161,6 +181,21 @@ func (m *MockDevicesServiceServer) UpdateBatCaveDeviceSetting(arg0 context.Conte
 func (mr *MockDevicesServiceServerMockRecorder) UpdateBatCaveDeviceSetting(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateBatCaveDeviceSetting", reflect.TypeOf((*MockDevicesServiceServer)(nil).UpdateBatCaveDeviceSetting), arg0, arg1)
+}
+
+// SendLampDevicePulseSetting mocks base method.
+func (m *MockDevicesServiceServer) SendLampDevicePulseSetting(arg0 context.Context, arg1 *devices_pb.SendLampDevicePulseSettingRequest) (*devices_pb.SendLampDevicePulseSettingResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SendLampDevicePulseSetting", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDevicePulseSettingResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDevicePulseSetting indicates an expected call of SendLampDevicePulseSetting.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDevicePulseSetting(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDevicePulseSetting", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDevicePulseSetting), arg0, arg1)
 }
 
 // mustEmbedUnimplementedDevicesServiceServer mocks base method.

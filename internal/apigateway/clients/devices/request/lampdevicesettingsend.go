@@ -5,7 +5,7 @@ import (
 	"regexp"
 )
 
-type PatchLampEventRequest struct {
+type LampSettingSendRequest struct {
 	Mac       string `json:"mac" binding:"required"`
 	EventType string `json:"eventType" binding:"required"`
 	Red       *int32 `json:"red" binding:"required"`
@@ -13,14 +13,8 @@ type PatchLampEventRequest struct {
 	Blue      *int32 `json:"blue" binding:"required"`
 }
 
-func (r PatchLampEventRequest) Validate(id string) url.Values {
+func (r LampSettingSendRequest) Validate() url.Values {
 	errs := url.Values{}
-
-	regex, _ := regexp.Compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
-	validID := regex.MatchString(id)
-	if !validID {
-		errs.Add("id", "The id field needs to be a valid!")
-	}
 
 	macRegex, _ := regexp.Compile("^([0-9a-f]{2}){5}([0-9a-f]{2})$")
 	validMac := macRegex.MatchString(r.Mac)
