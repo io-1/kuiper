@@ -135,7 +135,12 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 	}
 
 	r, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
-		ID: id,
+		ID:        id,
+		Mac:       req.Mac,
+		EventType: req.EventType,
+		Red:       *req.Red,
+		Green:     *req.Green,
+		Blue:      *req.Blue,
 	})
 
 	if err != nil {
