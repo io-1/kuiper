@@ -36,7 +36,7 @@ func (client *DevicesClient) CreateBatCaveDeviceSetting(c *gin.Context) {
 		return
 	}
 
-	r, err := client.deviceSettingsClient.CreateBatCaveDeviceSetting(ctx, &devices_pb.CreateBatCaveDeviceSettingRequest{Mac: req.Mac, DeepSleepDelay: req.DeepSleepDelay})
+	r, err := client.devicesClient.CreateBatCaveDeviceSetting(ctx, &devices_pb.CreateBatCaveDeviceSettingRequest{Mac: req.Mac, DeepSleepDelay: req.DeepSleepDelay})
 	if err != nil {
 		client.logger.Errorf("unknown error: %v", err)
 		errorResponse = response.ErrorResponse{
@@ -74,7 +74,7 @@ func (client *DevicesClient) GetBatCaveDeviceSetting(c *gin.Context) {
 		return
 	}
 
-	r, err := client.deviceSettingsClient.GetBatCaveDeviceSetting(ctx, &devices_pb.GetBatCaveDeviceSettingRequest{ID: id})
+	r, err := client.devicesClient.GetBatCaveDeviceSetting(ctx, &devices_pb.GetBatCaveDeviceSettingRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -132,7 +132,7 @@ func (client *DevicesClient) UpdateBatCaveDeviceSetting(c *gin.Context) {
 		return
 	}
 
-	r, err := client.deviceSettingsClient.UpdateBatCaveDeviceSetting(ctx, &devices_pb.UpdateBatCaveDeviceSettingRequest{
+	r, err := client.devicesClient.UpdateBatCaveDeviceSetting(ctx, &devices_pb.UpdateBatCaveDeviceSettingRequest{
 		ID:             id,
 		DeepSleepDelay: req.DeepSleepDelay,
 	})

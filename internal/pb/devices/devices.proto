@@ -35,14 +35,46 @@ message UpdateBatCaveDeviceSettingResponse {
     uint32 DeepSleepDelay = 2;
 }
 
-message SendLampDevicePulseSettingRequest {
+message SendLampDeviceOnRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceOnResponse {
+}
+
+message SendLampDeviceOffRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceOffResponse {
+}
+
+message SendLampDeviceColorRequest {
   string Mac = 1;
   int32 Red = 2;
   int32 Green = 3;
   int32 Blue = 4;
 }
 
-message SendLampDevicePulseSettingResponse {
+message SendLampDeviceColorResponse {
+}
+
+message SendLampDeviceBrightnessRequest {
+  string Mac = 1;
+  int32 Brightness = 2;
+}
+
+message SendLampDeviceBrightnessResponse {
+}
+
+message SendLampDevicePulseRequest{
+  string Mac = 1;
+  int32 Red = 2;
+  int32 Green = 3;
+  int32 Blue = 4;
+}
+
+message SendLampDevicePulseResponse {
 }
 
 service DevicesService {
@@ -50,5 +82,9 @@ service DevicesService {
    rpc GetBatCaveDeviceSetting(GetBatCaveDeviceSettingRequest) returns (GetBatCaveDeviceSettingResponse);
    rpc UpdateBatCaveDeviceSetting(UpdateBatCaveDeviceSettingRequest) returns (UpdateBatCaveDeviceSettingResponse);
 
-   rpc SendLampDevicePulseSetting(SendLampDevicePulseSettingRequest) returns (SendLampDevicePulseSettingResponse);
+   rpc SendLampDeviceOn(SendLampDeviceOnRequest) returns (SendLampDeviceOnResponse);
+   rpc SendLampDeviceOff(SendLampDeviceOffRequest) returns (SendLampDeviceOffResponse);
+   rpc SendLampDeviceColor(SendLampDeviceColorRequest) returns (SendLampDeviceColorResponse);
+   rpc SendLampDeviceBrightness(SendLampDeviceBrightnessRequest) returns (SendLampDeviceBrightnessResponse);
+   rpc SendLampDevicePulse(SendLampDevicePulseRequest) returns (SendLampDevicePulseResponse);
 }

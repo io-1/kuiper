@@ -20,7 +20,11 @@ type DevicesServiceClient interface {
 	CreateBatCaveDeviceSetting(ctx context.Context, in *CreateBatCaveDeviceSettingRequest, opts ...grpc.CallOption) (*CreateBatCaveDeviceSettingResponse, error)
 	GetBatCaveDeviceSetting(ctx context.Context, in *GetBatCaveDeviceSettingRequest, opts ...grpc.CallOption) (*GetBatCaveDeviceSettingResponse, error)
 	UpdateBatCaveDeviceSetting(ctx context.Context, in *UpdateBatCaveDeviceSettingRequest, opts ...grpc.CallOption) (*UpdateBatCaveDeviceSettingResponse, error)
-	SendLampDevicePulseSetting(ctx context.Context, in *SendLampDevicePulseSettingRequest, opts ...grpc.CallOption) (*SendLampDevicePulseSettingResponse, error)
+	SendLampDeviceOn(ctx context.Context, in *SendLampDeviceOnRequest, opts ...grpc.CallOption) (*SendLampDeviceOnResponse, error)
+	SendLampDeviceOff(ctx context.Context, in *SendLampDeviceOffRequest, opts ...grpc.CallOption) (*SendLampDeviceOffResponse, error)
+	SendLampDeviceColor(ctx context.Context, in *SendLampDeviceColorRequest, opts ...grpc.CallOption) (*SendLampDeviceColorResponse, error)
+	SendLampDeviceBrightness(ctx context.Context, in *SendLampDeviceBrightnessRequest, opts ...grpc.CallOption) (*SendLampDeviceBrightnessResponse, error)
+	SendLampDevicePulse(ctx context.Context, in *SendLampDevicePulseRequest, opts ...grpc.CallOption) (*SendLampDevicePulseResponse, error)
 }
 
 type devicesServiceClient struct {
@@ -58,9 +62,45 @@ func (c *devicesServiceClient) UpdateBatCaveDeviceSetting(ctx context.Context, i
 	return out, nil
 }
 
-func (c *devicesServiceClient) SendLampDevicePulseSetting(ctx context.Context, in *SendLampDevicePulseSettingRequest, opts ...grpc.CallOption) (*SendLampDevicePulseSettingResponse, error) {
-	out := new(SendLampDevicePulseSettingResponse)
-	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDevicePulseSetting", in, out, opts...)
+func (c *devicesServiceClient) SendLampDeviceOn(ctx context.Context, in *SendLampDeviceOnRequest, opts ...grpc.CallOption) (*SendLampDeviceOnResponse, error) {
+	out := new(SendLampDeviceOnResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceOn", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *devicesServiceClient) SendLampDeviceOff(ctx context.Context, in *SendLampDeviceOffRequest, opts ...grpc.CallOption) (*SendLampDeviceOffResponse, error) {
+	out := new(SendLampDeviceOffResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceOff", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *devicesServiceClient) SendLampDeviceColor(ctx context.Context, in *SendLampDeviceColorRequest, opts ...grpc.CallOption) (*SendLampDeviceColorResponse, error) {
+	out := new(SendLampDeviceColorResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceColor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *devicesServiceClient) SendLampDeviceBrightness(ctx context.Context, in *SendLampDeviceBrightnessRequest, opts ...grpc.CallOption) (*SendLampDeviceBrightnessResponse, error) {
+	out := new(SendLampDeviceBrightnessResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceBrightness", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *devicesServiceClient) SendLampDevicePulse(ctx context.Context, in *SendLampDevicePulseRequest, opts ...grpc.CallOption) (*SendLampDevicePulseResponse, error) {
+	out := new(SendLampDevicePulseResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDevicePulse", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +114,11 @@ type DevicesServiceServer interface {
 	CreateBatCaveDeviceSetting(context.Context, *CreateBatCaveDeviceSettingRequest) (*CreateBatCaveDeviceSettingResponse, error)
 	GetBatCaveDeviceSetting(context.Context, *GetBatCaveDeviceSettingRequest) (*GetBatCaveDeviceSettingResponse, error)
 	UpdateBatCaveDeviceSetting(context.Context, *UpdateBatCaveDeviceSettingRequest) (*UpdateBatCaveDeviceSettingResponse, error)
-	SendLampDevicePulseSetting(context.Context, *SendLampDevicePulseSettingRequest) (*SendLampDevicePulseSettingResponse, error)
+	SendLampDeviceOn(context.Context, *SendLampDeviceOnRequest) (*SendLampDeviceOnResponse, error)
+	SendLampDeviceOff(context.Context, *SendLampDeviceOffRequest) (*SendLampDeviceOffResponse, error)
+	SendLampDeviceColor(context.Context, *SendLampDeviceColorRequest) (*SendLampDeviceColorResponse, error)
+	SendLampDeviceBrightness(context.Context, *SendLampDeviceBrightnessRequest) (*SendLampDeviceBrightnessResponse, error)
+	SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error)
 	mustEmbedUnimplementedDevicesServiceServer()
 }
 
@@ -91,8 +135,20 @@ func (*UnimplementedDevicesServiceServer) GetBatCaveDeviceSetting(context.Contex
 func (*UnimplementedDevicesServiceServer) UpdateBatCaveDeviceSetting(context.Context, *UpdateBatCaveDeviceSettingRequest) (*UpdateBatCaveDeviceSettingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBatCaveDeviceSetting not implemented")
 }
-func (*UnimplementedDevicesServiceServer) SendLampDevicePulseSetting(context.Context, *SendLampDevicePulseSettingRequest) (*SendLampDevicePulseSettingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SendLampDevicePulseSetting not implemented")
+func (*UnimplementedDevicesServiceServer) SendLampDeviceOn(context.Context, *SendLampDeviceOnRequest) (*SendLampDeviceOnResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceOn not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceOff(context.Context, *SendLampDeviceOffRequest) (*SendLampDeviceOffResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceOff not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceColor(context.Context, *SendLampDeviceColorRequest) (*SendLampDeviceColorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceColor not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceBrightness(context.Context, *SendLampDeviceBrightnessRequest) (*SendLampDeviceBrightnessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceBrightness not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDevicePulse not implemented")
 }
 func (*UnimplementedDevicesServiceServer) mustEmbedUnimplementedDevicesServiceServer() {}
 
@@ -154,20 +210,92 @@ func _DevicesService_UpdateBatCaveDeviceSetting_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DevicesService_SendLampDevicePulseSetting_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SendLampDevicePulseSettingRequest)
+func _DevicesService_SendLampDeviceOn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceOnRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DevicesServiceServer).SendLampDevicePulseSetting(ctx, in)
+		return srv.(DevicesServiceServer).SendLampDeviceOn(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/devices_pb.DevicesService/SendLampDevicePulseSetting",
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceOn",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DevicesServiceServer).SendLampDevicePulseSetting(ctx, req.(*SendLampDevicePulseSettingRequest))
+		return srv.(DevicesServiceServer).SendLampDeviceOn(ctx, req.(*SendLampDeviceOnRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DevicesService_SendLampDeviceOff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceOffRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceOff(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceOff",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceOff(ctx, req.(*SendLampDeviceOffRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DevicesService_SendLampDeviceColor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceColorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceColor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceColor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceColor(ctx, req.(*SendLampDeviceColorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DevicesService_SendLampDeviceBrightness_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceBrightnessRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceBrightness(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceBrightness",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceBrightness(ctx, req.(*SendLampDeviceBrightnessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DevicesService_SendLampDevicePulse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDevicePulseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDevicePulse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDevicePulse",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDevicePulse(ctx, req.(*SendLampDevicePulseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -189,8 +317,24 @@ var _DevicesService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _DevicesService_UpdateBatCaveDeviceSetting_Handler,
 		},
 		{
-			MethodName: "SendLampDevicePulseSetting",
-			Handler:    _DevicesService_SendLampDevicePulseSetting_Handler,
+			MethodName: "SendLampDeviceOn",
+			Handler:    _DevicesService_SendLampDeviceOn_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceOff",
+			Handler:    _DevicesService_SendLampDeviceOff_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceColor",
+			Handler:    _DevicesService_SendLampDeviceColor_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceBrightness",
+			Handler:    _DevicesService_SendLampDeviceBrightness_Handler,
+		},
+		{
+			MethodName: "SendLampDevicePulse",
+			Handler:    _DevicesService_SendLampDevicePulse_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

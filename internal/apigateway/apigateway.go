@@ -85,14 +85,34 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		authGroup.POST("/logout", g.ginAuth.LogoutHandler)
 	}
 
-	deviceGroup := v1.Group("/devices")
+	devicesGroup := v1.Group("/devices")
 	{
-		// FIXME: change to moister devices or something similiar
-		deviceGroup.POST("/bc", g.devicesClient.CreateBatCaveDeviceSetting)
-		deviceGroup.GET("/bc/:id", g.devicesClient.GetBatCaveDeviceSetting)
-		deviceGroup.PUT("/bc/:id", g.devicesClient.UpdateBatCaveDeviceSetting)
 
-		deviceGroup.POST("/lamp/setting/send/pulse", g.devicesClient.SendLampDevicePulseSetting)
+		// settings are stored in a database
+		settingsGroup := devicesGroup.Group("/setting")
+		{
+
+			humidityGroup := settingsGroup.Group("/humidity")
+			{
+				// FIXME: change to moister devices or something similiar
+				humidityGroup.POST("", g.devicesClient.CreateBatCaveDeviceSetting)
+				humidityGroup.GET("/:id", g.devicesClient.GetBatCaveDeviceSetting)
+				humidityGroup.PUT("/:id", g.devicesClient.UpdateBatCaveDeviceSetting)
+			}
+		}
+
+		// send - just sends out a command
+		sendGroup := devicesGroup.Group("/send")
+		{
+			lampGroup := sendGroup.Group("/lamp")
+			{
+				lampGroup.POST("/on", g.devicesClient.SendLampDeviceOn)
+				lampGroup.POST("/off", g.devicesClient.SendLampDeviceOff)
+				lampGroup.POST("/color", g.devicesClient.SendLampDeviceColor)
+				lampGroup.POST("/brightness", g.devicesClient.SendLampDeviceBrightness)
+				lampGroup.POST("/pulse", g.devicesClient.SendLampDevicePulse)
+			}
+		}
 	}
 
 	usersGroup := v1.Group("/users")

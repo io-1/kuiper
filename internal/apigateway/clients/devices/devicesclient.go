@@ -14,8 +14,8 @@ const (
 )
 
 type DevicesClient struct {
-	logger               logger.Logger
-	deviceSettingsClient devices_pb.DevicesServiceClient
+	logger        logger.Logger
+	devicesClient devices_pb.DevicesServiceClient
 }
 
 func NewDevicesClient(serverEnv string, logger logger.Logger) (*DevicesClient, error) {
@@ -25,16 +25,16 @@ func NewDevicesClient(serverEnv string, logger logger.Logger) (*DevicesClient, e
 	}
 
 	client := &DevicesClient{
-		logger:               logger,
-		deviceSettingsClient: devices_pb.NewDevicesServiceClient(conn),
+		logger:        logger,
+		devicesClient: devices_pb.NewDevicesServiceClient(conn),
 	}
 	return client, nil
 }
 
 func NewDevicesClientWithMock(mockSettingsServiceClient devices_pb.DevicesServiceClient, logger logger.Logger) *DevicesClient {
 	client := &DevicesClient{
-		logger:               logger,
-		deviceSettingsClient: mockSettingsServiceClient,
+		logger:        logger,
+		devicesClient: mockSettingsServiceClient,
 	}
 	return client
 }
