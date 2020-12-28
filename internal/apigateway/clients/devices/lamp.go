@@ -21,19 +21,21 @@ func (client *DevicesClient) SendLampDeviceOn(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
+	mac := c.Params.ByName("send_lamp_mac")
+
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	_, err := client.devicesClient.SendLampDeviceOn(ctx, &devices_pb.SendLampDeviceOnRequest{
-		Mac: req.Mac,
+		Mac: mac,
 	})
 	if err != nil {
 		client.logger.Errorf("unknown error: %v", err)
@@ -56,19 +58,21 @@ func (client *DevicesClient) SendLampDeviceOff(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
+	mac := c.Params.ByName("send_lamp_mac")
+
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	_, err := client.devicesClient.SendLampDeviceOff(ctx, &devices_pb.SendLampDeviceOffRequest{
-		Mac: req.Mac,
+		Mac: mac,
 	})
 	if err != nil {
 		client.logger.Errorf("unknown error: %v", err)
@@ -91,19 +95,21 @@ func (client *DevicesClient) SendLampDeviceColor(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
+	mac := c.Params.ByName("send_lamp_mac")
+
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	_, err := client.devicesClient.SendLampDeviceColor(ctx, &devices_pb.SendLampDeviceColorRequest{
-		Mac:   req.Mac,
+		Mac:   mac,
 		Red:   *req.Red,
 		Green: *req.Green,
 		Blue:  *req.Blue,
@@ -129,19 +135,21 @@ func (client *DevicesClient) SendLampDeviceBrightness(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
+	mac := c.Params.ByName("send_lamp_mac")
+
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	_, err := client.devicesClient.SendLampDeviceBrightness(ctx, &devices_pb.SendLampDeviceBrightnessRequest{
-		Mac:        req.Mac,
+		Mac:        mac,
 		Brightness: *req.Brightness,
 	})
 	if err != nil {
@@ -165,19 +173,21 @@ func (client *DevicesClient) SendLampDevicePulse(c *gin.Context) {
 		errorResponse response.ErrorResponse
 	)
 
+	mac := c.Params.ByName("send_lamp_mac")
+
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
 		return
 	}
 
 	_, err := client.devicesClient.SendLampDevicePulse(ctx, &devices_pb.SendLampDevicePulseRequest{
-		Mac:   req.Mac,
+		Mac:   mac,
 		Red:   *req.Red,
 		Green: *req.Green,
 		Blue:  *req.Blue,

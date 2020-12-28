@@ -106,11 +106,11 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		{
 			lampGroup := sendGroup.Group("/lamp")
 			{
-				lampGroup.POST("/on", g.devicesClient.SendLampDeviceOn)
-				lampGroup.POST("/off", g.devicesClient.SendLampDeviceOff)
-				lampGroup.POST("/color", g.devicesClient.SendLampDeviceColor)
-				lampGroup.POST("/brightness", g.devicesClient.SendLampDeviceBrightness)
-				lampGroup.POST("/pulse", g.devicesClient.SendLampDevicePulse)
+				lampGroup.POST("/:send_lamp_mac/on", g.devicesClient.SendLampDeviceOn)
+				lampGroup.POST("/:send_lamp_mac/off", g.devicesClient.SendLampDeviceOff)
+				lampGroup.POST("/:send_lamp_mac/color", g.devicesClient.SendLampDeviceColor)
+				lampGroup.POST("/:send_lamp_mac/brightness", g.devicesClient.SendLampDeviceBrightness)
+				lampGroup.POST("/:send_lamp_mac/pulse", g.devicesClient.SendLampDevicePulse)
 			}
 		}
 	}

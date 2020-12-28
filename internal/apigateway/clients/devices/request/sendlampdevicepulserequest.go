@@ -6,17 +6,16 @@ import (
 )
 
 type SendLampDevicePulseRequest struct {
-	Mac   string `json:"mac" binding:"required"`
 	Red   *int32 `json:"red" binding:"required"`
 	Green *int32 `json:"green" binding:"required"`
 	Blue  *int32 `json:"blue" binding:"required"`
 }
 
-func (r SendLampDevicePulseRequest) Validate() url.Values {
+func (r SendLampDevicePulseRequest) Validate(mac string) url.Values {
 	errs := url.Values{}
 
 	macRegex, _ := regexp.Compile("^([0-9a-f]{2}){5}([0-9a-f]{2})$")
-	validMac := macRegex.MatchString(r.Mac)
+	validMac := macRegex.MatchString(mac)
 	if !validMac {
 		errs.Add("mac", "The mac field needs to be a valid!")
 	}
