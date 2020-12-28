@@ -12,50 +12,12 @@ import (
 	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
 
-func (client *DevicesClient) SendLampDevicePulse(c *gin.Context) {
-	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
-	defer cancel()
-
-	var (
-		req           request.SendLampDevicePulseRequest
-		errorResponse response.ErrorResponse
-	)
-
-	if err := c.BindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	if validationErrors := req.Validate(); len(validationErrors) > 0 {
-		err := map[string]interface{}{"validationError": validationErrors}
-		c.JSON(http.StatusMethodNotAllowed, err)
-		return
-	}
-
-	_, err := client.devicesClient.SendLampDevicePulse(ctx, &devices_pb.SendLampDevicePulseRequest{
-		Mac:   req.Mac,
-		Red:   *req.Red,
-		Green: *req.Green,
-		Blue:  *req.Blue,
-	})
-	if err != nil {
-		client.logger.Errorf("unknown error: %v", err)
-		errorResponse = response.ErrorResponse{
-			Message: fmt.Sprintf("an error has occurred"),
-		}
-		c.JSON(http.StatusInternalServerError, errorResponse)
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"message": "successful"})
-}
-
 func (client *DevicesClient) SendLampDeviceOn(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.SendLampDevicePulseRequest
+		req           request.SendLampDeviceOnRequest
 		errorResponse response.ErrorResponse
 	)
 
@@ -70,11 +32,8 @@ func (client *DevicesClient) SendLampDeviceOn(c *gin.Context) {
 		return
 	}
 
-	_, err := client.devicesClient.SendLampDevicePulse(ctx, &devices_pb.SendLampDevicePulseRequest{
-		Mac:   req.Mac,
-		Red:   *req.Red,
-		Green: *req.Green,
-		Blue:  *req.Blue,
+	_, err := client.devicesClient.SendLampDeviceOn(ctx, &devices_pb.SendLampDeviceOnRequest{
+		Mac: req.Mac,
 	})
 	if err != nil {
 		client.logger.Errorf("unknown error: %v", err)
@@ -93,7 +52,7 @@ func (client *DevicesClient) SendLampDeviceOff(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req           request.SendLampDevicePulseRequest
+		req           request.SendLampDeviceOffRequest
 		errorResponse response.ErrorResponse
 	)
 
@@ -108,11 +67,8 @@ func (client *DevicesClient) SendLampDeviceOff(c *gin.Context) {
 		return
 	}
 
-	_, err := client.devicesClient.SendLampDevicePulse(ctx, &devices_pb.SendLampDevicePulseRequest{
-		Mac:   req.Mac,
-		Red:   *req.Red,
-		Green: *req.Green,
-		Blue:  *req.Blue,
+	_, err := client.devicesClient.SendLampDeviceOff(ctx, &devices_pb.SendLampDeviceOffRequest{
+		Mac: req.Mac,
 	})
 	if err != nil {
 		client.logger.Errorf("unknown error: %v", err)
@@ -131,7 +87,7 @@ func (client *DevicesClient) SendLampDeviceColor(c *gin.Context) {
 	defer cancel()
 
 	var (
-		req           request.SendLampDevicePulseRequest
+		req           request.SendLampDeviceColorRequest
 		errorResponse response.ErrorResponse
 	)
 
@@ -146,7 +102,7 @@ func (client *DevicesClient) SendLampDeviceColor(c *gin.Context) {
 		return
 	}
 
-	_, err := client.devicesClient.SendLampDevicePulse(ctx, &devices_pb.SendLampDevicePulseRequest{
+	_, err := client.devicesClient.SendLampDeviceColor(ctx, &devices_pb.SendLampDeviceColorRequest{
 		Mac:   req.Mac,
 		Red:   *req.Red,
 		Green: *req.Green,
@@ -165,6 +121,42 @@ func (client *DevicesClient) SendLampDeviceColor(c *gin.Context) {
 }
 
 func (client *DevicesClient) SendLampDeviceBrightness(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceBrightnessRequest
+		errorResponse response.ErrorResponse
+	)
+
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceBrightness(ctx, &devices_pb.SendLampDeviceBrightnessRequest{
+		Mac:        req.Mac,
+		Brightness: *req.Brightness,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}
+
+func (client *DevicesClient) SendLampDevicePulse(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
