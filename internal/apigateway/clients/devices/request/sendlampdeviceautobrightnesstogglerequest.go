@@ -5,10 +5,10 @@ import (
 	"regexp"
 )
 
-type SendLampDeviceAutoBrightnessRequest struct {
+type SendLampDeviceAutoBrightnessToggleRequest struct {
 }
 
-func (r SendLampDeviceAutoBrightnessRequest) Validate(mac string) url.Values {
+func (r SendLampDeviceAutoBrightnessToggleRequest) Validate(mac string) url.Values {
 	errs := url.Values{}
 
 	macRegex, _ := regexp.Compile("^([0-9a-f]{2}){5}([0-9a-f]{2})$")

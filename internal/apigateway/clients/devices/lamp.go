@@ -186,12 +186,12 @@ func (client *DevicesClient) SendLampDeviceBrightness(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "successful"})
 }
 
-func (client *DevicesClient) SendLampDeviceAutoBrightness(c *gin.Context) {
+func (client *DevicesClient) SendLampDeviceAutoBrightnessOn(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.SendLampDeviceAutoBrightnessRequest
+		req           request.SendLampDeviceAutoBrightnessOnRequest
 		errorResponse response.ErrorResponse
 	)
 
@@ -203,7 +203,71 @@ func (client *DevicesClient) SendLampDeviceAutoBrightness(c *gin.Context) {
 		return
 	}
 
-	_, err := client.devicesClient.SendLampDeviceAutoBrightness(ctx, &devices_pb.SendLampDeviceAutoBrightnessRequest{
+	_, err := client.devicesClient.SendLampDeviceAutoBrightnessOn(ctx, &devices_pb.SendLampDeviceAutoBrightnessOnRequest{
+		Mac: mac,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}
+
+func (client *DevicesClient) SendLampDeviceAutoBrightnessOff(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceAutoBrightnessOffRequest
+		errorResponse response.ErrorResponse
+	)
+
+	mac := c.Params.ByName("send_lamp_mac")
+
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceAutoBrightnessOff(ctx, &devices_pb.SendLampDeviceAutoBrightnessOffRequest{
+		Mac: mac,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}
+
+func (client *DevicesClient) SendLampDeviceAutoBrightnessToggle(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceAutoBrightnessToggleRequest
+		errorResponse response.ErrorResponse
+	)
+
+	mac := c.Params.ByName("send_lamp_mac")
+
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceAutoBrightnessToggle(ctx, &devices_pb.SendLampDeviceAutoBrightnessToggleRequest{
 		Mac: mac,
 	})
 	if err != nil {

@@ -74,11 +74,25 @@ message SendLampDeviceBrightnessRequest {
 message SendLampDeviceBrightnessResponse {
 }
 
-message SendLampDeviceAutoBrightnessRequest {
+message SendLampDeviceAutoBrightnessOnRequest {
   string Mac = 1;
 }
 
-message SendLampDeviceAutoBrightnessResponse {
+message SendLampDeviceAutoBrightnessOnResponse {
+}
+
+message SendLampDeviceAutoBrightnessOffRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceAutoBrightnessOffResponse {
+}
+
+message SendLampDeviceAutoBrightnessToggleRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceAutoBrightnessToggleResponse {
 }
 
 message SendLampDevicePulseRequest{
@@ -101,6 +115,8 @@ service DevicesService {
    rpc SendLampDeviceToggle(SendLampDeviceToggleRequest) returns (SendLampDeviceToggleResponse);
    rpc SendLampDeviceColor(SendLampDeviceColorRequest) returns (SendLampDeviceColorResponse);
    rpc SendLampDeviceBrightness(SendLampDeviceBrightnessRequest) returns (SendLampDeviceBrightnessResponse);
-   rpc SendLampDeviceAutoBrightness(SendLampDeviceAutoBrightnessRequest) returns (SendLampDeviceAutoBrightnessResponse);
+   rpc SendLampDeviceAutoBrightnessOn(SendLampDeviceAutoBrightnessOnRequest) returns (SendLampDeviceAutoBrightnessOnResponse);
+   rpc SendLampDeviceAutoBrightnessOff(SendLampDeviceAutoBrightnessOffRequest) returns (SendLampDeviceAutoBrightnessOffResponse);
+   rpc SendLampDeviceAutoBrightnessToggle(SendLampDeviceAutoBrightnessToggleRequest) returns (SendLampDeviceAutoBrightnessToggleResponse);
    rpc SendLampDevicePulse(SendLampDevicePulseRequest) returns (SendLampDevicePulseResponse);
 }

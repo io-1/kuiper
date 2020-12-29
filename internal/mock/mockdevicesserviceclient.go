@@ -195,24 +195,64 @@ func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceBrightness(ctx, in
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceBrightness", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceBrightness), varargs...)
 }
 
-// SendLampDeviceAutoBrightness mocks base method.
-func (m *MockDevicesServiceClient) SendLampDeviceAutoBrightness(ctx context.Context, in *devices_pb.SendLampDeviceAutoBrightnessRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceAutoBrightnessResponse, error) {
+// SendLampDeviceAutoBrightnessOn mocks base method.
+func (m *MockDevicesServiceClient) SendLampDeviceAutoBrightnessOn(ctx context.Context, in *devices_pb.SendLampDeviceAutoBrightnessOnRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceAutoBrightnessOnResponse, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{ctx, in}
 	for _, a := range opts {
 		varargs = append(varargs, a)
 	}
-	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightness", varargs...)
-	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessResponse)
+	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightnessOn", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessOnResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// SendLampDeviceAutoBrightness indicates an expected call of SendLampDeviceAutoBrightness.
-func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceAutoBrightness(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+// SendLampDeviceAutoBrightnessOn indicates an expected call of SendLampDeviceAutoBrightnessOn.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceAutoBrightnessOn(ctx, in interface{}, opts ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	varargs := append([]interface{}{ctx, in}, opts...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightness", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceAutoBrightness), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightnessOn", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceAutoBrightnessOn), varargs...)
+}
+
+// SendLampDeviceAutoBrightnessOff mocks base method.
+func (m *MockDevicesServiceClient) SendLampDeviceAutoBrightnessOff(ctx context.Context, in *devices_pb.SendLampDeviceAutoBrightnessOffRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceAutoBrightnessOffResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightnessOff", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessOffResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceAutoBrightnessOff indicates an expected call of SendLampDeviceAutoBrightnessOff.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceAutoBrightnessOff(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightnessOff", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceAutoBrightnessOff), varargs...)
+}
+
+// SendLampDeviceAutoBrightnessToggle mocks base method.
+func (m *MockDevicesServiceClient) SendLampDeviceAutoBrightnessToggle(ctx context.Context, in *devices_pb.SendLampDeviceAutoBrightnessToggleRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceAutoBrightnessToggleResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightnessToggle", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessToggleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceAutoBrightnessToggle indicates an expected call of SendLampDeviceAutoBrightnessToggle.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceAutoBrightnessToggle(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightnessToggle", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceAutoBrightnessToggle), varargs...)
 }
 
 // SendLampDevicePulse mocks base method.
@@ -378,19 +418,49 @@ func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceBrightness(arg0, a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceBrightness", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceBrightness), arg0, arg1)
 }
 
-// SendLampDeviceAutoBrightness mocks base method.
-func (m *MockDevicesServiceServer) SendLampDeviceAutoBrightness(arg0 context.Context, arg1 *devices_pb.SendLampDeviceAutoBrightnessRequest) (*devices_pb.SendLampDeviceAutoBrightnessResponse, error) {
+// SendLampDeviceAutoBrightnessOn mocks base method.
+func (m *MockDevicesServiceServer) SendLampDeviceAutoBrightnessOn(arg0 context.Context, arg1 *devices_pb.SendLampDeviceAutoBrightnessOnRequest) (*devices_pb.SendLampDeviceAutoBrightnessOnResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightness", arg0, arg1)
-	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessResponse)
+	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightnessOn", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessOnResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// SendLampDeviceAutoBrightness indicates an expected call of SendLampDeviceAutoBrightness.
-func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceAutoBrightness(arg0, arg1 interface{}) *gomock.Call {
+// SendLampDeviceAutoBrightnessOn indicates an expected call of SendLampDeviceAutoBrightnessOn.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceAutoBrightnessOn(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightness", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceAutoBrightness), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightnessOn", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceAutoBrightnessOn), arg0, arg1)
+}
+
+// SendLampDeviceAutoBrightnessOff mocks base method.
+func (m *MockDevicesServiceServer) SendLampDeviceAutoBrightnessOff(arg0 context.Context, arg1 *devices_pb.SendLampDeviceAutoBrightnessOffRequest) (*devices_pb.SendLampDeviceAutoBrightnessOffResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightnessOff", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessOffResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceAutoBrightnessOff indicates an expected call of SendLampDeviceAutoBrightnessOff.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceAutoBrightnessOff(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightnessOff", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceAutoBrightnessOff), arg0, arg1)
+}
+
+// SendLampDeviceAutoBrightnessToggle mocks base method.
+func (m *MockDevicesServiceServer) SendLampDeviceAutoBrightnessToggle(arg0 context.Context, arg1 *devices_pb.SendLampDeviceAutoBrightnessToggleRequest) (*devices_pb.SendLampDeviceAutoBrightnessToggleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SendLampDeviceAutoBrightnessToggle", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceAutoBrightnessToggleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceAutoBrightnessToggle indicates an expected call of SendLampDeviceAutoBrightnessToggle.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceAutoBrightnessToggle(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceAutoBrightnessToggle", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceAutoBrightnessToggle), arg0, arg1)
 }
 
 // SendLampDevicePulse mocks base method.

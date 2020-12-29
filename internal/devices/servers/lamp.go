@@ -99,21 +99,55 @@ func (s *DevicesServer) SendLampDeviceBrightness(ctx context.Context, req *devic
 	return &devices_pb.SendLampDeviceBrightnessResponse{}, nil
 }
 
-func (s *DevicesServer) SendLampDeviceAutoBrightness(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessRequest) (*devices_pb.SendLampDeviceAutoBrightnessResponse, error) {
+func (s *DevicesServer) SendLampDeviceAutoBrightnessOn(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessOnRequest) (*devices_pb.SendLampDeviceAutoBrightnessOnResponse, error) {
 
 	l := response.LampDeviceAutoBrightnessResponse{
-		EventType: "auto-brightness",
+		EventType: "auto-brightness-on",
 	}
 
 	j, err := json.Marshal(l)
 	if err != nil {
-		return &devices_pb.SendLampDeviceAutoBrightnessResponse{}, err
+		return &devices_pb.SendLampDeviceAutoBrightnessOnResponse{}, err
 	}
 
 	topic := fmt.Sprintf("devices/%s", req.Mac)
 
 	s.publisher.Publish(topic, j)
-	return &devices_pb.SendLampDeviceAutoBrightnessResponse{}, nil
+	return &devices_pb.SendLampDeviceAutoBrightnessOnResponse{}, nil
+}
+
+func (s *DevicesServer) SendLampDeviceAutoBrightnessOff(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessOffRequest) (*devices_pb.SendLampDeviceAutoBrightnessOffResponse, error) {
+
+	l := response.LampDeviceAutoBrightnessResponse{
+		EventType: "auto-brightness-off",
+	}
+
+	j, err := json.Marshal(l)
+	if err != nil {
+		return &devices_pb.SendLampDeviceAutoBrightnessOffResponse{}, err
+	}
+
+	topic := fmt.Sprintf("devices/%s", req.Mac)
+
+	s.publisher.Publish(topic, j)
+	return &devices_pb.SendLampDeviceAutoBrightnessOffResponse{}, nil
+}
+
+func (s *DevicesServer) SendLampDeviceAutoBrightnessToggle(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessToggleRequest) (*devices_pb.SendLampDeviceAutoBrightnessToggleResponse, error) {
+
+	l := response.LampDeviceAutoBrightnessResponse{
+		EventType: "auto-brightness-toggle",
+	}
+
+	j, err := json.Marshal(l)
+	if err != nil {
+		return &devices_pb.SendLampDeviceAutoBrightnessToggleResponse{}, err
+	}
+
+	topic := fmt.Sprintf("devices/%s", req.Mac)
+
+	s.publisher.Publish(topic, j)
+	return &devices_pb.SendLampDeviceAutoBrightnessToggleResponse{}, nil
 }
 
 func (s *DevicesServer) SendLampDevicePulse(ctx context.Context, req *devices_pb.SendLampDevicePulseRequest) (*devices_pb.SendLampDevicePulseResponse, error) {
