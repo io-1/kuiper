@@ -186,6 +186,38 @@ func (client *DevicesClient) SendLampDeviceBrightness(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "successful"})
 }
 
+func (client *DevicesClient) SendLampDeviceAutoBrightness(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceAutoBrightnessRequest
+		errorResponse response.ErrorResponse
+	)
+
+	mac := c.Params.ByName("send_lamp_mac")
+
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceAutoBrightness(ctx, &devices_pb.SendLampDeviceAutoBrightnessRequest{
+		Mac: mac,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}
+
 func (client *DevicesClient) SendLampDevicePulse(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()

@@ -25,6 +25,7 @@ type DevicesServiceClient interface {
 	SendLampDeviceToggle(ctx context.Context, in *SendLampDeviceToggleRequest, opts ...grpc.CallOption) (*SendLampDeviceToggleResponse, error)
 	SendLampDeviceColor(ctx context.Context, in *SendLampDeviceColorRequest, opts ...grpc.CallOption) (*SendLampDeviceColorResponse, error)
 	SendLampDeviceBrightness(ctx context.Context, in *SendLampDeviceBrightnessRequest, opts ...grpc.CallOption) (*SendLampDeviceBrightnessResponse, error)
+	SendLampDeviceAutoBrightness(ctx context.Context, in *SendLampDeviceAutoBrightnessRequest, opts ...grpc.CallOption) (*SendLampDeviceAutoBrightnessResponse, error)
 	SendLampDevicePulse(ctx context.Context, in *SendLampDevicePulseRequest, opts ...grpc.CallOption) (*SendLampDevicePulseResponse, error)
 }
 
@@ -108,6 +109,15 @@ func (c *devicesServiceClient) SendLampDeviceBrightness(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *devicesServiceClient) SendLampDeviceAutoBrightness(ctx context.Context, in *SendLampDeviceAutoBrightnessRequest, opts ...grpc.CallOption) (*SendLampDeviceAutoBrightnessResponse, error) {
+	out := new(SendLampDeviceAutoBrightnessResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceAutoBrightness", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *devicesServiceClient) SendLampDevicePulse(ctx context.Context, in *SendLampDevicePulseRequest, opts ...grpc.CallOption) (*SendLampDevicePulseResponse, error) {
 	out := new(SendLampDevicePulseResponse)
 	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDevicePulse", in, out, opts...)
@@ -129,6 +139,7 @@ type DevicesServiceServer interface {
 	SendLampDeviceToggle(context.Context, *SendLampDeviceToggleRequest) (*SendLampDeviceToggleResponse, error)
 	SendLampDeviceColor(context.Context, *SendLampDeviceColorRequest) (*SendLampDeviceColorResponse, error)
 	SendLampDeviceBrightness(context.Context, *SendLampDeviceBrightnessRequest) (*SendLampDeviceBrightnessResponse, error)
+	SendLampDeviceAutoBrightness(context.Context, *SendLampDeviceAutoBrightnessRequest) (*SendLampDeviceAutoBrightnessResponse, error)
 	SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error)
 	mustEmbedUnimplementedDevicesServiceServer()
 }
@@ -160,6 +171,9 @@ func (*UnimplementedDevicesServiceServer) SendLampDeviceColor(context.Context, *
 }
 func (*UnimplementedDevicesServiceServer) SendLampDeviceBrightness(context.Context, *SendLampDeviceBrightnessRequest) (*SendLampDeviceBrightnessResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceBrightness not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceAutoBrightness(context.Context, *SendLampDeviceAutoBrightnessRequest) (*SendLampDeviceAutoBrightnessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceAutoBrightness not implemented")
 }
 func (*UnimplementedDevicesServiceServer) SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendLampDevicePulse not implemented")
@@ -314,6 +328,24 @@ func _DevicesService_SendLampDeviceBrightness_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DevicesService_SendLampDeviceAutoBrightness_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceAutoBrightnessRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceAutoBrightness(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceAutoBrightness",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceAutoBrightness(ctx, req.(*SendLampDeviceAutoBrightnessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DevicesService_SendLampDevicePulse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendLampDevicePulseRequest)
 	if err := dec(in); err != nil {
@@ -367,6 +399,10 @@ var _DevicesService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendLampDeviceBrightness",
 			Handler:    _DevicesService_SendLampDeviceBrightness_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceAutoBrightness",
+			Handler:    _DevicesService_SendLampDeviceAutoBrightness_Handler,
 		},
 		{
 			MethodName: "SendLampDevicePulse",

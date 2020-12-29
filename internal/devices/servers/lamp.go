@@ -99,6 +99,23 @@ func (s *DevicesServer) SendLampDeviceBrightness(ctx context.Context, req *devic
 	return &devices_pb.SendLampDeviceBrightnessResponse{}, nil
 }
 
+func (s *DevicesServer) SendLampDeviceAutoBrightness(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessRequest) (*devices_pb.SendLampDeviceAutoBrightnessResponse, error) {
+
+	l := response.LampDeviceAutoBrightnessResponse{
+		EventType: "auto-brightness",
+	}
+
+	j, err := json.Marshal(l)
+	if err != nil {
+		return &devices_pb.SendLampDeviceAutoBrightnessResponse{}, err
+	}
+
+	topic := fmt.Sprintf("devices/%s", req.Mac)
+
+	s.publisher.Publish(topic, j)
+	return &devices_pb.SendLampDeviceAutoBrightnessResponse{}, nil
+}
+
 func (s *DevicesServer) SendLampDevicePulse(ctx context.Context, req *devices_pb.SendLampDevicePulseRequest) (*devices_pb.SendLampDevicePulseResponse, error) {
 
 	l := response.LampDevicePulseResponse{
