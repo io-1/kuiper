@@ -135,6 +135,26 @@ func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceOff(ctx, in interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceOff", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceOff), varargs...)
 }
 
+// SendLampDeviceToggle mocks base method.
+func (m *MockDevicesServiceClient) SendLampDeviceToggle(ctx context.Context, in *devices_pb.SendLampDeviceToggleRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceToggleResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SendLampDeviceToggle", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceToggleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceToggle indicates an expected call of SendLampDeviceToggle.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceToggle(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceToggle", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceToggle), varargs...)
+}
+
 // SendLampDeviceColor mocks base method.
 func (m *MockDevicesServiceClient) SendLampDeviceColor(ctx context.Context, in *devices_pb.SendLampDeviceColorRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceColorResponse, error) {
 	m.ctrl.T.Helper()
@@ -291,6 +311,21 @@ func (m *MockDevicesServiceServer) SendLampDeviceOff(arg0 context.Context, arg1 
 func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceOff(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceOff", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceOff), arg0, arg1)
+}
+
+// SendLampDeviceToggle mocks base method.
+func (m *MockDevicesServiceServer) SendLampDeviceToggle(arg0 context.Context, arg1 *devices_pb.SendLampDeviceToggleRequest) (*devices_pb.SendLampDeviceToggleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SendLampDeviceToggle", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceToggleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceToggle indicates an expected call of SendLampDeviceToggle.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceToggle(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceToggle", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceToggle), arg0, arg1)
 }
 
 // SendLampDeviceColor mocks base method.

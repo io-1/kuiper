@@ -44,6 +44,23 @@ func (s *DevicesServer) SendLampDeviceOff(ctx context.Context, req *devices_pb.S
 	return &devices_pb.SendLampDeviceOffResponse{}, nil
 }
 
+func (s *DevicesServer) SendLampDeviceToggle(ctx context.Context, req *devices_pb.SendLampDeviceToggleRequest) (*devices_pb.SendLampDeviceToggleResponse, error) {
+
+	l := response.LampDeviceToggleResponse{
+		EventType: "toggle",
+	}
+
+	j, err := json.Marshal(l)
+	if err != nil {
+		return &devices_pb.SendLampDeviceToggleResponse{}, err
+	}
+
+	topic := fmt.Sprintf("devices/%s", req.Mac)
+
+	s.publisher.Publish(topic, j)
+	return &devices_pb.SendLampDeviceToggleResponse{}, nil
+}
+
 func (s *DevicesServer) SendLampDeviceColor(ctx context.Context, req *devices_pb.SendLampDeviceColorRequest) (*devices_pb.SendLampDeviceColorResponse, error) {
 
 	l := response.LampDeviceColorResponse{

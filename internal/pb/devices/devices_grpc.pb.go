@@ -22,6 +22,7 @@ type DevicesServiceClient interface {
 	UpdateBatCaveDeviceSetting(ctx context.Context, in *UpdateBatCaveDeviceSettingRequest, opts ...grpc.CallOption) (*UpdateBatCaveDeviceSettingResponse, error)
 	SendLampDeviceOn(ctx context.Context, in *SendLampDeviceOnRequest, opts ...grpc.CallOption) (*SendLampDeviceOnResponse, error)
 	SendLampDeviceOff(ctx context.Context, in *SendLampDeviceOffRequest, opts ...grpc.CallOption) (*SendLampDeviceOffResponse, error)
+	SendLampDeviceToggle(ctx context.Context, in *SendLampDeviceToggleRequest, opts ...grpc.CallOption) (*SendLampDeviceToggleResponse, error)
 	SendLampDeviceColor(ctx context.Context, in *SendLampDeviceColorRequest, opts ...grpc.CallOption) (*SendLampDeviceColorResponse, error)
 	SendLampDeviceBrightness(ctx context.Context, in *SendLampDeviceBrightnessRequest, opts ...grpc.CallOption) (*SendLampDeviceBrightnessResponse, error)
 	SendLampDevicePulse(ctx context.Context, in *SendLampDevicePulseRequest, opts ...grpc.CallOption) (*SendLampDevicePulseResponse, error)
@@ -80,6 +81,15 @@ func (c *devicesServiceClient) SendLampDeviceOff(ctx context.Context, in *SendLa
 	return out, nil
 }
 
+func (c *devicesServiceClient) SendLampDeviceToggle(ctx context.Context, in *SendLampDeviceToggleRequest, opts ...grpc.CallOption) (*SendLampDeviceToggleResponse, error) {
+	out := new(SendLampDeviceToggleResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceToggle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *devicesServiceClient) SendLampDeviceColor(ctx context.Context, in *SendLampDeviceColorRequest, opts ...grpc.CallOption) (*SendLampDeviceColorResponse, error) {
 	out := new(SendLampDeviceColorResponse)
 	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceColor", in, out, opts...)
@@ -116,6 +126,7 @@ type DevicesServiceServer interface {
 	UpdateBatCaveDeviceSetting(context.Context, *UpdateBatCaveDeviceSettingRequest) (*UpdateBatCaveDeviceSettingResponse, error)
 	SendLampDeviceOn(context.Context, *SendLampDeviceOnRequest) (*SendLampDeviceOnResponse, error)
 	SendLampDeviceOff(context.Context, *SendLampDeviceOffRequest) (*SendLampDeviceOffResponse, error)
+	SendLampDeviceToggle(context.Context, *SendLampDeviceToggleRequest) (*SendLampDeviceToggleResponse, error)
 	SendLampDeviceColor(context.Context, *SendLampDeviceColorRequest) (*SendLampDeviceColorResponse, error)
 	SendLampDeviceBrightness(context.Context, *SendLampDeviceBrightnessRequest) (*SendLampDeviceBrightnessResponse, error)
 	SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error)
@@ -140,6 +151,9 @@ func (*UnimplementedDevicesServiceServer) SendLampDeviceOn(context.Context, *Sen
 }
 func (*UnimplementedDevicesServiceServer) SendLampDeviceOff(context.Context, *SendLampDeviceOffRequest) (*SendLampDeviceOffResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceOff not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceToggle(context.Context, *SendLampDeviceToggleRequest) (*SendLampDeviceToggleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceToggle not implemented")
 }
 func (*UnimplementedDevicesServiceServer) SendLampDeviceColor(context.Context, *SendLampDeviceColorRequest) (*SendLampDeviceColorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceColor not implemented")
@@ -246,6 +260,24 @@ func _DevicesService_SendLampDeviceOff_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DevicesService_SendLampDeviceToggle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceToggleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceToggle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceToggle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceToggle(ctx, req.(*SendLampDeviceToggleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DevicesService_SendLampDeviceColor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendLampDeviceColorRequest)
 	if err := dec(in); err != nil {
@@ -323,6 +355,10 @@ var _DevicesService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendLampDeviceOff",
 			Handler:    _DevicesService_SendLampDeviceOff_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceToggle",
+			Handler:    _DevicesService_SendLampDeviceToggle_Handler,
 		},
 		{
 			MethodName: "SendLampDeviceColor",

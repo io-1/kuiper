@@ -23,11 +23,6 @@ func (client *DevicesClient) SendLampDeviceOn(c *gin.Context) {
 
 	mac := c.Params.ByName("send_lamp_mac")
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
-
 	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
@@ -60,11 +55,6 @@ func (client *DevicesClient) SendLampDeviceOff(c *gin.Context) {
 
 	mac := c.Params.ByName("send_lamp_mac")
 
-	// if err := c.BindJSON(&req); err != nil {
-	// 	c.JSON(http.StatusBadRequest, err.Error())
-	// 	return
-	// }
-
 	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
@@ -72,6 +62,38 @@ func (client *DevicesClient) SendLampDeviceOff(c *gin.Context) {
 	}
 
 	_, err := client.devicesClient.SendLampDeviceOff(ctx, &devices_pb.SendLampDeviceOffRequest{
+		Mac: mac,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}
+
+func (client *DevicesClient) SendLampDeviceToggle(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceToggleRequest
+		errorResponse response.ErrorResponse
+	)
+
+	mac := c.Params.ByName("send_lamp_mac")
+
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceToggle(ctx, &devices_pb.SendLampDeviceToggleRequest{
 		Mac: mac,
 	})
 	if err != nil {
