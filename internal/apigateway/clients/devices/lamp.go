@@ -61,7 +61,7 @@ func (client *DevicesClient) SendLampDeviceOff(c *gin.Context) {
 		return
 	}
 
-	_, err := client.devicesClient.SendLampDeviceOff(ctx, &devices_pb.SendLampDeviceOffRequest{
+	_, err := client.devicesClient.SendLampDeviceToggle(ctx, &devices_pb.SendLampDeviceToggleRequest{
 		Mac: mac,
 	})
 	if err != nil {
