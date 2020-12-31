@@ -5,14 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/io-1/kuiper/internal/devices/servers/response"
-
+	lamp_events "github.com/io-1/kuiper/internal/events/lamp"
 	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )
 
 func (s *DevicesServer) SendLampDeviceOn(ctx context.Context, req *devices_pb.SendLampDeviceOnRequest) (*devices_pb.SendLampDeviceOnResponse, error) {
 
-	l := response.LampDeviceOnResponse{
+	l := lamp_events.LampDeviceOnEvent{
 		EventType: "on",
 	}
 
@@ -29,7 +28,7 @@ func (s *DevicesServer) SendLampDeviceOn(ctx context.Context, req *devices_pb.Se
 
 func (s *DevicesServer) SendLampDeviceOff(ctx context.Context, req *devices_pb.SendLampDeviceOffRequest) (*devices_pb.SendLampDeviceOffResponse, error) {
 
-	l := response.LampDeviceOffResponse{
+	l := lamp_events.LampDeviceOffEvent{
 		EventType: "off",
 	}
 
@@ -46,7 +45,7 @@ func (s *DevicesServer) SendLampDeviceOff(ctx context.Context, req *devices_pb.S
 
 func (s *DevicesServer) SendLampDeviceToggle(ctx context.Context, req *devices_pb.SendLampDeviceToggleRequest) (*devices_pb.SendLampDeviceToggleResponse, error) {
 
-	l := response.LampDeviceToggleResponse{
+	l := lamp_events.LampDeviceToggleEvent{
 		EventType: "toggle",
 	}
 
@@ -63,7 +62,7 @@ func (s *DevicesServer) SendLampDeviceToggle(ctx context.Context, req *devices_p
 
 func (s *DevicesServer) SendLampDeviceColor(ctx context.Context, req *devices_pb.SendLampDeviceColorRequest) (*devices_pb.SendLampDeviceColorResponse, error) {
 
-	l := response.LampDeviceColorResponse{
+	l := lamp_events.LampDeviceColorEvent{
 		EventType: "color",
 		Red:       req.Red,
 		Green:     req.Green,
@@ -83,7 +82,7 @@ func (s *DevicesServer) SendLampDeviceColor(ctx context.Context, req *devices_pb
 
 func (s *DevicesServer) SendLampDeviceBrightness(ctx context.Context, req *devices_pb.SendLampDeviceBrightnessRequest) (*devices_pb.SendLampDeviceBrightnessResponse, error) {
 
-	l := response.LampDeviceBrightnessResponse{
+	l := lamp_events.LampDeviceBrightnessEvent{
 		EventType:  "brightness",
 		Brightness: req.Brightness,
 	}
@@ -101,7 +100,7 @@ func (s *DevicesServer) SendLampDeviceBrightness(ctx context.Context, req *devic
 
 func (s *DevicesServer) SendLampDeviceAutoBrightnessOn(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessOnRequest) (*devices_pb.SendLampDeviceAutoBrightnessOnResponse, error) {
 
-	l := response.LampDeviceAutoBrightnessResponse{
+	l := lamp_events.LampDeviceAutoBrightnessEvent{
 		EventType: "auto-brightness-on",
 	}
 
@@ -118,7 +117,7 @@ func (s *DevicesServer) SendLampDeviceAutoBrightnessOn(ctx context.Context, req 
 
 func (s *DevicesServer) SendLampDeviceAutoBrightnessOff(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessOffRequest) (*devices_pb.SendLampDeviceAutoBrightnessOffResponse, error) {
 
-	l := response.LampDeviceAutoBrightnessResponse{
+	l := lamp_events.LampDeviceAutoBrightnessEvent{
 		EventType: "auto-brightness-off",
 	}
 
@@ -135,7 +134,7 @@ func (s *DevicesServer) SendLampDeviceAutoBrightnessOff(ctx context.Context, req
 
 func (s *DevicesServer) SendLampDeviceAutoBrightnessToggle(ctx context.Context, req *devices_pb.SendLampDeviceAutoBrightnessToggleRequest) (*devices_pb.SendLampDeviceAutoBrightnessToggleResponse, error) {
 
-	l := response.LampDeviceAutoBrightnessResponse{
+	l := lamp_events.LampDeviceAutoBrightnessEvent{
 		EventType: "auto-brightness-toggle",
 	}
 
@@ -152,7 +151,7 @@ func (s *DevicesServer) SendLampDeviceAutoBrightnessToggle(ctx context.Context, 
 
 func (s *DevicesServer) SendLampDevicePulse(ctx context.Context, req *devices_pb.SendLampDevicePulseRequest) (*devices_pb.SendLampDevicePulseResponse, error) {
 
-	l := response.LampDevicePulseResponse{
+	l := lamp_events.LampDevicePulseEvent{
 		EventType: "pulse",
 		Red:       req.Red,
 		Green:     req.Green,

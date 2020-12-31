@@ -1,6 +1,6 @@
-package response
+package lamp
 
-type LampDeviceBrightnessResponse struct {
+type LampDeviceBrightnessEvent struct {
 	EventType  string `json:"e"`
 	Brightness int32  `json:"br"`
 }

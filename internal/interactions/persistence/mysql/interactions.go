@@ -12,6 +12,7 @@ func (p MysqlPersistence) GetInteraction(id string) (recordNotFound bool, intera
 	return recordNotFound, interaction
 }
 
+// FIXME: use keypad_conditions_to_lamp_events table
 func (p MysqlPersistence) GetInteractionDetails(id string) ([]persistence.InteractionDetails, error) {
 	rows, err := p.db.Table("keypad_conditions").Select("keypad_conditions.id, keypad_conditions.mac, keypad_conditions.button_id, keypad_conditions.created_at, keypad_conditions.updated_at, keypad_conditions.deleted_at, lamp_events.id, lamp_events.mac, lamp_events.event_type, lamp_events.red, lamp_events.green, lamp_events.blue, lamp_events.created_at, lamp_events.updated_at, lamp_events.deleted_at").Joins("left join conditions_to_events on keypad_conditions.id = conditions_to_events.condition_id").Joins("left join lamp_events on conditions_to_events.event_id = lamp_events.id").Where("conditions_to_events.interaction_id=?", id).Rows()
 

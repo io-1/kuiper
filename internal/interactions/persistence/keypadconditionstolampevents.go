@@ -6,6 +6,7 @@ type KeypadConditionsToLampEvents struct {
 	ID            string `grom:"primary_key"`
 	InteractionID string
 	ConditionID   string
+	EventType     string
 	EventID       string
 	CreatedAt     *time.Time `gorm:"index" json:"created_at"`
 	UpdatedAt     *time.Time `gorm:"index" json:"updated_at"`

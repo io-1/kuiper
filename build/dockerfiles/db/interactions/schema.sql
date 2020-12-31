@@ -55,6 +55,9 @@ CREATE TABLE keypad_conditions_to_lamp_events (
     id VARCHAR(36) NOT NULL, 
     interaction_id VARCHAR(36) NOT NULL,
     condition_id VARCHAR(36) NOT NULL, 
+
+    /* the event_type is the type of event to send up the right data to the front end */
+    event_type VARCHAR(50) NOT NULL,
     event_id VARCHAR(36) NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
@@ -65,6 +68,39 @@ CREATE TABLE keypad_conditions_to_lamp_events (
     CONSTRAINT `fk_keypad_conditions_to_lamp_events_interaction` FOREIGN KEY(interaction_id) REFERENCES interactions(id),
     CONSTRAINT `fk_keypad_conditions_to_lamp_events_condition` FOREIGN KEY(condition_id) REFERENCES keypad_conditions(id),
     CONSTRAINT `fk_keypad_conditions_to_lamp_events_event` FOREIGN KEY(event_id) REFERENCES lamp_events(id),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_toggle_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_color_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    red int NOT NULL,
+    green int NOT NULL,
+    blue int NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_pulse_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    red int NOT NULL,
+    green int NOT NULL,
+    blue int NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
     PRIMARY KEY(id)
 );
 

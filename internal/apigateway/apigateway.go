@@ -143,19 +143,49 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 		// FIXME: remove the interactionID from the condition
 		keypadGroup.POST("/condition", g.interactionsClient.CreateKeypadCondition)
-		keypadGroup.GET("/:keypad_condition_id/condition", g.interactionsClient.GetKeypadCondition)
-		keypadGroup.PUT("/:keypad_condition_id/condition", g.interactionsClient.UpdateKeypadCondition)
-		keypadGroup.PATCH("/:keypad_condition_id/condition", g.interactionsClient.PatchKeypadCondition)
-		keypadGroup.DELETE("/:keypad_condition_id/condition", g.interactionsClient.DeleteKeypadCondition)
+		keypadGroup.GET("/condition/:keypad_condition_id", g.interactionsClient.GetKeypadCondition)
+		keypadGroup.PUT("/condition/:keypad_condition_id", g.interactionsClient.UpdateKeypadCondition)
+		keypadGroup.PATCH("/condition/:keypad_condition_id", g.interactionsClient.PatchKeypadCondition)
+		keypadGroup.DELETE("/condition/:keypad_condition_id", g.interactionsClient.DeleteKeypadCondition)
 	}
 
 	lampGroup := v1.Group("/lamp")
 	{
-		lampGroup.POST("/event", g.interactionsClient.CreateLampEvent)
-		lampGroup.GET("/:lamp_event_id/event", g.interactionsClient.GetLampEvent)
-		lampGroup.PUT("/:lamp_event_id/event", g.interactionsClient.UpdateLampEvent)
-		lampGroup.PATCH("/:lamp_event_id/event", g.interactionsClient.PatchLampEvent)
-		lampGroup.DELETE("/:lamp_event_id/event", g.interactionsClient.DeleteLampEvent)
+		eventGroup := lampGroup.Group("/event")
+		{
+			eventGroup.POST("", g.interactionsClient.CreateLampEvent)
+			eventGroup.GET("/:lamp_event_id", g.interactionsClient.GetLampEvent)
+			eventGroup.PUT("/:lamp_event_id", g.interactionsClient.UpdateLampEvent)
+			eventGroup.PATCH("/:lamp_event_id", g.interactionsClient.PatchLampEvent)
+			eventGroup.DELETE("/:lamp_event_id", g.interactionsClient.DeleteLampEvent)
+
+			toggleGroup := eventGroup.Group("/toggle")
+			{
+				toggleGroup.POST("", nil)
+				toggleGroup.GET("/:lamp_toggle_event_id", nil)
+				toggleGroup.PUT("/:lamp_toggle_event_id", nil)
+				toggleGroup.PATCH("/:lamp_toggle_event_id", nil)
+				toggleGroup.DELETE("/:lamp_toggle_event_id", nil)
+			}
+
+			colorGroup := eventGroup.Group("/color")
+			{
+				colorGroup.POST("", nil)
+				colorGroup.GET("/:lamp_color_event_id", nil)
+				colorGroup.PUT("/:lamp_color_event_id", nil)
+				colorGroup.PATCH("/:lamp_color_event_id", nil)
+				colorGroup.DELETE("/:lamp_color_event_id", nil)
+			}
+
+			pulseGroup := eventGroup.Group("/pulse")
+			{
+				pulseGroup.POST("", nil)
+				pulseGroup.GET("/:lamp_pulse_event_id", nil)
+				pulseGroup.PUT("/:lamp_pulse_event_id", nil)
+				pulseGroup.PATCH("/:lamp_pulse_event_id", nil)
+				pulseGroup.DELETE("/:lamp_pulse_event_id", nil)
+			}
+		}
 	}
 
 	interactGroup := v1.Group("/interact")

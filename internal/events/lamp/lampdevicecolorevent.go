@@ -1,6 +1,6 @@
-package response
+package lamp
 
-type LampDevicePulseResponse struct {
+type LampDeviceColorEvent struct {
 	EventType string `json:"e"`
 	Red       int32  `json:"r"`
 	Green     int32  `json:"g"`
