@@ -23,6 +23,7 @@ func (s *InteractionsServer) CreateAttach(ctx context.Context, req *interactions
 		EventID:       req.EventID,
 	}
 
+	// FIXME: change this to keypad_conditions_to_lamp_events
 	s.persistence.CreateConditionsToEvents(conditionsToEvents)
 
 	return &interactions_pb.CreateAttachResponse{

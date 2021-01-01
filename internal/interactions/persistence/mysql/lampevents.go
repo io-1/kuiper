@@ -2,8 +2,8 @@ package mysql
 
 import "github.com/io-1/kuiper/internal/interactions/persistence"
 
-func (p MysqlPersistence) CreateLampEvent(keypadCondition persistence.LampEvent) int64 {
-	rowsAffected := p.db.Create(&keypadCondition).RowsAffected
+func (p MysqlPersistence) CreateLampEvent(lampEvent persistence.LampEvent) int64 {
+	rowsAffected := p.db.Create(&lampEvent).RowsAffected
 	return rowsAffected
 }
 

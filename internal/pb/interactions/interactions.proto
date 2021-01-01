@@ -161,6 +161,147 @@ message DeleteLampEventResponse {
   string ID = 1;
 }
 
+// lamp toggle events
+message CreateLampToggleEventRequest {
+  string Mac = 1;
+}
+
+message CreateLampToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampToggleEventRequest {
+  string ID = 1;
+}
+
+message GetLampToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampToggleEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampToggleEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampToggleEventResponse {
+  string ID = 1;
+}
+
+// lamp color events
+message CreateLampColorEventRequest {
+  string Mac = 1;
+  int32 Red = 2;
+  int32 Green = 3;
+  int32 Blue = 4;
+}
+
+message CreateLampColorEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message GetLampColorEventRequest {
+  string ID = 1;
+}
+
+message GetLampColorEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message UpdateLampColorEventRequest {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message UpdateLampColorEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message DeleteLampColorEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampColorEventResponse {
+  string ID = 1;
+}
+
+// lamp pulse events
+message CreateLampPulseEventRequest {
+  string Mac = 1;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message CreateLampPulseEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message GetLampPulseEventRequest {
+  string ID = 1;
+}
+
+message GetLampPulseEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message UpdateLampPulseEventRequest {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message UpdateLampPulseEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message DeleteLampPulseEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampPulseEventResponse {
+  string ID = 1;
+}
+
 // attach
 message CreateAttachRequest {
   string InteractionID = 1;
@@ -208,6 +349,54 @@ message DeleteAttachResponse {
   string ID = 1;
 }
 
+// keypad condition to lamp event
+message CreateKeypadConditionToLampEventRequest {
+  string InteractionID = 1;
+  string ConditionID = 2;
+  string EventID = 3;
+}
+
+message CreateKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message GetKeypadConditionToLampEventRequest {
+  string ID = 1;
+}
+
+message GetKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateKeypadConditionToLampEventRequest {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4; 
+}
+
+message DeleteKeypadConditionToLampEventRequest {
+  string ID = 1;
+}
+
+message DeleteKeypadConditionToLampEventResponse {
+  string ID = 1;
+}
+
+
 service InteractionsService {
   
   // interactions
@@ -229,9 +418,33 @@ service InteractionsService {
   rpc UpdateLampEvent(UpdateLampEventRequest) returns (UpdateLampEventResponse);
   rpc DeleteLampEvent(DeleteLampEventRequest) returns (DeleteLampEventResponse);
 
+  // lamp toggle events
+  rpc CreateLampToggleEvent(CreateLampToggleEventRequest) returns (CreateLampToggleEventResponse);
+  rpc GetLampToggleEvent(GetLampToggleEventRequest) returns (GetLampToggleEventResponse);
+  rpc UpdateLampToggleEvent(UpdateLampToggleEventRequest) returns (UpdateLampToggleEventResponse);
+  rpc DeleteLampToggleEvent(DeleteLampToggleEventRequest) returns (DeleteLampToggleEventResponse);
+
+  // lamp color events
+  rpc CreateLampColorEvent(CreateLampColorEventRequest) returns (CreateLampColorEventResponse);
+  rpc GetLampColorEvent(GetLampColorEventRequest) returns (GetLampColorEventResponse);
+  rpc UpdateLampColorEvent(UpdateLampColorEventRequest) returns (UpdateLampColorEventResponse);
+  rpc DeleteLampColorEvent(DeleteLampColorEventRequest) returns (DeleteLampColorEventResponse);
+
+  // lamp pulse events
+  rpc CreateLampPulseEvent(CreateLampPulseEventRequest) returns (CreateLampPulseEventResponse);
+  rpc GetLampPulseEvent(GetLampPulseEventRequest) returns (GetLampPulseEventResponse);
+  rpc UpdateLampPulseEvent(UpdateLampPulseEventRequest) returns (UpdateLampPulseEventResponse);
+  rpc DeleteLampPulseEvent(DeleteLampPulseEventRequest) returns (DeleteLampPulseEventResponse);
+
   // attach
   rpc CreateAttach(CreateAttachRequest) returns (CreateAttachResponse);
   rpc GetAttach(GetAttachRequest) returns (GetAttachResponse);
   rpc UpdateAttach(UpdateAttachRequest) returns (UpdateAttachResponse);
   rpc DeleteAttach(DeleteAttachRequest) returns (DeleteAttachResponse);
+
+  // keypad condition to lamp event
+  rpc CreateKeypadConditionToLampEvent(CreateKeypadConditionToLampEventRequest) returns (CreateKeypadConditionToLampEventResponse);
+  rpc GetKeypadConditionToLampEvent(GetKeypadConditionToLampEventRequest) returns (GetKeypadConditionToLampEventResponse);
+  rpc UpdateKeypadConditionToLampEvent(UpdateKeypadConditionToLampEventRequest) returns (UpdateKeypadConditionToLampEventResponse);
+  rpc DeleteKeypadConditionToLampEvent(DeleteKeypadConditionToLampEventRequest) returns (DeleteKeypadConditionToLampEventResponse);
 }

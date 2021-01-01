@@ -15,11 +15,26 @@ type Persistence interface {
 	UpdateKeypadCondition(keypadCondition KeypadCondition) (recordNotFound bool, err error)
 	DeleteKeypadCondition(keypadCondition KeypadCondition) (recordNotFound bool, err error)
 
-	CreateLampEvent(keypadCondition LampEvent) int64
+	CreateLampEvent(lampEvent LampEvent) int64
 	GetLampEvent(id string) (recordNotFound bool, lampEvent LampEvent)
 	GetLampEventsByKeypadConditionID(id string) ([]LampEvent, error)
 	UpdateLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 	DeleteLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
+
+	CreateLampToggleEvent(lampToggleEvent LampToggleEvent) int64
+	GetLampToggleEvent(id string) (recordNotFound bool, lampToggleEvent LampToggleEvent)
+	UpdateLampToggleEvent(lampToggleEvent LampToggleEvent) (recordNotFound bool, err error)
+	DeleteLampToggleEvent(lampToggleEvent LampToggleEvent) (recordNotFound bool, err error)
+
+	CreateLampColorEvent(lampColorEvent LampColorEvent) int64
+	GetLampColorEvent(id string) (recordNotFound bool, lampColorEvent LampColorEvent)
+	UpdateLampColorEvent(lampColorEvent LampColorEvent) (recordNotFound bool, err error)
+	DeleteLampColorEvent(lampColorEvent LampColorEvent) (recordNotFound bool, err error)
+
+	CreateLampPulseEvent(lampPulseEvent LampPulseEvent) int64
+	GetLampPulseEvent(id string) (recordNotFound bool, lampPulseEvent LampPulseEvent)
+	UpdateLampPulseEvent(lampPulseEvent LampPulseEvent) (recordNotFound bool, err error)
+	DeleteLampPulseEvent(lampPulseEvent LampPulseEvent) (recordNotFound bool, err error)
 
 	CreateConditionsToEvents(conditionsToEvents ConditionsToEvents) int64
 	GetConditionsToEvents(id string) (recordNotFound bool, conditionsToEvents ConditionsToEvents)

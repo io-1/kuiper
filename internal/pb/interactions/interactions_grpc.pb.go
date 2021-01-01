@@ -33,11 +33,31 @@ type InteractionsServiceClient interface {
 	GetLampEvent(ctx context.Context, in *GetLampEventRequest, opts ...grpc.CallOption) (*GetLampEventResponse, error)
 	UpdateLampEvent(ctx context.Context, in *UpdateLampEventRequest, opts ...grpc.CallOption) (*UpdateLampEventResponse, error)
 	DeleteLampEvent(ctx context.Context, in *DeleteLampEventRequest, opts ...grpc.CallOption) (*DeleteLampEventResponse, error)
+	// lamp toggle events
+	CreateLampToggleEvent(ctx context.Context, in *CreateLampToggleEventRequest, opts ...grpc.CallOption) (*CreateLampToggleEventResponse, error)
+	GetLampToggleEvent(ctx context.Context, in *GetLampToggleEventRequest, opts ...grpc.CallOption) (*GetLampToggleEventResponse, error)
+	UpdateLampToggleEvent(ctx context.Context, in *UpdateLampToggleEventRequest, opts ...grpc.CallOption) (*UpdateLampToggleEventResponse, error)
+	DeleteLampToggleEvent(ctx context.Context, in *DeleteLampToggleEventRequest, opts ...grpc.CallOption) (*DeleteLampToggleEventResponse, error)
+	// lamp color events
+	CreateLampColorEvent(ctx context.Context, in *CreateLampColorEventRequest, opts ...grpc.CallOption) (*CreateLampColorEventResponse, error)
+	GetLampColorEvent(ctx context.Context, in *GetLampColorEventRequest, opts ...grpc.CallOption) (*GetLampColorEventResponse, error)
+	UpdateLampColorEvent(ctx context.Context, in *UpdateLampColorEventRequest, opts ...grpc.CallOption) (*UpdateLampColorEventResponse, error)
+	DeleteLampColorEvent(ctx context.Context, in *DeleteLampColorEventRequest, opts ...grpc.CallOption) (*DeleteLampColorEventResponse, error)
+	// lamp pulse events
+	CreateLampPulseEvent(ctx context.Context, in *CreateLampPulseEventRequest, opts ...grpc.CallOption) (*CreateLampPulseEventResponse, error)
+	GetLampPulseEvent(ctx context.Context, in *GetLampPulseEventRequest, opts ...grpc.CallOption) (*GetLampPulseEventResponse, error)
+	UpdateLampPulseEvent(ctx context.Context, in *UpdateLampPulseEventRequest, opts ...grpc.CallOption) (*UpdateLampPulseEventResponse, error)
+	DeleteLampPulseEvent(ctx context.Context, in *DeleteLampPulseEventRequest, opts ...grpc.CallOption) (*DeleteLampPulseEventResponse, error)
 	// attach
 	CreateAttach(ctx context.Context, in *CreateAttachRequest, opts ...grpc.CallOption) (*CreateAttachResponse, error)
 	GetAttach(ctx context.Context, in *GetAttachRequest, opts ...grpc.CallOption) (*GetAttachResponse, error)
 	UpdateAttach(ctx context.Context, in *UpdateAttachRequest, opts ...grpc.CallOption) (*UpdateAttachResponse, error)
 	DeleteAttach(ctx context.Context, in *DeleteAttachRequest, opts ...grpc.CallOption) (*DeleteAttachResponse, error)
+	// keypad condition to lamp event
+	CreateKeypadConditionToLampEvent(ctx context.Context, in *CreateKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*CreateKeypadConditionToLampEventResponse, error)
+	GetKeypadConditionToLampEvent(ctx context.Context, in *GetKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*GetKeypadConditionToLampEventResponse, error)
+	UpdateKeypadConditionToLampEvent(ctx context.Context, in *UpdateKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*UpdateKeypadConditionToLampEventResponse, error)
+	DeleteKeypadConditionToLampEvent(ctx context.Context, in *DeleteKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*DeleteKeypadConditionToLampEventResponse, error)
 }
 
 type interactionsServiceClient struct {
@@ -188,6 +208,114 @@ func (c *interactionsServiceClient) DeleteLampEvent(ctx context.Context, in *Del
 	return out, nil
 }
 
+func (c *interactionsServiceClient) CreateLampToggleEvent(ctx context.Context, in *CreateLampToggleEventRequest, opts ...grpc.CallOption) (*CreateLampToggleEventResponse, error) {
+	out := new(CreateLampToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampToggleEvent(ctx context.Context, in *GetLampToggleEventRequest, opts ...grpc.CallOption) (*GetLampToggleEventResponse, error) {
+	out := new(GetLampToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampToggleEvent(ctx context.Context, in *UpdateLampToggleEventRequest, opts ...grpc.CallOption) (*UpdateLampToggleEventResponse, error) {
+	out := new(UpdateLampToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampToggleEvent(ctx context.Context, in *DeleteLampToggleEventRequest, opts ...grpc.CallOption) (*DeleteLampToggleEventResponse, error) {
+	out := new(DeleteLampToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) CreateLampColorEvent(ctx context.Context, in *CreateLampColorEventRequest, opts ...grpc.CallOption) (*CreateLampColorEventResponse, error) {
+	out := new(CreateLampColorEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampColorEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampColorEvent(ctx context.Context, in *GetLampColorEventRequest, opts ...grpc.CallOption) (*GetLampColorEventResponse, error) {
+	out := new(GetLampColorEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampColorEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampColorEvent(ctx context.Context, in *UpdateLampColorEventRequest, opts ...grpc.CallOption) (*UpdateLampColorEventResponse, error) {
+	out := new(UpdateLampColorEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampColorEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampColorEvent(ctx context.Context, in *DeleteLampColorEventRequest, opts ...grpc.CallOption) (*DeleteLampColorEventResponse, error) {
+	out := new(DeleteLampColorEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampColorEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) CreateLampPulseEvent(ctx context.Context, in *CreateLampPulseEventRequest, opts ...grpc.CallOption) (*CreateLampPulseEventResponse, error) {
+	out := new(CreateLampPulseEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampPulseEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampPulseEvent(ctx context.Context, in *GetLampPulseEventRequest, opts ...grpc.CallOption) (*GetLampPulseEventResponse, error) {
+	out := new(GetLampPulseEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampPulseEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampPulseEvent(ctx context.Context, in *UpdateLampPulseEventRequest, opts ...grpc.CallOption) (*UpdateLampPulseEventResponse, error) {
+	out := new(UpdateLampPulseEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampPulseEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampPulseEvent(ctx context.Context, in *DeleteLampPulseEventRequest, opts ...grpc.CallOption) (*DeleteLampPulseEventResponse, error) {
+	out := new(DeleteLampPulseEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampPulseEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *interactionsServiceClient) CreateAttach(ctx context.Context, in *CreateAttachRequest, opts ...grpc.CallOption) (*CreateAttachResponse, error) {
 	out := new(CreateAttachResponse)
 	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateAttach", in, out, opts...)
@@ -224,6 +352,42 @@ func (c *interactionsServiceClient) DeleteAttach(ctx context.Context, in *Delete
 	return out, nil
 }
 
+func (c *interactionsServiceClient) CreateKeypadConditionToLampEvent(ctx context.Context, in *CreateKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*CreateKeypadConditionToLampEventResponse, error) {
+	out := new(CreateKeypadConditionToLampEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateKeypadConditionToLampEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetKeypadConditionToLampEvent(ctx context.Context, in *GetKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*GetKeypadConditionToLampEventResponse, error) {
+	out := new(GetKeypadConditionToLampEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetKeypadConditionToLampEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateKeypadConditionToLampEvent(ctx context.Context, in *UpdateKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*UpdateKeypadConditionToLampEventResponse, error) {
+	out := new(UpdateKeypadConditionToLampEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateKeypadConditionToLampEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteKeypadConditionToLampEvent(ctx context.Context, in *DeleteKeypadConditionToLampEventRequest, opts ...grpc.CallOption) (*DeleteKeypadConditionToLampEventResponse, error) {
+	out := new(DeleteKeypadConditionToLampEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteKeypadConditionToLampEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InteractionsServiceServer is the server API for InteractionsService service.
 // All implementations must embed UnimplementedInteractionsServiceServer
 // for forward compatibility
@@ -244,11 +408,31 @@ type InteractionsServiceServer interface {
 	GetLampEvent(context.Context, *GetLampEventRequest) (*GetLampEventResponse, error)
 	UpdateLampEvent(context.Context, *UpdateLampEventRequest) (*UpdateLampEventResponse, error)
 	DeleteLampEvent(context.Context, *DeleteLampEventRequest) (*DeleteLampEventResponse, error)
+	// lamp toggle events
+	CreateLampToggleEvent(context.Context, *CreateLampToggleEventRequest) (*CreateLampToggleEventResponse, error)
+	GetLampToggleEvent(context.Context, *GetLampToggleEventRequest) (*GetLampToggleEventResponse, error)
+	UpdateLampToggleEvent(context.Context, *UpdateLampToggleEventRequest) (*UpdateLampToggleEventResponse, error)
+	DeleteLampToggleEvent(context.Context, *DeleteLampToggleEventRequest) (*DeleteLampToggleEventResponse, error)
+	// lamp color events
+	CreateLampColorEvent(context.Context, *CreateLampColorEventRequest) (*CreateLampColorEventResponse, error)
+	GetLampColorEvent(context.Context, *GetLampColorEventRequest) (*GetLampColorEventResponse, error)
+	UpdateLampColorEvent(context.Context, *UpdateLampColorEventRequest) (*UpdateLampColorEventResponse, error)
+	DeleteLampColorEvent(context.Context, *DeleteLampColorEventRequest) (*DeleteLampColorEventResponse, error)
+	// lamp pulse events
+	CreateLampPulseEvent(context.Context, *CreateLampPulseEventRequest) (*CreateLampPulseEventResponse, error)
+	GetLampPulseEvent(context.Context, *GetLampPulseEventRequest) (*GetLampPulseEventResponse, error)
+	UpdateLampPulseEvent(context.Context, *UpdateLampPulseEventRequest) (*UpdateLampPulseEventResponse, error)
+	DeleteLampPulseEvent(context.Context, *DeleteLampPulseEventRequest) (*DeleteLampPulseEventResponse, error)
 	// attach
 	CreateAttach(context.Context, *CreateAttachRequest) (*CreateAttachResponse, error)
 	GetAttach(context.Context, *GetAttachRequest) (*GetAttachResponse, error)
 	UpdateAttach(context.Context, *UpdateAttachRequest) (*UpdateAttachResponse, error)
 	DeleteAttach(context.Context, *DeleteAttachRequest) (*DeleteAttachResponse, error)
+	// keypad condition to lamp event
+	CreateKeypadConditionToLampEvent(context.Context, *CreateKeypadConditionToLampEventRequest) (*CreateKeypadConditionToLampEventResponse, error)
+	GetKeypadConditionToLampEvent(context.Context, *GetKeypadConditionToLampEventRequest) (*GetKeypadConditionToLampEventResponse, error)
+	UpdateKeypadConditionToLampEvent(context.Context, *UpdateKeypadConditionToLampEventRequest) (*UpdateKeypadConditionToLampEventResponse, error)
+	DeleteKeypadConditionToLampEvent(context.Context, *DeleteKeypadConditionToLampEventRequest) (*DeleteKeypadConditionToLampEventResponse, error)
 	mustEmbedUnimplementedInteractionsServiceServer()
 }
 
@@ -295,6 +479,42 @@ func (*UnimplementedInteractionsServiceServer) UpdateLampEvent(context.Context, 
 func (*UnimplementedInteractionsServiceServer) DeleteLampEvent(context.Context, *DeleteLampEventRequest) (*DeleteLampEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampEvent not implemented")
 }
+func (*UnimplementedInteractionsServiceServer) CreateLampToggleEvent(context.Context, *CreateLampToggleEventRequest) (*CreateLampToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampToggleEvent(context.Context, *GetLampToggleEventRequest) (*GetLampToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampToggleEvent(context.Context, *UpdateLampToggleEventRequest) (*UpdateLampToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampToggleEvent(context.Context, *DeleteLampToggleEventRequest) (*DeleteLampToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampColorEvent(context.Context, *CreateLampColorEventRequest) (*CreateLampColorEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampColorEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampColorEvent(context.Context, *GetLampColorEventRequest) (*GetLampColorEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampColorEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampColorEvent(context.Context, *UpdateLampColorEventRequest) (*UpdateLampColorEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampColorEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampColorEvent(context.Context, *DeleteLampColorEventRequest) (*DeleteLampColorEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampColorEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampPulseEvent(context.Context, *CreateLampPulseEventRequest) (*CreateLampPulseEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampPulseEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampPulseEvent(context.Context, *GetLampPulseEventRequest) (*GetLampPulseEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampPulseEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampPulseEvent(context.Context, *UpdateLampPulseEventRequest) (*UpdateLampPulseEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampPulseEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampPulseEvent(context.Context, *DeleteLampPulseEventRequest) (*DeleteLampPulseEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampPulseEvent not implemented")
+}
 func (*UnimplementedInteractionsServiceServer) CreateAttach(context.Context, *CreateAttachRequest) (*CreateAttachResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAttach not implemented")
 }
@@ -306,6 +526,18 @@ func (*UnimplementedInteractionsServiceServer) UpdateAttach(context.Context, *Up
 }
 func (*UnimplementedInteractionsServiceServer) DeleteAttach(context.Context, *DeleteAttachRequest) (*DeleteAttachResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAttach not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateKeypadConditionToLampEvent(context.Context, *CreateKeypadConditionToLampEventRequest) (*CreateKeypadConditionToLampEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateKeypadConditionToLampEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetKeypadConditionToLampEvent(context.Context, *GetKeypadConditionToLampEventRequest) (*GetKeypadConditionToLampEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetKeypadConditionToLampEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateKeypadConditionToLampEvent(context.Context, *UpdateKeypadConditionToLampEventRequest) (*UpdateKeypadConditionToLampEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateKeypadConditionToLampEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteKeypadConditionToLampEvent(context.Context, *DeleteKeypadConditionToLampEventRequest) (*DeleteKeypadConditionToLampEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteKeypadConditionToLampEvent not implemented")
 }
 func (*UnimplementedInteractionsServiceServer) mustEmbedUnimplementedInteractionsServiceServer() {}
 
@@ -550,6 +782,222 @@ func _InteractionsService_DeleteLampEvent_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InteractionsService_CreateLampToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampToggleEvent(ctx, req.(*CreateLampToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampToggleEvent(ctx, req.(*GetLampToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampToggleEvent(ctx, req.(*UpdateLampToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampToggleEvent(ctx, req.(*DeleteLampToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_CreateLampColorEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampColorEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampColorEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampColorEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampColorEvent(ctx, req.(*CreateLampColorEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampColorEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampColorEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampColorEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampColorEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampColorEvent(ctx, req.(*GetLampColorEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampColorEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampColorEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampColorEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampColorEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampColorEvent(ctx, req.(*UpdateLampColorEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampColorEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampColorEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampColorEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampColorEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampColorEvent(ctx, req.(*DeleteLampColorEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_CreateLampPulseEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampPulseEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampPulseEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampPulseEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampPulseEvent(ctx, req.(*CreateLampPulseEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampPulseEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampPulseEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampPulseEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampPulseEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampPulseEvent(ctx, req.(*GetLampPulseEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampPulseEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampPulseEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampPulseEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampPulseEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampPulseEvent(ctx, req.(*UpdateLampPulseEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampPulseEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampPulseEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampPulseEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampPulseEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampPulseEvent(ctx, req.(*DeleteLampPulseEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _InteractionsService_CreateAttach_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateAttachRequest)
 	if err := dec(in); err != nil {
@@ -622,6 +1070,78 @@ func _InteractionsService_DeleteAttach_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InteractionsService_CreateKeypadConditionToLampEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateKeypadConditionToLampEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateKeypadConditionToLampEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateKeypadConditionToLampEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateKeypadConditionToLampEvent(ctx, req.(*CreateKeypadConditionToLampEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetKeypadConditionToLampEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetKeypadConditionToLampEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetKeypadConditionToLampEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetKeypadConditionToLampEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetKeypadConditionToLampEvent(ctx, req.(*GetKeypadConditionToLampEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateKeypadConditionToLampEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateKeypadConditionToLampEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateKeypadConditionToLampEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateKeypadConditionToLampEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateKeypadConditionToLampEvent(ctx, req.(*UpdateKeypadConditionToLampEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteKeypadConditionToLampEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteKeypadConditionToLampEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteKeypadConditionToLampEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteKeypadConditionToLampEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteKeypadConditionToLampEvent(ctx, req.(*DeleteKeypadConditionToLampEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "interactions_pb.InteractionsService",
 	HandlerType: (*InteractionsServiceServer)(nil),
@@ -675,6 +1195,54 @@ var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _InteractionsService_DeleteLampEvent_Handler,
 		},
 		{
+			MethodName: "CreateLampToggleEvent",
+			Handler:    _InteractionsService_CreateLampToggleEvent_Handler,
+		},
+		{
+			MethodName: "GetLampToggleEvent",
+			Handler:    _InteractionsService_GetLampToggleEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampToggleEvent",
+			Handler:    _InteractionsService_UpdateLampToggleEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampToggleEvent",
+			Handler:    _InteractionsService_DeleteLampToggleEvent_Handler,
+		},
+		{
+			MethodName: "CreateLampColorEvent",
+			Handler:    _InteractionsService_CreateLampColorEvent_Handler,
+		},
+		{
+			MethodName: "GetLampColorEvent",
+			Handler:    _InteractionsService_GetLampColorEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampColorEvent",
+			Handler:    _InteractionsService_UpdateLampColorEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampColorEvent",
+			Handler:    _InteractionsService_DeleteLampColorEvent_Handler,
+		},
+		{
+			MethodName: "CreateLampPulseEvent",
+			Handler:    _InteractionsService_CreateLampPulseEvent_Handler,
+		},
+		{
+			MethodName: "GetLampPulseEvent",
+			Handler:    _InteractionsService_GetLampPulseEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampPulseEvent",
+			Handler:    _InteractionsService_UpdateLampPulseEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampPulseEvent",
+			Handler:    _InteractionsService_DeleteLampPulseEvent_Handler,
+		},
+		{
 			MethodName: "CreateAttach",
 			Handler:    _InteractionsService_CreateAttach_Handler,
 		},
@@ -689,6 +1257,22 @@ var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAttach",
 			Handler:    _InteractionsService_DeleteAttach_Handler,
+		},
+		{
+			MethodName: "CreateKeypadConditionToLampEvent",
+			Handler:    _InteractionsService_CreateKeypadConditionToLampEvent_Handler,
+		},
+		{
+			MethodName: "GetKeypadConditionToLampEvent",
+			Handler:    _InteractionsService_GetKeypadConditionToLampEvent_Handler,
+		},
+		{
+			MethodName: "UpdateKeypadConditionToLampEvent",
+			Handler:    _InteractionsService_UpdateKeypadConditionToLampEvent_Handler,
+		},
+		{
+			MethodName: "DeleteKeypadConditionToLampEvent",
+			Handler:    _InteractionsService_DeleteKeypadConditionToLampEvent_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

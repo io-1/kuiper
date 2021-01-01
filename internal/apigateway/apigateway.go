@@ -140,13 +140,14 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 	keypadGroup := v1.Group("/keypad")
 	{
-
-		// FIXME: remove the interactionID from the condition
-		keypadGroup.POST("/condition", g.interactionsClient.CreateKeypadCondition)
-		keypadGroup.GET("/condition/:keypad_condition_id", g.interactionsClient.GetKeypadCondition)
-		keypadGroup.PUT("/condition/:keypad_condition_id", g.interactionsClient.UpdateKeypadCondition)
-		keypadGroup.PATCH("/condition/:keypad_condition_id", g.interactionsClient.PatchKeypadCondition)
-		keypadGroup.DELETE("/condition/:keypad_condition_id", g.interactionsClient.DeleteKeypadCondition)
+		conditionsGroup := keypadGroup.Group("/condition")
+		{
+			conditionsGroup.POST("", g.interactionsClient.CreateKeypadCondition)
+			conditionsGroup.GET("/:keypad_condition_id", g.interactionsClient.GetKeypadCondition)
+			conditionsGroup.PUT("/:keypad_condition_id", g.interactionsClient.UpdateKeypadCondition)
+			conditionsGroup.PATCH("/:keypad_condition_id", g.interactionsClient.PatchKeypadCondition)
+			conditionsGroup.DELETE("/:keypad_condition_id", g.interactionsClient.DeleteKeypadCondition)
+		}
 	}
 
 	lampGroup := v1.Group("/lamp")
@@ -191,14 +192,13 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	interactGroup := v1.Group("/interact")
 	{
 
-		interactKeypadToLamp := interactGroup.Group("/keypad/lamp")
+		keypadConditionToLampEventGroup := interactGroup.Group("/keypad/lamp")
 		{
-			// FIXME: add interactionID to the keypad condition - lamp event interaction
-			interactKeypadToLamp.POST("", g.interactionsClient.CreateKeypadConditionLampEventInteraction)
-			interactKeypadToLamp.GET("/:keypad_to_lamp_id", g.interactionsClient.GetKeypadConditionLampEventInteraction)
-			interactKeypadToLamp.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateKeypadConditionLampEventInteraction)
-			interactKeypadToLamp.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchKeypadConditionLampEventInteraction)
-			interactKeypadToLamp.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteKeypadConditionLampEventInteraction)
+			keypadConditionToLampEventGroup.POST("", g.interactionsClient.CreateKeypadConditionToLampEventInteraction)
+			keypadConditionToLampEventGroup.GET("/:keypad_to_lamp_id", g.interactionsClient.GetKeypadConditionToLampEventInteraction)
+			keypadConditionToLampEventGroup.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateKeypadConditionToLampEventInteraction)
+			keypadConditionToLampEventGroup.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchKeypadConditionToLampEventInteraction)
+			keypadConditionToLampEventGroup.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteKeypadConditionToLampEventInteraction)
 		}
 	}
 
