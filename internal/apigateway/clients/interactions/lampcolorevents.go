@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"net/http"
 
+	"google.golang.org/grpc/status"
+
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
-	"google.golang.org/grpc/status"
 )
 
 func (client InteractionsClient) CreateLampColorEvent(c *gin.Context) {

@@ -5,13 +5,13 @@ import (
 	"regexp"
 )
 
-type UpdateAttachRequest struct {
+type UpdateKeypadConditionToLampEventRequest struct {
 	InteractionID string `json:"interactionID" binding:"required"`
 	ConditionID   string `json:"conditionID" binding:"required"`
 	EventID       string `json:"eventID" binding:"required"`
 }
 
-func (r UpdateAttachRequest) Validate(id string) url.Values {
+func (r UpdateKeypadConditionToLampEventRequest) Validate(id string) url.Values {
 	errs := url.Values{}
 
 	regex, _ := regexp.Compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")

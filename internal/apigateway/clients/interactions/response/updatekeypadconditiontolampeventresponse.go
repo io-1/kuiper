@@ -1,6 +1,6 @@
 package response
 
-type UpdateAttachResponse struct {
+type UpdateKeypadConditionToLampEventResponse struct {
 	ID            string `json:"id"`
 	InteractionID string `json:"interactionID"`
 	ConditionID   string `json:"conditionID"`

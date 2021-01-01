@@ -1,6 +1,6 @@
 package response
 
-type PatchAttachResponse struct {
+type CreateAttachResponse struct {
 	ID            string `json:"id"`
 	InteractionID string `json:"interactionID"`
 	ConditionID   string `json:"conditionID"`

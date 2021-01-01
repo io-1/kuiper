@@ -5,19 +5,19 @@ import (
 	"regexp"
 )
 
-type CreateAttachRequest struct {
-	InteractionID string `json:"interactionID" binding:"required"`
-	ConditionID   string `json:"conditionID" binding:"required"`
-	EventID       string `json:"eventID" binding:"required"`
+type PatchKeypadConditionToLampEventRequest struct {
+	InteractionID string `json:"interactionID"`
+	ConditionID   string `json:"conditionID"`
+	EventID       string `json:"eventID"`
 }
 
-func (r CreateAttachRequest) Validate() url.Values {
+func (r PatchKeypadConditionToLampEventRequest) Validate(id string) url.Values {
 	errs := url.Values{}
 
 	regex, _ := regexp.Compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
-	validID := regex.MatchString(r.InteractionID)
+	validID := regex.MatchString(id)
 	if !validID {
-		errs.Add("interactionID", "The id field needs to be a valid!")
+		errs.Add("id", "The id field needs to be a valid!")
 	}
 
 	validConditionID := regex.MatchString(r.ConditionID)

@@ -21,8 +21,8 @@ func (client InteractionsClient) CreateKeypadConditionToLampEventInteraction(c *
 	var (
 
 		// FIXME: change to CreateKeypadConditionToLampEventInteractionRequest
-		req request.CreateAttachRequest
-		res response.CreateAttachResponse
+		req request.CreateKeypadConditionToLampEventRequest
+		res response.CreateKeypadConditionToLampEventResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -36,7 +36,7 @@ func (client InteractionsClient) CreateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	r, err := client.interactionsServiceClient.CreateAttach(ctx, &interactions_pb.CreateAttachRequest{
+	r, err := client.interactionsServiceClient.CreateKeypadConditionToLampEvent(ctx, &interactions_pb.CreateKeypadConditionToLampEventRequest{
 		InteractionID: req.InteractionID,
 		ConditionID:   req.ConditionID,
 		EventID:       req.EventID,
@@ -46,7 +46,7 @@ func (client InteractionsClient) CreateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	res = response.CreateAttachResponse{
+	res = response.CreateKeypadConditionToLampEventResponse{
 		ID:            r.ID,
 		InteractionID: r.InteractionID,
 		ConditionID:   r.ConditionID,
@@ -61,8 +61,8 @@ func (client InteractionsClient) GetKeypadConditionToLampEventInteraction(c *gin
 	defer cancel()
 
 	var (
-		req           request.GetAttachRequest
-		res           response.GetAttachResponse
+		req           request.GetKeypadConditionToLampEventRequest
+		res           response.GetKeypadConditionToLampEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -74,7 +74,7 @@ func (client InteractionsClient) GetKeypadConditionToLampEventInteraction(c *gin
 		return
 	}
 
-	r, err := client.interactionsServiceClient.GetAttach(ctx, &interactions_pb.GetAttachRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetKeypadConditionToLampEvent(ctx, &interactions_pb.GetKeypadConditionToLampEventRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -99,7 +99,7 @@ func (client InteractionsClient) GetKeypadConditionToLampEventInteraction(c *gin
 		return
 	}
 
-	res = response.GetAttachResponse{
+	res = response.GetKeypadConditionToLampEventResponse{
 		ID:            r.ID,
 		InteractionID: r.InteractionID,
 		ConditionID:   r.ConditionID,
@@ -114,8 +114,8 @@ func (client InteractionsClient) UpdateKeypadConditionToLampEventInteraction(c *
 	defer cancel()
 
 	var (
-		req           request.UpdateAttachRequest
-		res           response.UpdateAttachResponse
+		req           request.UpdateKeypadConditionToLampEventRequest
+		res           response.UpdateKeypadConditionToLampEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -132,7 +132,7 @@ func (client InteractionsClient) UpdateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	r, err := client.interactionsServiceClient.UpdateAttach(ctx, &interactions_pb.UpdateAttachRequest{
+	r, err := client.interactionsServiceClient.UpdateKeypadConditionToLampEvent(ctx, &interactions_pb.UpdateKeypadConditionToLampEventRequest{
 		ID:            id,
 		InteractionID: req.InteractionID,
 		ConditionID:   req.ConditionID,
@@ -163,7 +163,7 @@ func (client InteractionsClient) UpdateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	res = response.UpdateAttachResponse{
+	res = response.UpdateKeypadConditionToLampEventResponse{
 		ID:            r.ID,
 		InteractionID: r.InteractionID,
 		ConditionID:   r.ConditionID,
@@ -178,8 +178,8 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 	defer cancel()
 
 	var (
-		req           request.PatchAttachRequest
-		res           response.PatchAttachResponse
+		req           request.PatchKeypadConditionToLampEventRequest
+		res           response.PatchKeypadConditionToLampEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -197,7 +197,7 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 	}
 
 	// get the user
-	r, err := client.interactionsServiceClient.GetAttach(ctx, &interactions_pb.GetAttachRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetKeypadConditionToLampEvent(ctx, &interactions_pb.GetKeypadConditionToLampEventRequest{ID: id})
 
 	if err != nil {
 		st, ok := status.FromError(err)
@@ -236,7 +236,7 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 	}
 
 	// save the request difference
-	re, err := client.interactionsServiceClient.UpdateAttach(ctx, &interactions_pb.UpdateAttachRequest{
+	re, err := client.interactionsServiceClient.UpdateKeypadConditionToLampEvent(ctx, &interactions_pb.UpdateKeypadConditionToLampEventRequest{
 		ID:            id,
 		InteractionID: req.InteractionID,
 		ConditionID:   req.ConditionID,
@@ -257,7 +257,7 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 		return
 	}
 
-	res = response.PatchAttachResponse{
+	res = response.PatchKeypadConditionToLampEventResponse{
 		ID:            re.ID,
 		InteractionID: re.InteractionID,
 		ConditionID:   re.ConditionID,
@@ -272,8 +272,8 @@ func (client InteractionsClient) DeleteKeypadConditionToLampEventInteraction(c *
 	defer cancel()
 
 	var (
-		req           request.DeleteInteractionRequest
-		res           response.DeleteInteractionResponse
+		req           request.DeleteKeypadConditionToLampEventRequest
+		res           response.DeleteKeypadConditionToLampEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -285,7 +285,7 @@ func (client InteractionsClient) DeleteKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	r, err := client.interactionsServiceClient.DeleteInteraction(ctx, &interactions_pb.DeleteInteractionRequest{
+	r, err := client.interactionsServiceClient.DeleteKeypadConditionToLampEvent(ctx, &interactions_pb.DeleteKeypadConditionToLampEventRequest{
 		ID: id,
 	})
 
@@ -313,7 +313,7 @@ func (client InteractionsClient) DeleteKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	res = response.DeleteInteractionResponse{
+	res = response.DeleteKeypadConditionToLampEventResponse{
 		ID: r.ID,
 	}
 

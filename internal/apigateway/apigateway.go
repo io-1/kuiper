@@ -162,29 +162,29 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 
 			toggleGroup := eventGroup.Group("/toggle")
 			{
-				toggleGroup.POST("", nil)
-				toggleGroup.GET("/:lamp_toggle_event_id", nil)
-				toggleGroup.PUT("/:lamp_toggle_event_id", nil)
-				toggleGroup.PATCH("/:lamp_toggle_event_id", nil)
-				toggleGroup.DELETE("/:lamp_toggle_event_id", nil)
+				toggleGroup.POST("", g.interactionsClient.CreateLampToggleEvent)
+				toggleGroup.GET("/:lamp_toggle_event_id", g.interactionsClient.GetLampToggleEvent)
+				toggleGroup.PUT("/:lamp_toggle_event_id", g.interactionsClient.UpdateLampToggleEvent)
+				toggleGroup.PATCH("/:lamp_toggle_event_id", g.interactionsClient.PatchLampToggleEvent)
+				toggleGroup.DELETE("/:lamp_toggle_event_id", g.interactionsClient.DeleteLampToggleEvent)
 			}
 
 			colorGroup := eventGroup.Group("/color")
 			{
-				colorGroup.POST("", nil)
-				colorGroup.GET("/:lamp_color_event_id", nil)
-				colorGroup.PUT("/:lamp_color_event_id", nil)
-				colorGroup.PATCH("/:lamp_color_event_id", nil)
-				colorGroup.DELETE("/:lamp_color_event_id", nil)
+				colorGroup.POST("", g.interactionsClient.CreateLampColorEvent)
+				colorGroup.GET("/:lamp_color_event_id", g.interactionsClient.GetLampColorEvent)
+				colorGroup.PUT("/:lamp_color_event_id", g.interactionsClient.UpdateLampColorEvent)
+				colorGroup.PATCH("/:lamp_color_event_id", g.interactionsClient.PatchLampColorEvent)
+				colorGroup.DELETE("/:lamp_color_event_id", g.interactionsClient.DeleteLampColorEvent)
 			}
 
 			pulseGroup := eventGroup.Group("/pulse")
 			{
-				pulseGroup.POST("", nil)
-				pulseGroup.GET("/:lamp_pulse_event_id", nil)
-				pulseGroup.PUT("/:lamp_pulse_event_id", nil)
-				pulseGroup.PATCH("/:lamp_pulse_event_id", nil)
-				pulseGroup.DELETE("/:lamp_pulse_event_id", nil)
+				pulseGroup.POST("", g.interactionsClient.CreateLampPulseEvent)
+				pulseGroup.GET("/:lamp_pulse_event_id", g.interactionsClient.GetLampPulseEvent)
+				pulseGroup.PUT("/:lamp_pulse_event_id", g.interactionsClient.UpdateLampPulseEvent)
+				pulseGroup.PATCH("/:lamp_pulse_event_id", g.interactionsClient.PatchLampPulseEvent)
+				pulseGroup.DELETE("/:lamp_pulse_event_id", g.interactionsClient.DeleteLampPulseEvent)
 			}
 		}
 	}
