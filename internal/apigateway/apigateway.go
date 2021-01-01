@@ -154,11 +154,11 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	{
 		eventGroup := lampGroup.Group("/event")
 		{
-			eventGroup.POST("", g.interactionsClient.CreateLampEvent)
-			eventGroup.GET("/:lamp_event_id", g.interactionsClient.GetLampEvent)
-			eventGroup.PUT("/:lamp_event_id", g.interactionsClient.UpdateLampEvent)
-			eventGroup.PATCH("/:lamp_event_id", g.interactionsClient.PatchLampEvent)
-			eventGroup.DELETE("/:lamp_event_id", g.interactionsClient.DeleteLampEvent)
+			// eventGroup.POST("", g.interactionsClient.CreateLampEvent)
+			// eventGroup.GET("/:lamp_event_id", g.interactionsClient.GetLampEvent)
+			// eventGroup.PUT("/:lamp_event_id", g.interactionsClient.UpdateLampEvent)
+			// eventGroup.PATCH("/:lamp_event_id", g.interactionsClient.PatchLampEvent)
+			// eventGroup.DELETE("/:lamp_event_id", g.interactionsClient.DeleteLampEvent)
 
 			toggleGroup := eventGroup.Group("/toggle")
 			{

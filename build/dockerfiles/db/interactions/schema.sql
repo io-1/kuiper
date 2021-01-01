@@ -57,7 +57,7 @@ CREATE TABLE keypad_conditions_to_lamp_events (
     condition_id VARCHAR(36) NOT NULL, 
 
     /* the event_type is the type of event to send up the right data to the front end */
-    event_type VARCHAR(50) NOT NULL,
+    /* event_type VARCHAR(50) NOT NULL, */
     event_id VARCHAR(36) NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
