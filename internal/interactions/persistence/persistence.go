@@ -41,8 +41,8 @@ type Persistence interface {
 	UpdateConditionsToEvents(conditionsToEvents ConditionsToEvents) (recordNotFound bool, err error)
 	DeleteConditionsToEvents(conditionsToEvents ConditionsToEvents) (recordNotFound bool, err error)
 
-	CreateKeypadConditionsToLampEvents(conditionsToEvents KeypadConditionsToLampEvents) int64
-	GetKeypadConditionsToLampEvents(id string) (recordNotFound bool, conditionsToEvents KeypadConditionsToLampEvents)
-	UpdateKeypadConditionsToLampEvents(conditionsToEvents KeypadConditionsToLampEvents) (recordNotFound bool, err error)
-	DeleteKeypadConditionsToLampEvents(conditionsToEvents KeypadConditionsToLampEvents) (recordNotFound bool, err error)
+	CreateKeypadConditionToLampEvent(conditionsToEvents KeypadConditionsToLampEvents) int64
+	GetKeypadConditionToLampEvent(id string) (recordNotFound bool, conditionsToEvents KeypadConditionsToLampEvents)
+	UpdateKeypadConditionToLampEvent(conditionsToEvents KeypadConditionsToLampEvents) (recordNotFound bool, err error)
+	DeleteKeypadConditionToLampEvent(conditionsToEvents KeypadConditionsToLampEvents) (recordNotFound bool, err error)
 }

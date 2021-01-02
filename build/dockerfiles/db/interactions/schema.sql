@@ -64,10 +64,10 @@ CREATE TABLE keypad_conditions_to_lamp_events (
     deleted_at TIMESTAMP, 
     INDEX `idx_keypad_conditions_to_lamp_events_interaction`(interaction_id),
     INDEX `idx_keypad_conditions_to_lamp_events_condition`(condition_id),
-    INDEX `idx_keypad_conditions_to_lamp_events_event`(event_id),
+    /* INDEX `idx_keypad_conditions_to_lamp_events_event`(event_id), */
     CONSTRAINT `fk_keypad_conditions_to_lamp_events_interaction` FOREIGN KEY(interaction_id) REFERENCES interactions(id),
     CONSTRAINT `fk_keypad_conditions_to_lamp_events_condition` FOREIGN KEY(condition_id) REFERENCES keypad_conditions(id),
-    CONSTRAINT `fk_keypad_conditions_to_lamp_events_event` FOREIGN KEY(event_id) REFERENCES lamp_events(id),
+    /* CONSTRAINT `fk_keypad_conditions_to_lamp_events_event` FOREIGN KEY(event_id) REFERENCES lamp_events(id), */
     PRIMARY KEY(id)
 );
 

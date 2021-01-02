@@ -24,7 +24,7 @@ func (s *InteractionsServer) CreateKeypadConditionToLampEvent(ctx context.Contex
 	}
 
 	// FIXME: change this to keypad_conditions_to_lamp_events
-	s.persistence.CreateKeypadConditionsToLampEvents(conditionsToEvents)
+	s.persistence.CreateKeypadConditionToLampEvent(conditionsToEvents)
 
 	return &interactions_pb.CreateKeypadConditionToLampEventResponse{
 		ID:            id,
@@ -35,7 +35,7 @@ func (s *InteractionsServer) CreateKeypadConditionToLampEvent(ctx context.Contex
 }
 
 func (s *InteractionsServer) GetKeypadConditionToLampEvent(ctx context.Context, req *interactions_pb.GetKeypadConditionToLampEventRequest) (*interactions_pb.GetKeypadConditionToLampEventResponse, error) {
-	recordNotFound, conditionsToEvents := s.persistence.GetKeypadConditionsToLampEvents(req.ID)
+	recordNotFound, conditionsToEvents := s.persistence.GetKeypadConditionToLampEvent(req.ID)
 	if recordNotFound {
 		return &interactions_pb.GetKeypadConditionToLampEventResponse{}, status.Error(codes.NotFound, "id was not found")
 	}
@@ -56,7 +56,7 @@ func (s *InteractionsServer) UpdateKeypadConditionToLampEvent(ctx context.Contex
 		EventID:       req.EventID,
 	}
 
-	recordNotFound, err := s.persistence.UpdateKeypadConditionsToLampEvents(conditionsToEvents)
+	recordNotFound, err := s.persistence.UpdateKeypadConditionToLampEvent(conditionsToEvents)
 	if recordNotFound {
 		return &interactions_pb.UpdateKeypadConditionToLampEventResponse{}, status.Error(codes.NotFound, "id was not found")
 	}
@@ -78,7 +78,7 @@ func (s *InteractionsServer) DeleteKeypadConditionToLampEvent(ctx context.Contex
 		ID: req.ID,
 	}
 
-	recordNotFound, err := s.persistence.DeleteKeypadConditionsToLampEvents(conditionsToEvents)
+	recordNotFound, err := s.persistence.DeleteKeypadConditionToLampEvent(conditionsToEvents)
 	if recordNotFound {
 		return &interactions_pb.DeleteKeypadConditionToLampEventResponse{}, status.Error(codes.NotFound, "id was not found")
 	}
