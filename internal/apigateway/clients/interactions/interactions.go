@@ -15,6 +15,12 @@ import (
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 
+const (
+	LAMP_TOGGLE_EVENT = "toggle"
+	LAMP_COLOR_EVENT  = "color"
+	LAMP_PULSE_EVENT  = "pulse"
+)
+
 func (client InteractionsClient) CreateInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
@@ -156,21 +162,40 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 			return
 		}
 
-		re := response.KeypadConditionsToLampEventsInteraction{
-			KeypadCondition: response.KeypadCondition{
-				ID:       r.KeypadConditionID,
-				Mac:      r.KeypadConditionMac,
-				ButtonID: r.KeypadConditionButtonID,
-			},
-			LampEvent: response.LampEvent{
+		var re response.KeypadConditionsToLampEventsInteraction
+		switch r.LampEventType {
+		case LAMP_TOGGLE_EVENT:
+			re.LampEvent = response.LampToggleEvent{
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventType,
+			}
+		case LAMP_COLOR_EVENT:
+			re.LampEvent = response.LampColorEvent{
 				ID:        r.LampEventID,
 				Mac:       r.LampEventMac,
 				EventType: r.LampEventType,
 				Red:       r.LampEventRed,
 				Green:     r.LampEventGreen,
 				Blue:      r.LampEventBlue,
-			},
+			}
+		case LAMP_PULSE_EVENT:
+			re.LampEvent = response.LampPulseEvent{
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventType,
+				Red:       r.LampEventRed,
+				Green:     r.LampEventGreen,
+				Blue:      r.LampEventBlue,
+			}
 		}
+
+		re.KeypadCondition = response.KeypadCondition{
+			ID:       r.KeypadConditionID,
+			Mac:      r.KeypadConditionMac,
+			ButtonID: r.KeypadConditionButtonID,
+		}
+
 		i = append(i, re)
 	}
 

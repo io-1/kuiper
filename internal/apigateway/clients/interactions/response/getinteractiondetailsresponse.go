@@ -7,7 +7,7 @@ type GetInteractionDetailsResponse struct {
 
 type KeypadConditionsToLampEventsInteraction struct {
 	KeypadCondition KeypadCondition `json:"keypadCondition"`
-	LampEvent       LampEvent       `json:"lampEvent"`
+	LampEvent       interface{}     `json:"lampEvent"`
 }
 
 type KeypadCondition struct {
@@ -20,7 +20,31 @@ type LampEvent struct {
 	ID        string `json:"id"`
 	Mac       string `json:"mac"`
 	EventType string `json:"eventType"`
-	Red       int32  `json:"red,omitempty"`
-	Green     int32  `json:"green,omitempty"`
-	Blue      int32  `json:"blue,omitempty"`
+	Red       int32  `json:"red"`
+	Green     int32  `json:"green"`
+	Blue      int32  `json:"blue"`
+}
+
+type LampToggleEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+}
+
+type LampColorEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+	Red       int32  `json:"red"`
+	Green     int32  `json:"green"`
+	Blue      int32  `json:"blue"`
+}
+
+type LampPulseEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+	Red       int32  `json:"red"`
+	Green     int32  `json:"green"`
+	Blue      int32  `json:"blue"`
 }
