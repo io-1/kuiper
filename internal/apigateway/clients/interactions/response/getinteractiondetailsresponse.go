@@ -20,7 +20,7 @@ type LampEvent struct {
 	ID        string `json:"id"`
 	Mac       string `json:"mac"`
 	EventType string `json:"eventType"`
-	Red       int32  `json:"red"`
-	Green     int32  `json:"green"`
-	Blue      int32  `json:"blue"`
+	Red       int32  `json:"red,omitempty"`
+	Green     int32  `json:"green,omitempty"`
+	Blue      int32  `json:"blue,omitempty"`
 }

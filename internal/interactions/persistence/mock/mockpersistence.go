@@ -505,3 +505,62 @@ func (mr *MockPersistenceMockRecorder) DeleteConditionsToEvents(conditionsToEven
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteConditionsToEvents", reflect.TypeOf((*MockPersistence)(nil).DeleteConditionsToEvents), conditionsToEvents)
 }
+
+// CreateKeypadConditionToLampEvent mocks base method.
+func (m *MockPersistence) CreateKeypadConditionToLampEvent(conditionsToEvents persistence.KeypadConditionsToLampEvents) int64 {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateKeypadConditionToLampEvent", conditionsToEvents)
+	ret0, _ := ret[0].(int64)
+	return ret0
+}
+
+// CreateKeypadConditionToLampEvent indicates an expected call of CreateKeypadConditionToLampEvent.
+func (mr *MockPersistenceMockRecorder) CreateKeypadConditionToLampEvent(conditionsToEvents interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateKeypadConditionToLampEvent", reflect.TypeOf((*MockPersistence)(nil).CreateKeypadConditionToLampEvent), conditionsToEvents)
+}
+
+// GetKeypadConditionToLampEvent mocks base method.
+func (m *MockPersistence) GetKeypadConditionToLampEvent(id string) (bool, persistence.KeypadConditionsToLampEvents) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetKeypadConditionToLampEvent", id)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.KeypadConditionsToLampEvents)
+	return ret0, ret1
+}
+
+// GetKeypadConditionToLampEvent indicates an expected call of GetKeypadConditionToLampEvent.
+func (mr *MockPersistenceMockRecorder) GetKeypadConditionToLampEvent(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeypadConditionToLampEvent", reflect.TypeOf((*MockPersistence)(nil).GetKeypadConditionToLampEvent), id)
+}
+
+// UpdateKeypadConditionToLampEvent mocks base method.
+func (m *MockPersistence) UpdateKeypadConditionToLampEvent(conditionsToEvents persistence.KeypadConditionsToLampEvents) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateKeypadConditionToLampEvent", conditionsToEvents)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateKeypadConditionToLampEvent indicates an expected call of UpdateKeypadConditionToLampEvent.
+func (mr *MockPersistenceMockRecorder) UpdateKeypadConditionToLampEvent(conditionsToEvents interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateKeypadConditionToLampEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateKeypadConditionToLampEvent), conditionsToEvents)
+}
+
+// DeleteKeypadConditionToLampEvent mocks base method.
+func (m *MockPersistence) DeleteKeypadConditionToLampEvent(conditionsToEvents persistence.KeypadConditionsToLampEvents) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteKeypadConditionToLampEvent", conditionsToEvents)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteKeypadConditionToLampEvent indicates an expected call of DeleteKeypadConditionToLampEvent.
+func (mr *MockPersistenceMockRecorder) DeleteKeypadConditionToLampEvent(conditionsToEvents interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteKeypadConditionToLampEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteKeypadConditionToLampEvent), conditionsToEvents)
+}

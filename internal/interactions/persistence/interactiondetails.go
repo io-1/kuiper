@@ -9,5 +9,13 @@ type InteractionDetails struct {
 	KeypadCondition KeypadCondition
 
 	// FIXME: how to handle null values
-	LampEvent LampEvent
+	// LampEvent LampEvent
+
+	LampEventType string
+
+	LampToggleEvent LampToggleEvent
+
+	LampColorEvent LampColorEvent
+
+	LampPulseEvent LampPulseEvent
 }

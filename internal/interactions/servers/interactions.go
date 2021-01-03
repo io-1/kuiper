@@ -11,6 +11,12 @@ import (
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 
+const (
+	LAMP_TOGGLE_EVENT = "toggle"
+	LAMP_COLOR_EVENT  = "color"
+	LAMP_PULSE_EVENT  = "pulse"
+)
+
 func (s *InteractionsServer) CreateInteraction(ctx context.Context, req *interactions_pb.CreateInteractionRequest) (*interactions_pb.CreateInteractionResponse, error) {
 
 	// generate uuid
@@ -63,17 +69,44 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 	}
 
 	for _, interactionDetail := range interactionDetails {
-		res := &interactions_pb.GetInteractionDetailsResponse{
-			KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
-			KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
-			KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
-			LampEventID:             interactionDetail.LampEvent.ID,
-			LampEventMac:            interactionDetail.LampEvent.Mac,
-			LampEventEventType:      interactionDetail.LampEvent.EventType,
-			LampEventRed:            interactionDetail.LampEvent.Red,
-			LampEventGreen:          interactionDetail.LampEvent.Green,
-			LampEventBlue:           interactionDetail.LampEvent.Blue,
+
+		var res *interactions_pb.GetInteractionDetailsResponse
+		switch interactionDetail.LampEventType {
+		case LAMP_TOGGLE_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEventType,
+				LampEventID:             interactionDetail.LampToggleEvent.ID,
+				LampEventMac:            interactionDetail.LampToggleEvent.Mac,
+			}
+		case LAMP_COLOR_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEventType,
+				LampEventID:             interactionDetail.LampColorEvent.ID,
+				LampEventMac:            interactionDetail.LampColorEvent.Mac,
+				LampEventRed:            interactionDetail.LampColorEvent.Red,
+				LampEventGreen:          interactionDetail.LampColorEvent.Green,
+				LampEventBlue:           interactionDetail.LampColorEvent.Blue,
+			}
+		case LAMP_PULSE_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEventType,
+				LampEventID:             interactionDetail.LampPulseEvent.ID,
+				LampEventMac:            interactionDetail.LampPulseEvent.Mac,
+				LampEventRed:            interactionDetail.LampPulseEvent.Red,
+				LampEventGreen:          interactionDetail.LampPulseEvent.Green,
+				LampEventBlue:           interactionDetail.LampPulseEvent.Blue,
+			}
 		}
+
 		err := stream.Send(res)
 		if err != nil {
 			return err

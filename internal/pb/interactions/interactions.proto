@@ -34,9 +34,9 @@ message GetInteractionDetailsResponse {
   string KeypadConditionID = 1;
   string KeypadConditionMac = 2;
   int32 KeypadConditionButtonID = 3;
-  string LampEventID = 4;
-  string LampEventMac = 5;
-  string LampEventEventType = 6;
+  string LampEventType = 4;
+  string LampEventID = 5;
+  string LampEventMac = 6;
   int32 LampEventRed = 7;
   int32 LampEventGreen = 8;
   int32 LampEventBlue = 9;
