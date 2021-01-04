@@ -8,14 +8,17 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/io-1/kuiper/internal/interactions/pubsub/mosquitto/response"
-
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+
+	lamp_events "github.com/io-1/kuiper/internal/events/lamp"
 	sensors "github.com/io-1/kuiper/internal/interactions/devicesensors"
 )
 
 const (
-	ONE_MINUTE = 1 * time.Minute
+	ONE_MINUTE        = 1 * time.Minute
+	LAMP_TOGGLE_EVENT = "toggle"
+	LAMP_COLOR_EVENT  = "color"
+	LAMP_PULSE_EVENT  = "pulse"
 )
 
 func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName string, subscription string) error {
@@ -48,18 +51,6 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 
 		p.logger.Infof("Unmashalled message: %v\n", sensor)
 
-		// FIXME: combine this with the query below
-		// check if a condition has been met
-		// recordNotFound, keypadCondition := p.persistence.GetKeypadConditionByMacAndButtonID(sensor.Mac, sensor.ID)
-
-		// if it has send off the event
-		// if recordNotFound {
-		// 	return
-		// }
-
-		// FIXME: combine this with the query above
-		// get the event and send it to the device
-		// lampEvents, err := p.persistence.GetLampEventsByKeypadConditionID(*keypadCondition.ID)
 		lampEvents, err := p.persistence.GetLampEventsByKeypadMacAndButtonID(sensor.Mac, sensor.ID)
 		if err != nil {
 			p.logger.Error(err.Error())
@@ -68,17 +59,17 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 
 		// for each lamp event - send event to the device
 		for _, lampEvent := range lampEvents {
-
-			// FIXME: use switch depending on EventType
-			// FIXME: change to /internal/lamp/events
-			eventToSend := response.LampInteractionResponse{
-				EventType: lampEvent.EventType,
-				Red:       lampEvent.Red,
-				Green:     lampEvent.Green,
-				Blue:      lampEvent.Blue,
+			var lampEventToSend interface{}
+			switch lampEvent.EventType {
+			case LAMP_TOGGLE_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceToggleEvent()
+			case LAMP_COLOR_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceColorEvent(lampEvent.Red, lampEvent.Green, lampEvent.Blue)
+			case LAMP_PULSE_EVENT:
+				lampEventToSend = lamp_events.NewLampDevicePulseEvent(lampEvent.Red, lampEvent.Green, lampEvent.Blue)
 			}
 
-			json, err := json.Marshal(eventToSend)
+			json, err := json.Marshal(lampEventToSend)
 			if err != nil {
 				p.logger.Error(err)
 				return
