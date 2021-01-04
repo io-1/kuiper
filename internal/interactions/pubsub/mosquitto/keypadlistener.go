@@ -48,16 +48,19 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 
 		p.logger.Infof("Unmashalled message: %v\n", sensor)
 
+		// FIXME: combine this with the query below
 		// check if a condition has been met
-		recordNotFound, keypadCondition := p.persistence.GetKeypadConditionByMacAndButtonID(sensor.Mac, sensor.ID)
+		// recordNotFound, keypadCondition := p.persistence.GetKeypadConditionByMacAndButtonID(sensor.Mac, sensor.ID)
 
 		// if it has send off the event
-		if recordNotFound {
-			return
-		}
+		// if recordNotFound {
+		// 	return
+		// }
 
+		// FIXME: combine this with the query above
 		// get the event and send it to the device
-		lampEvents, err := p.persistence.GetLampEventsByKeypadConditionID(*keypadCondition.ID)
+		// lampEvents, err := p.persistence.GetLampEventsByKeypadConditionID(*keypadCondition.ID)
+		lampEvents, err := p.persistence.GetLampEventsByKeypadMacAndButtonID(sensor.Mac, sensor.ID)
 		if err != nil {
 			p.logger.Error(err.Error())
 			return
@@ -65,6 +68,9 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 
 		// for each lamp event - send event to the device
 		for _, lampEvent := range lampEvents {
+
+			// FIXME: use switch depending on EventType
+			// FIXME: change to /internal/lamp/events
 			eventToSend := response.LampInteractionResponse{
 				EventType: lampEvent.EventType,
 				Red:       lampEvent.Red,

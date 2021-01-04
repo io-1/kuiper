@@ -18,6 +18,7 @@ type Persistence interface {
 	CreateLampEvent(lampEvent LampEvent) int64
 	GetLampEvent(id string) (recordNotFound bool, lampEvent LampEvent)
 	GetLampEventsByKeypadConditionID(id string) ([]LampEvent, error)
+	GetLampEventsByKeypadMacAndButtonID(mac string, buttonID int) ([]LampEvent, error)
 	UpdateLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 	DeleteLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 
