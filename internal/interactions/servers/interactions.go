@@ -69,8 +69,6 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 	}
 
 	for _, interactionDetail := range interactionDetails {
-
-		// FIXME: fix to only have one set of id, mac, red, green, blue, created, updated and deleted
 		var res *interactions_pb.GetInteractionDetailsResponse
 		switch interactionDetail.LampEvent.EventType {
 		case LAMP_TOGGLE_EVENT:

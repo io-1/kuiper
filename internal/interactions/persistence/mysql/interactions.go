@@ -13,7 +13,42 @@ func (p MysqlPersistence) GetInteraction(id string) (recordNotFound bool, intera
 }
 
 func (p MysqlPersistence) GetInteractionDetails(id string) ([]persistence.InteractionDetails, error) {
-	rows, err := p.db.Raw("select k.id, k.mac, k.button_id, k.created_at, k.updated_at, k.deleted_at, coalesce(lte.id, lce.id, lpe.id) as id, coalesce(lte.mac, lce.mac, lpe.mac) as mac, coalesce(lte.event_type, lce.event_type, lpe.event_type) as event_type, IFNULL(coalesce(lce.red, lpe.red), 0), IFNULL(coalesce(lce.green, lpe.green), 0), IFNULL(coalesce(lce.blue, lpe.blue), 0), coalesce(lte.created_at, lce.created_at, lpe.created_at) as created_at, coalesce(lte.updated_at, lce.updated_at, lpe.updated_at) as updated_at, coalesce(lte.deleted_at, lce.deleted_at, lpe.deleted_at) as deleted_at from keypad_conditions_to_lamp_events ktl left join keypad_conditions k on ktl.condition_id = k.id left join (select *, 'toggle' as event_type from lamp_toggle_events where deleted_at is null) lte on ktl.event_id = lte.id left join (select *, 'color' as event_type from lamp_color_events where deleted_at is null) lce on ktl.event_id = lce.id left join (select *, 'pulse' as event_type from lamp_pulse_events where deleted_at is null) lpe on ktl.event_id = lpe.id where ktl.interaction_id = ?", id).Rows()
+	query := `SELECT
+		k.id, 
+		k.mac, 
+		k.button_id, 
+		k.created_at, 
+		k.updated_at, 
+		k.deleted_at, 
+		COALESCE(lte.id, lce.id, lpe.id) AS id, 
+		COALESCE(lte.mac, lce.mac, lpe.mac) AS mac, 
+		COALESCE(lte.event_type, lce.event_type, lpe.event_type) AS event_type, 
+		IFNULL(COALESCE(lce.red, lpe.red), 0), 
+		IFNULL(COALESCE(lce.green, lpe.green), 0), 
+		IFNULL(COALESCE(lce.blue, lpe.blue), 0), 
+		COALESCE(lte.created_at, lce.created_at, lpe.created_at) AS created_at, 
+		COALESCE(lte.updated_at, lce.updated_at, lpe.updated_at) AS updated_at, 
+		COALESCE(lte.deleted_at, lce.deleted_at, lpe.deleted_at) AS deleted_at 
+	FROM keypad_conditions_to_lamp_events ktl 
+		LEFT JOIN keypad_conditions k ON ktl.condition_id = k.id 
+		LEFT JOIN 
+			(SELECT 
+				*, 
+				'toggle' AS event_type 
+			FROM lamp_toggle_events WHERE deleted_at is null) lte ON ktl.event_id = lte.id 
+		LEFT JOIN 
+			(SELECT 
+				*, 
+				'color' AS event_type 
+			FROM lamp_color_events WHERE deleted_at IS null) lce ON ktl.event_id = lce.id 
+		LEFT JOIN 
+			(SELECT 
+				*, 
+				'pulse' AS event_type
+			FROM lamp_pulse_events WHERE deleted_at IS null) lpe ON ktl.event_id = lpe.id 
+	WHERE ktl.interaction_id = ?`
+
+	rows, err := p.db.Raw(query, id).Rows()
 
 	defer rows.Close()
 	if err != nil {
@@ -35,10 +70,7 @@ func (p MysqlPersistence) GetInteractionDetails(id string) ([]persistence.Intera
 			&interactionDetails.LampEvent.EventType,
 			&interactionDetails.LampEvent.Red,
 			&interactionDetails.LampEvent.Green,
-			&interactionDetails.LampEvent.Blue,
-			&interactionDetails.LampEvent.CreatedAt,
-			&interactionDetails.LampEvent.UpdatedAt,
-			&interactionDetails.LampEvent.DeletedAt,
+			&interactionDetails.LampEvent.Blue, &interactionDetails.LampEvent.CreatedAt, &interactionDetails.LampEvent.UpdatedAt, &interactionDetails.LampEvent.DeletedAt,
 		)
 
 		if err != nil {

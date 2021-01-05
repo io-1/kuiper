@@ -13,7 +13,35 @@ func (p MysqlPersistence) GetLampEvent(id string) (recordNotFound bool, lampEven
 }
 
 func (p MysqlPersistence) GetLampEventsByKeypadConditionID(id string) ([]persistence.LampEvent, error) {
-	rows, err := p.db.Raw("select coalesce(lte.id, lce.id, lpe.id) as id, coalesce(lte.mac, lce.mac, lpe.mac) as mac, coalesce(lte.event_type, lce.event_type, lpe.event_type) as event_type, IFNULL(coalesce(lce.red, lpe.red),0) as red, IFNULL(coalesce(lce.green, lpe.green),0) as green, IFNULL(coalesce(lce.blue, lpe.blue),0) as blue, coalesce(lte.created_at, lce.created_at, lpe.created_at) as created_at, coalesce(lte.updated_at, lce.updated_at, lpe.updated_at) as updated_at, coalesce(lte.deleted_at, lce.deleted_at, lpe.deleted_at) as deleted_at from keypad_conditions_to_lamp_events ktl left join (select *, 'toggle' as event_type from lamp_toggle_events where deleted_at is null) lte on ktl.event_id = lte.id left join (select *, 'color' as event_type from lamp_color_events where deleted_at is null) lce on ktl.event_id = lce.id left join (select *, 'pulse' as event_type from lamp_pulse_events where deleted_at is null) lpe on ktl.event_id = lpe.id where ktl.condition_id = ?", id).Rows()
+	query := `SELECT 
+		COALESCE(lte.id, lce.id, lpe.id) AS id, 
+		COALESCE(lte.mac, lce.mac, lpe.mac) AS mac, 
+		COALESCE(lte.event_type, lce.event_type, lpe.event_type) AS event_type, 
+		IFNULL(COALESCE(lce.red, lpe.red),0) AS red, 
+		IFNULL(COALESCE(lce.green, lpe.green),0) AS green, 
+		IFNULL(COALESCE(lce.blue, lpe.blue),0) AS blue, 
+		COALESCE(lte.created_at, lce.created_at, lpe.created_at) AS created_at, 
+		COALESCE(lte.updated_at, lce.updated_at, lpe.updated_at) AS updated_at, 
+		COALESCE(lte.deleted_at, lce.deleted_at, lpe.deleted_at) AS deleted_at 
+	FROM keypad_conditions_to_lamp_events ktl 
+		left join 
+			(SELECT 
+				*, 
+				'toggle' AS event_type 
+			FROM lamp_toggle_events WHERE deleted_at IS NULL) lte ON ktl.event_id = lte.id 
+		left join 
+			(SELECT 
+				*, 
+				'color' AS event_type 
+			FROM lamp_color_events WHERE deleted_at IS NULL) lce ON ktl.event_id = lce.id 
+		left join 
+			(SELECT 
+				*, 
+				'pulse' AS event_type 
+			FROM lamp_pulse_events WHERE deleted_at IS NULL) lpe ON ktl.event_id = lpe.id 
+	WHERE ktl.condition_id = ?`
+
+	rows, err := p.db.Raw(query, id).Rows()
 	if err != nil {
 		return []persistence.LampEvent{}, err
 	}
@@ -44,7 +72,39 @@ func (p MysqlPersistence) GetLampEventsByKeypadConditionID(id string) ([]persist
 }
 
 func (p MysqlPersistence) GetLampEventsByKeypadMacAndButtonID(mac string, buttonID int) ([]persistence.LampEvent, error) {
-	rows, err := p.db.Raw("select coalesce(lte.id, lce.id, lpe.id) as id, coalesce(lte.mac, lce.mac, lpe.mac) as mac, coalesce(lte.event_type, lce.event_type, lpe.event_type) as event_type, IFNULL(coalesce(lce.red, lpe.red),0) as red, IFNULL(coalesce(lce.green, lpe.green),0) as green, IFNULL(coalesce(lce.blue, lpe.blue),0) as blue, coalesce(lte.created_at, lce.created_at, lpe.created_at) as created_at, coalesce(lte.updated_at, lce.updated_at, lpe.updated_at) as updated_at, coalesce(lte.deleted_at, lce.deleted_at, lpe.deleted_at) as deleted_at from keypad_conditions k left join keypad_conditions_to_lamp_events ktl on k.id = ktl.condition_id left join (select *, 'toggle' as event_type from lamp_toggle_events where deleted_at is null) lte on ktl.event_id = lte.id left join (select *, 'color' as event_type from lamp_color_events where deleted_at is null) lce on ktl.event_id = lce.id left join (select *, 'pulse' as event_type from lamp_pulse_events where deleted_at is null) lpe on ktl.event_id = lpe.id where k.mac = ? and k.button_id = ?", mac, buttonID).Rows()
+	query := `SELECT 
+		COALESCE(lte.id, lce.id, lpe.id) AS id, 
+		COALESCE(lte.mac, lce.mac, lpe.mac) AS mac, 
+		COALESCE(lte.event_type, lce.event_type, lpe.event_type) AS event_type, 
+		IFNULL(COALESCE(lce.red, lpe.red),0) AS red, 
+		IFNULL(COALESCE(lce.green, lpe.green),0) AS green, 
+		IFNULL(COALESCE(lce.blue, lpe.blue),0) AS blue, 
+		COALESCE(lte.created_at, lce.created_at, lpe.created_at) AS created_at, 
+		COALESCE(lte.updated_at, lce.updated_at, lpe.updated_at) AS updated_at, 
+		COALESCE(lte.deleted_at, lce.deleted_at, lpe.deleted_at) AS deleted_at 
+	FROM keypad_conditions k 
+		LEFT JOIN keypad_conditions_to_lamp_events ktl on k.id = ktl.condition_id 
+		LEFT JOIN 
+			(SELECT 
+				*, 
+				'toggle' AS event_type 
+			FROM lamp_toggle_events 
+				WHERE deleted_at IS NULL) lte on ktl.event_id = lte.id 
+		LEFT JOIN
+			(SELECT 
+				*, 
+				'color' AS event_type 
+			FROM lamp_color_events 
+				WHERE deleted_at IS NULL) lce on ktl.event_id = lce.id 
+		LEFT JOIN 
+			(SELECT 
+				*, 
+				'pulse' AS event_type 
+			FROM lamp_pulse_events 
+				WHERE deleted_at IS NULL) lpe on ktl.event_id = lpe.id 
+	WHERE k.mac = ? and k.button_id = ?`
+
+	rows, err := p.db.Raw(query, mac, buttonID).Rows()
 	if err != nil {
 		return []persistence.LampEvent{}, err
 	}
