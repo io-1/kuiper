@@ -70,40 +70,41 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 
 	for _, interactionDetail := range interactionDetails {
 
+		// FIXME: fix to only have one set of id, mac, red, green, blue, created, updated and deleted
 		var res *interactions_pb.GetInteractionDetailsResponse
-		switch interactionDetail.LampEventType {
+		switch interactionDetail.LampEvent.EventType {
 		case LAMP_TOGGLE_EVENT:
 			res = &interactions_pb.GetInteractionDetailsResponse{
 				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
 				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
 				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
-				LampEventType:           interactionDetail.LampEventType,
-				LampEventID:             interactionDetail.LampToggleEvent.ID,
-				LampEventMac:            interactionDetail.LampToggleEvent.Mac,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
 			}
 		case LAMP_COLOR_EVENT:
 			res = &interactions_pb.GetInteractionDetailsResponse{
 				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
 				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
 				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
-				LampEventType:           interactionDetail.LampEventType,
-				LampEventID:             interactionDetail.LampColorEvent.ID,
-				LampEventMac:            interactionDetail.LampColorEvent.Mac,
-				LampEventRed:            interactionDetail.LampColorEvent.Red,
-				LampEventGreen:          interactionDetail.LampColorEvent.Green,
-				LampEventBlue:           interactionDetail.LampColorEvent.Blue,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+				LampEventRed:            interactionDetail.LampEvent.Red,
+				LampEventGreen:          interactionDetail.LampEvent.Green,
+				LampEventBlue:           interactionDetail.LampEvent.Blue,
 			}
 		case LAMP_PULSE_EVENT:
 			res = &interactions_pb.GetInteractionDetailsResponse{
 				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
 				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
 				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
-				LampEventType:           interactionDetail.LampEventType,
-				LampEventID:             interactionDetail.LampPulseEvent.ID,
-				LampEventMac:            interactionDetail.LampPulseEvent.Mac,
-				LampEventRed:            interactionDetail.LampPulseEvent.Red,
-				LampEventGreen:          interactionDetail.LampPulseEvent.Green,
-				LampEventBlue:           interactionDetail.LampPulseEvent.Blue,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+				LampEventRed:            interactionDetail.LampEvent.Red,
+				LampEventGreen:          interactionDetail.LampEvent.Green,
+				LampEventBlue:           interactionDetail.LampEvent.Blue,
 			}
 		}
 

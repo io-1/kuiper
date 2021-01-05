@@ -51,11 +51,15 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 
 		p.logger.Infof("Unmashalled message: %v\n", sensor)
 
+		// FIXME: check the cache - and return it if the data is cached
+
 		lampEvents, err := p.persistence.GetLampEventsByKeypadMacAndButtonID(sensor.Mac, sensor.ID)
 		if err != nil {
 			p.logger.Error(err.Error())
 			return
 		}
+
+		// FIXME: cache the data
 
 		// for each lamp event - send event to the device
 		for _, lampEvent := range lampEvents {
