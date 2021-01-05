@@ -25,9 +25,9 @@ CREATE TABLE lamp_events(
     id VARCHAR(36) NOT NULL, 
     mac VARCHAR(12) NOT NULL,
     event_type VARCHAR(50) NOT NULL,
-    red int NOT NULL,
-    green int NOT NULL,
-    blue int NOT NULL,
+    red INT NOT NULL,
+    green INT NOT NULL,
+    blue INT NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
     deleted_at TIMESTAMP, 
@@ -71,7 +71,64 @@ CREATE TABLE keypad_conditions_to_lamp_events (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE lamp_on_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_off_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+
 CREATE TABLE lamp_toggle_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_brightness_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    brightenss INT NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_auto_brightness_on_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE lamp_auto_brightness_off_events(
+    id VARCHAR(36) NOT NULL, 
+    mac VARCHAR(12) NOT NULL,
+    created_at TIMESTAMP, 
+    updated_at TIMESTAMP, 
+    deleted_at TIMESTAMP, 
+    PRIMARY KEY(id)
+);
+
+
+CREATE TABLE lamp_auto_brightness_toggle_events(
     id VARCHAR(36) NOT NULL, 
     mac VARCHAR(12) NOT NULL,
     created_at TIMESTAMP, 
@@ -83,9 +140,9 @@ CREATE TABLE lamp_toggle_events(
 CREATE TABLE lamp_color_events(
     id VARCHAR(36) NOT NULL, 
     mac VARCHAR(12) NOT NULL,
-    red int NOT NULL,
-    green int NOT NULL,
-    blue int NOT NULL,
+    red INT NOT NULL,
+    green INT NOT NULL,
+    blue INT NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
     deleted_at TIMESTAMP, 
@@ -95,9 +152,9 @@ CREATE TABLE lamp_color_events(
 CREATE TABLE lamp_pulse_events(
     id VARCHAR(36) NOT NULL, 
     mac VARCHAR(12) NOT NULL,
-    red int NOT NULL,
-    green int NOT NULL,
-    blue int NOT NULL,
+    red INT NOT NULL,
+    green INT NOT NULL,
+    blue INT NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
     deleted_at TIMESTAMP, 
