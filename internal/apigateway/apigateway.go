@@ -136,120 +136,120 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		interactionsGroup.PATCH("/:interaction_id", g.interactionsClient.PatchInteraction)
 		interactionsGroup.DELETE("/:interaction_id", g.interactionsClient.DeleteInteraction)
 		interactionsGroup.GET("/:interaction_id/details", g.interactionsClient.GetInteractionDetails)
-	}
 
-	keypadGroup := v1.Group("/keypad")
-	{
-		conditionsGroup := keypadGroup.Group("/condition")
+		keypadGroup := interactionsGroup.Group("/keypad")
 		{
-			conditionsGroup.POST("", g.interactionsClient.CreateKeypadCondition)
-			conditionsGroup.GET("/:keypad_condition_id", g.interactionsClient.GetKeypadCondition)
-			conditionsGroup.PUT("/:keypad_condition_id", g.interactionsClient.UpdateKeypadCondition)
-			conditionsGroup.PATCH("/:keypad_condition_id", g.interactionsClient.PatchKeypadCondition)
-			conditionsGroup.DELETE("/:keypad_condition_id", g.interactionsClient.DeleteKeypadCondition)
+			conditionsGroup := keypadGroup.Group("/condition")
+			{
+				conditionsGroup.POST("", g.interactionsClient.CreateKeypadCondition)
+				conditionsGroup.GET("/:keypad_condition_id", g.interactionsClient.GetKeypadCondition)
+				conditionsGroup.PUT("/:keypad_condition_id", g.interactionsClient.UpdateKeypadCondition)
+				conditionsGroup.PATCH("/:keypad_condition_id", g.interactionsClient.PatchKeypadCondition)
+				conditionsGroup.DELETE("/:keypad_condition_id", g.interactionsClient.DeleteKeypadCondition)
+			}
 		}
-	}
 
-	lampGroup := v1.Group("/lamp")
-	{
-		eventGroup := lampGroup.Group("/event")
+		lampGroup := interactionsGroup.Group("/lamp")
 		{
-			onGroup := eventGroup.Group("/on")
+			eventGroup := lampGroup.Group("/event")
 			{
-				onGroup.POST("", nil)
-				onGroup.GET("/:lamp_on_event_id", nil)
-				onGroup.PUT("/:lamp_on_event_id", nil)
-				onGroup.PATCH("/:lamp_on_event_id", nil)
-				onGroup.DELETE("/:lamp_on_event_id", nil)
-			}
-
-			offGroup := eventGroup.Group("/off")
-			{
-				offGroup.POST("", nil)
-				offGroup.GET("/:lamp_off_event_id", nil)
-				offGroup.PUT("/:lamp_off_event_id", nil)
-				offGroup.PATCH("/:lamp_off_event_id", nil)
-				offGroup.DELETE("/:lamp_off_event_id", nil)
-			}
-
-			toggleGroup := eventGroup.Group("/toggle")
-			{
-				toggleGroup.POST("", g.interactionsClient.CreateLampToggleEvent)
-				toggleGroup.GET("/:lamp_toggle_event_id", g.interactionsClient.GetLampToggleEvent)
-				toggleGroup.PUT("/:lamp_toggle_event_id", g.interactionsClient.UpdateLampToggleEvent)
-				toggleGroup.PATCH("/:lamp_toggle_event_id", g.interactionsClient.PatchLampToggleEvent)
-				toggleGroup.DELETE("/:lamp_toggle_event_id", g.interactionsClient.DeleteLampToggleEvent)
-			}
-
-			brightnessGroup := eventGroup.Group("/brightness")
-			{
-				brightnessGroup.POST("", nil)
-				brightnessGroup.GET("/:lamp_brightness_event_id", nil)
-				brightnessGroup.PUT("/:lamp_brightness_event_id", nil)
-				brightnessGroup.PATCH("/:lamp_brightness_event_id", nil)
-				brightnessGroup.DELETE("/:lamp_brightness_event_id", nil)
-
-				autoBrightnessGroup := eventGroup.Group("/auto")
+				onGroup := eventGroup.Group("/on")
 				{
-					onGroup := autoBrightnessGroup.Group("/on")
-					{
-						onGroup.POST("", nil)
-						onGroup.GET("/:lamp_auto_brightness_on_event_id", nil)
-						onGroup.PUT("/:lamp_auto_brightness_on_event_id", nil)
-						onGroup.PATCH("/:lamp_auto_brightness_on_event_id", nil)
-						onGroup.DELETE("/:lamp_auto_brightness_on_event_id", nil)
-					}
+					onGroup.POST("", nil)
+					onGroup.GET("/:lamp_on_event_id", nil)
+					onGroup.PUT("/:lamp_on_event_id", nil)
+					onGroup.PATCH("/:lamp_on_event_id", nil)
+					onGroup.DELETE("/:lamp_on_event_id", nil)
+				}
 
-					offGroup := autoBrightnessGroup.Group("/off")
-					{
-						offGroup.POST("", nil)
-						offGroup.GET("/:lamp_auto_brightness_off_event_id", nil)
-						offGroup.PUT("/:lamp_auto_brightness_off_event_id", nil)
-						offGroup.PATCH("/:lamp_auto_brightness_off_event_id", nil)
-						offGroup.DELETE("/:lamp_auto_brightness_off_event_id", nil)
-					}
+				offGroup := eventGroup.Group("/off")
+				{
+					offGroup.POST("", nil)
+					offGroup.GET("/:lamp_off_event_id", nil)
+					offGroup.PUT("/:lamp_off_event_id", nil)
+					offGroup.PATCH("/:lamp_off_event_id", nil)
+					offGroup.DELETE("/:lamp_off_event_id", nil)
+				}
 
-					toggleGroup := autoBrightnessGroup.Group("/toggle")
+				toggleGroup := eventGroup.Group("/toggle")
+				{
+					toggleGroup.POST("", g.interactionsClient.CreateLampToggleEvent)
+					toggleGroup.GET("/:lamp_toggle_event_id", g.interactionsClient.GetLampToggleEvent)
+					toggleGroup.PUT("/:lamp_toggle_event_id", g.interactionsClient.UpdateLampToggleEvent)
+					toggleGroup.PATCH("/:lamp_toggle_event_id", g.interactionsClient.PatchLampToggleEvent)
+					toggleGroup.DELETE("/:lamp_toggle_event_id", g.interactionsClient.DeleteLampToggleEvent)
+				}
+
+				brightnessGroup := eventGroup.Group("/brightness")
+				{
+					brightnessGroup.POST("", nil)
+					brightnessGroup.GET("/:lamp_brightness_event_id", nil)
+					brightnessGroup.PUT("/:lamp_brightness_event_id", nil)
+					brightnessGroup.PATCH("/:lamp_brightness_event_id", nil)
+					brightnessGroup.DELETE("/:lamp_brightness_event_id", nil)
+
+					autoBrightnessGroup := eventGroup.Group("/auto")
 					{
-						toggleGroup.POST("", nil)
-						toggleGroup.GET("/:lamp_auto_brightness_toggle_event_id", nil)
-						toggleGroup.PUT("/:lamp_auto_brightness_toggle_event_id", nil)
-						toggleGroup.PATCH("/:lamp_auto_brightness_toggle_event_id", nil)
-						toggleGroup.DELETE("/:lamp_auto_brightness_toggle_event_id", nil)
+						onGroup := autoBrightnessGroup.Group("/on")
+						{
+							onGroup.POST("", nil)
+							onGroup.GET("/:lamp_auto_brightness_on_event_id", nil)
+							onGroup.PUT("/:lamp_auto_brightness_on_event_id", nil)
+							onGroup.PATCH("/:lamp_auto_brightness_on_event_id", nil)
+							onGroup.DELETE("/:lamp_auto_brightness_on_event_id", nil)
+						}
+
+						offGroup := autoBrightnessGroup.Group("/off")
+						{
+							offGroup.POST("", nil)
+							offGroup.GET("/:lamp_auto_brightness_off_event_id", nil)
+							offGroup.PUT("/:lamp_auto_brightness_off_event_id", nil)
+							offGroup.PATCH("/:lamp_auto_brightness_off_event_id", nil)
+							offGroup.DELETE("/:lamp_auto_brightness_off_event_id", nil)
+						}
+
+						toggleGroup := autoBrightnessGroup.Group("/toggle")
+						{
+							toggleGroup.POST("", nil)
+							toggleGroup.GET("/:lamp_auto_brightness_toggle_event_id", nil)
+							toggleGroup.PUT("/:lamp_auto_brightness_toggle_event_id", nil)
+							toggleGroup.PATCH("/:lamp_auto_brightness_toggle_event_id", nil)
+							toggleGroup.DELETE("/:lamp_auto_brightness_toggle_event_id", nil)
+						}
 					}
 				}
-			}
 
-			colorGroup := eventGroup.Group("/color")
-			{
-				colorGroup.POST("", g.interactionsClient.CreateLampColorEvent)
-				colorGroup.GET("/:lamp_color_event_id", g.interactionsClient.GetLampColorEvent)
-				colorGroup.PUT("/:lamp_color_event_id", g.interactionsClient.UpdateLampColorEvent)
-				colorGroup.PATCH("/:lamp_color_event_id", g.interactionsClient.PatchLampColorEvent)
-				colorGroup.DELETE("/:lamp_color_event_id", g.interactionsClient.DeleteLampColorEvent)
-			}
+				colorGroup := eventGroup.Group("/color")
+				{
+					colorGroup.POST("", g.interactionsClient.CreateLampColorEvent)
+					colorGroup.GET("/:lamp_color_event_id", g.interactionsClient.GetLampColorEvent)
+					colorGroup.PUT("/:lamp_color_event_id", g.interactionsClient.UpdateLampColorEvent)
+					colorGroup.PATCH("/:lamp_color_event_id", g.interactionsClient.PatchLampColorEvent)
+					colorGroup.DELETE("/:lamp_color_event_id", g.interactionsClient.DeleteLampColorEvent)
+				}
 
-			pulseGroup := eventGroup.Group("/pulse")
-			{
-				pulseGroup.POST("", g.interactionsClient.CreateLampPulseEvent)
-				pulseGroup.GET("/:lamp_pulse_event_id", g.interactionsClient.GetLampPulseEvent)
-				pulseGroup.PUT("/:lamp_pulse_event_id", g.interactionsClient.UpdateLampPulseEvent)
-				pulseGroup.PATCH("/:lamp_pulse_event_id", g.interactionsClient.PatchLampPulseEvent)
-				pulseGroup.DELETE("/:lamp_pulse_event_id", g.interactionsClient.DeleteLampPulseEvent)
+				pulseGroup := eventGroup.Group("/pulse")
+				{
+					pulseGroup.POST("", g.interactionsClient.CreateLampPulseEvent)
+					pulseGroup.GET("/:lamp_pulse_event_id", g.interactionsClient.GetLampPulseEvent)
+					pulseGroup.PUT("/:lamp_pulse_event_id", g.interactionsClient.UpdateLampPulseEvent)
+					pulseGroup.PATCH("/:lamp_pulse_event_id", g.interactionsClient.PatchLampPulseEvent)
+					pulseGroup.DELETE("/:lamp_pulse_event_id", g.interactionsClient.DeleteLampPulseEvent)
+				}
 			}
 		}
-	}
 
-	interactGroup := v1.Group("/interact")
-	{
-
-		keypadConditionToLampEventGroup := interactGroup.Group("/keypad/lamp")
+		interactGroup := interactionsGroup.Group("/interact")
 		{
-			keypadConditionToLampEventGroup.POST("", g.interactionsClient.CreateKeypadConditionToLampEventInteraction)
-			keypadConditionToLampEventGroup.GET("/:keypad_to_lamp_id", g.interactionsClient.GetKeypadConditionToLampEventInteraction)
-			keypadConditionToLampEventGroup.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateKeypadConditionToLampEventInteraction)
-			keypadConditionToLampEventGroup.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchKeypadConditionToLampEventInteraction)
-			keypadConditionToLampEventGroup.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteKeypadConditionToLampEventInteraction)
+
+			keypadConditionToLampEventGroup := interactGroup.Group("/keypad/lamp")
+			{
+				keypadConditionToLampEventGroup.POST("", g.interactionsClient.CreateKeypadConditionToLampEventInteraction)
+				keypadConditionToLampEventGroup.GET("/:keypad_to_lamp_id", g.interactionsClient.GetKeypadConditionToLampEventInteraction)
+				keypadConditionToLampEventGroup.PUT("/:keypad_to_lamp_id", g.interactionsClient.UpdateKeypadConditionToLampEventInteraction)
+				keypadConditionToLampEventGroup.PATCH("/:keypad_to_lamp_id", g.interactionsClient.PatchKeypadConditionToLampEventInteraction)
+				keypadConditionToLampEventGroup.DELETE("/:keypad_to_lamp_id", g.interactionsClient.DeleteKeypadConditionToLampEventInteraction)
+			}
 		}
 	}
 
