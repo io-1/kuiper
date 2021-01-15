@@ -1,4 +1,4 @@
-package interactions
+package interactionsclient
 
 import (
 	"time"

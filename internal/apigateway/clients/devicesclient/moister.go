@@ -1,4 +1,4 @@
-package devices
+package devicesclient
 
 import (
 	"context"
@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc/status"
 
-	"github.com/io-1/kuiper/internal/apigateway/clients/devices/request"
-	"github.com/io-1/kuiper/internal/apigateway/clients/devices/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/devicesclient/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/devicesclient/response"
 
 	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
 )

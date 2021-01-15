@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/auth/request"
 	"github.com/io-1/kuiper/internal/apigateway/auth/response"
-	"github.com/io-1/kuiper/internal/apigateway/clients/users"
+	"github.com/io-1/kuiper/internal/apigateway/clients/usersclient"
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/utils"
 	"google.golang.org/grpc/status"
@@ -24,11 +24,11 @@ var (
 )
 
 type GinAuth struct {
-	usersClient    *users.UsersClient
+	usersClient    *usersclient.UsersClient
 	authMiddleware *jwt.GinJWTMiddleware
 }
 
-func NewGinAuth(u *users.UsersClient, logger logger.Logger) (*GinAuth, error) {
+func NewGinAuth(u *usersclient.UsersClient, logger logger.Logger) (*GinAuth, error) {
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "dev",
 		Key:         []byte("43deio1"),

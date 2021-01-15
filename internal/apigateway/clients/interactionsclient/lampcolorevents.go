@@ -1,4 +1,4 @@
-package interactions
+package interactionsclient
 
 import (
 	"context"
@@ -8,21 +8,18 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/gin-gonic/gin"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
-
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lampcolorevents/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lampcolorevents/response"
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 
-func (client InteractionsClient) CreateKeypadConditionToLampEventInteraction(c *gin.Context) {
+func (client InteractionsClient) CreateLampColorEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-
-		// FIXME: change to CreateKeypadConditionToLampEventInteractionRequest
-		req request.CreateKeypadConditionToLampEventRequest
-		res response.CreateKeypadConditionToLampEventResponse
+		req request.CreateLampColorEventRequest
+		res response.CreateLampColorEventResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -36,37 +33,39 @@ func (client InteractionsClient) CreateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	r, err := client.interactionsServiceClient.CreateKeypadConditionToLampEvent(ctx, &interactions_pb.CreateKeypadConditionToLampEventRequest{
-		InteractionID: req.InteractionID,
-		ConditionID:   req.ConditionID,
-		EventID:       req.EventID,
+	r, err := client.interactionsServiceClient.CreateLampColorEvent(ctx, &interactions_pb.CreateLampColorEventRequest{
+		Mac:   req.Mac,
+		Red:   *req.Red,
+		Green: *req.Green,
+		Blue:  *req.Blue,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	res = response.CreateKeypadConditionToLampEventResponse{
-		ID:            r.ID,
-		InteractionID: r.InteractionID,
-		ConditionID:   r.ConditionID,
-		EventID:       r.EventID,
+	res = response.CreateLampColorEventResponse{
+		ID:    r.ID,
+		Mac:   r.Mac,
+		Red:   r.Red,
+		Green: r.Green,
+		Blue:  r.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) GetKeypadConditionToLampEventInteraction(c *gin.Context) {
+func (client InteractionsClient) GetLampColorEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.GetKeypadConditionToLampEventRequest
-		res           response.GetKeypadConditionToLampEventResponse
+		req           request.GetLampColorEventRequest
+		res           response.GetLampColorEventResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("keypad_to_lamp_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -74,7 +73,7 @@ func (client InteractionsClient) GetKeypadConditionToLampEventInteraction(c *gin
 		return
 	}
 
-	r, err := client.interactionsServiceClient.GetKeypadConditionToLampEvent(ctx, &interactions_pb.GetKeypadConditionToLampEventRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetLampColorEvent(ctx, &interactions_pb.GetLampColorEventRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -99,23 +98,24 @@ func (client InteractionsClient) GetKeypadConditionToLampEventInteraction(c *gin
 		return
 	}
 
-	res = response.GetKeypadConditionToLampEventResponse{
-		ID:            r.ID,
-		InteractionID: r.InteractionID,
-		ConditionID:   r.ConditionID,
-		EventID:       r.EventID,
+	res = response.GetLampColorEventResponse{
+		ID:    r.ID,
+		Mac:   r.Mac,
+		Red:   r.Red,
+		Green: r.Green,
+		Blue:  r.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) UpdateKeypadConditionToLampEventInteraction(c *gin.Context) {
+func (client InteractionsClient) UpdateLampColorEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.UpdateKeypadConditionToLampEventRequest
-		res           response.UpdateKeypadConditionToLampEventResponse
+		req           request.UpdateLampColorEventRequest
+		res           response.UpdateLampColorEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -124,7 +124,7 @@ func (client InteractionsClient) UpdateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	id := c.Params.ByName("keypad_to_lamp_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -132,11 +132,12 @@ func (client InteractionsClient) UpdateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	r, err := client.interactionsServiceClient.UpdateKeypadConditionToLampEvent(ctx, &interactions_pb.UpdateKeypadConditionToLampEventRequest{
-		ID:            id,
-		InteractionID: req.InteractionID,
-		ConditionID:   req.ConditionID,
-		EventID:       req.EventID,
+	r, err := client.interactionsServiceClient.UpdateLampColorEvent(ctx, &interactions_pb.UpdateLampColorEventRequest{
+		ID:    id,
+		Mac:   req.Mac,
+		Red:   *req.Red,
+		Green: *req.Green,
+		Blue:  *req.Blue,
 	})
 
 	if err != nil {
@@ -163,23 +164,24 @@ func (client InteractionsClient) UpdateKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	res = response.UpdateKeypadConditionToLampEventResponse{
-		ID:            r.ID,
-		InteractionID: r.InteractionID,
-		ConditionID:   r.ConditionID,
-		EventID:       r.EventID,
+	res = response.UpdateLampColorEventResponse{
+		ID:    r.ID,
+		Mac:   r.Mac,
+		Red:   r.Red,
+		Green: r.Green,
+		Blue:  r.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *gin.Context) {
+func (client InteractionsClient) PatchLampColorEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.PatchKeypadConditionToLampEventRequest
-		res           response.PatchKeypadConditionToLampEventResponse
+		req           request.PatchLampColorEventRequest
+		res           response.PatchLampColorEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -188,7 +190,7 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 		return
 	}
 
-	id := c.Params.ByName("keypad_to_lamp_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -197,7 +199,7 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 	}
 
 	// get the user
-	r, err := client.interactionsServiceClient.GetKeypadConditionToLampEvent(ctx, &interactions_pb.GetKeypadConditionToLampEventRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetLampColorEvent(ctx, &interactions_pb.GetLampColorEventRequest{ID: id})
 
 	if err != nil {
 		st, ok := status.FromError(err)
@@ -223,24 +225,30 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 		return
 	}
 
-	if req.InteractionID == "" {
-		req.InteractionID = r.InteractionID
+	if req.Mac == "" {
+		req.Mac = r.Mac
 	}
 
-	if req.ConditionID == "" {
-		req.ConditionID = r.ConditionID
-	}
+	// FIXME: not sure how to fix these
+	// if req.Red == nil {
+	// 	req.Red = r.Red
+	// }
 
-	if req.EventID == "" {
-		req.EventID = r.EventID
-	}
+	// if req.Green == "" {
+	// 	req.Green = r.Green
+	// }
+
+	// if req.Blue == "" {
+	// 	req.Blue = r.Blue
+	// }
 
 	// save the request difference
-	re, err := client.interactionsServiceClient.UpdateKeypadConditionToLampEvent(ctx, &interactions_pb.UpdateKeypadConditionToLampEventRequest{
-		ID:            id,
-		InteractionID: req.InteractionID,
-		ConditionID:   req.ConditionID,
-		EventID:       req.EventID,
+	re, err := client.interactionsServiceClient.UpdateLampColorEvent(ctx, &interactions_pb.UpdateLampColorEventRequest{
+		ID:    id,
+		Mac:   req.Mac,
+		Red:   *req.Red,
+		Green: *req.Green,
+		Blue:  *req.Blue,
 	})
 
 	if err != nil {
@@ -257,27 +265,28 @@ func (client InteractionsClient) PatchKeypadConditionToLampEventInteraction(c *g
 		return
 	}
 
-	res = response.PatchKeypadConditionToLampEventResponse{
-		ID:            re.ID,
-		InteractionID: re.InteractionID,
-		ConditionID:   re.ConditionID,
-		EventID:       re.EventID,
+	res = response.PatchLampColorEventResponse{
+		ID:    re.ID,
+		Mac:   re.Mac,
+		Red:   re.Red,
+		Green: re.Green,
+		Blue:  re.Blue,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) DeleteKeypadConditionToLampEventInteraction(c *gin.Context) {
+func (client InteractionsClient) DeleteLampColorEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.DeleteKeypadConditionToLampEventRequest
-		res           response.DeleteKeypadConditionToLampEventResponse
+		req           request.DeleteLampColorEventRequest
+		res           response.DeleteLampColorEventResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("keypad_to_lamp_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -285,7 +294,7 @@ func (client InteractionsClient) DeleteKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	r, err := client.interactionsServiceClient.DeleteKeypadConditionToLampEvent(ctx, &interactions_pb.DeleteKeypadConditionToLampEventRequest{
+	r, err := client.interactionsServiceClient.DeleteLampColorEvent(ctx, &interactions_pb.DeleteLampColorEventRequest{
 		ID: id,
 	})
 
@@ -313,7 +322,7 @@ func (client InteractionsClient) DeleteKeypadConditionToLampEventInteraction(c *
 		return
 	}
 
-	res = response.DeleteKeypadConditionToLampEventResponse{
+	res = response.DeleteLampColorEventResponse{
 		ID: r.ID,
 	}
 

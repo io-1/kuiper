@@ -7,11 +7,12 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 
 	"github.com/io-1/kuiper/internal/apigateway/auth/ginauth"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions"
+
+	"github.com/io-1/kuiper/internal/apigateway/clients/devicesclient"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient"
+	"github.com/io-1/kuiper/internal/apigateway/clients/usersclient"
 
 	jwt "github.com/appleboy/gin-jwt"
-	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
-	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
 )
 
 const (
@@ -23,12 +24,12 @@ type APIGateway struct {
 	version            string
 	build              string
 	ginAuth            *ginauth.GinAuth
-	devicesClient      *devices.DevicesClient
-	usersClient        *users.UsersClient
-	interactionsClient *interactions.InteractionsClient
+	devicesClient      *devicesclient.DevicesClient
+	usersClient        *usersclient.UsersClient
+	interactionsClient *interactionsclient.InteractionsClient
 }
 
-func NewAPIGateway(env, version, build string, ginAuth *ginauth.GinAuth, devicesClient *devices.DevicesClient, usersClient *users.UsersClient, interactionsClient *interactions.InteractionsClient) *APIGateway {
+func NewAPIGateway(env, version, build string, ginAuth *ginauth.GinAuth, devicesClient *devicesclient.DevicesClient, usersClient *usersclient.UsersClient, interactionsClient *interactionsclient.InteractionsClient) *APIGateway {
 	return &APIGateway{
 		env:                env,
 		version:            version,

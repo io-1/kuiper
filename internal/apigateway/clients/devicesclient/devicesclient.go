@@ -1,4 +1,4 @@
-package devices
+package devicesclient
 
 import (
 	"time"

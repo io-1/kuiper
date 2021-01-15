@@ -1,24 +1,60 @@
-package interactions
+package usersclient
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
+	"time"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/status"
 
 	"github.com/gin-gonic/gin"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
-	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
-	"google.golang.org/grpc/status"
+	"github.com/io-1/kuiper/internal/apigateway/clients/usersclient/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/usersclient/response"
+	"github.com/io-1/kuiper/internal/logger"
+
+	users_pb "github.com/io-1/kuiper/internal/pb/users"
 )
 
-func (client InteractionsClient) CreateLampEvent(c *gin.Context) {
+const (
+	FIVE_MINUTES = 5 * time.Minute
+)
+
+type UsersClient struct {
+	logger      logger.Logger
+	usersClient users_pb.UsersServiceClient
+}
+
+func NewUsersClient(serverEnv string, logger logger.Logger) (*UsersClient, error) {
+	conn, err := grpc.Dial(serverEnv, grpc.WithInsecure())
+	if err != nil {
+		return nil, err
+	}
+
+	client := &UsersClient{
+		usersClient: users_pb.NewUsersServiceClient(conn),
+	}
+	return client, nil
+}
+
+func NewUsersClientWithMock(usersClient users_pb.UsersServiceClient, logger logger.Logger) *UsersClient {
+	client := &UsersClient{
+		logger:      logger,
+		usersClient: usersClient,
+	}
+	return client
+}
+
+// Create User
+func (client *UsersClient) CreateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req request.CreateLampEventRequest
-		res response.CreateLampEventResponse
+		req request.CreateUserRequest
+		res response.CreateUserResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -32,41 +68,39 @@ func (client InteractionsClient) CreateLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.CreateLampEvent(ctx, &interactions_pb.CreateLampEventRequest{
-		Mac:       req.Mac,
-		EventType: req.EventType,
-		Red:       *req.Red,
-		Green:     *req.Green,
-		Blue:      *req.Blue,
+	r, err := client.usersClient.CreateUser(ctx, &users_pb.CreateUserRequest{
+		Username: req.Username,
+		Password: req.Password,
+		Name:     req.Name,
+		Email:    req.Email,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	res = response.CreateLampEventResponse{
-		ID:        r.ID,
-		Mac:       r.Mac,
-		EventType: r.EventType,
-		Red:       r.Red,
-		Green:     r.Green,
-		Blue:      r.Blue,
+	res = response.CreateUserResponse{
+		ID:       r.ID,
+		Username: r.Username,
+		Name:     r.Name,
+		Email:    r.Email,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) GetLampEvent(c *gin.Context) {
+// Get a user
+func (client *UsersClient) GetUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.GetLampEventRequest
-		res           response.GetLampEventResponse
+		req           request.GetUserRequest
+		res           response.GetUserResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("user_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -74,7 +108,7 @@ func (client InteractionsClient) GetLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.GetLampEvent(ctx, &interactions_pb.GetLampEventRequest{ID: id})
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -99,25 +133,52 @@ func (client InteractionsClient) GetLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.GetLampEventResponse{
-		ID:        r.ID,
-		Mac:       r.Mac,
-		EventType: r.EventType,
-		Red:       r.Red,
-		Green:     r.Green,
-		Blue:      r.Blue,
+	res = response.GetUserResponse{
+		ID:       r.ID,
+		Username: r.Username,
+		Name:     r.Name,
+		Email:    r.Email,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
+func (client *UsersClient) GetUserByUsername(username string) (*response.GetUserByUsernameResponse, error) {
+	var (
+		req request.GetUserByUsernameRequest
+		res *response.GetUserByUsernameResponse
+		ctx = context.Background()
+	)
+
+	if validationErrors := req.Validate(username); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		return &response.GetUserByUsernameResponse{}, errors.New(fmt.Sprintf("%v", err))
+	}
+
+	r, err := client.usersClient.GetUserByUsername(ctx, &users_pb.GetUserByUsernameRequest{Username: username})
+	if err != nil {
+		return &response.GetUserByUsernameResponse{}, err
+	}
+
+	res = &response.GetUserByUsernameResponse{
+		ID:       r.ID,
+		Username: r.Username,
+		Password: r.Password,
+		Name:     r.Name,
+		Email:    r.Email,
+	}
+
+	return res, nil
+}
+
+// Update User
+func (client *UsersClient) UpdateUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.UpdateLampEventRequest
-		res           response.UpdateLampEventResponse
+		req           request.UpdateUserRequest
+		res           response.UpdateUserResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -126,7 +187,7 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("user_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -134,13 +195,11 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
-		ID:        id,
-		Mac:       req.Mac,
-		EventType: req.EventType,
-		Red:       *req.Red,
-		Green:     *req.Green,
-		Blue:      *req.Blue,
+	r, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
+		ID:       id,
+		Username: req.Username,
+		Name:     req.Name,
+		Email:    req.Email,
 	})
 
 	if err != nil {
@@ -167,25 +226,24 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.UpdateLampEventResponse{
-		ID:        r.ID,
-		Mac:       r.Mac,
-		EventType: r.EventType,
-		Red:       r.Red,
-		Green:     r.Green,
-		Blue:      r.Blue,
+	res = response.UpdateUserResponse{
+		ID:       r.ID,
+		Username: r.Username,
+		Name:     r.Name,
+		Email:    r.Email,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
+// Patch a user
+func (client *UsersClient) PatchUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.PatchLampEventRequest
-		res           response.PatchLampEventResponse
+		req           request.PatchUserRequest
+		res           response.PatchUserResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -194,7 +252,7 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("user_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -203,7 +261,7 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 	}
 
 	// get the user
-	r, err := client.interactionsServiceClient.GetLampEvent(ctx, &interactions_pb.GetLampEventRequest{ID: id})
+	r, err := client.usersClient.GetUser(ctx, &users_pb.GetUserRequest{ID: id})
 
 	if err != nil {
 		st, ok := status.FromError(err)
@@ -229,35 +287,25 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		return
 	}
 
-	if req.Mac == "" {
-		req.Mac = r.Mac
+	// use the difference
+	if req.Username == "" {
+		req.Username = r.Username
 	}
 
-	if req.EventType == "" {
-		req.EventType = r.EventType
+	if req.Name == "" {
+		req.Name = r.Name
 	}
 
-	// FIXME: not sure how to fix these
-	// if req.Red == nil {
-	// 	req.Red = r.Red
-	// }
-
-	// if req.Green == "" {
-	// 	req.Green = r.Green
-	// }
-
-	// if req.Blue == "" {
-	// 	req.Blue = r.Blue
-	// }
+	if req.Email == "" {
+		req.Email = r.Email
+	}
 
 	// save the request difference
-	re, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
-		ID:        id,
-		Mac:       req.Mac,
-		EventType: req.EventType,
-		Red:       *req.Red,
-		Green:     *req.Green,
-		Blue:      *req.Blue,
+	re, err := client.usersClient.UpdateUser(ctx, &users_pb.UpdateUserRequest{
+		ID:       id,
+		Username: req.Username,
+		Name:     req.Name,
+		Email:    req.Email,
 	})
 
 	if err != nil {
@@ -274,29 +322,28 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.PatchLampEventResponse{
-		ID:        re.ID,
-		Mac:       re.Mac,
-		EventType: re.EventType,
-		Red:       re.Red,
-		Green:     re.Green,
-		Blue:      re.Blue,
+	res = response.PatchUserResponse{
+		ID:       re.ID,
+		Username: re.Username,
+		Name:     re.Name,
+		Email:    re.Email,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
+// Delete User
+func (client *UsersClient) DeleteUser(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.DeleteLampEventRequest
-		res           response.DeleteLampEventResponse
+		req           request.DeleteUserRequest
+		res           response.DeleteUserResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("user_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -304,7 +351,7 @@ func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.DeleteLampEvent(ctx, &interactions_pb.DeleteLampEventRequest{
+	r, err := client.usersClient.DeleteUser(ctx, &users_pb.DeleteUserRequest{
 		ID: id,
 	})
 
@@ -332,7 +379,7 @@ func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.DeleteLampEventResponse{
+	res = response.DeleteUserResponse{
 		ID: r.ID,
 	}
 

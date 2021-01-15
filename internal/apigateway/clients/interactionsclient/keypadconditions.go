@@ -1,4 +1,4 @@
-package interactions
+package interactionsclient
 
 import (
 	"context"
@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc/status"
 
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/request"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/keypadconditions/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/keypadconditions/response"
 	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 

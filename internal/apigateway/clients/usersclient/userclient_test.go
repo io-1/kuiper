@@ -1,6 +1,6 @@
 // +build unit,!integration
 
-package users
+package usersclient
 
 import (
 	"fmt"

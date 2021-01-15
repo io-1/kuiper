@@ -1,6 +1,6 @@
 // +build unit,!integration
 
-package devices
+package devicesclient
 
 import (
 	"fmt"
