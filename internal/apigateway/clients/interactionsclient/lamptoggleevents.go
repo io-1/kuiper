@@ -11,7 +11,7 @@ import (
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamptoggleevents/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamptoggleevents/response"
 
-	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
 )
 
 func (client InteractionsClient) CreateLampToggleEvent(c *gin.Context) {

@@ -15,7 +15,7 @@ import (
 	"github.com/io-1/kuiper/internal/apigateway/clients/usersclient/response"
 	"github.com/io-1/kuiper/internal/logger"
 
-	users_pb "github.com/io-1/kuiper/internal/pb/users"
+	users_pb "github.com/io-1/kuiper/pkg/pb/users"
 )
 
 const (

@@ -12,7 +12,7 @@ import (
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/interactions/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/interactions/response"
 
-	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
 )
 
 const (

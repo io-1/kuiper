@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	lamp_events "github.com/io-1/kuiper/internal/events/lamp"
-	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/pkg/pb/devices"
 )
 
 func (s *DevicesServer) SendLampDeviceOn(ctx context.Context, req *devices_pb.SendLampDeviceOnRequest) (*devices_pb.SendLampDeviceOnResponse, error) {

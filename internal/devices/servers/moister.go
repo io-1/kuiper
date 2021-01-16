@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/pkg/pb/devices"
 )
 
 func (s *DevicesServer) CreateBatCaveDeviceSetting(ctx context.Context, req *devices_pb.CreateBatCaveDeviceSettingRequest) (*devices_pb.CreateBatCaveDeviceSettingResponse, error) {

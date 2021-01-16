@@ -4,7 +4,7 @@ import (
 	"github.com/io-1/kuiper/internal/devices/persistence"
 	"github.com/io-1/kuiper/internal/devices/pubsub/publisher"
 
-	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/pkg/pb/devices"
 )
 
 type DevicesServer struct {

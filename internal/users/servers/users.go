@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	users_pb "github.com/io-1/kuiper/internal/pb/users"
+	users_pb "github.com/io-1/kuiper/pkg/pb/users"
 )
 
 type UsersServer struct {

@@ -239,5 +239,5 @@ var _SensorsService_serviceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "internal/pb/sensors/sensors.proto",
+	Metadata: "pkg/pb/sensors/sensors.proto",
 }

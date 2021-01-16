@@ -14,8 +14,8 @@ import (
 	"github.com/io-1/kuiper/internal/sensors/pubsub/mosquitto"
 	"google.golang.org/grpc"
 
-	sensors_pb "github.com/io-1/kuiper/internal/pb/sensors"
 	sensors "github.com/io-1/kuiper/internal/sensors/servers"
+	sensors_pb "github.com/io-1/kuiper/pkg/pb/sensors"
 )
 
 var (

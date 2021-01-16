@@ -482,5 +482,5 @@ var _DevicesService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/pb/devices/devices.proto",
+	Metadata: "pkg/pb/devices/devices.proto",
 }

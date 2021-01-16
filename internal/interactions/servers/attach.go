@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
 )
 
 func (s *InteractionsServer) CreateAttach(ctx context.Context, req *interactions_pb.CreateAttachRequest) (*interactions_pb.CreateAttachResponse, error) {

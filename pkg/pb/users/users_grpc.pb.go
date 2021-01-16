@@ -230,5 +230,5 @@ var _UsersService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/pb/users/users.proto",
+	Metadata: "pkg/pb/users/users.proto",
 }

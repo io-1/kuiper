@@ -6,7 +6,7 @@ import (
 	"github.com/io-1/kuiper/internal/logger"
 	"google.golang.org/grpc"
 
-	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
 )
 
 const (

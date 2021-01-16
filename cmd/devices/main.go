@@ -15,7 +15,7 @@ import (
 
 	mosquitto_publisher "github.com/io-1/kuiper/internal/devices/pubsub/publisher/mosquitto"
 	devices "github.com/io-1/kuiper/internal/devices/servers"
-	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/pkg/pb/devices"
 )
 
 const (

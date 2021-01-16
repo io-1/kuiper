@@ -11,8 +11,8 @@ import (
 	"github.com/io-1/kuiper/internal/users/persistence/mysql"
 	"google.golang.org/grpc"
 
-	users_pb "github.com/io-1/kuiper/internal/pb/users"
 	users "github.com/io-1/kuiper/internal/users/servers"
+	users_pb "github.com/io-1/kuiper/pkg/pb/users"
 )
 
 var (
