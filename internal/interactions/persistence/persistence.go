@@ -22,6 +22,16 @@ type Persistence interface {
 	UpdateLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 	DeleteLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 
+	CreateLampOnEvent(lampToggleEvent LampOnEvent) int64
+	GetLampOnEvent(id string) (recordNotFound bool, lampToggleEvent LampOnEvent)
+	UpdateLampOnEvent(lampToggleEvent LampOnEvent) (recordNotFound bool, err error)
+	DeleteLampOnEvent(lampToggleEvent LampOnEvent) (recordNotFound bool, err error)
+
+	CreateLampOffEvent(lampToggleEvent LampOffEvent) int64
+	GetLampOffEvent(id string) (recordNotFound bool, lampToggleEvent LampOffEvent)
+	UpdateLampOffEvent(lampToggleEvent LampOffEvent) (recordNotFound bool, err error)
+	DeleteLampOffEvent(lampToggleEvent LampOffEvent) (recordNotFound bool, err error)
+
 	CreateLampToggleEvent(lampToggleEvent LampToggleEvent) int64
 	GetLampToggleEvent(id string) (recordNotFound bool, lampToggleEvent LampToggleEvent)
 	UpdateLampToggleEvent(lampToggleEvent LampToggleEvent) (recordNotFound bool, err error)

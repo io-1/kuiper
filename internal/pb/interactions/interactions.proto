@@ -2,107 +2,16 @@ syntax = "proto3";
 
 option go_package = ".;interactions_pb";
 
+/* import "messages/interactions.proto"; */
+/* import "messages/keypad_conditions.proto"; */
+/* import "messages/keypad_conditions_to_lamp_events.proto"; */
+/* import "messages/lamp_on_events.proto"; */
+/* import "messages/lamp_off_events.proto"; */
+/* import "messages/lamp_toggle_events.proto"; */
+/* import "messages/lamp_color_events.proto"; */
+/* import "messages/lamp_pulse_events.proto"; */
+
 package interactions_pb;
-
-// interactions
-message CreateInteractionRequest {
-  string Name = 1;
-  string Description = 2;
-}
-
-message CreateInteractionResponse {
-  string ID = 1;
-  string Name = 2;
-  string Description = 3;
-}
-
-message GetInteractionRequest {
-  string ID = 1;
-}
-
-message GetInteractionResponse {
-  string ID = 1;
-  string Name = 2;
-  string Description = 3;
-}
-
-message GetInteractionDetailsRequest {
-  string ID = 1;
-}
-
-message GetInteractionDetailsResponse {
-  string KeypadConditionID = 1;
-  string KeypadConditionMac = 2;
-  int32 KeypadConditionButtonID = 3;
-  string LampEventType = 4;
-  string LampEventID = 5;
-  string LampEventMac = 6;
-  int32 LampEventRed = 7;
-  int32 LampEventGreen = 8;
-  int32 LampEventBlue = 9;
-}
-
-message UpdateInteractionRequest {
-  string ID = 1;
-  string Name = 2;
-  string Description = 3;
-}
-
-message UpdateInteractionResponse {
-  string ID = 1;
-  string Name = 2;
-  string Description = 3;
-}
-
-message DeleteInteractionRequest {
-  string ID = 1;
-}
-
-message DeleteInteractionResponse {
-  string ID = 1;
-}
-
-// conditions
-message CreateKeypadConditionRequest {
-  string Mac = 1;
-  int32 ButtonID = 2;
-}
-
-message CreateKeypadConditionResponse {
-  string ID = 1;
-  string Mac= 2;
-  int32 ButtonID = 3;
-}
-
-message GetKeypadConditionRequest {
-  string ID = 1;
-}
-
-message GetKeypadConditionResponse {
-  string ID = 1;
-  string Mac= 2;
-  int32 ButtonID = 333;
-}
-
-message UpdateKeypadConditionRequest {
-  string ID = 1;
-  string Mac= 2;
-  int32 ButtonID = 3;
-}
-
-message UpdateKeypadConditionResponse {
-  string ID = 1;
-  string Mac= 2;
-  int32 ButtonID = 3;
-}
-
-message DeleteKeypadConditionRequest {
-  string ID = 1;
-}
-
-message DeleteKeypadConditionResponse {
-  string ID = 1;
-}
 
 // events
 message CreateLampEventRequest {
@@ -161,44 +70,197 @@ message DeleteLampEventResponse {
   string ID = 1;
 }
 
-// lamp toggle events
-message CreateLampToggleEventRequest {
+// attach
+message CreateAttachRequest {
+  string InteractionID = 1;
+  string ConditionID = 2;
+  string EventID = 3;
+}
+
+message CreateAttachResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message GetAttachRequest {
+  string ID = 1;
+}
+
+message GetAttachResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateAttachRequest {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateAttachResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4; 
+}
+
+message DeleteAttachRequest {
+  string ID = 1;
+}
+
+message DeleteAttachResponse {
+  string ID = 1;
+}
+
+message CreateInteractionRequest {
+  string Name = 1;
+  string Description = 2;
+}
+
+message CreateInteractionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message GetInteractionRequest {
+  string ID = 1;
+}
+
+message GetInteractionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message GetInteractionDetailsRequest {
+  string ID = 1;
+}
+
+message GetInteractionDetailsResponse {
+  string KeypadConditionID = 1;
+  string KeypadConditionMac = 2;
+  int32 KeypadConditionButtonID = 3;
+  string LampEventType = 4;
+  string LampEventID = 5;
+  string LampEventMac = 6;
+  int32 LampEventRed = 7;
+  int32 LampEventGreen = 8;
+  int32 LampEventBlue = 9;
+}
+
+message UpdateInteractionRequest {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateInteractionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message DeleteInteractionRequest {
+  string ID = 1;
+}
+
+message DeleteInteractionResponse {
+  string ID = 1;
+}
+
+message CreateKeypadConditionRequest {
   string Mac = 1;
+  int32 ButtonID = 2;
 }
 
-message CreateLampToggleEventResponse {
+message CreateKeypadConditionResponse {
   string ID = 1;
-  string Mac = 2;
+  string Mac= 2;
+  int32 ButtonID = 3;
 }
 
-message GetLampToggleEventRequest {
-  string ID = 1;
-}
-
-message GetLampToggleEventResponse {
-  string ID = 1;
-  string Mac = 2;
-}
-
-message UpdateLampToggleEventRequest {
-  string ID = 1;
-  string Mac = 2;
-}
-
-message UpdateLampToggleEventResponse {
-  string ID = 1;
-  string Mac = 2;
-}
-
-message DeleteLampToggleEventRequest {
+message GetKeypadConditionRequest {
   string ID = 1;
 }
 
-message DeleteLampToggleEventResponse {
+message GetKeypadConditionResponse {
+  string ID = 1;
+  string Mac= 2;
+  int32 ButtonID = 333;
+}
+
+message UpdateKeypadConditionRequest {
+  string ID = 1;
+  string Mac= 2;
+  int32 ButtonID = 3;
+}
+
+message UpdateKeypadConditionResponse {
+  string ID = 1;
+  string Mac= 2;
+  int32 ButtonID = 3;
+}
+
+message DeleteKeypadConditionRequest {
   string ID = 1;
 }
 
-// lamp color events
+message DeleteKeypadConditionResponse {
+  string ID = 1;
+}
+
+message CreateKeypadConditionToLampEventRequest {
+  string InteractionID = 1;
+  string ConditionID = 2;
+  string EventID = 3;
+}
+
+message CreateKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message GetKeypadConditionToLampEventRequest {
+  string ID = 1;
+}
+
+message GetKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateKeypadConditionToLampEventRequest {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4; 
+}
+
+message DeleteKeypadConditionToLampEventRequest {
+  string ID = 1;
+}
+
+message DeleteKeypadConditionToLampEventResponse {
+  string ID = 1;
+}
+
 message CreateLampColorEventRequest {
   string Mac = 1;
   int32 Red = 2;
@@ -250,7 +312,78 @@ message DeleteLampColorEventResponse {
   string ID = 1;
 }
 
-// lamp pulse events
+message CreateLampOffEventRequest {
+  string Mac = 1;
+}
+
+message CreateLampOffEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampOffEventRequest {
+  string ID = 1;
+}
+
+message GetLampOffEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampOffEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampOffEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampOffEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampOffEventResponse {
+  string ID = 1;
+}
+
+message CreateLampOnEventRequest {
+  string Mac = 1;
+}
+
+message CreateLampOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampOnEventRequest {
+  string ID = 1;
+}
+
+message GetLampOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampOnEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampOnEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampOnEventResponse {
+  string ID = 1;
+}
+
 message CreateLampPulseEventRequest {
   string Mac = 1;
   int32 Red = 3;
@@ -302,100 +435,41 @@ message DeleteLampPulseEventResponse {
   string ID = 1;
 }
 
-// attach
-message CreateAttachRequest {
-  string InteractionID = 1;
-  string ConditionID = 2;
-  string EventID = 3;
+message CreateLampToggleEventRequest {
+  string Mac = 1;
 }
 
-message CreateAttachResponse {
+message CreateLampToggleEventResponse {
   string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4;
+  string Mac = 2;
 }
 
-message GetAttachRequest {
+message GetLampToggleEventRequest {
   string ID = 1;
 }
 
-message GetAttachResponse {
+message GetLampToggleEventResponse {
   string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4;
+  string Mac = 2;
 }
 
-message UpdateAttachRequest {
+message UpdateLampToggleEventRequest {
   string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4;
+  string Mac = 2;
 }
 
-message UpdateAttachResponse {
+message UpdateLampToggleEventResponse {
   string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4; 
+  string Mac = 2;
 }
 
-message DeleteAttachRequest {
+message DeleteLampToggleEventRequest {
   string ID = 1;
 }
 
-message DeleteAttachResponse {
+message DeleteLampToggleEventResponse {
   string ID = 1;
 }
-
-// keypad condition to lamp event
-message CreateKeypadConditionToLampEventRequest {
-  string InteractionID = 1;
-  string ConditionID = 2;
-  string EventID = 3;
-}
-
-message CreateKeypadConditionToLampEventResponse {
-  string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4;
-}
-
-message GetKeypadConditionToLampEventRequest {
-  string ID = 1;
-}
-
-message GetKeypadConditionToLampEventResponse {
-  string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4;
-}
-
-message UpdateKeypadConditionToLampEventRequest {
-  string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4;
-}
-
-message UpdateKeypadConditionToLampEventResponse {
-  string ID = 1;
-  string InteractionID = 2;
-  string ConditionID = 3;
-  string EventID = 4; 
-}
-
-message DeleteKeypadConditionToLampEventRequest {
-  string ID = 1;
-}
-
-message DeleteKeypadConditionToLampEventResponse {
-  string ID = 1;
-}
-
 
 service InteractionsService {
   
@@ -417,6 +491,18 @@ service InteractionsService {
   rpc GetLampEvent(GetLampEventRequest) returns (GetLampEventResponse);
   rpc UpdateLampEvent(UpdateLampEventRequest) returns (UpdateLampEventResponse);
   rpc DeleteLampEvent(DeleteLampEventRequest) returns (DeleteLampEventResponse);
+
+  // lamp on events
+  rpc CreateLampOnEvent(CreateLampOnEventRequest) returns (CreateLampOnEventResponse);
+  rpc GetLampOnEvent(GetLampOnEventRequest) returns (GetLampOnEventResponse);
+  rpc UpdateLampOnEvent(UpdateLampOnEventRequest) returns (UpdateLampOnEventResponse);
+  rpc DeleteLampOnEvent(DeleteLampOnEventRequest) returns (DeleteLampOnEventResponse);
+
+  // lamp off events
+  rpc CreateLampOffEvent(CreateLampOffEventRequest) returns (CreateLampOffEventResponse);
+  rpc GetLampOffEvent(GetLampOffEventRequest) returns (GetLampOffEventResponse);
+  rpc UpdateLampOffEvent(UpdateLampOffEventRequest) returns (UpdateLampOffEventResponse);
+  rpc DeleteLampOffEvent(DeleteLampOffEventRequest) returns (DeleteLampOffEventResponse);
 
   // lamp toggle events
   rpc CreateLampToggleEvent(CreateLampToggleEventRequest) returns (CreateLampToggleEventResponse);

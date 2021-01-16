@@ -5,20 +5,21 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/request"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/response"
-	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 	"google.golang.org/grpc/status"
+
+	"github.com/gin-gonic/gin"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamponevents/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamponevents/response"
+	interactions_pb "github.com/io-1/kuiper/internal/pb/interactions"
 )
 
-func (client InteractionsClient) CreateLampEvent(c *gin.Context) {
+func (client InteractionsClient) CreateLampOnEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req request.CreateLampEventRequest
-		res response.CreateLampEventResponse
+		req request.CreateLampOnEventRequest
+		res response.CreateLampOnEventResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -32,41 +33,33 @@ func (client InteractionsClient) CreateLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.CreateLampEvent(ctx, &interactions_pb.CreateLampEventRequest{
-		Mac:       req.Mac,
-		EventType: req.EventType,
-		Red:       *req.Red,
-		Green:     *req.Green,
-		Blue:      *req.Blue,
+	r, err := client.interactionsServiceClient.CreateLampOnEvent(ctx, &interactions_pb.CreateLampOnEventRequest{
+		Mac: req.Mac,
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	res = response.CreateLampEventResponse{
-		ID:        r.ID,
-		Mac:       r.Mac,
-		EventType: r.EventType,
-		Red:       r.Red,
-		Green:     r.Green,
-		Blue:      r.Blue,
+	res = response.CreateLampOnEventResponse{
+		ID:  r.ID,
+		Mac: r.Mac,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) GetLampEvent(c *gin.Context) {
+func (client InteractionsClient) GetLampOnEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.GetLampEventRequest
-		res           response.GetLampEventResponse
+		req           request.GetLampOnEventRequest
+		res           response.GetLampOnEventResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -74,7 +67,7 @@ func (client InteractionsClient) GetLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.GetLampEvent(ctx, &interactions_pb.GetLampEventRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetLampOnEvent(ctx, &interactions_pb.GetLampOnEventRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -99,25 +92,21 @@ func (client InteractionsClient) GetLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.GetLampEventResponse{
-		ID:        r.ID,
-		Mac:       r.Mac,
-		EventType: r.EventType,
-		Red:       r.Red,
-		Green:     r.Green,
-		Blue:      r.Blue,
+	res = response.GetLampOnEventResponse{
+		ID:  r.ID,
+		Mac: r.Mac,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
+func (client InteractionsClient) UpdateLampOnEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.UpdateLampEventRequest
-		res           response.UpdateLampEventResponse
+		req           request.UpdateLampOnEventRequest
+		res           response.UpdateLampOnEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -126,7 +115,7 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -134,13 +123,9 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
-		ID:        id,
-		Mac:       req.Mac,
-		EventType: req.EventType,
-		Red:       *req.Red,
-		Green:     *req.Green,
-		Blue:      *req.Blue,
+	r, err := client.interactionsServiceClient.UpdateLampOnEvent(ctx, &interactions_pb.UpdateLampOnEventRequest{
+		ID:  id,
+		Mac: req.Mac,
 	})
 
 	if err != nil {
@@ -167,25 +152,21 @@ func (client InteractionsClient) UpdateLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.UpdateLampEventResponse{
-		ID:        r.ID,
-		Mac:       r.Mac,
-		EventType: r.EventType,
-		Red:       r.Red,
-		Green:     r.Green,
-		Blue:      r.Blue,
+	res = response.UpdateLampOnEventResponse{
+		ID:  r.ID,
+		Mac: r.Mac,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
+func (client InteractionsClient) PatchLampOnEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.PatchLampEventRequest
-		res           response.PatchLampEventResponse
+		req           request.PatchLampOnEventRequest
+		res           response.PatchLampOnEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -194,7 +175,7 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -203,7 +184,7 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 	}
 
 	// get the user
-	r, err := client.interactionsServiceClient.GetLampEvent(ctx, &interactions_pb.GetLampEventRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetLampOnEvent(ctx, &interactions_pb.GetLampOnEventRequest{ID: id})
 
 	if err != nil {
 		st, ok := status.FromError(err)
@@ -233,31 +214,10 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		req.Mac = r.Mac
 	}
 
-	if req.EventType == "" {
-		req.EventType = r.EventType
-	}
-
-	// FIXME: not sure how to fix these
-	// if req.Red == nil {
-	// 	req.Red = r.Red
-	// }
-
-	// if req.Green == "" {
-	// 	req.Green = r.Green
-	// }
-
-	// if req.Blue == "" {
-	// 	req.Blue = r.Blue
-	// }
-
 	// save the request difference
-	re, err := client.interactionsServiceClient.UpdateLampEvent(ctx, &interactions_pb.UpdateLampEventRequest{
-		ID:        id,
-		Mac:       req.Mac,
-		EventType: req.EventType,
-		Red:       *req.Red,
-		Green:     *req.Green,
-		Blue:      *req.Blue,
+	re, err := client.interactionsServiceClient.UpdateLampOnEvent(ctx, &interactions_pb.UpdateLampOnEventRequest{
+		ID:  id,
+		Mac: req.Mac,
 	})
 
 	if err != nil {
@@ -274,29 +234,25 @@ func (client InteractionsClient) PatchLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.PatchLampEventResponse{
-		ID:        re.ID,
-		Mac:       re.Mac,
-		EventType: re.EventType,
-		Red:       re.Red,
-		Green:     re.Green,
-		Blue:      re.Blue,
+	res = response.PatchLampOnEventResponse{
+		ID:  re.ID,
+		Mac: re.Mac,
 	}
 
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
+func (client InteractionsClient) DeleteLampOnEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.DeleteLampEventRequest
-		res           response.DeleteLampEventResponse
+		req           request.DeleteLampOnEventRequest
+		res           response.DeleteLampOnEventResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("lamp_event_id")
+	id := c.Params.ByName("lamp_color_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -304,7 +260,7 @@ func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.DeleteLampEvent(ctx, &interactions_pb.DeleteLampEventRequest{
+	r, err := client.interactionsServiceClient.DeleteLampOnEvent(ctx, &interactions_pb.DeleteLampOnEventRequest{
 		ID: id,
 	})
 
@@ -332,7 +288,7 @@ func (client InteractionsClient) DeleteLampEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.DeleteLampEventResponse{
+	res = response.DeleteLampOnEventResponse{
 		ID: r.ID,
 	}
 

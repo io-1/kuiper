@@ -5,9 +5,11 @@ import (
 	"regexp"
 )
 
-type GetLampEventRequest struct{}
+type UpdateLampOnEventRequest struct {
+	Mac string `json:"mac" binding:"required"`
+}
 
-func (r GetLampEventRequest) Validate(id string) url.Values {
+func (r UpdateLampOnEventRequest) Validate(id string) url.Values {
 	errs := url.Values{}
 
 	regex, _ := regexp.Compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")

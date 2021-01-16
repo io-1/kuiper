@@ -9,14 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/io-1/kuiper/internal/apigateway"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactions"
 	"github.com/io-1/kuiper/internal/apigateway/serviceinfo"
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/logger/logruslogger"
 
 	ginauth "github.com/io-1/kuiper/internal/apigateway/auth/ginauth"
-	devices "github.com/io-1/kuiper/internal/apigateway/clients/devices"
-	users "github.com/io-1/kuiper/internal/apigateway/clients/users"
+	devices "github.com/io-1/kuiper/internal/apigateway/clients/devicesclient"
+	interactions "github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient"
+	users "github.com/io-1/kuiper/internal/apigateway/clients/usersclient"
 )
 
 var (

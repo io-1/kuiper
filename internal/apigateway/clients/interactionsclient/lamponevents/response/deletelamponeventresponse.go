@@ -1,5 +1,5 @@
 package response
 
-type DeleteLampEventResponse struct {
+type DeleteLampOnEventResponse struct {
 	ID string `json:"id"`
 }

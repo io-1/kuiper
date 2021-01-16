@@ -5,9 +5,9 @@ import (
 	"regexp"
 )
 
-type DeleteLampEventRequest struct{}
+type DeleteLampOnEventRequest struct{}
 
-func (r DeleteLampEventRequest) Validate(id string) url.Values {
+func (r DeleteLampOnEventRequest) Validate(id string) url.Values {
 	errs := url.Values{}
 
 	regex, _ := regexp.Compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")

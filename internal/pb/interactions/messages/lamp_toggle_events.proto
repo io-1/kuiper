@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateLampToggleEventRequest {
+  string Mac = 1;
+}
+
+message CreateLampToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampToggleEventRequest {
+  string ID = 1;
+}
+
+message GetLampToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampToggleEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampToggleEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampToggleEventResponse {
+  string ID = 1;
+}
+
+

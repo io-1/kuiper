@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateKeypadConditionToLampEventRequest {
+  string InteractionID = 1;
+  string ConditionID = 2;
+  string EventID = 3;
+}
+
+message CreateKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message GetKeypadConditionToLampEventRequest {
+  string ID = 1;
+}
+
+message GetKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateKeypadConditionToLampEventRequest {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateKeypadConditionToLampEventResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4; 
+}
+
+message DeleteKeypadConditionToLampEventRequest {
+  string ID = 1;
+}
+
+message DeleteKeypadConditionToLampEventResponse {
+  string ID = 1;
+}
+

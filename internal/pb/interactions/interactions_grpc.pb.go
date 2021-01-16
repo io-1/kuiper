@@ -33,6 +33,16 @@ type InteractionsServiceClient interface {
 	GetLampEvent(ctx context.Context, in *GetLampEventRequest, opts ...grpc.CallOption) (*GetLampEventResponse, error)
 	UpdateLampEvent(ctx context.Context, in *UpdateLampEventRequest, opts ...grpc.CallOption) (*UpdateLampEventResponse, error)
 	DeleteLampEvent(ctx context.Context, in *DeleteLampEventRequest, opts ...grpc.CallOption) (*DeleteLampEventResponse, error)
+	// lamp on events
+	CreateLampOnEvent(ctx context.Context, in *CreateLampOnEventRequest, opts ...grpc.CallOption) (*CreateLampOnEventResponse, error)
+	GetLampOnEvent(ctx context.Context, in *GetLampOnEventRequest, opts ...grpc.CallOption) (*GetLampOnEventResponse, error)
+	UpdateLampOnEvent(ctx context.Context, in *UpdateLampOnEventRequest, opts ...grpc.CallOption) (*UpdateLampOnEventResponse, error)
+	DeleteLampOnEvent(ctx context.Context, in *DeleteLampOnEventRequest, opts ...grpc.CallOption) (*DeleteLampOnEventResponse, error)
+	// lamp off events
+	CreateLampOffEvent(ctx context.Context, in *CreateLampOffEventRequest, opts ...grpc.CallOption) (*CreateLampOffEventResponse, error)
+	GetLampOffEvent(ctx context.Context, in *GetLampOffEventRequest, opts ...grpc.CallOption) (*GetLampOffEventResponse, error)
+	UpdateLampOffEvent(ctx context.Context, in *UpdateLampOffEventRequest, opts ...grpc.CallOption) (*UpdateLampOffEventResponse, error)
+	DeleteLampOffEvent(ctx context.Context, in *DeleteLampOffEventRequest, opts ...grpc.CallOption) (*DeleteLampOffEventResponse, error)
 	// lamp toggle events
 	CreateLampToggleEvent(ctx context.Context, in *CreateLampToggleEventRequest, opts ...grpc.CallOption) (*CreateLampToggleEventResponse, error)
 	GetLampToggleEvent(ctx context.Context, in *GetLampToggleEventRequest, opts ...grpc.CallOption) (*GetLampToggleEventResponse, error)
@@ -202,6 +212,78 @@ func (c *interactionsServiceClient) UpdateLampEvent(ctx context.Context, in *Upd
 func (c *interactionsServiceClient) DeleteLampEvent(ctx context.Context, in *DeleteLampEventRequest, opts ...grpc.CallOption) (*DeleteLampEventResponse, error) {
 	out := new(DeleteLampEventResponse)
 	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) CreateLampOnEvent(ctx context.Context, in *CreateLampOnEventRequest, opts ...grpc.CallOption) (*CreateLampOnEventResponse, error) {
+	out := new(CreateLampOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampOnEvent(ctx context.Context, in *GetLampOnEventRequest, opts ...grpc.CallOption) (*GetLampOnEventResponse, error) {
+	out := new(GetLampOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampOnEvent(ctx context.Context, in *UpdateLampOnEventRequest, opts ...grpc.CallOption) (*UpdateLampOnEventResponse, error) {
+	out := new(UpdateLampOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampOnEvent(ctx context.Context, in *DeleteLampOnEventRequest, opts ...grpc.CallOption) (*DeleteLampOnEventResponse, error) {
+	out := new(DeleteLampOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) CreateLampOffEvent(ctx context.Context, in *CreateLampOffEventRequest, opts ...grpc.CallOption) (*CreateLampOffEventResponse, error) {
+	out := new(CreateLampOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampOffEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampOffEvent(ctx context.Context, in *GetLampOffEventRequest, opts ...grpc.CallOption) (*GetLampOffEventResponse, error) {
+	out := new(GetLampOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampOffEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampOffEvent(ctx context.Context, in *UpdateLampOffEventRequest, opts ...grpc.CallOption) (*UpdateLampOffEventResponse, error) {
+	out := new(UpdateLampOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampOffEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampOffEvent(ctx context.Context, in *DeleteLampOffEventRequest, opts ...grpc.CallOption) (*DeleteLampOffEventResponse, error) {
+	out := new(DeleteLampOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampOffEvent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -408,6 +490,16 @@ type InteractionsServiceServer interface {
 	GetLampEvent(context.Context, *GetLampEventRequest) (*GetLampEventResponse, error)
 	UpdateLampEvent(context.Context, *UpdateLampEventRequest) (*UpdateLampEventResponse, error)
 	DeleteLampEvent(context.Context, *DeleteLampEventRequest) (*DeleteLampEventResponse, error)
+	// lamp on events
+	CreateLampOnEvent(context.Context, *CreateLampOnEventRequest) (*CreateLampOnEventResponse, error)
+	GetLampOnEvent(context.Context, *GetLampOnEventRequest) (*GetLampOnEventResponse, error)
+	UpdateLampOnEvent(context.Context, *UpdateLampOnEventRequest) (*UpdateLampOnEventResponse, error)
+	DeleteLampOnEvent(context.Context, *DeleteLampOnEventRequest) (*DeleteLampOnEventResponse, error)
+	// lamp off events
+	CreateLampOffEvent(context.Context, *CreateLampOffEventRequest) (*CreateLampOffEventResponse, error)
+	GetLampOffEvent(context.Context, *GetLampOffEventRequest) (*GetLampOffEventResponse, error)
+	UpdateLampOffEvent(context.Context, *UpdateLampOffEventRequest) (*UpdateLampOffEventResponse, error)
+	DeleteLampOffEvent(context.Context, *DeleteLampOffEventRequest) (*DeleteLampOffEventResponse, error)
 	// lamp toggle events
 	CreateLampToggleEvent(context.Context, *CreateLampToggleEventRequest) (*CreateLampToggleEventResponse, error)
 	GetLampToggleEvent(context.Context, *GetLampToggleEventRequest) (*GetLampToggleEventResponse, error)
@@ -478,6 +570,30 @@ func (*UnimplementedInteractionsServiceServer) UpdateLampEvent(context.Context, 
 }
 func (*UnimplementedInteractionsServiceServer) DeleteLampEvent(context.Context, *DeleteLampEventRequest) (*DeleteLampEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampOnEvent(context.Context, *CreateLampOnEventRequest) (*CreateLampOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampOnEvent(context.Context, *GetLampOnEventRequest) (*GetLampOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampOnEvent(context.Context, *UpdateLampOnEventRequest) (*UpdateLampOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampOnEvent(context.Context, *DeleteLampOnEventRequest) (*DeleteLampOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampOffEvent(context.Context, *CreateLampOffEventRequest) (*CreateLampOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampOffEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampOffEvent(context.Context, *GetLampOffEventRequest) (*GetLampOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampOffEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampOffEvent(context.Context, *UpdateLampOffEventRequest) (*UpdateLampOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampOffEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampOffEvent(context.Context, *DeleteLampOffEventRequest) (*DeleteLampOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampOffEvent not implemented")
 }
 func (*UnimplementedInteractionsServiceServer) CreateLampToggleEvent(context.Context, *CreateLampToggleEventRequest) (*CreateLampToggleEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLampToggleEvent not implemented")
@@ -778,6 +894,150 @@ func _InteractionsService_DeleteLampEvent_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(InteractionsServiceServer).DeleteLampEvent(ctx, req.(*DeleteLampEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_CreateLampOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampOnEvent(ctx, req.(*CreateLampOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampOnEvent(ctx, req.(*GetLampOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampOnEvent(ctx, req.(*UpdateLampOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampOnEvent(ctx, req.(*DeleteLampOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_CreateLampOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampOffEvent(ctx, req.(*CreateLampOffEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampOffEvent(ctx, req.(*GetLampOffEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampOffEvent(ctx, req.(*UpdateLampOffEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampOffEvent(ctx, req.(*DeleteLampOffEventRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1195,6 +1455,38 @@ var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _InteractionsService_DeleteLampEvent_Handler,
 		},
 		{
+			MethodName: "CreateLampOnEvent",
+			Handler:    _InteractionsService_CreateLampOnEvent_Handler,
+		},
+		{
+			MethodName: "GetLampOnEvent",
+			Handler:    _InteractionsService_GetLampOnEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampOnEvent",
+			Handler:    _InteractionsService_UpdateLampOnEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampOnEvent",
+			Handler:    _InteractionsService_DeleteLampOnEvent_Handler,
+		},
+		{
+			MethodName: "CreateLampOffEvent",
+			Handler:    _InteractionsService_CreateLampOffEvent_Handler,
+		},
+		{
+			MethodName: "GetLampOffEvent",
+			Handler:    _InteractionsService_GetLampOffEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampOffEvent",
+			Handler:    _InteractionsService_UpdateLampOffEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampOffEvent",
+			Handler:    _InteractionsService_DeleteLampOffEvent_Handler,
+		},
+		{
 			MethodName: "CreateLampToggleEvent",
 			Handler:    _InteractionsService_CreateLampToggleEvent_Handler,
 		},
@@ -1282,5 +1574,5 @@ var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "internal/pb/interactions/interactions.proto",
+	Metadata: "interactions.proto",
 }
