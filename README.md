@@ -10,5 +10,6 @@ Kuiper is a project built for the collection and interaction of IOT devices.
 2. Run `docker-compose up -d` to start the services.
 
 ## Docs
-1. Run `docker-compose up -d` to start the services.
-2. View the docs open [http://localhost:9090/docs](http://localhost:9090/docs).
+1. Clone this repository and `cd` into the directory.
+2. Run `docker-compose up -d` to start the services.
+3. View the docs open [http://localhost:9090/docs](http://localhost:9090/docs).
