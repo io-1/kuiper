@@ -149,9 +149,10 @@ message GetInteractionDetailsResponse {
   string LampEventType = 4;
   string LampEventID = 5;
   string LampEventMac = 6;
-  int32 LampEventRed = 7;
-  int32 LampEventGreen = 8;
-  int32 LampEventBlue = 9;
+  int32 LampEventBrightness = 7;
+  int32 LampEventRed = 8;
+  int32 LampEventGreen = 9;
+  int32 LampEventBlue = 10;
 }
 
 message UpdateInteractionRequest {
@@ -471,6 +472,150 @@ message DeleteLampToggleEventResponse {
   string ID = 1;
 }
 
+message CreateLampBrightnessEventRequest{
+  string Mac = 1;
+}
+
+message CreateLampBrightnessEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampBrightnessEventRequest {
+  string ID = 1;
+}
+
+message GetLampBrightnessEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampBrightnessEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampBrightnessEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampBrightnessEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampBrightnessEventResponse {
+  string ID = 1;
+}
+
+message CreateLampAutoBrightnessOnEventRequest{
+  string Mac = 1;
+}
+
+message CreateLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampAutoBrightnessOnEventRequest {
+  string ID = 1;
+}
+
+message GetLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessOnEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampAutoBrightnessOnEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+}
+
+message CreateLampAutoBrightnessOffEventRequest{
+  string Mac = 1;
+}
+
+message CreateLampAutoBrightnessOffEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampAutoBrightnessOffEventRequest {
+  string ID = 1;
+}
+
+message GetLampAutoBrightnessOffEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessOffEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessOffEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampAutoBrightnessOffEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampAutoBrightnessOffEventResponse {
+  string ID = 1;
+}
+
+message CreateLampAutoBrightnessToggleEventRequest{
+  string Mac = 1;
+}
+
+message CreateLampAutoBrightnessToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampAutoBrightnessToggleEventRequest {
+  string ID = 1;
+}
+
+message GetLampAutoBrightnessToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessToggleEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampAutoBrightnessToggleEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampAutoBrightnessToggleEventResponse {
+  string ID = 1;
+}
+
 service InteractionsService {
   
   // interactions
@@ -509,6 +654,30 @@ service InteractionsService {
   rpc GetLampToggleEvent(GetLampToggleEventRequest) returns (GetLampToggleEventResponse);
   rpc UpdateLampToggleEvent(UpdateLampToggleEventRequest) returns (UpdateLampToggleEventResponse);
   rpc DeleteLampToggleEvent(DeleteLampToggleEventRequest) returns (DeleteLampToggleEventResponse);
+
+  // lamp brightness events
+  rpc CreateLampBrightnessEvent(CreateLampBrightnessEventRequest) returns (CreateLampBrightnessEventResponse);
+  rpc GetLampBrightnessEvent(GetLampBrightnessEventRequest) returns (GetLampBrightnessEventResponse);
+  rpc UpdateLampBrightnessEvent(UpdateLampBrightnessEventRequest) returns (UpdateLampBrightnessEventResponse);
+  rpc DeleteLampBrightnessEvent(DeleteLampBrightnessEventRequest) returns (DeleteLampBrightnessEventResponse);
+
+  // lamp auto brightness on events
+  rpc CreateLampAutoBrightnessOnEvent(CreateLampAutoBrightnessOnEventRequest) returns (CreateLampAutoBrightnessOnEventResponse);
+  rpc GetLampAutoBrightnessOnEvent(GetLampAutoBrightnessOnEventRequest) returns (GetLampAutoBrightnessOnEventResponse);
+  rpc UpdateLampAutoBrightnessOnEvent(UpdateLampAutoBrightnessOnEventRequest) returns (UpdateLampAutoBrightnessOnEventResponse);
+  rpc DeleteLampAutoBrightnessOnEvent(DeleteLampAutoBrightnessOnEventRequest) returns (DeleteLampAutoBrightnessOnEventResponse);
+
+  // lamp auto brightness off events
+  rpc CreateLampAutoBrightnessOffEvent(CreateLampAutoBrightnessOffEventRequest) returns (CreateLampAutoBrightnessOffEventResponse);
+  rpc GetLampAutoBrightnessOffEvent(GetLampAutoBrightnessOffEventRequest) returns (GetLampAutoBrightnessOffEventResponse);
+  rpc UpdateLampAutoBrightnessOffEvent(UpdateLampAutoBrightnessOffEventRequest) returns (UpdateLampAutoBrightnessOffEventResponse);
+  rpc DeleteLampAutoBrightnessOffEvent(DeleteLampAutoBrightnessOffEventRequest) returns (DeleteLampAutoBrightnessOffEventResponse);
+
+  // lamp auto brightness toggle events
+  rpc CreateLampAutoBrightnessToggleEvent(CreateLampAutoBrightnessToggleEventRequest) returns (CreateLampAutoBrightnessToggleEventResponse);
+  rpc GetLampAutoBrightnessToggleEvent(GetLampAutoBrightnessToggleEventRequest) returns (GetLampAutoBrightnessToggleEventResponse);
+  rpc UpdateLampAutoBrightnessToggleEvent(UpdateLampAutoBrightnessToggleEventRequest) returns (UpdateLampAutoBrightnessToggleEventResponse);
+  rpc DeleteLampAutoBrightnessToggleEvent(DeleteLampAutoBrightnessToggleEventRequest) returns (DeleteLampAutoBrightnessToggleEventResponse);
 
   // lamp color events
   rpc CreateLampColorEvent(CreateLampColorEventRequest) returns (CreateLampColorEventResponse);

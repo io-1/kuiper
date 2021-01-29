@@ -14,7 +14,7 @@ func (p MysqlPersistence) GetLampColorEvent(id string) (recordNotFound bool, lam
 
 func (p MysqlPersistence) UpdateLampColorEvent(lampColorEvent persistence.LampColorEvent) (recordNotFound bool, err error) {
 	recordNotFound = p.db.Where("id=?", lampColorEvent.ID).First(&persistence.LampColorEvent{}).RecordNotFound()
-	err = p.db.Model(&lampColorEvent).Where("id=?", lampColorEvent.ID).Updates(persistence.LampColorEvent{Mac: lampColorEvent.Mac, Red: lampColorEvent.Red, Blue: lampColorEvent.Blue}).Error
+	err = p.db.Model(&lampColorEvent).Where("id=?", lampColorEvent.ID).Updates(persistence.LampColorEvent{Mac: lampColorEvent.Mac, Red: lampColorEvent.Red, Green: lampColorEvent.Green, Blue: lampColorEvent.Blue}).Error
 	return recordNotFound, err
 }
 

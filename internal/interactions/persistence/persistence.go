@@ -22,20 +22,40 @@ type Persistence interface {
 	UpdateLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 	DeleteLampEvent(lampEvent LampEvent) (recordNotFound bool, err error)
 
-	CreateLampOnEvent(lampToggleEvent LampOnEvent) int64
-	GetLampOnEvent(id string) (recordNotFound bool, lampToggleEvent LampOnEvent)
-	UpdateLampOnEvent(lampToggleEvent LampOnEvent) (recordNotFound bool, err error)
-	DeleteLampOnEvent(lampToggleEvent LampOnEvent) (recordNotFound bool, err error)
+	CreateLampOnEvent(lampOnEvent LampOnEvent) int64
+	GetLampOnEvent(id string) (recordNotFound bool, lampOnEvent LampOnEvent)
+	UpdateLampOnEvent(lampOnEvent LampOnEvent) (recordNotFound bool, err error)
+	DeleteLampOnEvent(lampOnEvent LampOnEvent) (recordNotFound bool, err error)
 
-	CreateLampOffEvent(lampToggleEvent LampOffEvent) int64
-	GetLampOffEvent(id string) (recordNotFound bool, lampToggleEvent LampOffEvent)
-	UpdateLampOffEvent(lampToggleEvent LampOffEvent) (recordNotFound bool, err error)
-	DeleteLampOffEvent(lampToggleEvent LampOffEvent) (recordNotFound bool, err error)
+	CreateLampOffEvent(lampOffEvent LampOffEvent) int64
+	GetLampOffEvent(id string) (recordNotFound bool, lampOffEvent LampOffEvent)
+	UpdateLampOffEvent(lampOffEvent LampOffEvent) (recordNotFound bool, err error)
+	DeleteLampOffEvent(lampOffEvent LampOffEvent) (recordNotFound bool, err error)
 
 	CreateLampToggleEvent(lampToggleEvent LampToggleEvent) int64
 	GetLampToggleEvent(id string) (recordNotFound bool, lampToggleEvent LampToggleEvent)
 	UpdateLampToggleEvent(lampToggleEvent LampToggleEvent) (recordNotFound bool, err error)
 	DeleteLampToggleEvent(lampToggleEvent LampToggleEvent) (recordNotFound bool, err error)
+
+	CreateLampBrightnessEvent(lampBrightnessEvent LampBrightnessEvent) int64
+	GetLampBrightnessEvent(id string) (recordNotFound bool, lampBrightnessEvent LampBrightnessEvent)
+	UpdateLampBrightnessEvent(lampBrightnessEvent LampBrightnessEvent) (recordNotFound bool, err error)
+	DeleteLampBrightnessEvent(lampBrightnessEvent LampBrightnessEvent) (recordNotFound bool, err error)
+
+	CreateLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent LampAutoBrightnessOnEvent) int64
+	GetLampAutoBrightnessOnEvent(id string) (recordNotFound bool, lampAutoBrightnessOnEvent LampAutoBrightnessOnEvent)
+	UpdateLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent LampAutoBrightnessOnEvent) (recordNotFound bool, err error)
+	DeleteLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent LampAutoBrightnessOnEvent) (recordNotFound bool, err error)
+
+	CreateLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent LampAutoBrightnessOffEvent) int64
+	GetLampAutoBrightnessOffEvent(id string) (recordNotFound bool, lampAutoBrightnessOffEvent LampAutoBrightnessOffEvent)
+	UpdateLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent LampAutoBrightnessOffEvent) (recordNotFound bool, err error)
+	DeleteLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent LampAutoBrightnessOffEvent) (recordNotFound bool, err error)
+
+	CreateLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent LampAutoBrightnessToggleEvent) int64
+	GetLampAutoBrightnessToggleEvent(id string) (recordNotFound bool, lampAutoBrightnessToggleEvent LampAutoBrightnessToggleEvent)
+	UpdateLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent LampAutoBrightnessToggleEvent) (recordNotFound bool, err error)
+	DeleteLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent LampAutoBrightnessToggleEvent) (recordNotFound bool, err error)
 
 	CreateLampColorEvent(lampColorEvent LampColorEvent) int64
 	GetLampColorEvent(id string) (recordNotFound bool, lampColorEvent LampColorEvent)

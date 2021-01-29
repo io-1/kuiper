@@ -14,7 +14,7 @@ func (p MysqlPersistence) GetLampPulseEvent(id string) (recordNotFound bool, lam
 
 func (p MysqlPersistence) UpdateLampPulseEvent(lampPulseEvent persistence.LampPulseEvent) (recordNotFound bool, err error) {
 	recordNotFound = p.db.Where("id=?", lampPulseEvent.ID).First(&persistence.LampPulseEvent{}).RecordNotFound()
-	err = p.db.Model(&lampPulseEvent).Where("id=?", lampPulseEvent.ID).Updates(persistence.LampPulseEvent{Mac: lampPulseEvent.Mac, Red: lampPulseEvent.Red, Blue: lampPulseEvent.Blue}).Error
+	err = p.db.Model(&lampPulseEvent).Where("id=?", lampPulseEvent.ID).Updates(persistence.LampPulseEvent{Mac: lampPulseEvent.Mac, Red: lampPulseEvent.Red, Green: lampPulseEvent.Green, Blue: lampPulseEvent.Blue}).Error
 	return recordNotFound, err
 }
 

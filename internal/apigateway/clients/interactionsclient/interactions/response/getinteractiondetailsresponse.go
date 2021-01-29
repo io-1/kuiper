@@ -25,7 +25,44 @@ type LampEvent struct {
 	Blue      int32  `json:"blue"`
 }
 
+type LampOnEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+}
+
+type LampOffEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+}
+
 type LampToggleEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+}
+
+type LampBrightnessEvent struct {
+	ID         string `json:"id"`
+	Mac        string `json:"mac"`
+	Brightness int32  `json:"brightness"`
+	EventType  string `json:"eventType"`
+}
+
+type LampAutoBrightnessOnEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+}
+
+type LampAutoBrightnessOffEvent struct {
+	ID        string `json:"id"`
+	Mac       string `json:"mac"`
+	EventType string `json:"eventType"`
+}
+
+type LampAutoBrightnessToggleEvent struct {
 	ID        string `json:"id"`
 	Mac       string `json:"mac"`
 	EventType string `json:"eventType"`

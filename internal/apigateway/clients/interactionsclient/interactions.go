@@ -16,9 +16,15 @@ import (
 )
 
 const (
-	LAMP_TOGGLE_EVENT = "toggle"
-	LAMP_COLOR_EVENT  = "color"
-	LAMP_PULSE_EVENT  = "pulse"
+	LAMP_ON_EVENT                     = "on"
+	LAMP_OFF_EVENT                    = "off"
+	LAMP_TOGGLE_EVENT                 = "toggle"
+	LAMP_BRIGHTNESS_EVENT             = "brightness"
+	LAMP_AUTO_BRIGHTNESS_ON_EVENT     = "auto-brightness-on"
+	LAMP_AUTO_BRIGHTNESS_OFF_EVENT    = "auto-brightness-off"
+	LAMP_AUTO_BRIGHTNESS_TOGGLE_EVENT = "auto-brightness-toggle"
+	LAMP_COLOR_EVENT                  = "color"
+	LAMP_PULSE_EVENT                  = "pulse"
 )
 
 func (client InteractionsClient) CreateInteraction(c *gin.Context) {
@@ -164,8 +170,45 @@ func (client InteractionsClient) GetInteractionDetails(c *gin.Context) {
 
 		var re response.KeypadConditionsToLampEventsInteraction
 		switch r.LampEventType {
+		case LAMP_ON_EVENT:
+			re.LampEvent = response.LampOnEvent{
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventType,
+			}
+		case LAMP_OFF_EVENT:
+			re.LampEvent = response.LampOffEvent{
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventType,
+			}
 		case LAMP_TOGGLE_EVENT:
 			re.LampEvent = response.LampToggleEvent{
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventType,
+			}
+		case LAMP_BRIGHTNESS_EVENT:
+			re.LampEvent = response.LampBrightnessEvent{
+				ID:         r.LampEventID,
+				Mac:        r.LampEventMac,
+				Brightness: r.LampEventBrightness,
+				EventType:  r.LampEventType,
+			}
+		case LAMP_AUTO_BRIGHTNESS_ON_EVENT:
+			re.LampEvent = response.LampAutoBrightnessOnEvent{
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventType,
+			}
+		case LAMP_AUTO_BRIGHTNESS_OFF_EVENT:
+			re.LampEvent = response.LampAutoBrightnessOffEvent{
+				ID:        r.LampEventID,
+				Mac:       r.LampEventMac,
+				EventType: r.LampEventType,
+			}
+		case LAMP_AUTO_BRIGHTNESS_TOGGLE_EVENT:
+			re.LampEvent = response.LampAutoBrightnessToggleEvent{
 				ID:        r.LampEventID,
 				Mac:       r.LampEventMac,
 				EventType: r.LampEventType,

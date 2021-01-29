@@ -286,17 +286,17 @@ func (mr *MockPersistenceMockRecorder) DeleteLampEvent(lampEvent interface{}) *g
 }
 
 // CreateLampOnEvent mocks base method.
-func (m *MockPersistence) CreateLampOnEvent(lampToggleEvent persistence.LampOnEvent) int64 {
+func (m *MockPersistence) CreateLampOnEvent(lampOnEvent persistence.LampOnEvent) int64 {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateLampOnEvent", lampToggleEvent)
+	ret := m.ctrl.Call(m, "CreateLampOnEvent", lampOnEvent)
 	ret0, _ := ret[0].(int64)
 	return ret0
 }
 
 // CreateLampOnEvent indicates an expected call of CreateLampOnEvent.
-func (mr *MockPersistenceMockRecorder) CreateLampOnEvent(lampToggleEvent interface{}) *gomock.Call {
+func (mr *MockPersistenceMockRecorder) CreateLampOnEvent(lampOnEvent interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampOnEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampOnEvent), lampToggleEvent)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampOnEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampOnEvent), lampOnEvent)
 }
 
 // GetLampOnEvent mocks base method.
@@ -315,47 +315,47 @@ func (mr *MockPersistenceMockRecorder) GetLampOnEvent(id interface{}) *gomock.Ca
 }
 
 // UpdateLampOnEvent mocks base method.
-func (m *MockPersistence) UpdateLampOnEvent(lampToggleEvent persistence.LampOnEvent) (bool, error) {
+func (m *MockPersistence) UpdateLampOnEvent(lampOnEvent persistence.LampOnEvent) (bool, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateLampOnEvent", lampToggleEvent)
+	ret := m.ctrl.Call(m, "UpdateLampOnEvent", lampOnEvent)
 	ret0, _ := ret[0].(bool)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // UpdateLampOnEvent indicates an expected call of UpdateLampOnEvent.
-func (mr *MockPersistenceMockRecorder) UpdateLampOnEvent(lampToggleEvent interface{}) *gomock.Call {
+func (mr *MockPersistenceMockRecorder) UpdateLampOnEvent(lampOnEvent interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampOnEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampOnEvent), lampToggleEvent)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampOnEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampOnEvent), lampOnEvent)
 }
 
 // DeleteLampOnEvent mocks base method.
-func (m *MockPersistence) DeleteLampOnEvent(lampToggleEvent persistence.LampOnEvent) (bool, error) {
+func (m *MockPersistence) DeleteLampOnEvent(lampOnEvent persistence.LampOnEvent) (bool, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteLampOnEvent", lampToggleEvent)
+	ret := m.ctrl.Call(m, "DeleteLampOnEvent", lampOnEvent)
 	ret0, _ := ret[0].(bool)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // DeleteLampOnEvent indicates an expected call of DeleteLampOnEvent.
-func (mr *MockPersistenceMockRecorder) DeleteLampOnEvent(lampToggleEvent interface{}) *gomock.Call {
+func (mr *MockPersistenceMockRecorder) DeleteLampOnEvent(lampOnEvent interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampOnEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampOnEvent), lampToggleEvent)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampOnEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampOnEvent), lampOnEvent)
 }
 
 // CreateLampOffEvent mocks base method.
-func (m *MockPersistence) CreateLampOffEvent(lampToggleEvent persistence.LampOffEvent) int64 {
+func (m *MockPersistence) CreateLampOffEvent(lampOffEvent persistence.LampOffEvent) int64 {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateLampOffEvent", lampToggleEvent)
+	ret := m.ctrl.Call(m, "CreateLampOffEvent", lampOffEvent)
 	ret0, _ := ret[0].(int64)
 	return ret0
 }
 
 // CreateLampOffEvent indicates an expected call of CreateLampOffEvent.
-func (mr *MockPersistenceMockRecorder) CreateLampOffEvent(lampToggleEvent interface{}) *gomock.Call {
+func (mr *MockPersistenceMockRecorder) CreateLampOffEvent(lampOffEvent interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampOffEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampOffEvent), lampToggleEvent)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampOffEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampOffEvent), lampOffEvent)
 }
 
 // GetLampOffEvent mocks base method.
@@ -374,33 +374,33 @@ func (mr *MockPersistenceMockRecorder) GetLampOffEvent(id interface{}) *gomock.C
 }
 
 // UpdateLampOffEvent mocks base method.
-func (m *MockPersistence) UpdateLampOffEvent(lampToggleEvent persistence.LampOffEvent) (bool, error) {
+func (m *MockPersistence) UpdateLampOffEvent(lampOffEvent persistence.LampOffEvent) (bool, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateLampOffEvent", lampToggleEvent)
+	ret := m.ctrl.Call(m, "UpdateLampOffEvent", lampOffEvent)
 	ret0, _ := ret[0].(bool)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // UpdateLampOffEvent indicates an expected call of UpdateLampOffEvent.
-func (mr *MockPersistenceMockRecorder) UpdateLampOffEvent(lampToggleEvent interface{}) *gomock.Call {
+func (mr *MockPersistenceMockRecorder) UpdateLampOffEvent(lampOffEvent interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampOffEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampOffEvent), lampToggleEvent)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampOffEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampOffEvent), lampOffEvent)
 }
 
 // DeleteLampOffEvent mocks base method.
-func (m *MockPersistence) DeleteLampOffEvent(lampToggleEvent persistence.LampOffEvent) (bool, error) {
+func (m *MockPersistence) DeleteLampOffEvent(lampOffEvent persistence.LampOffEvent) (bool, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteLampOffEvent", lampToggleEvent)
+	ret := m.ctrl.Call(m, "DeleteLampOffEvent", lampOffEvent)
 	ret0, _ := ret[0].(bool)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // DeleteLampOffEvent indicates an expected call of DeleteLampOffEvent.
-func (mr *MockPersistenceMockRecorder) DeleteLampOffEvent(lampToggleEvent interface{}) *gomock.Call {
+func (mr *MockPersistenceMockRecorder) DeleteLampOffEvent(lampOffEvent interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampOffEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampOffEvent), lampToggleEvent)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampOffEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampOffEvent), lampOffEvent)
 }
 
 // CreateLampToggleEvent mocks base method.
@@ -460,6 +460,242 @@ func (m *MockPersistence) DeleteLampToggleEvent(lampToggleEvent persistence.Lamp
 func (mr *MockPersistenceMockRecorder) DeleteLampToggleEvent(lampToggleEvent interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampToggleEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampToggleEvent), lampToggleEvent)
+}
+
+// CreateLampBrightnessEvent mocks base method.
+func (m *MockPersistence) CreateLampBrightnessEvent(lampBrightnessEvent persistence.LampBrightnessEvent) int64 {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateLampBrightnessEvent", lampBrightnessEvent)
+	ret0, _ := ret[0].(int64)
+	return ret0
+}
+
+// CreateLampBrightnessEvent indicates an expected call of CreateLampBrightnessEvent.
+func (mr *MockPersistenceMockRecorder) CreateLampBrightnessEvent(lampBrightnessEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampBrightnessEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampBrightnessEvent), lampBrightnessEvent)
+}
+
+// GetLampBrightnessEvent mocks base method.
+func (m *MockPersistence) GetLampBrightnessEvent(id string) (bool, persistence.LampBrightnessEvent) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLampBrightnessEvent", id)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.LampBrightnessEvent)
+	return ret0, ret1
+}
+
+// GetLampBrightnessEvent indicates an expected call of GetLampBrightnessEvent.
+func (mr *MockPersistenceMockRecorder) GetLampBrightnessEvent(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLampBrightnessEvent", reflect.TypeOf((*MockPersistence)(nil).GetLampBrightnessEvent), id)
+}
+
+// UpdateLampBrightnessEvent mocks base method.
+func (m *MockPersistence) UpdateLampBrightnessEvent(lampBrightnessEvent persistence.LampBrightnessEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateLampBrightnessEvent", lampBrightnessEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateLampBrightnessEvent indicates an expected call of UpdateLampBrightnessEvent.
+func (mr *MockPersistenceMockRecorder) UpdateLampBrightnessEvent(lampBrightnessEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampBrightnessEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampBrightnessEvent), lampBrightnessEvent)
+}
+
+// DeleteLampBrightnessEvent mocks base method.
+func (m *MockPersistence) DeleteLampBrightnessEvent(lampBrightnessEvent persistence.LampBrightnessEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteLampBrightnessEvent", lampBrightnessEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteLampBrightnessEvent indicates an expected call of DeleteLampBrightnessEvent.
+func (mr *MockPersistenceMockRecorder) DeleteLampBrightnessEvent(lampBrightnessEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampBrightnessEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampBrightnessEvent), lampBrightnessEvent)
+}
+
+// CreateLampAutoBrightnessOnEvent mocks base method.
+func (m *MockPersistence) CreateLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent persistence.LampAutoBrightnessOnEvent) int64 {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateLampAutoBrightnessOnEvent", lampAutoBrightnessOnEvent)
+	ret0, _ := ret[0].(int64)
+	return ret0
+}
+
+// CreateLampAutoBrightnessOnEvent indicates an expected call of CreateLampAutoBrightnessOnEvent.
+func (mr *MockPersistenceMockRecorder) CreateLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampAutoBrightnessOnEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampAutoBrightnessOnEvent), lampAutoBrightnessOnEvent)
+}
+
+// GetLampAutoBrightnessOnEvent mocks base method.
+func (m *MockPersistence) GetLampAutoBrightnessOnEvent(id string) (bool, persistence.LampAutoBrightnessOnEvent) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLampAutoBrightnessOnEvent", id)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.LampAutoBrightnessOnEvent)
+	return ret0, ret1
+}
+
+// GetLampAutoBrightnessOnEvent indicates an expected call of GetLampAutoBrightnessOnEvent.
+func (mr *MockPersistenceMockRecorder) GetLampAutoBrightnessOnEvent(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLampAutoBrightnessOnEvent", reflect.TypeOf((*MockPersistence)(nil).GetLampAutoBrightnessOnEvent), id)
+}
+
+// UpdateLampAutoBrightnessOnEvent mocks base method.
+func (m *MockPersistence) UpdateLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent persistence.LampAutoBrightnessOnEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateLampAutoBrightnessOnEvent", lampAutoBrightnessOnEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateLampAutoBrightnessOnEvent indicates an expected call of UpdateLampAutoBrightnessOnEvent.
+func (mr *MockPersistenceMockRecorder) UpdateLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampAutoBrightnessOnEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampAutoBrightnessOnEvent), lampAutoBrightnessOnEvent)
+}
+
+// DeleteLampAutoBrightnessOnEvent mocks base method.
+func (m *MockPersistence) DeleteLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent persistence.LampAutoBrightnessOnEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteLampAutoBrightnessOnEvent", lampAutoBrightnessOnEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteLampAutoBrightnessOnEvent indicates an expected call of DeleteLampAutoBrightnessOnEvent.
+func (mr *MockPersistenceMockRecorder) DeleteLampAutoBrightnessOnEvent(lampAutoBrightnessOnEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampAutoBrightnessOnEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampAutoBrightnessOnEvent), lampAutoBrightnessOnEvent)
+}
+
+// CreateLampAutoBrightnessOffEvent mocks base method.
+func (m *MockPersistence) CreateLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent persistence.LampAutoBrightnessOffEvent) int64 {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateLampAutoBrightnessOffEvent", lampAutoBrightnessOffEvent)
+	ret0, _ := ret[0].(int64)
+	return ret0
+}
+
+// CreateLampAutoBrightnessOffEvent indicates an expected call of CreateLampAutoBrightnessOffEvent.
+func (mr *MockPersistenceMockRecorder) CreateLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampAutoBrightnessOffEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampAutoBrightnessOffEvent), lampAutoBrightnessOffEvent)
+}
+
+// GetLampAutoBrightnessOffEvent mocks base method.
+func (m *MockPersistence) GetLampAutoBrightnessOffEvent(id string) (bool, persistence.LampAutoBrightnessOffEvent) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLampAutoBrightnessOffEvent", id)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.LampAutoBrightnessOffEvent)
+	return ret0, ret1
+}
+
+// GetLampAutoBrightnessOffEvent indicates an expected call of GetLampAutoBrightnessOffEvent.
+func (mr *MockPersistenceMockRecorder) GetLampAutoBrightnessOffEvent(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLampAutoBrightnessOffEvent", reflect.TypeOf((*MockPersistence)(nil).GetLampAutoBrightnessOffEvent), id)
+}
+
+// UpdateLampAutoBrightnessOffEvent mocks base method.
+func (m *MockPersistence) UpdateLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent persistence.LampAutoBrightnessOffEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateLampAutoBrightnessOffEvent", lampAutoBrightnessOffEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateLampAutoBrightnessOffEvent indicates an expected call of UpdateLampAutoBrightnessOffEvent.
+func (mr *MockPersistenceMockRecorder) UpdateLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampAutoBrightnessOffEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampAutoBrightnessOffEvent), lampAutoBrightnessOffEvent)
+}
+
+// DeleteLampAutoBrightnessOffEvent mocks base method.
+func (m *MockPersistence) DeleteLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent persistence.LampAutoBrightnessOffEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteLampAutoBrightnessOffEvent", lampAutoBrightnessOffEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteLampAutoBrightnessOffEvent indicates an expected call of DeleteLampAutoBrightnessOffEvent.
+func (mr *MockPersistenceMockRecorder) DeleteLampAutoBrightnessOffEvent(lampAutoBrightnessOffEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampAutoBrightnessOffEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampAutoBrightnessOffEvent), lampAutoBrightnessOffEvent)
+}
+
+// CreateLampAutoBrightnessToggleEvent mocks base method.
+func (m *MockPersistence) CreateLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent persistence.LampAutoBrightnessToggleEvent) int64 {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateLampAutoBrightnessToggleEvent", lampAutoBrightnessToggleEvent)
+	ret0, _ := ret[0].(int64)
+	return ret0
+}
+
+// CreateLampAutoBrightnessToggleEvent indicates an expected call of CreateLampAutoBrightnessToggleEvent.
+func (mr *MockPersistenceMockRecorder) CreateLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLampAutoBrightnessToggleEvent", reflect.TypeOf((*MockPersistence)(nil).CreateLampAutoBrightnessToggleEvent), lampAutoBrightnessToggleEvent)
+}
+
+// GetLampAutoBrightnessToggleEvent mocks base method.
+func (m *MockPersistence) GetLampAutoBrightnessToggleEvent(id string) (bool, persistence.LampAutoBrightnessToggleEvent) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLampAutoBrightnessToggleEvent", id)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(persistence.LampAutoBrightnessToggleEvent)
+	return ret0, ret1
+}
+
+// GetLampAutoBrightnessToggleEvent indicates an expected call of GetLampAutoBrightnessToggleEvent.
+func (mr *MockPersistenceMockRecorder) GetLampAutoBrightnessToggleEvent(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLampAutoBrightnessToggleEvent", reflect.TypeOf((*MockPersistence)(nil).GetLampAutoBrightnessToggleEvent), id)
+}
+
+// UpdateLampAutoBrightnessToggleEvent mocks base method.
+func (m *MockPersistence) UpdateLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent persistence.LampAutoBrightnessToggleEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateLampAutoBrightnessToggleEvent", lampAutoBrightnessToggleEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateLampAutoBrightnessToggleEvent indicates an expected call of UpdateLampAutoBrightnessToggleEvent.
+func (mr *MockPersistenceMockRecorder) UpdateLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLampAutoBrightnessToggleEvent", reflect.TypeOf((*MockPersistence)(nil).UpdateLampAutoBrightnessToggleEvent), lampAutoBrightnessToggleEvent)
+}
+
+// DeleteLampAutoBrightnessToggleEvent mocks base method.
+func (m *MockPersistence) DeleteLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent persistence.LampAutoBrightnessToggleEvent) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteLampAutoBrightnessToggleEvent", lampAutoBrightnessToggleEvent)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteLampAutoBrightnessToggleEvent indicates an expected call of DeleteLampAutoBrightnessToggleEvent.
+func (mr *MockPersistenceMockRecorder) DeleteLampAutoBrightnessToggleEvent(lampAutoBrightnessToggleEvent interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLampAutoBrightnessToggleEvent", reflect.TypeOf((*MockPersistence)(nil).DeleteLampAutoBrightnessToggleEvent), lampAutoBrightnessToggleEvent)
 }
 
 // CreateLampColorEvent mocks base method.

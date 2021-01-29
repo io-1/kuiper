@@ -8,18 +8,18 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/gin-gonic/gin"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamponevents/request"
-	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamponevents/response"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lampoffevents/request"
+	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lampoffevents/response"
 	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
 )
 
-func (client InteractionsClient) CreateLampOnEvent(c *gin.Context) {
+func (client InteractionsClient) CreateLampOffEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req request.CreateLampOnEventRequest
-		res response.CreateLampOnEventResponse
+		req request.CreateLampOffEventRequest
+		res response.CreateLampOffEventResponse
 	)
 
 	if err := c.BindJSON(&req); err != nil {
@@ -33,7 +33,7 @@ func (client InteractionsClient) CreateLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.CreateLampOnEvent(ctx, &interactions_pb.CreateLampOnEventRequest{
+	r, err := client.interactionsServiceClient.CreateLampOffEvent(ctx, &interactions_pb.CreateLampOffEventRequest{
 		Mac: req.Mac,
 	})
 	if err != nil {
@@ -41,7 +41,7 @@ func (client InteractionsClient) CreateLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.CreateLampOnEventResponse{
+	res = response.CreateLampOffEventResponse{
 		ID:  r.ID,
 		Mac: r.Mac,
 	}
@@ -49,17 +49,17 @@ func (client InteractionsClient) CreateLampOnEvent(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) GetLampOnEvent(c *gin.Context) {
+func (client InteractionsClient) GetLampOffEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.GetLampOnEventRequest
-		res           response.GetLampOnEventResponse
+		req           request.GetLampOffEventRequest
+		res           response.GetLampOffEventResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("lamp_on_event_id")
+	id := c.Params.ByName("lamp_off_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -67,7 +67,7 @@ func (client InteractionsClient) GetLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.GetLampOnEvent(ctx, &interactions_pb.GetLampOnEventRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetLampOffEvent(ctx, &interactions_pb.GetLampOffEventRequest{ID: id})
 	if err != nil {
 		st, ok := status.FromError(err)
 
@@ -92,7 +92,7 @@ func (client InteractionsClient) GetLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.GetLampOnEventResponse{
+	res = response.GetLampOffEventResponse{
 		ID:  r.ID,
 		Mac: r.Mac,
 	}
@@ -100,13 +100,13 @@ func (client InteractionsClient) GetLampOnEvent(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) UpdateLampOnEvent(c *gin.Context) {
+func (client InteractionsClient) UpdateLampOffEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.UpdateLampOnEventRequest
-		res           response.UpdateLampOnEventResponse
+		req           request.UpdateLampOffEventRequest
+		res           response.UpdateLampOffEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -115,7 +115,7 @@ func (client InteractionsClient) UpdateLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("lamp_on_event_id")
+	id := c.Params.ByName("lamp_off_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -123,7 +123,7 @@ func (client InteractionsClient) UpdateLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.UpdateLampOnEvent(ctx, &interactions_pb.UpdateLampOnEventRequest{
+	r, err := client.interactionsServiceClient.UpdateLampOffEvent(ctx, &interactions_pb.UpdateLampOffEventRequest{
 		ID:  id,
 		Mac: req.Mac,
 	})
@@ -152,7 +152,7 @@ func (client InteractionsClient) UpdateLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.UpdateLampOnEventResponse{
+	res = response.UpdateLampOffEventResponse{
 		ID:  r.ID,
 		Mac: r.Mac,
 	}
@@ -160,13 +160,13 @@ func (client InteractionsClient) UpdateLampOnEvent(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) PatchLampOnEvent(c *gin.Context) {
+func (client InteractionsClient) PatchLampOffEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.PatchLampOnEventRequest
-		res           response.PatchLampOnEventResponse
+		req           request.PatchLampOffEventRequest
+		res           response.PatchLampOffEventResponse
 		errorResponse response.ErrorResponse
 	)
 
@@ -175,7 +175,7 @@ func (client InteractionsClient) PatchLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	id := c.Params.ByName("lamp_on_event_id")
+	id := c.Params.ByName("lamp_off_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -184,7 +184,7 @@ func (client InteractionsClient) PatchLampOnEvent(c *gin.Context) {
 	}
 
 	// get the user
-	r, err := client.interactionsServiceClient.GetLampOnEvent(ctx, &interactions_pb.GetLampOnEventRequest{ID: id})
+	r, err := client.interactionsServiceClient.GetLampOffEvent(ctx, &interactions_pb.GetLampOffEventRequest{ID: id})
 
 	if err != nil {
 		st, ok := status.FromError(err)
@@ -215,7 +215,7 @@ func (client InteractionsClient) PatchLampOnEvent(c *gin.Context) {
 	}
 
 	// save the request difference
-	re, err := client.interactionsServiceClient.UpdateLampOnEvent(ctx, &interactions_pb.UpdateLampOnEventRequest{
+	re, err := client.interactionsServiceClient.UpdateLampOffEvent(ctx, &interactions_pb.UpdateLampOffEventRequest{
 		ID:  id,
 		Mac: req.Mac,
 	})
@@ -234,7 +234,7 @@ func (client InteractionsClient) PatchLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.PatchLampOnEventResponse{
+	res = response.PatchLampOffEventResponse{
 		ID:  re.ID,
 		Mac: re.Mac,
 	}
@@ -242,17 +242,17 @@ func (client InteractionsClient) PatchLampOnEvent(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-func (client InteractionsClient) DeleteLampOnEvent(c *gin.Context) {
+func (client InteractionsClient) DeleteLampOffEvent(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()
 
 	var (
-		req           request.DeleteLampOnEventRequest
-		res           response.DeleteLampOnEventResponse
+		req           request.DeleteLampOffEventRequest
+		res           response.DeleteLampOffEventResponse
 		errorResponse response.ErrorResponse
 	)
 
-	id := c.Params.ByName("lamp_on_event_id")
+	id := c.Params.ByName("lamp_off_event_id")
 
 	if validationErrors := req.Validate(id); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
@@ -260,7 +260,7 @@ func (client InteractionsClient) DeleteLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	r, err := client.interactionsServiceClient.DeleteLampOnEvent(ctx, &interactions_pb.DeleteLampOnEventRequest{
+	r, err := client.interactionsServiceClient.DeleteLampOffEvent(ctx, &interactions_pb.DeleteLampOffEventRequest{
 		ID: id,
 	})
 
@@ -288,7 +288,7 @@ func (client InteractionsClient) DeleteLampOnEvent(c *gin.Context) {
 		return
 	}
 
-	res = response.DeleteLampOnEventResponse{
+	res = response.DeleteLampOffEventResponse{
 		ID: r.ID,
 	}
 

@@ -158,20 +158,20 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 		{
 			onGroup := eventGroup.Group("/on")
 			{
-				onGroup.POST("", nil)
-				onGroup.GET("/:lamp_on_event_id", nil)
-				onGroup.PUT("/:lamp_on_event_id", nil)
-				onGroup.PATCH("/:lamp_on_event_id", nil)
-				onGroup.DELETE("/:lamp_on_event_id", nil)
+				onGroup.POST("", g.interactionsClient.CreateLampOnEvent)
+				onGroup.GET("/:lamp_on_event_id", g.interactionsClient.GetLampOnEvent)
+				onGroup.PUT("/:lamp_on_event_id", g.interactionsClient.UpdateLampOnEvent)
+				onGroup.PATCH("/:lamp_on_event_id", g.interactionsClient.PatchLampOnEvent)
+				onGroup.DELETE("/:lamp_on_event_id", g.interactionsClient.DeleteLampOnEvent)
 			}
 
 			offGroup := eventGroup.Group("/off")
 			{
-				offGroup.POST("", nil)
-				offGroup.GET("/:lamp_off_event_id", nil)
-				offGroup.PUT("/:lamp_off_event_id", nil)
-				offGroup.PATCH("/:lamp_off_event_id", nil)
-				offGroup.DELETE("/:lamp_off_event_id", nil)
+				offGroup.POST("", g.interactionsClient.CreateLampOffEvent)
+				offGroup.GET("/:lamp_off_event_id", g.interactionsClient.GetLampOffEvent)
+				offGroup.PUT("/:lamp_off_event_id", g.interactionsClient.UpdateLampOffEvent)
+				offGroup.PATCH("/:lamp_off_event_id", g.interactionsClient.PatchLampOffEvent)
+				offGroup.DELETE("/:lamp_off_event_id", g.interactionsClient.DeleteLampOffEvent)
 			}
 
 			toggleGroup := eventGroup.Group("/toggle")
@@ -183,6 +183,7 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 				toggleGroup.DELETE("/:lamp_toggle_event_id", g.interactionsClient.DeleteLampToggleEvent)
 			}
 
+			// FIXME: finished adding grpc calls - need to add this section
 			brightnessGroup := eventGroup.Group("/brightness")
 			{
 				brightnessGroup.POST("", nil)

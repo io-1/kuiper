@@ -48,6 +48,26 @@ type InteractionsServiceClient interface {
 	GetLampToggleEvent(ctx context.Context, in *GetLampToggleEventRequest, opts ...grpc.CallOption) (*GetLampToggleEventResponse, error)
 	UpdateLampToggleEvent(ctx context.Context, in *UpdateLampToggleEventRequest, opts ...grpc.CallOption) (*UpdateLampToggleEventResponse, error)
 	DeleteLampToggleEvent(ctx context.Context, in *DeleteLampToggleEventRequest, opts ...grpc.CallOption) (*DeleteLampToggleEventResponse, error)
+	// lamp brightness events
+	CreateLampBrightnessEvent(ctx context.Context, in *CreateLampBrightnessEventRequest, opts ...grpc.CallOption) (*CreateLampBrightnessEventResponse, error)
+	GetLampBrightnessEvent(ctx context.Context, in *GetLampBrightnessEventRequest, opts ...grpc.CallOption) (*GetLampBrightnessEventResponse, error)
+	UpdateLampBrightnessEvent(ctx context.Context, in *UpdateLampBrightnessEventRequest, opts ...grpc.CallOption) (*UpdateLampBrightnessEventResponse, error)
+	DeleteLampBrightnessEvent(ctx context.Context, in *DeleteLampBrightnessEventRequest, opts ...grpc.CallOption) (*DeleteLampBrightnessEventResponse, error)
+	// lamp auto brightness on events
+	CreateLampAutoBrightnessOnEvent(ctx context.Context, in *CreateLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*CreateLampAutoBrightnessOnEventResponse, error)
+	GetLampAutoBrightnessOnEvent(ctx context.Context, in *GetLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*GetLampAutoBrightnessOnEventResponse, error)
+	UpdateLampAutoBrightnessOnEvent(ctx context.Context, in *UpdateLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*UpdateLampAutoBrightnessOnEventResponse, error)
+	DeleteLampAutoBrightnessOnEvent(ctx context.Context, in *DeleteLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*DeleteLampAutoBrightnessOnEventResponse, error)
+	// lamp auto brightness off events
+	CreateLampAutoBrightnessOffEvent(ctx context.Context, in *CreateLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*CreateLampAutoBrightnessOffEventResponse, error)
+	GetLampAutoBrightnessOffEvent(ctx context.Context, in *GetLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*GetLampAutoBrightnessOffEventResponse, error)
+	UpdateLampAutoBrightnessOffEvent(ctx context.Context, in *UpdateLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*UpdateLampAutoBrightnessOffEventResponse, error)
+	DeleteLampAutoBrightnessOffEvent(ctx context.Context, in *DeleteLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*DeleteLampAutoBrightnessOffEventResponse, error)
+	// lamp auto brightness toggle events
+	CreateLampAutoBrightnessToggleEvent(ctx context.Context, in *CreateLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*CreateLampAutoBrightnessToggleEventResponse, error)
+	GetLampAutoBrightnessToggleEvent(ctx context.Context, in *GetLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*GetLampAutoBrightnessToggleEventResponse, error)
+	UpdateLampAutoBrightnessToggleEvent(ctx context.Context, in *UpdateLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*UpdateLampAutoBrightnessToggleEventResponse, error)
+	DeleteLampAutoBrightnessToggleEvent(ctx context.Context, in *DeleteLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*DeleteLampAutoBrightnessToggleEventResponse, error)
 	// lamp color events
 	CreateLampColorEvent(ctx context.Context, in *CreateLampColorEventRequest, opts ...grpc.CallOption) (*CreateLampColorEventResponse, error)
 	GetLampColorEvent(ctx context.Context, in *GetLampColorEventRequest, opts ...grpc.CallOption) (*GetLampColorEventResponse, error)
@@ -326,6 +346,150 @@ func (c *interactionsServiceClient) DeleteLampToggleEvent(ctx context.Context, i
 	return out, nil
 }
 
+func (c *interactionsServiceClient) CreateLampBrightnessEvent(ctx context.Context, in *CreateLampBrightnessEventRequest, opts ...grpc.CallOption) (*CreateLampBrightnessEventResponse, error) {
+	out := new(CreateLampBrightnessEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampBrightnessEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampBrightnessEvent(ctx context.Context, in *GetLampBrightnessEventRequest, opts ...grpc.CallOption) (*GetLampBrightnessEventResponse, error) {
+	out := new(GetLampBrightnessEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampBrightnessEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampBrightnessEvent(ctx context.Context, in *UpdateLampBrightnessEventRequest, opts ...grpc.CallOption) (*UpdateLampBrightnessEventResponse, error) {
+	out := new(UpdateLampBrightnessEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampBrightnessEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampBrightnessEvent(ctx context.Context, in *DeleteLampBrightnessEventRequest, opts ...grpc.CallOption) (*DeleteLampBrightnessEventResponse, error) {
+	out := new(DeleteLampBrightnessEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampBrightnessEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) CreateLampAutoBrightnessOnEvent(ctx context.Context, in *CreateLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*CreateLampAutoBrightnessOnEventResponse, error) {
+	out := new(CreateLampAutoBrightnessOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampAutoBrightnessOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampAutoBrightnessOnEvent(ctx context.Context, in *GetLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*GetLampAutoBrightnessOnEventResponse, error) {
+	out := new(GetLampAutoBrightnessOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampAutoBrightnessOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampAutoBrightnessOnEvent(ctx context.Context, in *UpdateLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*UpdateLampAutoBrightnessOnEventResponse, error) {
+	out := new(UpdateLampAutoBrightnessOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampAutoBrightnessOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampAutoBrightnessOnEvent(ctx context.Context, in *DeleteLampAutoBrightnessOnEventRequest, opts ...grpc.CallOption) (*DeleteLampAutoBrightnessOnEventResponse, error) {
+	out := new(DeleteLampAutoBrightnessOnEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampAutoBrightnessOnEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) CreateLampAutoBrightnessOffEvent(ctx context.Context, in *CreateLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*CreateLampAutoBrightnessOffEventResponse, error) {
+	out := new(CreateLampAutoBrightnessOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampAutoBrightnessOffEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampAutoBrightnessOffEvent(ctx context.Context, in *GetLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*GetLampAutoBrightnessOffEventResponse, error) {
+	out := new(GetLampAutoBrightnessOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampAutoBrightnessOffEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampAutoBrightnessOffEvent(ctx context.Context, in *UpdateLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*UpdateLampAutoBrightnessOffEventResponse, error) {
+	out := new(UpdateLampAutoBrightnessOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampAutoBrightnessOffEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampAutoBrightnessOffEvent(ctx context.Context, in *DeleteLampAutoBrightnessOffEventRequest, opts ...grpc.CallOption) (*DeleteLampAutoBrightnessOffEventResponse, error) {
+	out := new(DeleteLampAutoBrightnessOffEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampAutoBrightnessOffEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) CreateLampAutoBrightnessToggleEvent(ctx context.Context, in *CreateLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*CreateLampAutoBrightnessToggleEventResponse, error) {
+	out := new(CreateLampAutoBrightnessToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampAutoBrightnessToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) GetLampAutoBrightnessToggleEvent(ctx context.Context, in *GetLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*GetLampAutoBrightnessToggleEventResponse, error) {
+	out := new(GetLampAutoBrightnessToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/GetLampAutoBrightnessToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) UpdateLampAutoBrightnessToggleEvent(ctx context.Context, in *UpdateLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*UpdateLampAutoBrightnessToggleEventResponse, error) {
+	out := new(UpdateLampAutoBrightnessToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/UpdateLampAutoBrightnessToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *interactionsServiceClient) DeleteLampAutoBrightnessToggleEvent(ctx context.Context, in *DeleteLampAutoBrightnessToggleEventRequest, opts ...grpc.CallOption) (*DeleteLampAutoBrightnessToggleEventResponse, error) {
+	out := new(DeleteLampAutoBrightnessToggleEventResponse)
+	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/DeleteLampAutoBrightnessToggleEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *interactionsServiceClient) CreateLampColorEvent(ctx context.Context, in *CreateLampColorEventRequest, opts ...grpc.CallOption) (*CreateLampColorEventResponse, error) {
 	out := new(CreateLampColorEventResponse)
 	err := c.cc.Invoke(ctx, "/interactions_pb.InteractionsService/CreateLampColorEvent", in, out, opts...)
@@ -505,6 +669,26 @@ type InteractionsServiceServer interface {
 	GetLampToggleEvent(context.Context, *GetLampToggleEventRequest) (*GetLampToggleEventResponse, error)
 	UpdateLampToggleEvent(context.Context, *UpdateLampToggleEventRequest) (*UpdateLampToggleEventResponse, error)
 	DeleteLampToggleEvent(context.Context, *DeleteLampToggleEventRequest) (*DeleteLampToggleEventResponse, error)
+	// lamp brightness events
+	CreateLampBrightnessEvent(context.Context, *CreateLampBrightnessEventRequest) (*CreateLampBrightnessEventResponse, error)
+	GetLampBrightnessEvent(context.Context, *GetLampBrightnessEventRequest) (*GetLampBrightnessEventResponse, error)
+	UpdateLampBrightnessEvent(context.Context, *UpdateLampBrightnessEventRequest) (*UpdateLampBrightnessEventResponse, error)
+	DeleteLampBrightnessEvent(context.Context, *DeleteLampBrightnessEventRequest) (*DeleteLampBrightnessEventResponse, error)
+	// lamp auto brightness on events
+	CreateLampAutoBrightnessOnEvent(context.Context, *CreateLampAutoBrightnessOnEventRequest) (*CreateLampAutoBrightnessOnEventResponse, error)
+	GetLampAutoBrightnessOnEvent(context.Context, *GetLampAutoBrightnessOnEventRequest) (*GetLampAutoBrightnessOnEventResponse, error)
+	UpdateLampAutoBrightnessOnEvent(context.Context, *UpdateLampAutoBrightnessOnEventRequest) (*UpdateLampAutoBrightnessOnEventResponse, error)
+	DeleteLampAutoBrightnessOnEvent(context.Context, *DeleteLampAutoBrightnessOnEventRequest) (*DeleteLampAutoBrightnessOnEventResponse, error)
+	// lamp auto brightness off events
+	CreateLampAutoBrightnessOffEvent(context.Context, *CreateLampAutoBrightnessOffEventRequest) (*CreateLampAutoBrightnessOffEventResponse, error)
+	GetLampAutoBrightnessOffEvent(context.Context, *GetLampAutoBrightnessOffEventRequest) (*GetLampAutoBrightnessOffEventResponse, error)
+	UpdateLampAutoBrightnessOffEvent(context.Context, *UpdateLampAutoBrightnessOffEventRequest) (*UpdateLampAutoBrightnessOffEventResponse, error)
+	DeleteLampAutoBrightnessOffEvent(context.Context, *DeleteLampAutoBrightnessOffEventRequest) (*DeleteLampAutoBrightnessOffEventResponse, error)
+	// lamp auto brightness toggle events
+	CreateLampAutoBrightnessToggleEvent(context.Context, *CreateLampAutoBrightnessToggleEventRequest) (*CreateLampAutoBrightnessToggleEventResponse, error)
+	GetLampAutoBrightnessToggleEvent(context.Context, *GetLampAutoBrightnessToggleEventRequest) (*GetLampAutoBrightnessToggleEventResponse, error)
+	UpdateLampAutoBrightnessToggleEvent(context.Context, *UpdateLampAutoBrightnessToggleEventRequest) (*UpdateLampAutoBrightnessToggleEventResponse, error)
+	DeleteLampAutoBrightnessToggleEvent(context.Context, *DeleteLampAutoBrightnessToggleEventRequest) (*DeleteLampAutoBrightnessToggleEventResponse, error)
 	// lamp color events
 	CreateLampColorEvent(context.Context, *CreateLampColorEventRequest) (*CreateLampColorEventResponse, error)
 	GetLampColorEvent(context.Context, *GetLampColorEventRequest) (*GetLampColorEventResponse, error)
@@ -606,6 +790,54 @@ func (*UnimplementedInteractionsServiceServer) UpdateLampToggleEvent(context.Con
 }
 func (*UnimplementedInteractionsServiceServer) DeleteLampToggleEvent(context.Context, *DeleteLampToggleEventRequest) (*DeleteLampToggleEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampBrightnessEvent(context.Context, *CreateLampBrightnessEventRequest) (*CreateLampBrightnessEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampBrightnessEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampBrightnessEvent(context.Context, *GetLampBrightnessEventRequest) (*GetLampBrightnessEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampBrightnessEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampBrightnessEvent(context.Context, *UpdateLampBrightnessEventRequest) (*UpdateLampBrightnessEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampBrightnessEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampBrightnessEvent(context.Context, *DeleteLampBrightnessEventRequest) (*DeleteLampBrightnessEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampBrightnessEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampAutoBrightnessOnEvent(context.Context, *CreateLampAutoBrightnessOnEventRequest) (*CreateLampAutoBrightnessOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampAutoBrightnessOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampAutoBrightnessOnEvent(context.Context, *GetLampAutoBrightnessOnEventRequest) (*GetLampAutoBrightnessOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampAutoBrightnessOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampAutoBrightnessOnEvent(context.Context, *UpdateLampAutoBrightnessOnEventRequest) (*UpdateLampAutoBrightnessOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampAutoBrightnessOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampAutoBrightnessOnEvent(context.Context, *DeleteLampAutoBrightnessOnEventRequest) (*DeleteLampAutoBrightnessOnEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampAutoBrightnessOnEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampAutoBrightnessOffEvent(context.Context, *CreateLampAutoBrightnessOffEventRequest) (*CreateLampAutoBrightnessOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampAutoBrightnessOffEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampAutoBrightnessOffEvent(context.Context, *GetLampAutoBrightnessOffEventRequest) (*GetLampAutoBrightnessOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampAutoBrightnessOffEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampAutoBrightnessOffEvent(context.Context, *UpdateLampAutoBrightnessOffEventRequest) (*UpdateLampAutoBrightnessOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampAutoBrightnessOffEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampAutoBrightnessOffEvent(context.Context, *DeleteLampAutoBrightnessOffEventRequest) (*DeleteLampAutoBrightnessOffEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampAutoBrightnessOffEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) CreateLampAutoBrightnessToggleEvent(context.Context, *CreateLampAutoBrightnessToggleEventRequest) (*CreateLampAutoBrightnessToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLampAutoBrightnessToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetLampAutoBrightnessToggleEvent(context.Context, *GetLampAutoBrightnessToggleEventRequest) (*GetLampAutoBrightnessToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLampAutoBrightnessToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) UpdateLampAutoBrightnessToggleEvent(context.Context, *UpdateLampAutoBrightnessToggleEventRequest) (*UpdateLampAutoBrightnessToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLampAutoBrightnessToggleEvent not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) DeleteLampAutoBrightnessToggleEvent(context.Context, *DeleteLampAutoBrightnessToggleEventRequest) (*DeleteLampAutoBrightnessToggleEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteLampAutoBrightnessToggleEvent not implemented")
 }
 func (*UnimplementedInteractionsServiceServer) CreateLampColorEvent(context.Context, *CreateLampColorEventRequest) (*CreateLampColorEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLampColorEvent not implemented")
@@ -1114,6 +1346,294 @@ func _InteractionsService_DeleteLampToggleEvent_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InteractionsService_CreateLampBrightnessEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampBrightnessEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampBrightnessEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampBrightnessEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampBrightnessEvent(ctx, req.(*CreateLampBrightnessEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampBrightnessEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampBrightnessEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampBrightnessEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampBrightnessEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampBrightnessEvent(ctx, req.(*GetLampBrightnessEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampBrightnessEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampBrightnessEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampBrightnessEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampBrightnessEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampBrightnessEvent(ctx, req.(*UpdateLampBrightnessEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampBrightnessEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampBrightnessEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampBrightnessEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampBrightnessEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampBrightnessEvent(ctx, req.(*DeleteLampBrightnessEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_CreateLampAutoBrightnessOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampAutoBrightnessOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampAutoBrightnessOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampAutoBrightnessOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampAutoBrightnessOnEvent(ctx, req.(*CreateLampAutoBrightnessOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampAutoBrightnessOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampAutoBrightnessOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampAutoBrightnessOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampAutoBrightnessOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampAutoBrightnessOnEvent(ctx, req.(*GetLampAutoBrightnessOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampAutoBrightnessOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampAutoBrightnessOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampAutoBrightnessOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampAutoBrightnessOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampAutoBrightnessOnEvent(ctx, req.(*UpdateLampAutoBrightnessOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampAutoBrightnessOnEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampAutoBrightnessOnEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampAutoBrightnessOnEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampAutoBrightnessOnEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampAutoBrightnessOnEvent(ctx, req.(*DeleteLampAutoBrightnessOnEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_CreateLampAutoBrightnessOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampAutoBrightnessOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampAutoBrightnessOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampAutoBrightnessOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampAutoBrightnessOffEvent(ctx, req.(*CreateLampAutoBrightnessOffEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampAutoBrightnessOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampAutoBrightnessOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampAutoBrightnessOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampAutoBrightnessOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampAutoBrightnessOffEvent(ctx, req.(*GetLampAutoBrightnessOffEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampAutoBrightnessOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampAutoBrightnessOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampAutoBrightnessOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampAutoBrightnessOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampAutoBrightnessOffEvent(ctx, req.(*UpdateLampAutoBrightnessOffEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampAutoBrightnessOffEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampAutoBrightnessOffEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampAutoBrightnessOffEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampAutoBrightnessOffEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampAutoBrightnessOffEvent(ctx, req.(*DeleteLampAutoBrightnessOffEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_CreateLampAutoBrightnessToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLampAutoBrightnessToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).CreateLampAutoBrightnessToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/CreateLampAutoBrightnessToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).CreateLampAutoBrightnessToggleEvent(ctx, req.(*CreateLampAutoBrightnessToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetLampAutoBrightnessToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLampAutoBrightnessToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).GetLampAutoBrightnessToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/GetLampAutoBrightnessToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).GetLampAutoBrightnessToggleEvent(ctx, req.(*GetLampAutoBrightnessToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_UpdateLampAutoBrightnessToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLampAutoBrightnessToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).UpdateLampAutoBrightnessToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/UpdateLampAutoBrightnessToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).UpdateLampAutoBrightnessToggleEvent(ctx, req.(*UpdateLampAutoBrightnessToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_DeleteLampAutoBrightnessToggleEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLampAutoBrightnessToggleEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InteractionsServiceServer).DeleteLampAutoBrightnessToggleEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/interactions_pb.InteractionsService/DeleteLampAutoBrightnessToggleEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InteractionsServiceServer).DeleteLampAutoBrightnessToggleEvent(ctx, req.(*DeleteLampAutoBrightnessToggleEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _InteractionsService_CreateLampColorEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateLampColorEventRequest)
 	if err := dec(in); err != nil {
@@ -1501,6 +2021,70 @@ var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteLampToggleEvent",
 			Handler:    _InteractionsService_DeleteLampToggleEvent_Handler,
+		},
+		{
+			MethodName: "CreateLampBrightnessEvent",
+			Handler:    _InteractionsService_CreateLampBrightnessEvent_Handler,
+		},
+		{
+			MethodName: "GetLampBrightnessEvent",
+			Handler:    _InteractionsService_GetLampBrightnessEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampBrightnessEvent",
+			Handler:    _InteractionsService_UpdateLampBrightnessEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampBrightnessEvent",
+			Handler:    _InteractionsService_DeleteLampBrightnessEvent_Handler,
+		},
+		{
+			MethodName: "CreateLampAutoBrightnessOnEvent",
+			Handler:    _InteractionsService_CreateLampAutoBrightnessOnEvent_Handler,
+		},
+		{
+			MethodName: "GetLampAutoBrightnessOnEvent",
+			Handler:    _InteractionsService_GetLampAutoBrightnessOnEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampAutoBrightnessOnEvent",
+			Handler:    _InteractionsService_UpdateLampAutoBrightnessOnEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampAutoBrightnessOnEvent",
+			Handler:    _InteractionsService_DeleteLampAutoBrightnessOnEvent_Handler,
+		},
+		{
+			MethodName: "CreateLampAutoBrightnessOffEvent",
+			Handler:    _InteractionsService_CreateLampAutoBrightnessOffEvent_Handler,
+		},
+		{
+			MethodName: "GetLampAutoBrightnessOffEvent",
+			Handler:    _InteractionsService_GetLampAutoBrightnessOffEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampAutoBrightnessOffEvent",
+			Handler:    _InteractionsService_UpdateLampAutoBrightnessOffEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampAutoBrightnessOffEvent",
+			Handler:    _InteractionsService_DeleteLampAutoBrightnessOffEvent_Handler,
+		},
+		{
+			MethodName: "CreateLampAutoBrightnessToggleEvent",
+			Handler:    _InteractionsService_CreateLampAutoBrightnessToggleEvent_Handler,
+		},
+		{
+			MethodName: "GetLampAutoBrightnessToggleEvent",
+			Handler:    _InteractionsService_GetLampAutoBrightnessToggleEvent_Handler,
+		},
+		{
+			MethodName: "UpdateLampAutoBrightnessToggleEvent",
+			Handler:    _InteractionsService_UpdateLampAutoBrightnessToggleEvent_Handler,
+		},
+		{
+			MethodName: "DeleteLampAutoBrightnessToggleEvent",
+			Handler:    _InteractionsService_DeleteLampAutoBrightnessToggleEvent_Handler,
 		},
 		{
 			MethodName: "CreateLampColorEvent",
