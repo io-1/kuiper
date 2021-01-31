@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/io-1/kuiper/internal/devices/persistence"
-	"github.com/io-1/kuiper/internal/devices/pubsub/response"
+	"github.com/io-1/kuiper/internal/devices/pubsub/listeners/response"
 	"github.com/stretchr/testify/assert"
 )
 

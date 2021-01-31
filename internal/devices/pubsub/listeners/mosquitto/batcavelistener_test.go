@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	mockobject "github.com/io-1/kuiper/pkg/mock"
+	mockobject "github.com/io-1/kuiper/internal/mock"
 )
 
 func Test_BatCaveDeviceSettingsListenerMessageHandler_Should_Return_When_Message_And_Persistence_Settings_Are_The_Same(t *testing.T) {
