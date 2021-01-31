@@ -196,29 +196,29 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 				{
 					onGroup := autoBrightnessGroup.Group("/on")
 					{
-						onGroup.POST("", nil)
-						onGroup.GET("/:lamp_auto_brightness_on_event_id", nil)
-						onGroup.PUT("/:lamp_auto_brightness_on_event_id", nil)
-						onGroup.PATCH("/:lamp_auto_brightness_on_event_id", nil)
-						onGroup.DELETE("/:lamp_auto_brightness_on_event_id", nil)
+						onGroup.POST("", g.interactionsClient.CreateLampAutoBrightnessOnEvent)
+						onGroup.GET("/:lamp_auto_brightness_on_event_id", g.interactionsClient.GetLampAutoBrightnessOnEvent)
+						onGroup.PUT("/:lamp_auto_brightness_on_event_id", g.interactionsClient.UpdateLampAutoBrightnessOnEvent)
+						onGroup.PATCH("/:lamp_auto_brightness_on_event_id", g.interactionsClient.PatchLampAutoBrightnessOnEvent)
+						onGroup.DELETE("/:lamp_auto_brightness_on_event_id", g.interactionsClient.DeleteLampAutoBrightnessOnEvent)
 					}
 
 					offGroup := autoBrightnessGroup.Group("/off")
 					{
-						offGroup.POST("", nil)
-						offGroup.GET("/:lamp_auto_brightness_off_event_id", nil)
-						offGroup.PUT("/:lamp_auto_brightness_off_event_id", nil)
-						offGroup.PATCH("/:lamp_auto_brightness_off_event_id", nil)
-						offGroup.DELETE("/:lamp_auto_brightness_off_event_id", nil)
+						offGroup.POST("", g.interactionsClient.CreateLampAutoBrightnessOffEvent)
+						offGroup.GET("/:lamp_auto_brightness_off_event_id", g.interactionsClient.GetLampAutoBrightnessOffEvent)
+						offGroup.PUT("/:lamp_auto_brightness_off_event_id", g.interactionsClient.UpdateLampAutoBrightnessOffEvent)
+						offGroup.PATCH("/:lamp_auto_brightness_off_event_id", g.interactionsClient.PatchLampAutoBrightnessOffEvent)
+						offGroup.DELETE("/:lamp_auto_brightness_off_event_id", g.interactionsClient.DeleteLampAutoBrightnessOffEvent)
 					}
 
 					toggleGroup := autoBrightnessGroup.Group("/toggle")
 					{
-						toggleGroup.POST("", nil)
-						toggleGroup.GET("/:lamp_auto_brightness_toggle_event_id", nil)
-						toggleGroup.PUT("/:lamp_auto_brightness_toggle_event_id", nil)
-						toggleGroup.PATCH("/:lamp_auto_brightness_toggle_event_id", nil)
-						toggleGroup.DELETE("/:lamp_auto_brightness_toggle_event_id", nil)
+						toggleGroup.POST("", g.interactionsClient.CreateLampAutoBrightnessToggleEvent)
+						toggleGroup.GET("/:lamp_auto_brightness_toggle_event_id", g.interactionsClient.GetLampAutoBrightnessToggleEvent)
+						toggleGroup.PUT("/:lamp_auto_brightness_toggle_event_id", g.interactionsClient.UpdateLampAutoBrightnessToggleEvent)
+						toggleGroup.PATCH("/:lamp_auto_brightness_toggle_event_id", g.interactionsClient.PatchLampAutoBrightnessToggleEvent)
+						toggleGroup.DELETE("/:lamp_auto_brightness_toggle_event_id", g.interactionsClient.DeleteLampAutoBrightnessToggleEvent)
 					}
 				}
 			}
