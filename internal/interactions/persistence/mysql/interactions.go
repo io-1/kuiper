@@ -26,7 +26,7 @@ func (p MysqlPersistence) GetInteractionDetails(id string) ([]persistence.Intera
 		IFNULL(COALESCE(lce.red, lpe.red),0) AS red, 
 		IFNULL(COALESCE(lce.green, lpe.green),0) AS green, 
 		IFNULL(COALESCE(lce.blue, lpe.blue),0) AS blue,
-		IFNULL(lbe.brighness,0) AS brightness,
+		IFNULL(lbe.brightness,0) AS brightness,
 		COALESCE(loe.created_at, lfe.created_at, lte.created_at, labone.created_at, laboffe.created_at, labte.created_at, lce.created_at, lpe.created_at) AS created_at, 
 		COALESCE(loe.updated_at, lfe.updated_at, lte.updated_at, labone.updated_at, laboffe.updated_at, labte.updated_at, lce.updated_at, lpe.updated_at) AS updated_at, 
 		COALESCE(loe.deleted_at, lfe.deleted_at, lte.deleted_at, labone.deleted_at, laboffe.deleted_at, labte.deleted_at, lce.deleted_at, lpe.deleted_at) AS deleted_at 
@@ -108,7 +108,11 @@ func (p MysqlPersistence) GetInteractionDetails(id string) ([]persistence.Intera
 			&interactionDetails.LampEvent.EventType,
 			&interactionDetails.LampEvent.Red,
 			&interactionDetails.LampEvent.Green,
-			&interactionDetails.LampEvent.Blue, &interactionDetails.LampEvent.CreatedAt, &interactionDetails.LampEvent.UpdatedAt, &interactionDetails.LampEvent.DeletedAt,
+			&interactionDetails.LampEvent.Blue,
+			&interactionDetails.LampEvent.Brightness,
+			&interactionDetails.LampEvent.CreatedAt,
+			&interactionDetails.LampEvent.UpdatedAt,
+			&interactionDetails.LampEvent.DeletedAt,
 		)
 
 		if err != nil {
