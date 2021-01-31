@@ -10,7 +10,9 @@ tags:
   - name: Users
     description: API used for users
   - name: Devices
-    description: API to interact with devices
+    description: API to used to for devices
+  - name: Interactions 
+    description: API to allow devices to interact with each other
 
 servers:
   - url: http://localhost:9090/
@@ -43,31 +45,31 @@ paths:
       summary: Refresh token
       tags:
         - Auth
-  /api/v1/devices/bc:
+  /api/v1/devices/settings/humidity:
     post:
-      description: Allows a Bat Cave device setting to be created
-      operationId: createBatCaveDeviceSetting
+      description: Allows a Humidity device setting to be created
+      operationId: createHumidityDeviceSetting
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateBatCaveDeviceSettingRequest"
+              $ref: "#/components/schemas/CreateHumidityDeviceSettingRequest"
       responses:
         "200":
-          $ref: "#/components/responses/CreateBatCaveDeviceSettingResponse"
+          $ref: "#/components/responses/CreateHumidityDeviceSettingResponse"
         "400":
           description: " Malformed data in the request body"
         "405":
           description: " Validation error"
         "500":
           $ref: "#/components/responses/ErrorResponse"
-      summary: Create Bat Cave Device Setting
+      summary: Create Humidity device setting
       tags:
         - Devices
-  /api/v1/devices/bc/:id:
+  /api/v1/devices/settings/humidity/:id:
     get:
-      description: Get a Bat Cave device setting
-      operationId: getBatCaveDeviceSetting
+      description: Get a Humidity device setting
+      operationId: getHumidityDeviceSetting
       parameters:
         - description: The id of the device
           in: query
@@ -77,19 +79,19 @@ paths:
             type: string
       responses:
         "200":
-          $ref: "#/components/responses/GetBatCaveDeviceSettingResponse"
+          $ref: "#/components/responses/GetHumidityDeviceSettingResponse"
         "204":
           description: " No content"
         "405":
           description: " Validation error"
         "500":
           $ref: "#/components/responses/ErrorResponse"
-      summary: Get Bat Cave Device Setting
+      summary: Get Humidity device Setting
       tags:
         - Devices
     put:
-      description: Update a Bat Cave device setting.
-      operationId: updateBatCaveDeviceSetting
+      description: Update a Humidity device setting.
+      operationId: updateHumidityDeviceSetting
       parameters:
         - description: The id of the device
           in: query
@@ -101,10 +103,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateBatCaveDeviceSettingRequest"
+              $ref: "#/components/schemas/UpdateHumidityDeviceSettingRequest"
       responses:
         "200":
-          $ref: "#/components/responses/UpdateBatCaveDeviceSettingResponse"
+          $ref: "#/components/responses/UpdateHumidityDeviceSettingResponse"
         "204":
           description: " No content"
         "400":
@@ -113,7 +115,7 @@ paths:
           description: " Validation error"
         "500":
           $ref: "#/components/responses/ErrorResponse"
-      summary: Update Bat Cave Device Setting
+      summary: Update Humidity device setting
       tags:
         - Devices
   /api/v1/login:
@@ -269,12 +271,12 @@ components:
       scheme: bearer
       bearerFormat: JWT    # optional, arbitrary value for documentation purposes
   responses:
-    CreateBatCaveDeviceSettingResponse:
+    CreateHumidityDeviceSettingResponse:
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/CreateBatCaveDeviceSettingResponse"
+            $ref: "#/components/schemas/CreateHumidityDeviceSettingResponse"
     CreateUserResponse:
       description: Successful operation
       content:
@@ -287,12 +289,12 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/DeleteUserResponse"
-    GetBatCaveDeviceSettingResponse:
+    GetHumidityDeviceSettingResponse:
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/GetBatCaveDeviceSettingResponse"
+            $ref: "#/components/schemas/GetHumidityDeviceSettingResponse"
     GetUserResponse:
       description: Successful operation
       content:
@@ -313,12 +315,12 @@ components:
             $ref: "#/components/schemas/LoginResponse"
     LogoutResponse:
       description: Successful logout
-    UpdateBatCaveDeviceSettingResponse:
+    UpdateHumidityDeviceSettingResponse:
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/UpdateBatCaveDeviceSettingResponse"
+            $ref: "#/components/schemas/UpdateHumidityDeviceSettingResponse"
     UpdateUserResponse:
       description: Successful operation
       content:
@@ -332,7 +334,7 @@ components:
           schema:
             $ref: "#/components/schemas/PatchUserResponse"
   schemas:
-    CreateBatCaveDeviceSettingRequest:
+    CreateHumidityDeviceSettingRequest:
       description: The request used to create a Bat Cave device setting
       properties:
         deepSleepDelay:
@@ -346,7 +348,7 @@ components:
           x-go-name: Mac
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/request
-    CreateBatCaveDeviceSettingResponse:
+    CreateHumidityDeviceSettingResponse:
       properties:
         deepSleepDelay:
           description: The deep sleep delay of the device
@@ -361,7 +363,7 @@ components:
           description: The mac of the device
           type: string
           x-go-name: Mac 
-      title: CreateBatCaveSettingResponse is a response when successfully creating a
+      title: CreateHumiditySettingResponse is a response when successfully creating a
         Bat Cave device setting.
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/response
@@ -418,7 +420,7 @@ components:
         deleted.
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
-    GetBatCaveDeviceSettingResponse:
+    GetHumidityDeviceSettingResponse:
       properties:
         deepSleepDelay:
           description: The deep sleep delay of the device
@@ -429,7 +431,7 @@ components:
           description: The id of the device
           type: string
           x-go-name: ID 
-      title: GetBatCaveDeviceSettingResponse is a response when successfully getting
+      title: GetHumidityDeviceSettingResponse is a response when successfully getting
         a Bat Cave device setting.
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/response
@@ -506,7 +508,7 @@ components:
       title: Successful operation
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/auth/response
-    UpdateBatCaveDeviceSettingRequest:
+    UpdateHumidityDeviceSettingRequest:
       description: The request used to update a Bat Cave device setting
       properties:
         deepSleepDelay:
@@ -516,7 +518,7 @@ components:
           x-go-name: DeepSleepDelay
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/devices/request
-    UpdateBatCaveDeviceSettingResponse:
+    UpdateHumidityDeviceSettingResponse:
       properties:
         deepSleepDelay:
           description: The deep sleep delay of the device

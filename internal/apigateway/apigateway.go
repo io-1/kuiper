@@ -90,7 +90,7 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	{
 
 		// settings are stored in a database
-		settingsGroup := devicesGroup.Group("/setting")
+		settingsGroup := devicesGroup.Group("/settings")
 		{
 
 			humidityGroup := settingsGroup.Group("/humidity")

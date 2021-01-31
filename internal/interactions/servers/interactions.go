@@ -12,9 +12,15 @@ import (
 )
 
 const (
-	LAMP_TOGGLE_EVENT = "toggle"
-	LAMP_COLOR_EVENT  = "color"
-	LAMP_PULSE_EVENT  = "pulse"
+	LAMP_ON_EVENT                     = "on"
+	LAMP_OFF_EVENT                    = "off"
+	LAMP_TOGGLE_EVENT                 = "toggle"
+	LAMP_BRIGHTNESS_EVENT             = "brightness"
+	LAMP_AUTO_BRIGHTNESS_ON_EVENT     = "auto-brightness-on"
+	LAMP_AUTO_BRIGHTNESS_OFF_EVENT    = "auto-brightness-off"
+	LAMP_AUTO_BRIGHTNESS_TOGGLE_EVENT = "auto-brightness-toggle"
+	LAMP_COLOR_EVENT                  = "color"
+	LAMP_PULSE_EVENT                  = "pulse"
 )
 
 func (s *InteractionsServer) CreateInteraction(ctx context.Context, req *interactions_pb.CreateInteractionRequest) (*interactions_pb.CreateInteractionResponse, error) {
@@ -71,7 +77,62 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 	for _, interactionDetail := range interactionDetails {
 		var res *interactions_pb.GetInteractionDetailsResponse
 		switch interactionDetail.LampEvent.EventType {
+		case LAMP_ON_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+			}
+		case LAMP_OFF_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+			}
 		case LAMP_TOGGLE_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+			}
+		case LAMP_BRIGHTNESS_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+				LampEventBrightness:     interactionDetail.LampEvent.Brightness,
+			}
+		case LAMP_AUTO_BRIGHTNESS_ON_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+			}
+		case LAMP_AUTO_BRIGHTNESS_OFF_EVENT:
+			res = &interactions_pb.GetInteractionDetailsResponse{
+				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
+				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
+				KeypadConditionButtonID: *interactionDetail.KeypadCondition.ButtonID,
+				LampEventType:           interactionDetail.LampEvent.EventType,
+				LampEventID:             interactionDetail.LampEvent.ID,
+				LampEventMac:            interactionDetail.LampEvent.Mac,
+			}
+		case LAMP_AUTO_BRIGHTNESS_TOGGLE_EVENT:
 			res = &interactions_pb.GetInteractionDetailsResponse{
 				KeypadConditionID:       *interactionDetail.KeypadCondition.ID,
 				KeypadConditionMac:      *interactionDetail.KeypadCondition.Mac,
