@@ -474,11 +474,13 @@ message DeleteLampToggleEventResponse {
 
 message CreateLampBrightnessEventRequest{
   string Mac = 1;
+  int32 Brightness = 2;
 }
 
 message CreateLampBrightnessEventResponse {
   string ID = 1;
   string Mac = 2;
+  int32 Brightness = 3;
 }
 
 message GetLampBrightnessEventRequest {
@@ -488,16 +490,19 @@ message GetLampBrightnessEventRequest {
 message GetLampBrightnessEventResponse {
   string ID = 1;
   string Mac = 2;
+  int32 Brightness = 3;
 }
 
 message UpdateLampBrightnessEventRequest {
   string ID = 1;
   string Mac = 2;
+  int32 Brightness = 3;
 }
 
 message UpdateLampBrightnessEventResponse {
   string ID = 1;
   string Mac = 2;
+  int32 Brightness = 3;
 }
 
 message DeleteLampBrightnessEventRequest {

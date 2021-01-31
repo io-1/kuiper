@@ -186,11 +186,11 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 			// FIXME: finished adding grpc calls - need to add this section
 			brightnessGroup := eventGroup.Group("/brightness")
 			{
-				brightnessGroup.POST("", nil)
-				brightnessGroup.GET("/:lamp_brightness_event_id", nil)
-				brightnessGroup.PUT("/:lamp_brightness_event_id", nil)
-				brightnessGroup.PATCH("/:lamp_brightness_event_id", nil)
-				brightnessGroup.DELETE("/:lamp_brightness_event_id", nil)
+				brightnessGroup.POST("", g.interactionsClient.CreateLampBrightnessEvent)
+				brightnessGroup.GET("/:lamp_brightness_event_id", g.interactionsClient.GetLampBrightnessEvent)
+				brightnessGroup.PUT("/:lamp_brightness_event_id", g.interactionsClient.UpdateLampBrightnessEvent)
+				brightnessGroup.PATCH("/:lamp_brightness_event_id", g.interactionsClient.PatchLampBrightnessEvent)
+				brightnessGroup.DELETE("/:lamp_brightness_event_id", g.interactionsClient.DeleteLampBrightnessEvent)
 
 				autoBrightnessGroup := eventGroup.Group("/auto")
 				{
