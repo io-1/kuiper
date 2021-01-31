@@ -12,10 +12,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/io-1/kuiper/internal/logger/blanklogger"
-	"github.com/io-1/kuiper/internal/mock"
+	"github.com/io-1/kuiper/pkg/mock"
 	"github.com/stretchr/testify/assert"
 
-	users_pb "github.com/io-1/kuiper/internal/pb/users"
+	users_pb "github.com/io-1/kuiper/pkg/pb/users"
 )
 
 func Test_PatchUser_Should_Update_Username_When_Username_Is_Not_Empty(t *testing.T) {

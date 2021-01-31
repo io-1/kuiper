@@ -12,10 +12,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
 	"github.com/io-1/kuiper/internal/logger/blanklogger"
-	"github.com/io-1/kuiper/internal/mock"
+	"github.com/io-1/kuiper/pkg/mock"
 	"github.com/stretchr/testify/assert"
 
-	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/pkg/pb/devices"
 )
 
 func Test_GetBatCaveDeviceSetting_Should_Return_StatusNoContent_When_ID_Is_Empty(t *testing.T) {
