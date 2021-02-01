@@ -102,7 +102,7 @@ CREATE TABLE lamp_toggle_events(
 CREATE TABLE lamp_brightness_events(
     id VARCHAR(36) NOT NULL, 
     mac VARCHAR(12) NOT NULL,
-    brightenss INT NOT NULL,
+    brightness INT NOT NULL,
     created_at TIMESTAMP, 
     updated_at TIMESTAMP, 
     deleted_at TIMESTAMP, 

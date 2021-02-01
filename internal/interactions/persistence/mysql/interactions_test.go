@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -16,11 +16,11 @@ var (
 
 func Test_InteractionDetails(t *testing.T) {
 	var (
-		id = uuid.New().String()
+		id = "e83fcdcf-6c94-4b9a-9001-6ba0380a814b"
 	)
 
 	_, err := db.GetInteractionDetails(id)
-	// assert.Equal(t, rowsAffectedExpected, rowsAffectedActual)
+	assert.NoError(t, err)
 }
 
 func TestMain(m *testing.M) {
