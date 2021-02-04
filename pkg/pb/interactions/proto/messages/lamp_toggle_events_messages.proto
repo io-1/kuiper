@@ -4,39 +4,38 @@ option go_package = ".;interactions_pb";
 
 package interactions_pb;
 
-message CreateLampOffEventRequest {
+message CreateLampToggleEventRequest {
   string Mac = 1;
 }
 
-message CreateLampOffEventResponse {
+message CreateLampToggleEventResponse {
   string ID = 1;
   string Mac = 2;
 }
 
-message GetLampOffEventRequest {
+message GetLampToggleEventRequest {
   string ID = 1;
 }
 
-message GetLampOffEventResponse {
-  string ID = 1;
-  string Mac = 2;
-}
-
-message UpdateLampOffEventRequest {
+message GetLampToggleEventResponse {
   string ID = 1;
   string Mac = 2;
 }
 
-message UpdateLampOffEventResponse {
+message UpdateLampToggleEventRequest {
   string ID = 1;
   string Mac = 2;
 }
 
-message DeleteLampOffEventRequest {
+message UpdateLampToggleEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampToggleEventRequest {
   string ID = 1;
 }
 
-message DeleteLampOffEventResponse {
+message DeleteLampToggleEventResponse {
   string ID = 1;
 }
-

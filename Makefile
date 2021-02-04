@@ -28,12 +28,12 @@ get-ci:
 .PHONY: generate
 generate:
 	echo "generating dependency files..."
-	protoc --go-grpc_out=pkg/pb/sensors --go_out=pkg/pb/sensors pkg/pb/sensors/sensors.proto
-	protoc --go-grpc_out=pkg/pb/users --go_out=pkg/pb/users pkg/pb/users/users.proto
-	protoc --go-grpc_out=pkg/pb/devices --go_out=pkg/pb/devices pkg/pb/devices/devices.proto
-	protoc --go-grpc_out=pkg/pb/interactions --go_out=pkg/pb/interactions --proto_path=pkg/pb/interactions pkg/pb/interactions/interactions.proto
-	mockgen -source pkg/pb/devices/devices_grpc.pb.go -destination=pkg/mock/mockdevicesserviceclient.go -package=mock
-	mockgen -source pkg/pb/users/users_grpc.pb.go -destination=pkg/mock/mockusersserviceclient.go -package=mock
+	protoc --go-grpc_out=./pkg/pb/sensors --go_out=./pkg/pb/sensors ./pkg/pb/sensors/sensors.proto
+	protoc --go-grpc_out=./pkg/pb/users --go_out=./pkg/pb/users ./pkg/pb/users/users.proto
+	protoc --go-grpc_out=./pkg/pb/devices --go_out=./pkg/pb/devices ./pkg/pb/devices/devices.proto
+	protoc --go-grpc_out=./pkg/pb/interactions --go_out=./pkg/pb/interactions --proto_path=./pkg/pb/interactions/proto ./pkg/pb/interactions/proto/*.proto ./pkg/pb/interactions/proto/messages/*.proto
+	mockgen -source ./pkg/pb/devices/devices_grpc.pb.go -destination=pkg/mock/mockdevicesserviceclient.go -package=mock
+	mockgen -source ./pkg/pb/users/users_grpc.pb.go -destination=pkg/mock/mockusersserviceclient.go -package=mock
 	go generate ./...
 	echo "done"
 

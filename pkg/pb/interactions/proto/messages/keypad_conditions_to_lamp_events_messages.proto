@@ -49,4 +49,3 @@ message DeleteKeypadConditionToLampEventRequest {
 message DeleteKeypadConditionToLampEventResponse {
   string ID = 1;
 }
-

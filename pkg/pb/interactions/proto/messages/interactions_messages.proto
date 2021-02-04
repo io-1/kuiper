@@ -36,9 +36,10 @@ message GetInteractionDetailsResponse {
   string LampEventType = 4;
   string LampEventID = 5;
   string LampEventMac = 6;
-  int32 LampEventRed = 7;
-  int32 LampEventGreen = 8;
-  int32 LampEventBlue = 9;
+  int32 LampEventBrightness = 7;
+  int32 LampEventRed = 8;
+  int32 LampEventGreen = 9;
+  int32 LampEventBlue = 10;
 }
 
 message UpdateInteractionRequest {
@@ -60,4 +61,3 @@ message DeleteInteractionRequest {
 message DeleteInteractionResponse {
   string ID = 1;
 }
-

@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateLampEventRequest {
+  string Mac = 1;
+  string EventType = 2;
+  int32 Red = 3;
+  int32 Green = 4;
+  int32 Blue = 5;
+}
+
+message CreateLampEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  string EventType = 3;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
+}
+
+message GetLampEventRequest {
+  string ID = 1;
+}
+
+message GetLampEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  string EventType = 3;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
+}
+
+message UpdateLampEventRequest {
+  string ID = 1;
+  string Mac = 2;
+  string EventType = 3;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
+}
+
+message UpdateLampEventResponse {
+  string ID = 1;
+  string Mac = 2;
+  string EventType = 3;
+  int32 Red = 4;
+  int32 Green = 5;
+  int32 Blue = 6;
+}
+
+message DeleteLampEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampEventResponse {
+  string ID = 1;
+}

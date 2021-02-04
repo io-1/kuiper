@@ -39,3 +39,4 @@ message DeleteLampOnEventRequest {
 message DeleteLampOnEventResponse {
   string ID = 1;
 }
+

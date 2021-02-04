@@ -44,4 +44,3 @@ message DeleteKeypadConditionRequest {
 message DeleteKeypadConditionResponse {
   string ID = 1;
 }
-
