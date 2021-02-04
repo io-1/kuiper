@@ -10,7 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamponevents/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lamponevents/response"
-	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
+
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions/go"
 )
 
 func (client InteractionsClient) CreateLampOnEvent(c *gin.Context) {

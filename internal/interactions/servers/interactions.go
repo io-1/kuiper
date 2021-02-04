@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions/go"
 )
 
 const (
@@ -74,6 +74,7 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 		return status.Error(codes.NotFound, "interactions were not found")
 	}
 
+	// FIXME: should this be one thing?
 	for _, interactionDetail := range interactionDetails {
 		var res *interactions_pb.GetInteractionDetailsResponse
 		switch interactionDetail.LampEvent.EventType {

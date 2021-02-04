@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions/go"
 )
 
 func (s *InteractionsServer) CreateKeypadConditionToLampEvent(ctx context.Context, req *interactions_pb.CreateKeypadConditionToLampEventRequest) (*interactions_pb.CreateKeypadConditionToLampEventResponse, error) {

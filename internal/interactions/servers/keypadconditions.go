@@ -9,7 +9,7 @@ import (
 
 	"github.com/io-1/kuiper/internal/interactions/persistence"
 
-	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions/go"
 )
 
 func (s *InteractionsServer) CreateKeypadCondition(ctx context.Context, req *interactions_pb.CreateKeypadConditionRequest) (*interactions_pb.CreateKeypadConditionResponse, error) {

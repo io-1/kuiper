@@ -10,7 +10,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lampcolorevents/request"
 	"github.com/io-1/kuiper/internal/apigateway/clients/interactionsclient/lampcolorevents/response"
-	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
+
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions/go"
 )
 
 func (client InteractionsClient) CreateLampColorEvent(c *gin.Context) {

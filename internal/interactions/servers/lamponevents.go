@@ -9,7 +9,7 @@ import (
 
 	"github.com/io-1/kuiper/internal/interactions/persistence"
 
-	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions/go"
 )
 
 func (s *InteractionsServer) CreateLampOnEvent(ctx context.Context, req *interactions_pb.CreateLampOnEventRequest) (*interactions_pb.CreateLampOnEventResponse, error) {

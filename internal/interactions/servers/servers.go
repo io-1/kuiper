@@ -4,7 +4,7 @@ import (
 	"github.com/io-1/kuiper/internal/interactions/persistence"
 	"github.com/io-1/kuiper/internal/logger"
 
-	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions"
+	interactions_pb "github.com/io-1/kuiper/pkg/pb/interactions/go"
 )
 
 type InteractionsServer struct {
