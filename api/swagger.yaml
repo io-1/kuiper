@@ -647,6 +647,134 @@ paths:
       summary: Create Lamp On Event
       tags:
         - Interactions
+  /api/v1/lamp/event/off/:id:
+    delete:
+      description: Allows a lamp off event to be soft deleted.
+      operationId: deleteLampEventOff
+      parameters:
+        - description: The id of the lamp off event 
+          in: query
+          name: id
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteLampOffEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Delete Lamp Off Event
+      tags:
+        - Interactions
+    get:
+      description: Get information about a lamp on event.
+      operationId: getLampEventOff
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/GetLampOffEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data the in request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Get Lamp Off Event
+      tags:
+        - Interactions
+    put:
+      description: Updates a lamp on event.
+      operationId: updateLampOffEvent
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLampOffEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateLampOffEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Update Lamp Off Event
+      tags:
+        - Interactions
+    patch:
+      description: Patches a lamp on event.
+      operationId: patchLampOffEvent
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchLampOffEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchLampOffEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Patch Lamp Off Event
+      tags:
+        - Interactions
+  /api/v1/lamp/event/off:
+    post:
+      description: Allows a lamp on event to be created.
+      operationId: createLampOffEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLampOffEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateLampOffEventResponse"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Create Lamp Off Event
+      tags:
+        - Interactions
 
 components:
   securitySchemes:
@@ -807,6 +935,36 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateLampOnEventResponse"
+    DeleteLampOffEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteLampOffEventResponse"
+    GetLampOffEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetLampOffEventResponse"
+    UpdateLampOffEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateLampOffEventResponse"
+    PatchLampOffEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchLampOffEventResponse"
+    CreateLampOffEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateLampOffEventResponse"
   schemas:
     CreateHumidityDeviceSettingRequest:
       description: The request used to create a Bat Cave device setting
@@ -1395,6 +1553,94 @@ components:
       type: object
       # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
     CreateLampOnEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp on event is being created
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event that is being created
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    DeleteLampOffEventResponse:
+      properties:
+        id:
+          description: The id of the lamp on event that was deleted
+          type: string
+          x-go-name: ID
+      title: DeleteLampOffEventResponse is a response when a lamp on event has been successfully deleted.
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    GetLampOffEventResponse:
+      properties:
+        id:
+          description: The id of the lamp on event 
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event 
+          type: string
+          x-go-name: Mac
+      title: GetLampOffEventResponse is a response when getting a lamp on event successfully
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    UpdateLampOffEventRequest:
+      description: The request used to update a lamp on event
+      properties:
+        mac:
+          description: The mac of the lamp on event to update
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    UpdateLampOffEventResponse:
+      properties:
+        id:
+          description: The id of the lamp on event to update
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event that is being updated
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    PatchLampOffEventRequest:
+      description: The request used to patch a lamp on event 
+      properties:
+        mac:
+          description: The mac of the lamp on event to update
+          type: string
+          x-go-name: Name
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchLampOffEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp on event is being patched
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event that is being patched
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    CreateLampOffEventRequest:
+      description: The request used to create a lamp on event 
+      properties:
+        mac:
+          description: The mac of the lamp on event to create
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    CreateLampOffEventResponse:
       properties:
         id:
           description: The id of the id lamp on event is being created
