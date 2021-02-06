@@ -6,6 +6,7 @@ require (
 	github.com/AlekSi/gocov-xml v0.0.0-20190121064608-3a14fb1c4737 // indirect
 	github.com/appleboy/gin-jwt v2.5.0+incompatible
 	github.com/appleboy/gin-jwt/v2 v2.6.4
+	github.com/appleboy/gorush v1.13.0 // indirect
 	github.com/axw/gocov v1.0.0 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.2.0
 	github.com/gin-gonic/gin v1.6.3

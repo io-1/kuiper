@@ -242,7 +242,7 @@ paths:
       summary: Patch User
       tags:
         - Users
-  /api/v1/users/create:
+  /api/v1/users:
     post:
       description: Allows a user to be created.
       operationId: createUser
@@ -263,6 +263,262 @@ paths:
       summary: Create User
       tags:
         - Users
+  /api/v1/interactions/:id:
+    delete:
+      description: Allows a interaction to be soft deleted.
+      operationId: deleteInteraction
+      parameters:
+        - description: The id of the interaction
+          in: query
+          name: id
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteInteractionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Delete Interaction 
+      tags:
+        - Interactions
+    get:
+      description: Get information about a interaction.
+      operationId: getInteraction
+      parameters:
+        - description: The id of the interaction
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/GetInteractionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data the in request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Get Interaction
+      tags:
+        - Interactions
+    put:
+      description: Updates a interaction.
+      operationId: updateInteraction
+      parameters:
+        - description: The id of the interaction
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateInteractionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateInteractionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Update Interaction
+      tags:
+        - Interactions
+    patch:
+      description: Patches a interaction.
+      operationId: patchInteraction
+      parameters:
+        - description: The id of the interaction
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchInteractionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchInteractionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Patch Interaction
+      tags:
+        - Interactions
+  /api/v1/interactions:
+    post:
+      description: Allows a interaction to be created.
+      operationId: createInteraction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateInteractionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateInteractionResponse"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Create Interaction
+      tags:
+        - Interactions
+  /api/v1/keypad/condition/:id:
+    delete:
+      description: Allows a keypad condition to be soft deleted.
+      operationId: deleteKeypadCondition
+      parameters:
+        - description: The id of the keypad condition  
+          in: query
+          name: id
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteKeypadConditionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Delete Keypad Condition
+      tags:
+        - Interactions
+    get:
+      description: Get information about a keypad condition.
+      operationId: getKeypadCondition
+      parameters:
+        - description: The id of the keypad condition 
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/GetKeypadConditionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data the in request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Get Keypad Condition
+      tags:
+        - Interactions
+    put:
+      description: Updates a keypad condition.
+      operationId: updateKeypadCondition
+      parameters:
+        - description: The id of the keypad condition 
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateKeypadConditionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateKeypadConditionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Update KeypadCondition
+      tags:
+        - Interactions
+    patch:
+      description: Patches a keypad condition.
+      operationId: patchKeypadCondition
+      parameters:
+        - description: The id of the keypad condition 
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchKeypadConditionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchKeypadConditionResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Patch KeypadCondition
+      tags:
+        - Interactions
+  /api/v1/keypad/condition:
+    post:
+      description: Allows a keypad condition to be created.
+      operationId: createKeypadCondition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateKeypadConditionRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateKeypadConditionResponse"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Create Keypad Condition 
+      tags:
+        - Interactions
 
 components:
   securitySchemes:
@@ -333,6 +589,66 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/PatchUserResponse"
+    DeleteInteractionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteInteractionResponse"
+    GetInteractionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetInteractionResponse"
+    UpdateInteractionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateInteractionResponse"
+    PatchInteractionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchInteractionResponse"
+    CreateInteractionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateInteractionResponse"
+    DeleteKeypadConditionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteKeypadConditionResponse"
+    GetKeypadConditionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetKeypadConditionResponse"
+    UpdateKeypadConditionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateKeypadConditionResponse"
+    PatchKeypadConditionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchKeypadConditionResponse"
+    CreateKeypadConditionResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateKeypadConditionResponse"
   schemas:
     CreateHumidityDeviceSettingRequest:
       description: The request used to create a Bat Cave device setting
@@ -608,4 +924,240 @@ components:
       title: Successful operation
       type: object
       x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/response
-
+    DeleteInteractionResponse:
+      properties:
+        id:
+          description: The id of the interaction that was deleted
+          type: string
+          x-go-name: ID
+      title: DeleteInteractionResponse is a response when a user has been successfully
+        deleted.
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    GetInteractionResponse:
+      properties:
+        name:
+          description: The name of the interaction
+          type: string
+          x-go-name: Name
+        id:
+          description: The id of the user
+          type: string
+          x-go-name: ID
+        description:
+          description: The description of the interaction
+          type: string
+          x-go-name: Description 
+      title: GetInteractionResponse is a response when getting a interaction successfully
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    UpdateInteractionRequest:
+      description: The request used to update a interaction
+      properties:
+        name:
+          description: The name of the interaction to update
+          type: string
+          x-go-name: Name
+        description:
+          description: The description of the interaction being updated
+          type: string
+          x-go-name: Description 
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    UpdateInteractionResponse:
+      properties:
+        id:
+          description: The id of the id interaction is being updated
+          type: string
+          x-go-name: ID
+        name:
+          description: The name of the interaction that is being updated
+          type: string
+          x-go-name: Name
+        description:
+          description: The description of the interaction that is being updated
+          type: string
+          x-go-name: Description 
+      title: Successful operation
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    PatchInteractionRequest:
+      description: The request used to patch a interaction
+      properties:
+        name:
+          description: The name of the interaction to update
+          type: string
+          x-go-name: Name
+        description:
+          description: The description of the interaction being updated
+          type: string
+          x-go-name: Description 
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchInteractionResponse:
+      properties:
+        id:
+          description: The id of the id interaction is being patched
+          type: string
+          x-go-name: ID
+        name:
+          description: The name of the interaction that is being patched
+          type: string
+          x-go-name: Name
+        description:
+          description: The description of the interaction that is being patched
+          type: string
+          x-go-name: Description 
+      title: Successful operation
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    CreateInteractionRequest:
+      description: The request used to create a interaction
+      properties:
+        name:
+          description: The name of the interaction to create
+          type: string
+          x-go-name: Name
+        description:
+          description: The description of the interaction being create
+          type: string
+          x-go-name: Description 
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    CreateInteractionResponse:
+      properties:
+        id:
+          description: The id of the id interaction is being created
+          type: string
+          x-go-name: ID
+        name:
+          description: The name of the interaction that is being created
+          type: string
+          x-go-name: Name
+        description:
+          description: The description of the interaction that is being created
+          type: string
+          x-go-name: Description 
+      title: Successful operation
+      type: object
+      x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    DeleteKeypadConditionResponse:
+      properties:
+        id:
+          description: The id of the keypad condition that was deleted
+          type: string
+          x-go-name: ID
+      title: DeleteKeypadConditionResponse is a response when a keypad condition has been successfully deleted.
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    GetKeypadConditionResponse:
+      properties:
+        id:
+          description: The id of the keypad condition
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the keypad condition
+          type: string
+          x-go-name: Mac
+        button_id:
+          description: The button id of the keypad condition
+          type: int32
+          x-go-name: ButtonID
+      title: GetKeypadConditionResponse is a response when getting a keypad condition successfully
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    UpdateKeypadConditionRequest:
+      description: The request used to update a keypad condition
+      properties:
+        id:
+          description: The id of the keypad condition to update
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the keypad condition to update
+          type: string
+          x-go-name: Mac
+        button_id:
+          description: The button id of the keypad condition being updated
+          type: int32
+          x-go-name: ButtonID
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    UpdateKeypadConditionResponse:
+      properties:
+        id:
+          description: The id of the keypad condition to update
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the keypad condition that is being updated
+          type: string
+          x-go-name: Mac
+        button_id:
+          description: The button id of the keypad condition that is being updated
+          type: int32
+          x-go-name: ButtonID
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    PatchKeypadConditionRequest:
+      description: The request used to patch a keypad condition 
+      properties:
+        mac:
+          description: The mac of the keypad condition to update
+          type: string
+          x-go-name: Name
+        button_id:
+          description: The button id of the keypad condition being updated
+          type: int32
+          x-go-name: ButtonID
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchKeypadConditionResponse:
+      properties:
+        id:
+          description: The id of the id keypad condition is being patched
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the keypad condition that is being patched
+          type: string
+          x-go-name: Mac
+        button_id:
+          description: The button id of the keypad condition that is being patched
+          type: int32
+          x-go-name: ButtonID
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    CreateKeypadConditionRequest:
+      description: The request used to create a keypad condition  
+      properties:
+        mac:
+          description: The mac of the keypad condition to create
+          type: string
+          x-go-name: Mac
+        button_id:
+          description: The button id of the keypad condition being create
+          type: int32
+          x-go-name: ButtonID
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    CreateKeypadConditionResponse:
+      properties:
+        id:
+          description: The id of the id keypad condition is being created
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the keypad condition that is being created
+          type: string
+          x-go-name: Mac
+        button_id:
+          description: The button id of the keypad condition that is being created
+          type: int32
+          x-go-name: ButtonID
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
