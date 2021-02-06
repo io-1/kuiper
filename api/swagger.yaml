@@ -775,6 +775,134 @@ paths:
       summary: Create Lamp Off Event
       tags:
         - Interactions
+  /api/v1/lamp/event/toggle/:id:
+    delete:
+      description: Allows a lamp toggle event to be soft deleted.
+      operationId: deleteLampEventToggle
+      parameters:
+        - description: The id of the lamp toggle event 
+          in: query
+          name: id
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteLampToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Delete Lamp Toggle Event
+      tags:
+        - Interactions
+    get:
+      description: Get information about a lamp toggle event.
+      operationId: getLampEventToggle
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/GetLampToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data the in request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Get Lamp Toggle Event
+      tags:
+        - Interactions
+    put:
+      description: Updates a lamp toggle event.
+      operationId: updateLampToggleEvent
+      parameters:
+        - description: The id of the lamp toggle event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLampToggleEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateLampToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Update Lamp Toggle Event
+      tags:
+        - Interactions
+    patch:
+      description: Patches a lamp toggle event.
+      operationId: patchLampToggleEvent
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchLampToggleEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchLampToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Patch Lamp Toggle Event
+      tags:
+        - Interactions
+  /api/v1/lamp/event/toggle:
+    post:
+      description: Allows a lamp toggle event to be created.
+      operationId: createLampToggleEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLampToggleEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateLampToggleEventResponse"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Create Lamp Toggle Event
+      tags:
+        - Interactions
 
 components:
   securitySchemes:
@@ -965,6 +1093,36 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateLampOffEventResponse"
+    DeleteLampToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteLampToggleEventResponse"
+    GetLampToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetLampToggleEventResponse"
+    UpdateLampToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateLampToggleEventResponse"
+    PatchLampToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchLampToggleEventResponse"
+    CreateLampToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateLampToggleEventResponse"
   schemas:
     CreateHumidityDeviceSettingRequest:
       description: The request used to create a Bat Cave device setting
@@ -1648,6 +1806,94 @@ components:
           x-go-name: ID
         mac:
           description: The mac of the lamp on event that is being created
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    DeleteLampToggleEventResponse:
+      properties:
+        id:
+          description: The id of the lamp toggle event that was deleted
+          type: string
+          x-go-name: ID
+      title: DeleteLampToggleEventResponse is a response when a lamp toggle event has been successfully deleted.
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    GetLampToggleEventResponse:
+      properties:
+        id:
+          description: The id of the lamp toggle event 
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp toggle event 
+          type: string
+          x-go-name: Mac
+      title: GetLampToggleEventResponse is a response when getting a lamp toggle event successfully
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    UpdateLampToggleEventRequest:
+      description: The request used to update a lamp toggle event
+      properties:
+        mac:
+          description: The mac of the lamp toggle event to update
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    UpdateLampToggleEventResponse:
+      properties:
+        id:
+          description: The id of the lamp toggle event to update
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp toggle event that is being updated
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    PatchLampToggleEventRequest:
+      description: The request used to patch a lamp toggle event 
+      properties:
+        mac:
+          description: The mac of the lamp toggle event to update
+          type: string
+          x-go-name: Name
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchLampToggleEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp toggle event is being patched
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp toggle event that is being patched
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    CreateLampToggleEventRequest:
+      description: The request used to create a lamp toggle event 
+      properties:
+        mac:
+          description: The mac of the lamp toggle event to create
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    CreateLampToggleEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp toggle event is being created
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp toggle event that is being created
           type: string
           x-go-name: Mac
       title: Successful operation
