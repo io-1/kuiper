@@ -183,7 +183,6 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 				toggleGroup.DELETE("/:lamp_toggle_event_id", g.interactionsClient.DeleteLampToggleEvent)
 			}
 
-			// FIXME: finished adding grpc calls - need to add this section
 			brightnessGroup := eventGroup.Group("/brightness")
 			{
 				brightnessGroup.POST("", g.interactionsClient.CreateLampBrightnessEvent)

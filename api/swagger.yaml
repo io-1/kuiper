@@ -466,7 +466,7 @@ paths:
           description: " Validation error"
         "500":
           $ref: "#/components/responses/ErrorResponse"
-      summary: Update KeypadCondition
+      summary: Update Keypad Condition
       tags:
         - Interactions
     patch:
@@ -495,7 +495,7 @@ paths:
           description: " Validation error"
         "500":
           $ref: "#/components/responses/ErrorResponse"
-      summary: Patch KeypadCondition
+      summary: Patch Keypad Condition
       tags:
         - Interactions
   /api/v1/keypad/condition:
@@ -516,7 +516,135 @@ paths:
           description: " Validation error"
         "500":
           $ref: "#/components/responses/ErrorResponse"
-      summary: Create Keypad Condition 
+      summary: Create Keypad Condition
+      tags:
+        - Interactions
+  /api/v1/lamp/event/on/:id:
+    delete:
+      description: Allows a lamp on event to be soft deleted.
+      operationId: deleteLampEventOn
+      parameters:
+        - description: The id of the lamp on event 
+          in: query
+          name: id
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteLampOnEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Delete Lamp On Event
+      tags:
+        - Interactions
+    get:
+      description: Get information about a lamp on event.
+      operationId: getLampEventOn
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/GetLampOnEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data the in request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Get Lamp On Event
+      tags:
+        - Interactions
+    put:
+      description: Updates a lamp on event.
+      operationId: updateLampOnEvent
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLampOnEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateLampOnEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Update Lamp On Event
+      tags:
+        - Interactions
+    patch:
+      description: Patches a lamp on event.
+      operationId: patchLampOnEvent
+      parameters:
+        - description: The id of the lamp on event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchLampOnEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchLampOnEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Patch Lamp On Event
+      tags:
+        - Interactions
+  /api/v1/lamp/event/on:
+    post:
+      description: Allows a lamp on event to be created.
+      operationId: createLampOnEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLampOnEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateLampOnEventResponse"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Create Lamp On Event
       tags:
         - Interactions
 
@@ -649,6 +777,36 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateKeypadConditionResponse"
+    DeleteLampOnEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteLampOnEventResponse"
+    GetLampOnEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetLampOnEventResponse"
+    UpdateLampOnEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateLampOnEventResponse"
+    PatchLampOnEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchLampOnEventResponse"
+    CreateLampOnEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateLampOnEventResponse"
   schemas:
     CreateHumidityDeviceSettingRequest:
       description: The request used to create a Bat Cave device setting
@@ -1158,6 +1316,94 @@ components:
           description: The button id of the keypad condition that is being created
           type: int32
           x-go-name: ButtonID
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    DeleteLampOnEventResponse:
+      properties:
+        id:
+          description: The id of the lamp on event that was deleted
+          type: string
+          x-go-name: ID
+      title: DeleteLampOnEventResponse is a response when a lamp on event has been successfully deleted.
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    GetLampOnEventResponse:
+      properties:
+        id:
+          description: The id of the lamp on event 
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event 
+          type: string
+          x-go-name: Mac
+      title: GetLampOnEventResponse is a response when getting a lamp on event successfully
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    UpdateLampOnEventRequest:
+      description: The request used to update a lamp on event
+      properties:
+        mac:
+          description: The mac of the lamp on event to update
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    UpdateLampOnEventResponse:
+      properties:
+        id:
+          description: The id of the lamp on event to update
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event that is being updated
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    PatchLampOnEventRequest:
+      description: The request used to patch a lamp on event 
+      properties:
+        mac:
+          description: The mac of the lamp on event to update
+          type: string
+          x-go-name: Name
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchLampOnEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp on event is being patched
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event that is being patched
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    CreateLampOnEventRequest:
+      description: The request used to create a lamp on event 
+      properties:
+        mac:
+          description: The mac of the lamp on event to create
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    CreateLampOnEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp on event is being created
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp on event that is being created
+          type: string
+          x-go-name: Mac
       title: Successful operation
       type: object
       # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
