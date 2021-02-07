@@ -1287,6 +1287,134 @@ paths:
       summary: Create Lamp Auto Brightness Off Event
       tags:
         - Interactions
+  /api/v1/lamp/event/brightness/auto/toggle/:id:
+    delete:
+      description: Allows a lamp auto brightness toggle event to be soft deleted.
+      operationId: deleteLampAutoBrightnessToggleEvent
+      parameters:
+        - description: The id of the lamp auto brightness toggle event 
+          in: query
+          name: id
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteLampAutoBrightnessToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Delete Lamp Auto Brightness Toggle Event
+      tags:
+        - Interactions
+    get:
+      description: Get information about a lamp auto brightness toggle event.
+      operationId: getLampAutoBrightnessToggleEvent
+      parameters:
+        - description: The id of the lamp auto brightness toggle event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/GetLampAutoBrightnessToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data the in request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Get Lamp Auto Brightness Toggle Event
+      tags:
+        - Interactions
+    put:
+      description: Updates a lamp auto brightness toggle event.
+      operationId: updateLampAutoBrightnessToggleEvent
+      parameters:
+        - description: The id of the lamp auto brightness toggle event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLampAutoBrightnessToggleEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateLampAutoBrightnessToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Update Lamp Brightness Toggle Event
+      tags:
+        - Interactions
+    patch:
+      description: Patches a lamp auto brightness toggle event.
+      operationId: patchLampAutoBrightnessToggleEvent
+      parameters:
+        - description: The id of the lamp auto brightness toggle event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchLampAutoBrightnessToggleEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchLampAutoBrightnessToggleEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Patch Lamp Auto Brightness Toggle Event
+      tags:
+        - Interactions
+  /api/v1/lamp/event/brightness/auto/toggle:
+    post:
+      description: Allows a lamp auto brightness toggle event to be created.
+      operationId: createLampAutoBrightnessToggleEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLampAutoBrightnessToggleEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateLampAutoBrightnessToggleEventResponse"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Create Lamp Auto Brightness Toggle Event
+      tags:
+        - Interactions
 
 components:
   securitySchemes:
@@ -1597,6 +1725,36 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateLampAutoBrightnessOffEventResponse"
+    DeleteLampAutoBrightnessToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteLampAutoBrightnessToggleEventResponse"
+    GetLampAutoBrightnessToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetLampAutoBrightnessToggleEventResponse"
+    UpdateLampAutoBrightnessToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateLampAutoBrightnessToggleEventResponse"
+    PatchLampAutoBrightnessToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchLampAutoBrightnessToggleEventResponse"
+    CreateLampAutoBrightnessToggleEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateLampAutoBrightnessToggleEventResponse"
 
   schemas:
     CreateHumidityDeviceSettingRequest:
@@ -2667,6 +2825,94 @@ components:
       type: object
       # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
     CreateLampAutoBrightnessOffEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp brightness event is being created
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp brightness event that is being created
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    DeleteLampAutoBrightnessToggleEventResponse:
+      properties:
+        id:
+          description: The id of the lamp brightness event that was deleted
+          type: string
+          x-go-name: ID
+      title: DeleteLampAutoBrightnessToggleEventResponse is a response when a lamp brightness event has been successfully deleted.
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    GetLampAutoBrightnessToggleEventResponse:
+      properties:
+        id:
+          description: The id of the lamp brightness event 
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp brightness event 
+          type: string
+          x-go-name: Mac
+      title: GetLampAutoBrightnessToggleEventResponse is a response when getting a lamp brightness event successfully
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    UpdateLampAutoBrightnessToggleEventRequest:
+      description: The request used to update a lamp brightness event
+      properties:
+        mac:
+          description: The mac of the lamp brightness event to update
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    UpdateLampAutoBrightnessToggleEventResponse:
+      properties:
+        id:
+          description: The id of the lamp brightness event to update
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp brightness event that is being updated
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    PatchLampAutoBrightnessToggleEventRequest:
+      description: The request used to patch a lamp brightness event 
+      properties:
+        mac:
+          description: The mac of the lamp brightness event to update
+          type: string
+          x-go-name: Name
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchLampAutoBrightnessToggleEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp brightness event is being patched
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp brightness event that is being patched
+          type: string
+          x-go-name: Mac
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    CreateLampAutoBrightnessToggleEventRequest:
+      description: The request used to create a lamp brightness event 
+      properties:
+        mac:
+          description: The mac of the lamp brightness event to create
+          type: string
+          x-go-name: Mac
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    CreateLampAutoBrightnessToggleEventResponse:
       properties:
         id:
           description: The id of the id lamp brightness event is being created
