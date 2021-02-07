@@ -1522,7 +1522,7 @@ paths:
       summary: Patch Lamp Color Event
       tags:
         - Interactions
-  /api/v1/lamp/event/brightness/auto/color:
+  /api/v1/lamp/event/color:
     post:
       description: Allows a lamp color event to be created.
       operationId: createLampColorEvent
@@ -1541,6 +1541,134 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorResponse"
       summary: Create Lamp Color Event
+      tags:
+        - Interactions
+  /api/v1/lamp/event/pulse/:id:
+    delete:
+      description: Allows a lamp pulse event to be soft deleted.
+      operationId: deleteLampPulseEvent
+      parameters:
+        - description: The id of the lamp pulse event 
+          in: query
+          name: id
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/DeleteLampPulseEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Delete Lamp Pulse Event
+      tags:
+        - Interactions
+    get:
+      description: Get information about a lamp pulse event.
+      operationId: getLampPulseEvent
+      parameters:
+        - description: The id of the lamp pulse event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/GetLampPulseEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data the in request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Get Lamp Pulse Event
+      tags:
+        - Interactions
+    put:
+      description: Updates a lamp pulse event.
+      operationId: updateLampPulseEvent
+      parameters:
+        - description: The id of the lamp pulse event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLampPulseEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/UpdateLampPulseEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Update Lamp Brightness Pulse Event
+      tags:
+        - Interactions
+    patch:
+      description: Patches a lamp pulse event.
+      operationId: patchLampPulseEvent
+      parameters:
+        - description: The id of the lamp pulse event
+          in: query
+          name: id 
+          x-go-name: ID 
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchLampPulseEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/PatchLampPulseEventResponse"
+        "204":
+          description: " No content"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Patch Lamp Pulse Event
+      tags:
+        - Interactions
+  /api/v1/lamp/event/pulse:
+    post:
+      description: Allows a lamp pulse event to be created.
+      operationId: createLampPulseEvent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLampPulseEventRequest"
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateLampPulseEventResponse"
+        "400":
+          description: " Malformed data in the request body"
+        "405":
+          description: " Validation error"
+        "500":
+          $ref: "#/components/responses/ErrorResponse"
+      summary: Create Lamp Pulse Event
       tags:
         - Interactions
 
@@ -1913,6 +2041,36 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/CreateLampColorEventResponse"
+    DeleteLampPulseEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/DeleteLampPulseEventResponse"
+    GetLampPulseEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/GetLampPulseEventResponse"
+    UpdateLampPulseEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateLampPulseEventResponse"
+    PatchLampPulseEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PatchLampPulseEventResponse"
+    CreateLampPulseEventResponse:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateLampPulseEventResponse"
 
   schemas:
     CreateHumidityDeviceSettingRequest:
@@ -3270,6 +3428,199 @@ components:
           x-go-name: Green
         blue:
           description: The blue value of the lamp color event 
+          format: uint32
+          type: integer
+          x-go-name: Blue
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    DeleteLampPulseEventResponse:
+      properties:
+        id:
+          description: The id of the lamp pulse event that was deleted
+          type: string
+          x-go-name: ID
+      title: DeleteLampPulseEventResponse is a response when a lamp pulseevent has been successfully deleted.
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    GetLampPulseEventResponse:
+      properties:
+        id:
+          description: The id of the lamp pulse event 
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp pulse event 
+          type: string
+          x-go-name: Mac
+        red:
+          description: The red value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Red
+        green:
+          description: The green value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Green
+        blue:
+          description: The blue value of the lamp pulseevent 
+          format: uint32
+          type: integer
+          x-go-name: Blue
+      title: GetLampPulseEventResponse is a response when getting a lamp pulse event successfully
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    UpdateLampPulseEventRequest:
+      description: The request used to update a lamp pulse event
+      properties:
+        mac:
+          description: The mac of the lamp pulse event to update
+          type: string
+          x-go-name: Mac
+        red:
+          description: The red value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Red
+        green:
+          description: The green value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Green
+        blue:
+          description: The blue value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Blue
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    UpdateLampPulseEventResponse:
+      properties:
+        id:
+          description: The id of the lamp pulse event to update
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp pulse event that is being updated
+          type: string
+          x-go-name: Mac
+        red:
+          description: The red value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Red
+        green:
+          description: The green value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Green
+        blue:
+          description: The blue value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Blue
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    PatchLampPulseEventRequest:
+      description: The request used to patch a lamp pulse event 
+      properties:
+        mac:
+          description: The mac of the lamp pulse event to update
+          type: string
+          x-go-name: Mac
+        red:
+          description: The red value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Red
+        green:
+          description: The green value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Green
+        blue:
+          description: The blue value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Blue
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/users/request
+    PatchLampPulseEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp pulse event is being patched
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp pulse event that is being patched
+          type: string
+          x-go-name: Mac
+        red:
+          description: The red value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Red
+        green:
+          description: The green value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Green
+        blue:
+          description: The blue value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Blue
+      title: Successful operation
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/response
+    CreateLampPulseEventRequest:
+      description: The request used to create a lamp pulse event 
+      properties:
+        mac:
+          description: The mac of the lamp pulse event to create
+          type: string
+          x-go-name: Mac
+        red:
+          description: The red value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Red
+        green:
+          description: The green value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Green
+        blue:
+          description: The blue value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Blue
+      type: object
+      # x-go-package: github.com/io-1/kuiper/internal/apigateway/clients/interactions/request
+    CreateLampPulseEventResponse:
+      properties:
+        id:
+          description: The id of the id lamp pulse event is being created
+          type: string
+          x-go-name: ID
+        mac:
+          description: The mac of the lamp pulse event that is being created
+          type: string
+          x-go-name: Mac
+        red:
+          description: The red value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Red
+        green:
+          description: The green value of the lamp pulse event 
+          format: uint32
+          type: integer
+          x-go-name: Green
+        blue:
+          description: The blue value of the lamp pulse event 
           format: uint32
           type: integer
           x-go-name: Blue
