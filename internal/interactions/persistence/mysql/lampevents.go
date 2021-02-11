@@ -47,26 +47,26 @@ func (p MysqlPersistence) GetLampEventsByKeypadConditionID(id string) ([]persist
 				*, 
 				'brightness' AS event_type 
 			FROM lamp_brightness_events 
-				WHERE deleted_at IS NULL) lbe on kl.event_id = lbe.id 
+				WHERE deleted_at IS NULL) lbe on ktl.event_id = lbe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-on' AS event_type 
 			FROM lamp_auto_brightness_on_events 
-				WHERE deleted_at IS NULL) labone on kl.event_id = labone.id 
+				WHERE deleted_at IS NULL) labone on ktl.event_id = labone.id 
 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-off' AS event_type 
 			FROM lamp_auto_brightness_off_events 
-				WHERE deleted_at IS NULL) laboffe on kl.event_id = laboffe.id 
+				WHERE deleted_at IS NULL) laboffe on ktl.event_id = laboffe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-toggle' AS event_type 
 			FROM lamp_auto_brightness_toggle_events 
-				WHERE deleted_at IS NULL) labte on kl.event_id = labte.id 
+				WHERE deleted_at IS NULL) labte on ktl.event_id = labte.id 
 		left join 
 			(SELECT 
 				*, 
@@ -146,26 +146,26 @@ func (p MysqlPersistence) GetLampEventsByKeypadMacAndButtonID(mac string, button
 				*, 
 				'brightness' AS event_type 
 			FROM lamp_brightness_events 
-				WHERE deleted_at IS NULL) lbe on kl.event_id = lbe.id 
+				WHERE deleted_at IS NULL) lbe on ktl.event_id = lbe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-on' AS event_type 
 			FROM lamp_auto_brightness_on_events 
-				WHERE deleted_at IS NULL) labone on kl.event_id = labone.id 
+				WHERE deleted_at IS NULL) labone on ktl.event_id = labone.id 
 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-off' AS event_type 
 			FROM lamp_auto_brightness_off_events 
-				WHERE deleted_at IS NULL) laboffe on kl.event_id = laboffe.id 
+				WHERE deleted_at IS NULL) laboffe on ktl.event_id = laboffe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-toggle' AS event_type 
 			FROM lamp_auto_brightness_toggle_events 
-				WHERE deleted_at IS NULL) labte on kl.event_id = labte.id 
+				WHERE deleted_at IS NULL) labte on ktl.event_id = labte.id 
 		LEFT JOIN
 			(SELECT 
 				*, 
