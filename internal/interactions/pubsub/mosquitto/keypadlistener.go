@@ -74,6 +74,7 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 			case LAMP_ON_EVENT:
 				lampEventToSend = lamp_events.NewLampDeviceOnEvent()
 			case LAMP_OFF_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceOffEvent()
 			case LAMP_TOGGLE_EVENT:
 				lampEventToSend = lamp_events.NewLampDeviceToggleEvent()
 			case LAMP_BRIGHTNESS_EVENT:
