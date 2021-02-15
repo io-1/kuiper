@@ -15,10 +15,16 @@ import (
 )
 
 const (
-	ONE_MINUTE        = 1 * time.Minute
-	LAMP_TOGGLE_EVENT = "toggle"
-	LAMP_COLOR_EVENT  = "color"
-	LAMP_PULSE_EVENT  = "pulse"
+	ONE_MINUTE                        = 1 * time.Minute
+	LAMP_ON_EVENT                     = "on"
+	LAMP_OFF_EVENT                    = "off"
+	LAMP_TOGGLE_EVENT                 = "toggle"
+	LAMP_BRIGHTNESS_EVENT             = "brightness"
+	LAMP_AUTO_BRIGHTNESS_ON_EVENT     = "auto-brightness-on"
+	LAMP_AUTO_BRIGHTNESS_OFF_EVENT    = "auto-brightness-off"
+	LAMP_AUTO_BRIGHTNESS_TOGGLE_EVENT = "auto-brightness-toggle"
+	LAMP_COLOR_EVENT                  = "color"
+	LAMP_PULSE_EVENT                  = "pulse"
 )
 
 func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName string, subscription string) error {
@@ -65,8 +71,20 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 		for _, lampEvent := range lampEvents {
 			var lampEventToSend interface{}
 			switch lampEvent.EventType {
+			case LAMP_ON_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceOnEvent()
+			case LAMP_OFF_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceOffEvent()
 			case LAMP_TOGGLE_EVENT:
 				lampEventToSend = lamp_events.NewLampDeviceToggleEvent()
+			case LAMP_BRIGHTNESS_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceBrightnessEvent(lampEvent.Brightness)
+			case LAMP_AUTO_BRIGHTNESS_ON_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceAutoBrightnessOnEvent()
+			case LAMP_AUTO_BRIGHTNESS_OFF_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceAutoBrightnessOffEvent()
+			case LAMP_AUTO_BRIGHTNESS_TOGGLE_EVENT:
+				lampEventToSend = lamp_events.NewLampDeviceAutoBrightnessToggleEvent()
 			case LAMP_COLOR_EVENT:
 				lampEventToSend = lamp_events.NewLampDeviceColorEvent(lampEvent.Red, lampEvent.Green, lampEvent.Blue)
 			case LAMP_PULSE_EVENT:

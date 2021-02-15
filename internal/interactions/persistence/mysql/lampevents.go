@@ -20,7 +20,7 @@ func (p MysqlPersistence) GetLampEventsByKeypadConditionID(id string) ([]persist
 		IFNULL(COALESCE(lce.red, lpe.red),0) AS red, 
 		IFNULL(COALESCE(lce.green, lpe.green),0) AS green, 
 		IFNULL(COALESCE(lce.blue, lpe.blue),0) AS blue,
-		IFNULL(lbe.brighness,0) AS brightness,
+		IFNULL(lbe.brightness,0) AS brightness,
 		COALESCE(loe.created_at, lfe.created_at, lte.created_at, labone.created_at, laboffe.created_at, labte.created_at, lce.created_at, lpe.created_at) AS created_at, 
 		COALESCE(loe.updated_at, lfe.updated_at, lte.updated_at, labone.updated_at, laboffe.updated_at, labte.updated_at, lce.updated_at, lpe.updated_at) AS updated_at, 
 		COALESCE(loe.deleted_at, lfe.deleted_at, lte.deleted_at, labone.deleted_at, laboffe.deleted_at, labte.deleted_at, lce.deleted_at, lpe.deleted_at) AS deleted_at 
@@ -47,26 +47,26 @@ func (p MysqlPersistence) GetLampEventsByKeypadConditionID(id string) ([]persist
 				*, 
 				'brightness' AS event_type 
 			FROM lamp_brightness_events 
-				WHERE deleted_at IS NULL) lbe on kl.event_id = lbe.id 
+				WHERE deleted_at IS NULL) lbe on ktl.event_id = lbe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-on' AS event_type 
 			FROM lamp_auto_brightness_on_events 
-				WHERE deleted_at IS NULL) labone on kl.event_id = labone.id 
+				WHERE deleted_at IS NULL) labone on ktl.event_id = labone.id 
 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-off' AS event_type 
 			FROM lamp_auto_brightness_off_events 
-				WHERE deleted_at IS NULL) laboffe on kl.event_id = laboffe.id 
+				WHERE deleted_at IS NULL) laboffe on ktl.event_id = laboffe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-toggle' AS event_type 
 			FROM lamp_auto_brightness_toggle_events 
-				WHERE deleted_at IS NULL) labte on kl.event_id = labte.id 
+				WHERE deleted_at IS NULL) labte on ktl.event_id = labte.id 
 		left join 
 			(SELECT 
 				*, 
@@ -117,7 +117,7 @@ func (p MysqlPersistence) GetLampEventsByKeypadMacAndButtonID(mac string, button
 		IFNULL(COALESCE(lce.red, lpe.red),0) AS red, 
 		IFNULL(COALESCE(lce.green, lpe.green),0) AS green, 
 		IFNULL(COALESCE(lce.blue, lpe.blue),0) AS blue,
-		IFNULL(lbe.brighness,0) AS brightness,
+		IFNULL(lbe.brightness,0) AS brightness,
 		COALESCE(loe.created_at, lfe.created_at, lte.created_at, labone.created_at, laboffe.created_at, labte.created_at, lce.created_at, lpe.created_at) AS created_at, 
 		COALESCE(loe.updated_at, lfe.updated_at, lte.updated_at, labone.updated_at, laboffe.updated_at, labte.updated_at, lce.updated_at, lpe.updated_at) AS updated_at, 
 		COALESCE(loe.deleted_at, lfe.deleted_at, lte.deleted_at, labone.deleted_at, laboffe.deleted_at, labte.deleted_at, lce.deleted_at, lpe.deleted_at) AS deleted_at 
@@ -146,26 +146,26 @@ func (p MysqlPersistence) GetLampEventsByKeypadMacAndButtonID(mac string, button
 				*, 
 				'brightness' AS event_type 
 			FROM lamp_brightness_events 
-				WHERE deleted_at IS NULL) lbe on kl.event_id = lbe.id 
+				WHERE deleted_at IS NULL) lbe on ktl.event_id = lbe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-on' AS event_type 
 			FROM lamp_auto_brightness_on_events 
-				WHERE deleted_at IS NULL) labone on kl.event_id = labone.id 
+				WHERE deleted_at IS NULL) labone on ktl.event_id = labone.id 
 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-off' AS event_type 
 			FROM lamp_auto_brightness_off_events 
-				WHERE deleted_at IS NULL) laboffe on kl.event_id = laboffe.id 
+				WHERE deleted_at IS NULL) laboffe on ktl.event_id = laboffe.id 
 		LEFT JOIN 
 			(SELECT 
 				*, 
 				'auto-brightness-toggle' AS event_type 
 			FROM lamp_auto_brightness_toggle_events 
-				WHERE deleted_at IS NULL) labte on kl.event_id = labte.id 
+				WHERE deleted_at IS NULL) labte on ktl.event_id = labte.id 
 		LEFT JOIN
 			(SELECT 
 				*, 
