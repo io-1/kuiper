@@ -17,9 +17,12 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SensorsServiceClient interface {
+	// humidity devices
 	GetVoltageMeasurements(ctx context.Context, in *GetVoltageMeasurementsRequest, opts ...grpc.CallOption) (SensorsService_GetVoltageMeasurementsClient, error)
 	GetHumidityMeasurements(ctx context.Context, in *GetHumidityMeasurementsRequest, opts ...grpc.CallOption) (SensorsService_GetHumidityMeasurementsClient, error)
 	GetTemperatureMeasurements(ctx context.Context, in *GetTemperatureMeasurementsRequest, opts ...grpc.CallOption) (SensorsService_GetTemperatureMeasurementsClient, error)
+	// keypads devices
+	GetKeypadButtonIDMeasurements(ctx context.Context, in *GetKeypadButtonIDMeasurementsRequest, opts ...grpc.CallOption) (SensorsService_GetKeypadButtonIDMeasurementsClient, error)
 }
 
 type sensorsServiceClient struct {
@@ -126,13 +129,48 @@ func (x *sensorsServiceGetTemperatureMeasurementsClient) Recv() (*GetTemperature
 	return m, nil
 }
 
+func (c *sensorsServiceClient) GetKeypadButtonIDMeasurements(ctx context.Context, in *GetKeypadButtonIDMeasurementsRequest, opts ...grpc.CallOption) (SensorsService_GetKeypadButtonIDMeasurementsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_SensorsService_serviceDesc.Streams[3], "/sensors_pb.SensorsService/GetKeypadButtonIDMeasurements", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &sensorsServiceGetKeypadButtonIDMeasurementsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type SensorsService_GetKeypadButtonIDMeasurementsClient interface {
+	Recv() (*GetKeypadButtonIDMeasurementsResponse, error)
+	grpc.ClientStream
+}
+
+type sensorsServiceGetKeypadButtonIDMeasurementsClient struct {
+	grpc.ClientStream
+}
+
+func (x *sensorsServiceGetKeypadButtonIDMeasurementsClient) Recv() (*GetKeypadButtonIDMeasurementsResponse, error) {
+	m := new(GetKeypadButtonIDMeasurementsResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // SensorsServiceServer is the server API for SensorsService service.
 // All implementations must embed UnimplementedSensorsServiceServer
 // for forward compatibility
 type SensorsServiceServer interface {
+	// humidity devices
 	GetVoltageMeasurements(*GetVoltageMeasurementsRequest, SensorsService_GetVoltageMeasurementsServer) error
 	GetHumidityMeasurements(*GetHumidityMeasurementsRequest, SensorsService_GetHumidityMeasurementsServer) error
 	GetTemperatureMeasurements(*GetTemperatureMeasurementsRequest, SensorsService_GetTemperatureMeasurementsServer) error
+	// keypads devices
+	GetKeypadButtonIDMeasurements(*GetKeypadButtonIDMeasurementsRequest, SensorsService_GetKeypadButtonIDMeasurementsServer) error
 	mustEmbedUnimplementedSensorsServiceServer()
 }
 
@@ -148,6 +186,9 @@ func (*UnimplementedSensorsServiceServer) GetHumidityMeasurements(*GetHumidityMe
 }
 func (*UnimplementedSensorsServiceServer) GetTemperatureMeasurements(*GetTemperatureMeasurementsRequest, SensorsService_GetTemperatureMeasurementsServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetTemperatureMeasurements not implemented")
+}
+func (*UnimplementedSensorsServiceServer) GetKeypadButtonIDMeasurements(*GetKeypadButtonIDMeasurementsRequest, SensorsService_GetKeypadButtonIDMeasurementsServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetKeypadButtonIDMeasurements not implemented")
 }
 func (*UnimplementedSensorsServiceServer) mustEmbedUnimplementedSensorsServiceServer() {}
 
@@ -218,6 +259,27 @@ func (x *sensorsServiceGetTemperatureMeasurementsServer) Send(m *GetTemperatureM
 	return x.ServerStream.SendMsg(m)
 }
 
+func _SensorsService_GetKeypadButtonIDMeasurements_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetKeypadButtonIDMeasurementsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(SensorsServiceServer).GetKeypadButtonIDMeasurements(m, &sensorsServiceGetKeypadButtonIDMeasurementsServer{stream})
+}
+
+type SensorsService_GetKeypadButtonIDMeasurementsServer interface {
+	Send(*GetKeypadButtonIDMeasurementsResponse) error
+	grpc.ServerStream
+}
+
+type sensorsServiceGetKeypadButtonIDMeasurementsServer struct {
+	grpc.ServerStream
+}
+
+func (x *sensorsServiceGetKeypadButtonIDMeasurementsServer) Send(m *GetKeypadButtonIDMeasurementsResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _SensorsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "sensors_pb.SensorsService",
 	HandlerType: (*SensorsServiceServer)(nil),
@@ -236,6 +298,11 @@ var _SensorsService_serviceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "GetTemperatureMeasurements",
 			Handler:       _SensorsService_GetTemperatureMeasurements_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetKeypadButtonIDMeasurements",
+			Handler:       _SensorsService_GetKeypadButtonIDMeasurements_Handler,
 			ServerStreams: true,
 		},
 	},

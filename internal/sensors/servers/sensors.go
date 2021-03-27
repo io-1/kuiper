@@ -28,3 +28,7 @@ func (s *SensorsServer) GetHumidityMeasurements(*sensors_pb.GetHumidityMeasureme
 func (s *SensorsServer) GetTemperatureMeasurements(*sensors_pb.GetTemperatureMeasurementsRequest, sensors_pb.SensorsService_GetTemperatureMeasurementsServer) error {
 	return nil
 }
+
+func (s *SensorsServer) GetKeypadButtonIDMeasurements(*sensors_pb.GetKeypadButtonIDMeasurementsRequest, sensors_pb.SensorsService_GetKeypadButtonIDMeasurementsServer) error {
+	return nil
+}

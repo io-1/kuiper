@@ -39,8 +39,25 @@ message GetTemperatureMeasurementsResponse {
   float Temperature = 2;
 }
 
+message GetKeypadButtonIDMeasurementsRequest {
+  string DeviceID = 1;
+  google.protobuf.Timestamp StartTime = 2;
+  google.protobuf.Timestamp EndTime = 3;
+}
+
+message GetKeypadButtonIDMeasurementsResponse {
+  string DeviceID = 1;
+  int32 ButtonID = 2;
+  google.protobuf.Timestamp Timestamp = 3;
+}
+
 service SensorsService {
-   rpc GetVoltageMeasurements(GetVoltageMeasurementsRequest) returns (stream GetVoltageMeasurementsResponse);
-   rpc GetHumidityMeasurements(GetHumidityMeasurementsRequest) returns (stream GetHumidityMeasurementsResponse);
-   rpc GetTemperatureMeasurements(GetTemperatureMeasurementsRequest) returns (stream GetTemperatureMeasurementsResponse);
+
+  // humidity devices
+  rpc GetVoltageMeasurements(GetVoltageMeasurementsRequest) returns (stream GetVoltageMeasurementsResponse);
+  rpc GetHumidityMeasurements(GetHumidityMeasurementsRequest) returns (stream GetHumidityMeasurementsResponse);
+  rpc GetTemperatureMeasurements(GetTemperatureMeasurementsRequest) returns (stream GetTemperatureMeasurementsResponse);
+
+  // keypads devices 
+  rpc GetKeypadButtonIDMeasurements(GetKeypadButtonIDMeasurementsRequest) returns (stream GetKeypadButtonIDMeasurementsResponse);
 }
