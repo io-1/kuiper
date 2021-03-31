@@ -353,3 +353,67 @@ func (client *DevicesClient) SendLampDeviceMeteor(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "successful"})
 }
+
+func (client *DevicesClient) SendLampDeviceFire(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceFireRequest
+		errorResponse response.ErrorResponse
+	)
+
+	mac := c.Params.ByName("send_lamp_mac")
+
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceFire(ctx, &devices_pb.SendLampDeviceFireRequest{
+		Mac: mac,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}
+
+func (client *DevicesClient) SendLampDeviceTwinkle(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceTwinkleRequest
+		errorResponse response.ErrorResponse
+	)
+
+	mac := c.Params.ByName("send_lamp_mac")
+
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceTwinkle(ctx, &devices_pb.SendLampDeviceTwinkleRequest{
+		Mac: mac,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}

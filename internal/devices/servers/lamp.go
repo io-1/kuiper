@@ -150,3 +150,33 @@ func (s *DevicesServer) SendLampDeviceMeteor(ctx context.Context, req *devices_p
 
 	return &devices_pb.SendLampDeviceMeteorResponse{}, nil
 }
+
+func (s *DevicesServer) SendLampDeviceFire(ctx context.Context, req *devices_pb.SendLampDeviceFireRequest) (*devices_pb.SendLampDeviceFireResponse, error) {
+	l := lamp_events.NewLampDeviceFireEvent()
+
+	j, err := json.Marshal(l)
+	if err != nil {
+		return &devices_pb.SendLampDeviceFireResponse{}, err
+	}
+
+	topic := fmt.Sprintf("devices/%s", req.Mac)
+
+	s.publisher.Publish(topic, j)
+
+	return &devices_pb.SendLampDeviceFireResponse{}, nil
+}
+
+func (s *DevicesServer) SendLampDeviceTwinkle(ctx context.Context, req *devices_pb.SendLampDeviceTwinkleRequest) (*devices_pb.SendLampDeviceTwinkleResponse, error) {
+	l := lamp_events.NewLampDeviceTwinkleEvent()
+
+	j, err := json.Marshal(l)
+	if err != nil {
+		return &devices_pb.SendLampDeviceTwinkleResponse{}, err
+	}
+
+	topic := fmt.Sprintf("devices/%s", req.Mac)
+
+	s.publisher.Publish(topic, j)
+
+	return &devices_pb.SendLampDeviceTwinkleResponse{}, nil
+}

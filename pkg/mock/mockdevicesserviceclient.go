@@ -295,6 +295,46 @@ func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceMeteor(ctx, in int
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceMeteor", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceMeteor), varargs...)
 }
 
+// SendLampDeviceFire mocks base method.
+func (m *MockDevicesServiceClient) SendLampDeviceFire(ctx context.Context, in *devices_pb.SendLampDeviceFireRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceFireResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SendLampDeviceFire", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceFireResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceFire indicates an expected call of SendLampDeviceFire.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceFire(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceFire", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceFire), varargs...)
+}
+
+// SendLampDeviceTwinkle mocks base method.
+func (m *MockDevicesServiceClient) SendLampDeviceTwinkle(ctx context.Context, in *devices_pb.SendLampDeviceTwinkleRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceTwinkleResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SendLampDeviceTwinkle", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceTwinkleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceTwinkle indicates an expected call of SendLampDeviceTwinkle.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceTwinkle(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceTwinkle", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceTwinkle), varargs...)
+}
+
 // MockDevicesServiceServer is a mock of DevicesServiceServer interface.
 type MockDevicesServiceServer struct {
 	ctrl     *gomock.Controller
@@ -511,6 +551,36 @@ func (m *MockDevicesServiceServer) SendLampDeviceMeteor(arg0 context.Context, ar
 func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceMeteor(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceMeteor", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceMeteor), arg0, arg1)
+}
+
+// SendLampDeviceFire mocks base method.
+func (m *MockDevicesServiceServer) SendLampDeviceFire(arg0 context.Context, arg1 *devices_pb.SendLampDeviceFireRequest) (*devices_pb.SendLampDeviceFireResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SendLampDeviceFire", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceFireResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceFire indicates an expected call of SendLampDeviceFire.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceFire(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceFire", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceFire), arg0, arg1)
+}
+
+// SendLampDeviceTwinkle mocks base method.
+func (m *MockDevicesServiceServer) SendLampDeviceTwinkle(arg0 context.Context, arg1 *devices_pb.SendLampDeviceTwinkleRequest) (*devices_pb.SendLampDeviceTwinkleResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SendLampDeviceTwinkle", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceTwinkleResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceTwinkle indicates an expected call of SendLampDeviceTwinkle.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceTwinkle(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceTwinkle", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceTwinkle), arg0, arg1)
 }
 
 // mustEmbedUnimplementedDevicesServiceServer mocks base method.

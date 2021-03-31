@@ -1269,6 +1269,176 @@ func (*SendLampDeviceMeteorResponse) Descriptor() ([]byte, []int) {
 	return file_pkg_pb_devices_devices_proto_rawDescGZIP(), []int{25}
 }
 
+type SendLampDeviceFireRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Mac string `protobuf:"bytes,1,opt,name=Mac,proto3" json:"Mac,omitempty"`
+}
+
+func (x *SendLampDeviceFireRequest) Reset() {
+	*x = SendLampDeviceFireRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_pb_devices_devices_proto_msgTypes[26]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendLampDeviceFireRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendLampDeviceFireRequest) ProtoMessage() {}
+
+func (x *SendLampDeviceFireRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_devices_devices_proto_msgTypes[26]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendLampDeviceFireRequest.ProtoReflect.Descriptor instead.
+func (*SendLampDeviceFireRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_devices_devices_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *SendLampDeviceFireRequest) GetMac() string {
+	if x != nil {
+		return x.Mac
+	}
+	return ""
+}
+
+type SendLampDeviceFireResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SendLampDeviceFireResponse) Reset() {
+	*x = SendLampDeviceFireResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_pb_devices_devices_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendLampDeviceFireResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendLampDeviceFireResponse) ProtoMessage() {}
+
+func (x *SendLampDeviceFireResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_devices_devices_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendLampDeviceFireResponse.ProtoReflect.Descriptor instead.
+func (*SendLampDeviceFireResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_devices_devices_proto_rawDescGZIP(), []int{27}
+}
+
+type SendLampDeviceTwinkleRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Mac string `protobuf:"bytes,1,opt,name=Mac,proto3" json:"Mac,omitempty"`
+}
+
+func (x *SendLampDeviceTwinkleRequest) Reset() {
+	*x = SendLampDeviceTwinkleRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_pb_devices_devices_proto_msgTypes[28]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendLampDeviceTwinkleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendLampDeviceTwinkleRequest) ProtoMessage() {}
+
+func (x *SendLampDeviceTwinkleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_devices_devices_proto_msgTypes[28]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendLampDeviceTwinkleRequest.ProtoReflect.Descriptor instead.
+func (*SendLampDeviceTwinkleRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_devices_devices_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *SendLampDeviceTwinkleRequest) GetMac() string {
+	if x != nil {
+		return x.Mac
+	}
+	return ""
+}
+
+type SendLampDeviceTwinkleResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SendLampDeviceTwinkleResponse) Reset() {
+	*x = SendLampDeviceTwinkleResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pkg_pb_devices_devices_proto_msgTypes[29]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendLampDeviceTwinkleResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendLampDeviceTwinkleResponse) ProtoMessage() {}
+
+func (x *SendLampDeviceTwinkleResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_pb_devices_devices_proto_msgTypes[29]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendLampDeviceTwinkleResponse.ProtoReflect.Descriptor instead.
+func (*SendLampDeviceTwinkleResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_pb_devices_devices_proto_rawDescGZIP(), []int{29}
+}
+
 var File_pkg_pb_devices_devices_proto protoreflect.FileDescriptor
 
 var file_pkg_pb_devices_devices_proto_rawDesc = []byte{
@@ -1373,7 +1543,17 @@ var file_pkg_pb_devices_devices_proto_rawDesc = []byte{
 	0x10, 0x0a, 0x03, 0x4d, 0x61, 0x63, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x4d, 0x61,
 	0x63, 0x22, 0x1e, 0x0a, 0x1c, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76,
 	0x69, 0x63, 0x65, 0x4d, 0x65, 0x74, 0x65, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x32, 0x89, 0x0c, 0x0a, 0x0e, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x53, 0x65, 0x72,
+	0x65, 0x22, 0x2d, 0x0a, 0x19, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76,
+	0x69, 0x63, 0x65, 0x46, 0x69, 0x72, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10,
+	0x0a, 0x03, 0x4d, 0x61, 0x63, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x4d, 0x61, 0x63,
+	0x22, 0x1c, 0x0a, 0x1a, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76, 0x69,
+	0x63, 0x65, 0x46, 0x69, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x30,
+	0x0a, 0x1c, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65,
+	0x54, 0x77, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10,
+	0x0a, 0x03, 0x4d, 0x61, 0x63, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x4d, 0x61, 0x63,
+	0x22, 0x1f, 0x0a, 0x1d, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76, 0x69,
+	0x63, 0x65, 0x54, 0x77, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x32, 0xdc, 0x0d, 0x0a, 0x0e, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x53, 0x65, 0x72,
 	0x76, 0x69, 0x63, 0x65, 0x12, 0x7b, 0x0a, 0x1a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x42, 0x61,
 	0x74, 0x43, 0x61, 0x76, 0x65, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x53, 0x65, 0x74, 0x74, 0x69,
 	0x6e, 0x67, 0x12, 0x2d, 0x2e, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x5f, 0x70, 0x62, 0x2e,
@@ -1469,9 +1649,22 @@ var file_pkg_pb_devices_devices_proto_rawDesc = []byte{
 	0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x4d, 0x65, 0x74, 0x65, 0x6f, 0x72, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x5f, 0x70, 0x62,
 	0x2e, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x4d,
-	0x65, 0x74, 0x65, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0e, 0x5a,
-	0x0c, 0x2e, 0x3b, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x5f, 0x70, 0x62, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x74, 0x65, 0x6f, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a,
+	0x12, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x46,
+	0x69, 0x72, 0x65, 0x12, 0x25, 0x2e, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x5f, 0x70, 0x62,
+	0x2e, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x46,
+	0x69, 0x72, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x64, 0x65, 0x76,
+	0x69, 0x63, 0x65, 0x73, 0x5f, 0x70, 0x62, 0x2e, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70,
+	0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x46, 0x69, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x6c, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65,
+	0x76, 0x69, 0x63, 0x65, 0x54, 0x77, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x12, 0x28, 0x2e, 0x64, 0x65,
+	0x76, 0x69, 0x63, 0x65, 0x73, 0x5f, 0x70, 0x62, 0x2e, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d,
+	0x70, 0x44, 0x65, 0x76, 0x69, 0x63, 0x65, 0x54, 0x77, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x5f,
+	0x70, 0x62, 0x2e, 0x53, 0x65, 0x6e, 0x64, 0x4c, 0x61, 0x6d, 0x70, 0x44, 0x65, 0x76, 0x69, 0x63,
+	0x65, 0x54, 0x77, 0x69, 0x6e, 0x6b, 0x6c, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x42, 0x0e, 0x5a, 0x0c, 0x2e, 0x3b, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x73, 0x5f, 0x70, 0x62,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1486,7 +1679,7 @@ func file_pkg_pb_devices_devices_proto_rawDescGZIP() []byte {
 	return file_pkg_pb_devices_devices_proto_rawDescData
 }
 
-var file_pkg_pb_devices_devices_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_pkg_pb_devices_devices_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
 var file_pkg_pb_devices_devices_proto_goTypes = []interface{}{
 	(*CreateBatCaveDeviceSettingRequest)(nil),          // 0: devices_pb.CreateBatCaveDeviceSettingRequest
 	(*CreateBatCaveDeviceSettingResponse)(nil),         // 1: devices_pb.CreateBatCaveDeviceSettingResponse
@@ -1514,6 +1707,10 @@ var file_pkg_pb_devices_devices_proto_goTypes = []interface{}{
 	(*SendLampDevicePulseResponse)(nil),                // 23: devices_pb.SendLampDevicePulseResponse
 	(*SendLampDeviceMeteorRequest)(nil),                // 24: devices_pb.SendLampDeviceMeteorRequest
 	(*SendLampDeviceMeteorResponse)(nil),               // 25: devices_pb.SendLampDeviceMeteorResponse
+	(*SendLampDeviceFireRequest)(nil),                  // 26: devices_pb.SendLampDeviceFireRequest
+	(*SendLampDeviceFireResponse)(nil),                 // 27: devices_pb.SendLampDeviceFireResponse
+	(*SendLampDeviceTwinkleRequest)(nil),               // 28: devices_pb.SendLampDeviceTwinkleRequest
+	(*SendLampDeviceTwinkleResponse)(nil),              // 29: devices_pb.SendLampDeviceTwinkleResponse
 }
 var file_pkg_pb_devices_devices_proto_depIdxs = []int32{
 	0,  // 0: devices_pb.DevicesService.CreateBatCaveDeviceSetting:input_type -> devices_pb.CreateBatCaveDeviceSettingRequest
@@ -1529,21 +1726,25 @@ var file_pkg_pb_devices_devices_proto_depIdxs = []int32{
 	20, // 10: devices_pb.DevicesService.SendLampDeviceAutoBrightnessToggle:input_type -> devices_pb.SendLampDeviceAutoBrightnessToggleRequest
 	22, // 11: devices_pb.DevicesService.SendLampDevicePulse:input_type -> devices_pb.SendLampDevicePulseRequest
 	24, // 12: devices_pb.DevicesService.SendLampDeviceMeteor:input_type -> devices_pb.SendLampDeviceMeteorRequest
-	1,  // 13: devices_pb.DevicesService.CreateBatCaveDeviceSetting:output_type -> devices_pb.CreateBatCaveDeviceSettingResponse
-	3,  // 14: devices_pb.DevicesService.GetBatCaveDeviceSetting:output_type -> devices_pb.GetBatCaveDeviceSettingResponse
-	5,  // 15: devices_pb.DevicesService.UpdateBatCaveDeviceSetting:output_type -> devices_pb.UpdateBatCaveDeviceSettingResponse
-	7,  // 16: devices_pb.DevicesService.SendLampDeviceOn:output_type -> devices_pb.SendLampDeviceOnResponse
-	9,  // 17: devices_pb.DevicesService.SendLampDeviceOff:output_type -> devices_pb.SendLampDeviceOffResponse
-	11, // 18: devices_pb.DevicesService.SendLampDeviceToggle:output_type -> devices_pb.SendLampDeviceToggleResponse
-	13, // 19: devices_pb.DevicesService.SendLampDeviceColor:output_type -> devices_pb.SendLampDeviceColorResponse
-	15, // 20: devices_pb.DevicesService.SendLampDeviceBrightness:output_type -> devices_pb.SendLampDeviceBrightnessResponse
-	17, // 21: devices_pb.DevicesService.SendLampDeviceAutoBrightnessOn:output_type -> devices_pb.SendLampDeviceAutoBrightnessOnResponse
-	19, // 22: devices_pb.DevicesService.SendLampDeviceAutoBrightnessOff:output_type -> devices_pb.SendLampDeviceAutoBrightnessOffResponse
-	21, // 23: devices_pb.DevicesService.SendLampDeviceAutoBrightnessToggle:output_type -> devices_pb.SendLampDeviceAutoBrightnessToggleResponse
-	23, // 24: devices_pb.DevicesService.SendLampDevicePulse:output_type -> devices_pb.SendLampDevicePulseResponse
-	25, // 25: devices_pb.DevicesService.SendLampDeviceMeteor:output_type -> devices_pb.SendLampDeviceMeteorResponse
-	13, // [13:26] is the sub-list for method output_type
-	0,  // [0:13] is the sub-list for method input_type
+	26, // 13: devices_pb.DevicesService.SendLampDeviceFire:input_type -> devices_pb.SendLampDeviceFireRequest
+	28, // 14: devices_pb.DevicesService.SendLampDeviceTwinkle:input_type -> devices_pb.SendLampDeviceTwinkleRequest
+	1,  // 15: devices_pb.DevicesService.CreateBatCaveDeviceSetting:output_type -> devices_pb.CreateBatCaveDeviceSettingResponse
+	3,  // 16: devices_pb.DevicesService.GetBatCaveDeviceSetting:output_type -> devices_pb.GetBatCaveDeviceSettingResponse
+	5,  // 17: devices_pb.DevicesService.UpdateBatCaveDeviceSetting:output_type -> devices_pb.UpdateBatCaveDeviceSettingResponse
+	7,  // 18: devices_pb.DevicesService.SendLampDeviceOn:output_type -> devices_pb.SendLampDeviceOnResponse
+	9,  // 19: devices_pb.DevicesService.SendLampDeviceOff:output_type -> devices_pb.SendLampDeviceOffResponse
+	11, // 20: devices_pb.DevicesService.SendLampDeviceToggle:output_type -> devices_pb.SendLampDeviceToggleResponse
+	13, // 21: devices_pb.DevicesService.SendLampDeviceColor:output_type -> devices_pb.SendLampDeviceColorResponse
+	15, // 22: devices_pb.DevicesService.SendLampDeviceBrightness:output_type -> devices_pb.SendLampDeviceBrightnessResponse
+	17, // 23: devices_pb.DevicesService.SendLampDeviceAutoBrightnessOn:output_type -> devices_pb.SendLampDeviceAutoBrightnessOnResponse
+	19, // 24: devices_pb.DevicesService.SendLampDeviceAutoBrightnessOff:output_type -> devices_pb.SendLampDeviceAutoBrightnessOffResponse
+	21, // 25: devices_pb.DevicesService.SendLampDeviceAutoBrightnessToggle:output_type -> devices_pb.SendLampDeviceAutoBrightnessToggleResponse
+	23, // 26: devices_pb.DevicesService.SendLampDevicePulse:output_type -> devices_pb.SendLampDevicePulseResponse
+	25, // 27: devices_pb.DevicesService.SendLampDeviceMeteor:output_type -> devices_pb.SendLampDeviceMeteorResponse
+	27, // 28: devices_pb.DevicesService.SendLampDeviceFire:output_type -> devices_pb.SendLampDeviceFireResponse
+	29, // 29: devices_pb.DevicesService.SendLampDeviceTwinkle:output_type -> devices_pb.SendLampDeviceTwinkleResponse
+	15, // [15:30] is the sub-list for method output_type
+	0,  // [0:15] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -1867,6 +2068,54 @@ func file_pkg_pb_devices_devices_proto_init() {
 				return nil
 			}
 		}
+		file_pkg_pb_devices_devices_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendLampDeviceFireRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_pb_devices_devices_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendLampDeviceFireResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_pb_devices_devices_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendLampDeviceTwinkleRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pkg_pb_devices_devices_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendLampDeviceTwinkleResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1874,7 +2123,7 @@ func file_pkg_pb_devices_devices_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pkg_pb_devices_devices_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   26,
+			NumMessages:   30,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

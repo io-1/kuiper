@@ -30,6 +30,8 @@ type DevicesServiceClient interface {
 	SendLampDeviceAutoBrightnessToggle(ctx context.Context, in *SendLampDeviceAutoBrightnessToggleRequest, opts ...grpc.CallOption) (*SendLampDeviceAutoBrightnessToggleResponse, error)
 	SendLampDevicePulse(ctx context.Context, in *SendLampDevicePulseRequest, opts ...grpc.CallOption) (*SendLampDevicePulseResponse, error)
 	SendLampDeviceMeteor(ctx context.Context, in *SendLampDeviceMeteorRequest, opts ...grpc.CallOption) (*SendLampDeviceMeteorResponse, error)
+	SendLampDeviceFire(ctx context.Context, in *SendLampDeviceFireRequest, opts ...grpc.CallOption) (*SendLampDeviceFireResponse, error)
+	SendLampDeviceTwinkle(ctx context.Context, in *SendLampDeviceTwinkleRequest, opts ...grpc.CallOption) (*SendLampDeviceTwinkleResponse, error)
 }
 
 type devicesServiceClient struct {
@@ -157,6 +159,24 @@ func (c *devicesServiceClient) SendLampDeviceMeteor(ctx context.Context, in *Sen
 	return out, nil
 }
 
+func (c *devicesServiceClient) SendLampDeviceFire(ctx context.Context, in *SendLampDeviceFireRequest, opts ...grpc.CallOption) (*SendLampDeviceFireResponse, error) {
+	out := new(SendLampDeviceFireResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceFire", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *devicesServiceClient) SendLampDeviceTwinkle(ctx context.Context, in *SendLampDeviceTwinkleRequest, opts ...grpc.CallOption) (*SendLampDeviceTwinkleResponse, error) {
+	out := new(SendLampDeviceTwinkleResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceTwinkle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DevicesServiceServer is the server API for DevicesService service.
 // All implementations must embed UnimplementedDevicesServiceServer
 // for forward compatibility
@@ -174,6 +194,8 @@ type DevicesServiceServer interface {
 	SendLampDeviceAutoBrightnessToggle(context.Context, *SendLampDeviceAutoBrightnessToggleRequest) (*SendLampDeviceAutoBrightnessToggleResponse, error)
 	SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error)
 	SendLampDeviceMeteor(context.Context, *SendLampDeviceMeteorRequest) (*SendLampDeviceMeteorResponse, error)
+	SendLampDeviceFire(context.Context, *SendLampDeviceFireRequest) (*SendLampDeviceFireResponse, error)
+	SendLampDeviceTwinkle(context.Context, *SendLampDeviceTwinkleRequest) (*SendLampDeviceTwinkleResponse, error)
 	mustEmbedUnimplementedDevicesServiceServer()
 }
 
@@ -219,6 +241,12 @@ func (*UnimplementedDevicesServiceServer) SendLampDevicePulse(context.Context, *
 }
 func (*UnimplementedDevicesServiceServer) SendLampDeviceMeteor(context.Context, *SendLampDeviceMeteorRequest) (*SendLampDeviceMeteorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceMeteor not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceFire(context.Context, *SendLampDeviceFireRequest) (*SendLampDeviceFireResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceFire not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceTwinkle(context.Context, *SendLampDeviceTwinkleRequest) (*SendLampDeviceTwinkleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceTwinkle not implemented")
 }
 func (*UnimplementedDevicesServiceServer) mustEmbedUnimplementedDevicesServiceServer() {}
 
@@ -460,6 +488,42 @@ func _DevicesService_SendLampDeviceMeteor_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DevicesService_SendLampDeviceFire_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceFireRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceFire(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceFire",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceFire(ctx, req.(*SendLampDeviceFireRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DevicesService_SendLampDeviceTwinkle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceTwinkleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceTwinkle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceTwinkle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceTwinkle(ctx, req.(*SendLampDeviceTwinkleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _DevicesService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "devices_pb.DevicesService",
 	HandlerType: (*DevicesServiceServer)(nil),
@@ -515,6 +579,14 @@ var _DevicesService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendLampDeviceMeteor",
 			Handler:    _DevicesService_SendLampDeviceMeteor_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceFire",
+			Handler:    _DevicesService_SendLampDeviceFire_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceTwinkle",
+			Handler:    _DevicesService_SendLampDeviceTwinkle_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
