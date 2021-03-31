@@ -333,11 +333,6 @@ func (client *DevicesClient) SendLampDeviceMeteor(c *gin.Context) {
 
 	mac := c.Params.ByName("send_lamp_mac")
 
-	if err := c.BindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
 	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
 		err := map[string]interface{}{"validationError": validationErrors}
 		c.JSON(http.StatusMethodNotAllowed, err)
