@@ -321,3 +321,40 @@ func (client *DevicesClient) SendLampDevicePulse(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "successful"})
 }
+
+func (client *DevicesClient) SendLampDeviceMeteor(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.SendLampDeviceMeteorRequest
+		errorResponse response.ErrorResponse
+	)
+
+	mac := c.Params.ByName("send_lamp_mac")
+
+	if err := c.BindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if validationErrors := req.Validate(mac); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	_, err := client.devicesClient.SendLampDeviceMeteor(ctx, &devices_pb.SendLampDeviceMeteorRequest{
+		Mac: mac,
+	})
+	if err != nil {
+		client.logger.Errorf("unknown error: %v", err)
+		errorResponse = response.ErrorResponse{
+			Message: fmt.Sprintf("an error has occurred"),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "successful"})
+}

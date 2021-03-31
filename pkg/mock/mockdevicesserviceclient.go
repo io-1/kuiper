@@ -275,6 +275,26 @@ func (mr *MockDevicesServiceClientMockRecorder) SendLampDevicePulse(ctx, in inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDevicePulse", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDevicePulse), varargs...)
 }
 
+// SendLampDeviceMeteor mocks base method.
+func (m *MockDevicesServiceClient) SendLampDeviceMeteor(ctx context.Context, in *devices_pb.SendLampDeviceMeteorRequest, opts ...grpc.CallOption) (*devices_pb.SendLampDeviceMeteorResponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, in}
+	for _, a := range opts {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "SendLampDeviceMeteor", varargs...)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceMeteorResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceMeteor indicates an expected call of SendLampDeviceMeteor.
+func (mr *MockDevicesServiceClientMockRecorder) SendLampDeviceMeteor(ctx, in interface{}, opts ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, in}, opts...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceMeteor", reflect.TypeOf((*MockDevicesServiceClient)(nil).SendLampDeviceMeteor), varargs...)
+}
+
 // MockDevicesServiceServer is a mock of DevicesServiceServer interface.
 type MockDevicesServiceServer struct {
 	ctrl     *gomock.Controller
@@ -476,6 +496,21 @@ func (m *MockDevicesServiceServer) SendLampDevicePulse(arg0 context.Context, arg
 func (mr *MockDevicesServiceServerMockRecorder) SendLampDevicePulse(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDevicePulse", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDevicePulse), arg0, arg1)
+}
+
+// SendLampDeviceMeteor mocks base method.
+func (m *MockDevicesServiceServer) SendLampDeviceMeteor(arg0 context.Context, arg1 *devices_pb.SendLampDeviceMeteorRequest) (*devices_pb.SendLampDeviceMeteorResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SendLampDeviceMeteor", arg0, arg1)
+	ret0, _ := ret[0].(*devices_pb.SendLampDeviceMeteorResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SendLampDeviceMeteor indicates an expected call of SendLampDeviceMeteor.
+func (mr *MockDevicesServiceServerMockRecorder) SendLampDeviceMeteor(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendLampDeviceMeteor", reflect.TypeOf((*MockDevicesServiceServer)(nil).SendLampDeviceMeteor), arg0, arg1)
 }
 
 // mustEmbedUnimplementedDevicesServiceServer mocks base method.

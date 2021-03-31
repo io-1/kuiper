@@ -116,6 +116,7 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 				lampGroup.POST("/:send_lamp_mac/brightness/auto/off", g.devicesClient.SendLampDeviceAutoBrightnessOff)
 				lampGroup.POST("/:send_lamp_mac/brightness/auto/toggle", g.devicesClient.SendLampDeviceAutoBrightnessToggle)
 				lampGroup.POST("/:send_lamp_mac/pulse", g.devicesClient.SendLampDevicePulse)
+				lampGroup.POST("/:send_lamp_mac/meteor", g.devicesClient.SendLampDeviceMeteor)
 			}
 		}
 	}

@@ -29,6 +29,7 @@ type DevicesServiceClient interface {
 	SendLampDeviceAutoBrightnessOff(ctx context.Context, in *SendLampDeviceAutoBrightnessOffRequest, opts ...grpc.CallOption) (*SendLampDeviceAutoBrightnessOffResponse, error)
 	SendLampDeviceAutoBrightnessToggle(ctx context.Context, in *SendLampDeviceAutoBrightnessToggleRequest, opts ...grpc.CallOption) (*SendLampDeviceAutoBrightnessToggleResponse, error)
 	SendLampDevicePulse(ctx context.Context, in *SendLampDevicePulseRequest, opts ...grpc.CallOption) (*SendLampDevicePulseResponse, error)
+	SendLampDeviceMeteor(ctx context.Context, in *SendLampDeviceMeteorRequest, opts ...grpc.CallOption) (*SendLampDeviceMeteorResponse, error)
 }
 
 type devicesServiceClient struct {
@@ -147,6 +148,15 @@ func (c *devicesServiceClient) SendLampDevicePulse(ctx context.Context, in *Send
 	return out, nil
 }
 
+func (c *devicesServiceClient) SendLampDeviceMeteor(ctx context.Context, in *SendLampDeviceMeteorRequest, opts ...grpc.CallOption) (*SendLampDeviceMeteorResponse, error) {
+	out := new(SendLampDeviceMeteorResponse)
+	err := c.cc.Invoke(ctx, "/devices_pb.DevicesService/SendLampDeviceMeteor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DevicesServiceServer is the server API for DevicesService service.
 // All implementations must embed UnimplementedDevicesServiceServer
 // for forward compatibility
@@ -163,6 +173,7 @@ type DevicesServiceServer interface {
 	SendLampDeviceAutoBrightnessOff(context.Context, *SendLampDeviceAutoBrightnessOffRequest) (*SendLampDeviceAutoBrightnessOffResponse, error)
 	SendLampDeviceAutoBrightnessToggle(context.Context, *SendLampDeviceAutoBrightnessToggleRequest) (*SendLampDeviceAutoBrightnessToggleResponse, error)
 	SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error)
+	SendLampDeviceMeteor(context.Context, *SendLampDeviceMeteorRequest) (*SendLampDeviceMeteorResponse, error)
 	mustEmbedUnimplementedDevicesServiceServer()
 }
 
@@ -205,6 +216,9 @@ func (*UnimplementedDevicesServiceServer) SendLampDeviceAutoBrightnessToggle(con
 }
 func (*UnimplementedDevicesServiceServer) SendLampDevicePulse(context.Context, *SendLampDevicePulseRequest) (*SendLampDevicePulseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendLampDevicePulse not implemented")
+}
+func (*UnimplementedDevicesServiceServer) SendLampDeviceMeteor(context.Context, *SendLampDeviceMeteorRequest) (*SendLampDeviceMeteorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendLampDeviceMeteor not implemented")
 }
 func (*UnimplementedDevicesServiceServer) mustEmbedUnimplementedDevicesServiceServer() {}
 
@@ -428,6 +442,24 @@ func _DevicesService_SendLampDevicePulse_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DevicesService_SendLampDeviceMeteor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendLampDeviceMeteorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DevicesServiceServer).SendLampDeviceMeteor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/devices_pb.DevicesService/SendLampDeviceMeteor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DevicesServiceServer).SendLampDeviceMeteor(ctx, req.(*SendLampDeviceMeteorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _DevicesService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "devices_pb.DevicesService",
 	HandlerType: (*DevicesServiceServer)(nil),
@@ -479,6 +511,10 @@ var _DevicesService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SendLampDevicePulse",
 			Handler:    _DevicesService_SendLampDevicePulse_Handler,
+		},
+		{
+			MethodName: "SendLampDeviceMeteor",
+			Handler:    _DevicesService_SendLampDeviceMeteor_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

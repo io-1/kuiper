@@ -135,3 +135,18 @@ func (s *DevicesServer) SendLampDevicePulse(ctx context.Context, req *devices_pb
 
 	return &devices_pb.SendLampDevicePulseResponse{}, nil
 }
+
+func (s *DevicesServer) SendLampDeviceMeteor(ctx context.Context, req *devices_pb.SendLampDeviceMeteorRequest) (*devices_pb.SendLampDeviceMeteorResponse, error) {
+	l := lamp_events.NewLampDeviceMeteorEvent()
+
+	j, err := json.Marshal(l)
+	if err != nil {
+		return &devices_pb.SendLampDeviceMeteorResponse{}, err
+	}
+
+	topic := fmt.Sprintf("devices/%s", req.Mac)
+
+	s.publisher.Publish(topic, j)
+
+	return &devices_pb.SendLampDeviceMeteorResponse{}, nil
+}

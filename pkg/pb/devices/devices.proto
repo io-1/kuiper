@@ -105,6 +105,13 @@ message SendLampDevicePulseRequest{
 message SendLampDevicePulseResponse {
 }
 
+message SendLampDeviceMeteorRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceMeteorResponse {
+}
+
 service DevicesService {
    rpc CreateBatCaveDeviceSetting(CreateBatCaveDeviceSettingRequest) returns (CreateBatCaveDeviceSettingResponse);
    rpc GetBatCaveDeviceSetting(GetBatCaveDeviceSettingRequest) returns (GetBatCaveDeviceSettingResponse);
@@ -119,4 +126,5 @@ service DevicesService {
    rpc SendLampDeviceAutoBrightnessOff(SendLampDeviceAutoBrightnessOffRequest) returns (SendLampDeviceAutoBrightnessOffResponse);
    rpc SendLampDeviceAutoBrightnessToggle(SendLampDeviceAutoBrightnessToggleRequest) returns (SendLampDeviceAutoBrightnessToggleResponse);
    rpc SendLampDevicePulse(SendLampDevicePulseRequest) returns (SendLampDevicePulseResponse);
+   rpc SendLampDeviceMeteor(SendLampDeviceMeteorRequest) returns (SendLampDeviceMeteorResponse);
 }
