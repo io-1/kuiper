@@ -5,5 +5,5 @@ type Persistence interface {
 	CreateBatCaveDeviceSetting(settings BatCaveDeviceSetting) int64
 	GetBatCaveDeviceSetting(id string) (bool, BatCaveDeviceSetting)
 	GetBatCaveDeviceSettingByMac(mac string) (bool, BatCaveDeviceSetting)
-	UpdateBatCaveDeviceSetting(settings BatCaveDeviceSetting) int64
+	UpdateBatCaveDeviceSetting(settings BatCaveDeviceSetting) (bool, error)
 }

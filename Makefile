@@ -5,13 +5,21 @@ LDFLAGS=-ldflags "-X=main.Version=$(VERSION) -X=main.Build=$(BUILD)"
 MAKEFLAGS += --silent
 GOBASE=$(shell pwd)
 GOBIN=$(GOBASE)/bin
-GOFILES=$(GOPATH)/src/github.com/n7down/iota/cmd/kuiper/*.go
 
 .PHONY: get 
 get:
 	echo "getting go dependencies..."
-	go get -v -d ./...
-	go get -u github.com/stretchr/testify
+	# go get -v -d ./...
+	# go get -u github.com/stretchr/testify
+	# go get -u github.com/jstemmer/go-junit-report
+	# go get -u github.com/axw/gocov/...
+	# go get -u github.com/AlekSi/gocov-xml
+	go mod download -x
+	echo "done"
+
+.PHONY: get-ci
+get-ci:
+	echo "getting ci go dependencies..."
 	go get -u github.com/jstemmer/go-junit-report
 	go get -u github.com/axw/gocov/...
 	go get -u github.com/AlekSi/gocov-xml
@@ -20,10 +28,12 @@ get:
 .PHONY: generate
 generate:
 	echo "generating dependency files..."
-	protoc --go-grpc_out=internal/pb/sensors --go_out=internal/pb/sensors internal/pb/sensors/sensors.proto
-	protoc --go-grpc_out=internal/pb/users --go_out=internal/pb/users internal/pb/users/users.proto
-	protoc --go-grpc_out=internal/pb/devices --go_out=internal/pb/devices internal/pb/devices/devices.proto
-	mockgen -source internal/pb/devices/devices_grpc.pb.go -destination=internal/mock/mockdevicesserviceclient.go -package=mock
+	protoc --go-grpc_out=./pkg/pb/sensors --go_out=./pkg/pb/sensors ./pkg/pb/sensors/sensors.proto
+	protoc --go-grpc_out=./pkg/pb/users --go_out=./pkg/pb/users ./pkg/pb/users/users.proto
+	protoc --go-grpc_out=./pkg/pb/devices --go_out=./pkg/pb/devices ./pkg/pb/devices/devices.proto
+	protoc --go-grpc_out=./pkg/pb/interactions/go --go_out=./pkg/pb/interactions/go --proto_path=./pkg/pb/interactions/proto ./pkg/pb/interactions/proto/*.proto ./pkg/pb/interactions/proto/messages/*.proto
+	mockgen -source ./pkg/pb/devices/devices_grpc.pb.go -destination=pkg/mock/mockdevicesserviceclient.go -package=mock
+	mockgen -source ./pkg/pb/users/users_grpc.pb.go -destination=pkg/mock/mockusersserviceclient.go -package=mock
 	go generate ./...
 	echo "done"
 
@@ -97,6 +107,36 @@ test-clean:
 	docker rmi "$(PROJECTNAME)"/test-db:"$(VERSION)"
 	echo "done"
 
+.PHONY: build-bin-apigeteway
+build-bin-apigateway:
+	echo "building apigateway binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/apigateway cmd/apigateway/main.go
+	echo "done"
+
+.PHONY: build-bin-sensors
+build-bin-sensors:
+	echo "building sensors binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/sensors cmd/sensors/main.go
+	echo "done"
+
+.PHONY: build-bin-devices
+build-bin-devices:
+	echo "building devices binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/devices cmd/devices/main.go
+	echo "done"
+
+.PHONY: build-bin-users
+build-bin-users:
+	echo "building users binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/users cmd/users/main.go
+	echo "done"
+
+.PHONY: build-bin-interactions
+build-bin-interactions:
+	echo "building interactions binary..."
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo $(LDFLAGS) -o bin/interactions cmd/interactions/main.go
+	echo "done"
+
 .PHONY: build-apigeteway
 build-apigateway:
 	echo "building apigateway..."
@@ -121,8 +161,14 @@ build-users:
 	docker build -t "$(PROJECTNAME)"/users:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/users/Dockerfile .
 	echo "done"
 
+.PHONY: build-interactions
+build-interactions:
+	echo "building interactions..."
+	docker build -t "$(PROJECTNAME)"/interactions:"$(VERSION)" --label "version"="$(VERSION)" --label "build"="$(BUILD)" -f build/dockerfiles/interactions/Dockerfile .
+	echo "done"
+
 .PHONY: build-all
-build-all: build-apigateway build-sensors build-devices build-users
+build-all: build-apigateway build-sensors build-devices build-users build-interactions
 
 .PHONY: up
 up: 

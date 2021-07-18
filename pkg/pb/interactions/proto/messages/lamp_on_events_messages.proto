@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateLampOnEventRequest {
+  string Mac = 1;
+}
+
+message CreateLampOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampOnEventRequest {
+  string ID = 1;
+}
+
+message GetLampOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampOnEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampOnEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampOnEventResponse {
+  string ID = 1;
+}
+

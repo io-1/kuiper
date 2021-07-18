@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateInteractionRequest {
+  string Name = 1;
+  string Description = 2;
+}
+
+message CreateInteractionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message GetInteractionRequest {
+  string ID = 1;
+}
+
+message GetInteractionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message GetInteractionDetailsRequest {
+  string ID = 1;
+}
+
+message GetInteractionDetailsResponse {
+  string KeypadConditionID = 1;
+  string KeypadConditionMac = 2;
+  int32 KeypadConditionButtonID = 3;
+  string LampEventType = 4;
+  string LampEventID = 5;
+  string LampEventMac = 6;
+  int32 LampEventBrightness = 7;
+  int32 LampEventRed = 8;
+  int32 LampEventGreen = 9;
+  int32 LampEventBlue = 10;
+}
+
+message UpdateInteractionRequest {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message UpdateInteractionResponse {
+  string ID = 1;
+  string Name = 2;
+  string Description = 3;
+}
+
+message DeleteInteractionRequest {
+  string ID = 1;
+}
+
+message DeleteInteractionResponse {
+  string ID = 1;
+}

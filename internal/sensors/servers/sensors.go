@@ -3,7 +3,7 @@ package servers
 import (
 	"github.com/io-1/kuiper/internal/sensors/persistence"
 
-	sensors_pb "github.com/io-1/kuiper/internal/pb/sensors"
+	sensors_pb "github.com/io-1/kuiper/pkg/pb/sensors"
 )
 
 type SensorsServer struct {

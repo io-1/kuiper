@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+option go_package = ".;devices_pb";
+
+package devices_pb;
+
+message CreateBatCaveDeviceSettingRequest {
+    string Mac = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+message CreateBatCaveDeviceSettingResponse {
+    string ID = 1;
+    string Mac = 2;
+    uint32 DeepSleepDelay = 3;
+}
+
+message GetBatCaveDeviceSettingRequest {
+    string ID = 1;
+}
+
+message GetBatCaveDeviceSettingResponse {
+    string ID = 1;
+    string Mac = 2;
+    uint32 DeepSleepDelay = 3;
+}
+
+message UpdateBatCaveDeviceSettingRequest {
+    string ID = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+message UpdateBatCaveDeviceSettingResponse {
+    string ID = 1;
+    uint32 DeepSleepDelay = 2;
+}
+
+message SendLampDeviceOnRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceOnResponse {
+}
+
+message SendLampDeviceOffRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceOffResponse {
+}
+
+message SendLampDeviceToggleRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceToggleResponse {
+}
+
+message SendLampDeviceColorRequest {
+  string Mac = 1;
+  int32 Red = 2;
+  int32 Green = 3;
+  int32 Blue = 4;
+}
+
+message SendLampDeviceColorResponse {
+}
+
+message SendLampDeviceBrightnessRequest {
+  string Mac = 1;
+  int32 Brightness = 2;
+}
+
+message SendLampDeviceBrightnessResponse {
+}
+
+message SendLampDeviceAutoBrightnessOnRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceAutoBrightnessOnResponse {
+}
+
+message SendLampDeviceAutoBrightnessOffRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceAutoBrightnessOffResponse {
+}
+
+message SendLampDeviceAutoBrightnessToggleRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceAutoBrightnessToggleResponse {
+}
+
+message SendLampDevicePulseRequest{
+  string Mac = 1;
+  int32 Red = 2;
+  int32 Green = 3;
+  int32 Blue = 4;
+}
+
+message SendLampDevicePulseResponse {
+}
+
+message SendLampDeviceMeteorRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceMeteorResponse {
+}
+
+message SendLampDeviceFireRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceFireResponse {
+}
+
+message SendLampDeviceTwinkleRequest {
+  string Mac = 1;
+}
+
+message SendLampDeviceTwinkleResponse {
+}
+
+service DevicesService {
+   rpc CreateBatCaveDeviceSetting(CreateBatCaveDeviceSettingRequest) returns (CreateBatCaveDeviceSettingResponse);
+   rpc GetBatCaveDeviceSetting(GetBatCaveDeviceSettingRequest) returns (GetBatCaveDeviceSettingResponse);
+   rpc UpdateBatCaveDeviceSetting(UpdateBatCaveDeviceSettingRequest) returns (UpdateBatCaveDeviceSettingResponse);
+
+   rpc SendLampDeviceOn(SendLampDeviceOnRequest) returns (SendLampDeviceOnResponse);
+   rpc SendLampDeviceOff(SendLampDeviceOffRequest) returns (SendLampDeviceOffResponse);
+   rpc SendLampDeviceToggle(SendLampDeviceToggleRequest) returns (SendLampDeviceToggleResponse);
+   rpc SendLampDeviceColor(SendLampDeviceColorRequest) returns (SendLampDeviceColorResponse);
+   rpc SendLampDeviceBrightness(SendLampDeviceBrightnessRequest) returns (SendLampDeviceBrightnessResponse);
+   rpc SendLampDeviceAutoBrightnessOn(SendLampDeviceAutoBrightnessOnRequest) returns (SendLampDeviceAutoBrightnessOnResponse);
+   rpc SendLampDeviceAutoBrightnessOff(SendLampDeviceAutoBrightnessOffRequest) returns (SendLampDeviceAutoBrightnessOffResponse);
+   rpc SendLampDeviceAutoBrightnessToggle(SendLampDeviceAutoBrightnessToggleRequest) returns (SendLampDeviceAutoBrightnessToggleResponse);
+   rpc SendLampDevicePulse(SendLampDevicePulseRequest) returns (SendLampDevicePulseResponse);
+   rpc SendLampDeviceMeteor(SendLampDeviceMeteorRequest) returns (SendLampDeviceMeteorResponse);
+   rpc SendLampDeviceFire(SendLampDeviceFireRequest) returns (SendLampDeviceFireResponse);
+   rpc SendLampDeviceTwinkle(SendLampDeviceTwinkleRequest) returns (SendLampDeviceTwinkleResponse);
+}

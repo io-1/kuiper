@@ -78,11 +78,12 @@ func (mr *MockPersistenceMockRecorder) GetBatCaveDeviceSettingByMac(mac interfac
 }
 
 // UpdateBatCaveDeviceSetting mocks base method.
-func (m *MockPersistence) UpdateBatCaveDeviceSetting(settings persistence.BatCaveDeviceSetting) int64 {
+func (m *MockPersistence) UpdateBatCaveDeviceSetting(settings persistence.BatCaveDeviceSetting) (bool, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateBatCaveDeviceSetting", settings)
-	ret0, _ := ret[0].(int64)
-	return ret0
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // UpdateBatCaveDeviceSetting indicates an expected call of UpdateBatCaveDeviceSetting.

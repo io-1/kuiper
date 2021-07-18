@@ -4,6 +4,7 @@ type StatsMeasurement struct {
 	Mac            string  `json:"m"`
 	Voltage        float64 `json:"v"`
 	ConnectionTime int32   `json:"c"`
+	Rssi           int32   `json:"r"`
 }
 
 // func (s StatsSensor) GetVoltageFloat() (float64, error) {

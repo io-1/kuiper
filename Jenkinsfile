@@ -18,13 +18,15 @@ pipeline {
                 sh 'cp -r ${WORKSPACE}/* ${GOPATH}/${SRC_PATH}'
 
                 // get dependencies
-                sh 'make -C ${GOPATH}/${SRC_PATH} get'
+                sh 'make -C ${GOPATH}/${SRC_PATH} get-ci'
+                sh 'cd ${GOPATH}/${SRC_PATH}'
 
                 // run tests
+                sh 'go test -v --tags unit ./...'
                 sh 'echo "mode: set" > ${WORKSPACE}/coverage.out'
                 sh '''
                     go test -v -coverprofile ${WORKSPACE}/coverage.out --tags unit \
-                        ${GOPATH}/${SRC_PATH}/... > ${WORKSPACE}/unit-tests.txt 2>&1
+                        ./... > ${WORKSPACE}/unit-tests.txt 2>&1
                 '''
 
                 // archive unit tests 
@@ -57,5 +59,8 @@ pipeline {
         always {
             sh 'docker rmi $(docker images -aq) || exit 0'
         }
+        cleanup { 
+            cleanWs() 
+        } 
     }
 }

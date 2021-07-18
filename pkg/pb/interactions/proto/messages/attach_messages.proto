@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateAttachRequest {
+  string InteractionID = 1;
+  string ConditionID = 2;
+  string EventID = 3;
+}
+
+message CreateAttachResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message GetAttachRequest {
+  string ID = 1;
+}
+
+message GetAttachResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateAttachRequest {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4;
+}
+
+message UpdateAttachResponse {
+  string ID = 1;
+  string InteractionID = 2;
+  string ConditionID = 3;
+  string EventID = 4; 
+}
+
+message DeleteAttachRequest {
+  string ID = 1;
+}
+
+message DeleteAttachResponse {
+  string ID = 1;
+}

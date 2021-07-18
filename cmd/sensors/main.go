@@ -14,8 +14,8 @@ import (
 	"github.com/io-1/kuiper/internal/sensors/pubsub/mosquitto"
 	"google.golang.org/grpc"
 
-	sensors_pb "github.com/io-1/kuiper/internal/pb/sensors"
 	sensors "github.com/io-1/kuiper/internal/sensors/servers"
+	sensors_pb "github.com/io-1/kuiper/pkg/pb/sensors"
 )
 
 var (
@@ -48,22 +48,42 @@ func init() {
 
 		pubSub := mosquitto.NewMosquittoPubSub(persistence, log)
 
-		err = pubSub.NewDHT22Listener(ctx, "dht22_listener", os.Getenv("DHT22_MQTT_URL"))
+		err = pubSub.NewDHT22Listener(ctx, "dht22_sensors_listener", os.Getenv("DHT22_MQTT_URL"))
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		err = pubSub.NewVoltageListener(ctx, "voltage_listener", os.Getenv("VOLTAGE_MQTT_URL"))
+		err = pubSub.NewVoltageListener(ctx, "voltage_sensors_listener", os.Getenv("VOLTAGE_MQTT_URL"))
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		err = pubSub.NewStatsListener(ctx, "stats_listener", os.Getenv("STATS_MQTT_URL"))
+		err = pubSub.NewStatsListener(ctx, "stats_sensors_listener", os.Getenv("STATS_MQTT_URL"))
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		err = pubSub.NewHDC1080Listener(ctx, "hdc1080_listener", os.Getenv("HDC1080_MQTT_URL"))
+		err = pubSub.NewHDC1080Listener(ctx, "hdc1080_sensors_listener", os.Getenv("HDC1080_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = pubSub.NewMC38Listener(ctx, "mc38_sensors_listener", os.Getenv("MC38_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = pubSub.NewHCSR501Listener(ctx, "hcsr501_sensors_listener", os.Getenv("HCSR501_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = pubSub.NewBH1750Listener(ctx, "bh1750_sensors_listener", os.Getenv("BH1750_MQTT_URL"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		err = pubSub.NewKeypadListener(ctx, "keypad_sensors_listener", os.Getenv("KEYPAD_MQTT_URL"))
 		if err != nil {
 			log.Fatal(err)
 		}

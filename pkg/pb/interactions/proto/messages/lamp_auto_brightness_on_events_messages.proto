@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateLampAutoBrightnessOnEventRequest{
+  string Mac = 1;
+}
+
+message CreateLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message GetLampAutoBrightnessOnEventRequest {
+  string ID = 1;
+}
+
+message GetLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessOnEventRequest {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message UpdateLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+  string Mac = 2;
+}
+
+message DeleteLampAutoBrightnessOnEventRequest {
+  string ID = 1;
+}
+
+message DeleteLampAutoBrightnessOnEventResponse {
+  string ID = 1;
+}
+

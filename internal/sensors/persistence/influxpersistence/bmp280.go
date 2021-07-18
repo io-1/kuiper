@@ -38,7 +38,7 @@ func (i InfluxPersistence) CreateBMP280Measurement(sensor *sensors.BMP280Measure
 	}
 
 	point, err := client.NewPoint(
-		"bmp280_listene,",
+		"bmp280_listener",
 		tags,
 		fields,
 		time.Now().UTC(),

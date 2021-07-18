@@ -1,6 +1,8 @@
 package mysql
 
-import "github.com/io-1/kuiper/internal/users/persistence"
+import (
+	"github.com/io-1/kuiper/internal/users/persistence"
+)
 
 func (p *MysqlPersistence) CreateUser(user persistence.User) int64 {
 	rowsAffected := p.db.Create(&user).RowsAffected
@@ -19,12 +21,14 @@ func (p *MysqlPersistence) GetUserByUsername(username string) (bool, persistence
 	return recordNotFound, user
 }
 
-func (p *MysqlPersistence) UpdateUser(user persistence.User) int64 {
-	rowsAffected := p.db.Model(&user).Where("id=?", user.ID).Updates(persistence.User{Username: user.Username, Name: user.Name, Email: user.Email}).RowsAffected
-	return rowsAffected
+func (p *MysqlPersistence) UpdateUser(user persistence.User) (bool, error) {
+	recordNotFound := p.db.Where("id=?", user.ID).First(&persistence.User{}).RecordNotFound()
+	err := p.db.Model(&user).Where("id=?", user.ID).Updates(persistence.User{Username: user.Username, Name: user.Name, Email: user.Email}).Error
+	return recordNotFound, err
 }
 
-func (p *MysqlPersistence) DeleteUser(user persistence.User) int64 {
-	rowsAffected := p.db.Delete(&user).RowsAffected
-	return rowsAffected
+func (p *MysqlPersistence) DeleteUser(user persistence.User) (bool, error) {
+	recordNotFound := p.db.Where("id=?", user.ID).First(&persistence.User{}).RecordNotFound()
+	err := p.db.Delete(&user).Error
+	return recordNotFound, err
 }

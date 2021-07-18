@@ -7,10 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/io-1/kuiper/internal/apigateway/auth/request"
 	"github.com/io-1/kuiper/internal/apigateway/auth/response"
-	"github.com/io-1/kuiper/internal/apigateway/clients/users"
+	"github.com/io-1/kuiper/internal/apigateway/clients/usersclient"
+	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/utils"
+	"google.golang.org/grpc/status"
 
-	jwt "github.com/appleboy/gin-jwt"
+	jwt "github.com/appleboy/gin-jwt/v2"
 )
 
 const (
@@ -22,11 +24,11 @@ var (
 )
 
 type GinAuth struct {
-	usersClient    *users.UsersClient
+	usersClient    *usersclient.UsersClient
 	authMiddleware *jwt.GinJWTMiddleware
 }
 
-func NewGinAuth(u *users.UsersClient) (*GinAuth, error) {
+func NewGinAuth(u *usersclient.UsersClient, logger logger.Logger) (*GinAuth, error) {
 	authMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "dev",
 		Key:         []byte("43deio1"),
@@ -65,13 +67,15 @@ func NewGinAuth(u *users.UsersClient) (*GinAuth, error) {
 
 			// get the user
 			res, err := u.GetUserByUsername(req.Username)
-			if err != nil {
-				return nil, err
-			}
 
-			if res.Username == "" {
-				// return nil, jwt.ErrMissingLoginValues
-				return nil, errors.New("user does not exist")
+			// user does not exist
+			if err != nil {
+				st, ok := status.FromError(err)
+				if !ok {
+					logger.Errorf("unknown error: %v", err)
+					return nil, errors.New("unknown error has occurred")
+				}
+				return nil, errors.New(st.Message())
 			}
 
 			// check if password is valid with bcrypt
@@ -102,7 +106,7 @@ func NewGinAuth(u *users.UsersClient) (*GinAuth, error) {
 		},
 		Unauthorized: func(c *gin.Context, code int, message string) {
 			c.JSON(code, gin.H{
-				"code":    code,
+				// "code":    code,
 				"message": message,
 			})
 		},

@@ -8,13 +8,14 @@ import (
 	"time"
 
 	"github.com/io-1/kuiper/internal/devices/persistence/mysql"
-	"github.com/io-1/kuiper/internal/devices/pubsub/mosquitto"
+	"github.com/io-1/kuiper/internal/devices/pubsub/listeners/mosquitto"
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/logger/logruslogger"
 	"google.golang.org/grpc"
 
+	mosquitto_publisher "github.com/io-1/kuiper/internal/devices/pubsub/publisher/mosquitto"
 	devices "github.com/io-1/kuiper/internal/devices/servers"
-	devices_pb "github.com/io-1/kuiper/internal/pb/devices"
+	devices_pb "github.com/io-1/kuiper/pkg/pb/devices"
 )
 
 const (
@@ -37,6 +38,7 @@ func init() {
 		port = os.Getenv("PORT")
 		dbConn := os.Getenv("DB_CONN")
 		batCaveSettingsMQTTURL := os.Getenv("BAT_CAVE_SETTINGS_MQTT_URL")
+		publisherMQTTURL := os.Getenv("PUBLISHER_MQTT_URL")
 
 		log = logruslogger.NewLogrusLogger(true)
 		persistence, err := mysql.NewMysqlPersistence(dbConn)
@@ -44,9 +46,14 @@ func init() {
 			log.Fatal(err)
 		}
 
-		server = devices.NewDevicesServer(persistence)
+		publisher, err := mosquitto_publisher.NewMosquittoPublisher(log, publisherMQTTURL, "devices_publisher")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		server = devices.NewDevicesServer(persistence, publisher)
 		pubSub := mosquitto.NewMosquittoPubSub(persistence, log)
-		err = pubSub.NewBatCaveDeviceSettingsListener("bat_cave_settings_listener", batCaveSettingsMQTTURL)
+		err = pubSub.NewBatCaveDeviceSettingsListener("devices_bat_cave_settings_listener", batCaveSettingsMQTTURL)
 		if err != nil {
 			log.Fatal(err)
 		}

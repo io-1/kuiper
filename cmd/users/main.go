@@ -5,19 +5,14 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"time"
 
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/logger/logruslogger"
 	"github.com/io-1/kuiper/internal/users/persistence/mysql"
 	"google.golang.org/grpc"
 
-	users_pb "github.com/io-1/kuiper/internal/pb/users"
 	users "github.com/io-1/kuiper/internal/users/servers"
-)
-
-const (
-	ONE_MINUTE = 1 * time.Minute
+	users_pb "github.com/io-1/kuiper/pkg/pb/users"
 )
 
 var (
@@ -48,7 +43,7 @@ func init() {
 
 func main() {
 	if *showVersion {
-		fmt.Printf("settings server: version %s build %s", Version, Build)
+		fmt.Printf("users server: version %s build %s", Version, Build)
 	} else {
 		lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 		if err != nil {

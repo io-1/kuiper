@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option go_package = ".;interactions_pb";
+
+package interactions_pb;
+
+message CreateKeypadConditionRequest {
+  string Mac = 1;
+  int32 ButtonID = 2;
+}
+
+message CreateKeypadConditionResponse {
+  string ID = 1;
+  string Mac= 2;
+  int32 ButtonID = 3;
+}
+
+message GetKeypadConditionRequest {
+  string ID = 1;
+}
+
+message GetKeypadConditionResponse {
+  string ID = 1;
+  string Mac= 2;
+  int32 ButtonID = 333;
+}
+
+message UpdateKeypadConditionRequest {
+  string ID = 1;
+  string Mac= 2;
+  int32 ButtonID = 3;
+}
+
+message UpdateKeypadConditionResponse {
+  string ID = 1;
+  string Mac= 2;
+  int32 ButtonID = 3;
+}
+
+message DeleteKeypadConditionRequest {
+  string ID = 1;
+}
+
+message DeleteKeypadConditionResponse {
+  string ID = 1;
+}

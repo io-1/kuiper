@@ -19,7 +19,8 @@ func (p *MysqlPersistence) GetBatCaveDeviceSettingByMac(mac string) (bool, persi
 	return recordNotFound, setting
 }
 
-func (p *MysqlPersistence) UpdateBatCaveDeviceSetting(setting persistence.BatCaveDeviceSetting) int64 {
-	rowsAffected := p.db.Model(&setting).Where("id=?", setting.ID).Updates(persistence.BatCaveDeviceSetting{Mac: setting.Mac, DeepSleepDelay: setting.DeepSleepDelay}).RowsAffected
-	return rowsAffected
+func (p *MysqlPersistence) UpdateBatCaveDeviceSetting(setting persistence.BatCaveDeviceSetting) (bool, error) {
+	recordNotFound := p.db.Where("id=?", setting.ID).First(&persistence.BatCaveDeviceSetting{}).RecordNotFound()
+	err := p.db.Model(&setting).Where("id=?", setting.ID).Updates(persistence.BatCaveDeviceSetting{Mac: setting.Mac, DeepSleepDelay: setting.DeepSleepDelay}).Error
+	return recordNotFound, err
 }
