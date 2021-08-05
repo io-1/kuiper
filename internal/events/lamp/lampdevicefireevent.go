@@ -4,8 +4,8 @@ type LampDeviceFireEvent struct {
 	EventType string `json:"e"`
 }
 
-func NewLampDeviceFireEvent() *LampDeviceOnEvent {
-	return &LampDeviceOnEvent{
+func NewLampDeviceFireEvent() *LampDeviceFireEvent {
+	return &LampDeviceFireEvent{
 		EventType: "fire",
 	}
 }
