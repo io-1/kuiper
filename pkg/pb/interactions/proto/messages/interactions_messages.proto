@@ -19,6 +19,11 @@ message GetInteractionRequest {
   string ID = 1;
 }
 
+message GetAllInteractionsRequest {
+  int32 Limit = 1;
+  int32 Offset = 2;
+}
+
 message GetInteractionResponse {
   string ID = 1;
   string Name = 2;

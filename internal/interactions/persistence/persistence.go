@@ -4,6 +4,7 @@ package persistence
 type Persistence interface {
 	CreateInteraction(interaction Interaction) int64
 	GetInteraction(id string) (recordNotFound bool, interaction Interaction)
+	GetAllInteractions(limit, offset int32) (interaction []Interaction, err error)
 	GetInteractionDetails(id string) ([]InteractionDetails, error)
 	UpdateInteraction(interaction Interaction) (recordNotFound bool, err error)
 	DeleteInteraction(interaction Interaction) (recordNotFound bool, err error)

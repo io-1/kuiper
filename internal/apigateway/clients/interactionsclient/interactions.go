@@ -65,6 +65,76 @@ func (client InteractionsClient) CreateInteraction(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+func (client InteractionsClient) GetAllInteractions(c *gin.Context) {
+	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
+	defer cancel()
+
+	var (
+		req           request.GetAllInteractionsRequest
+		res           []response.GetInteractionResponse
+		errorResponse response.ErrorResponse
+	)
+
+	if err := c.BindQuery(&req); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if validationErrors := req.Validate(); len(validationErrors) > 0 {
+		err := map[string]interface{}{"validationError": validationErrors}
+		c.JSON(http.StatusMethodNotAllowed, err)
+		return
+	}
+
+	stream, err := client.interactionsServiceClient.GetAllInteractions(ctx, &interactions_pb.GetAllInteractionsRequest{Limit: *req.Limit, Offset: *req.Offset})
+	if err != nil {
+		client.logger.Errorf("error with interaction service: %v", err)
+		st, ok := status.FromError(err)
+
+		// unknown error
+		if !ok {
+			client.logger.Errorf("unknown error: %v", err)
+			errorResponse = response.ErrorResponse{
+				Message: fmt.Sprintf("an error has occurred"),
+			}
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+		errorResponse = response.ErrorResponse{
+			Message: st.Message(),
+		}
+		c.JSON(http.StatusInternalServerError, errorResponse)
+		return
+	}
+
+	for {
+		r, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, errorResponse)
+			return
+		}
+
+		i := response.GetInteractionResponse{
+			ID:          r.ID,
+			Name:        r.Name,
+			Description: r.Description,
+		}
+
+		res = append(res, i)
+	}
+
+	if len(res) == 0 {
+		c.JSON(http.StatusNoContent, res)
+		return
+	}
+
+	c.JSON(http.StatusOK, res)
+}
+
 func (client InteractionsClient) GetInteraction(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, FIVE_MINUTES)
 	defer cancel()

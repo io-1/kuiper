@@ -43,6 +43,30 @@ func (s *InteractionsServer) CreateInteraction(ctx context.Context, req *interac
 	}, nil
 }
 
+func (s *InteractionsServer) GetAllInteractions(req *interactions_pb.GetAllInteractionsRequest, stream interactions_pb.InteractionsService_GetAllInteractionsServer) error {
+	interactions, err := s.persistence.GetAllInteractions(req.Limit, req.Offset)
+	if err != nil {
+		s.logger.Errorf("error with persistence: %v", err)
+		return status.Error(codes.Internal, "there was an internal error")
+	}
+
+	for _, interaction := range interactions {
+		res := &interactions_pb.GetInteractionResponse{
+			ID:          interaction.ID,
+			Name:        interaction.Name,
+			Description: interaction.Description,
+		}
+
+		err := stream.Send(res)
+		if err != nil {
+			s.logger.Errorf("error with the stream: %v", err)
+			return status.Error(codes.Internal, "there was an internal error")
+		}
+	}
+
+	return nil
+}
+
 func (s *InteractionsServer) GetInteraction(ctx context.Context, req *interactions_pb.GetInteractionRequest) (*interactions_pb.GetInteractionResponse, error) {
 	recordNotFound, interaction := s.persistence.GetInteraction(req.ID)
 	if recordNotFound {
@@ -64,10 +88,8 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 
 	interactionDetails, err := s.persistence.GetInteractionDetails(req.ID)
 	if err != nil {
-
-		// FIXME: should return codes.Internal?
 		s.logger.Errorf("error with persistence: %v", err)
-		return err
+		return status.Error(codes.Internal, "there was an internal error")
 	}
 
 	if len(interactionDetails) == 0 {
@@ -170,7 +192,8 @@ func (s *InteractionsServer) GetInteractionDetails(req *interactions_pb.GetInter
 
 		err := stream.Send(res)
 		if err != nil {
-			return err
+			s.logger.Errorf("error with the stream: %v", err)
+			return status.Error(codes.Internal, "there was an internal error")
 		}
 	}
 

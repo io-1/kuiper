@@ -12,6 +12,12 @@ func (p MysqlPersistence) GetInteraction(id string) (recordNotFound bool, intera
 	return recordNotFound, interaction
 }
 
+func (p MysqlPersistence) GetAllInteractions(limit, offset int32) ([]persistence.Interaction, error) {
+	var interactions []persistence.Interaction
+	result := p.db.Limit(limit).Offset(offset).Find(&interactions)
+	return interactions, result.Error
+}
+
 func (p MysqlPersistence) GetInteractionDetails(id string) ([]persistence.InteractionDetails, error) {
 	query := `SELECT
 		k.id, 

@@ -20,6 +20,7 @@ type InteractionsServiceClient interface {
 	// interactions
 	CreateInteraction(ctx context.Context, in *CreateInteractionRequest, opts ...grpc.CallOption) (*CreateInteractionResponse, error)
 	GetInteraction(ctx context.Context, in *GetInteractionRequest, opts ...grpc.CallOption) (*GetInteractionResponse, error)
+	GetAllInteractions(ctx context.Context, in *GetAllInteractionsRequest, opts ...grpc.CallOption) (InteractionsService_GetAllInteractionsClient, error)
 	GetInteractionDetails(ctx context.Context, in *GetInteractionDetailsRequest, opts ...grpc.CallOption) (InteractionsService_GetInteractionDetailsClient, error)
 	UpdateInteraction(ctx context.Context, in *UpdateInteractionRequest, opts ...grpc.CallOption) (*UpdateInteractionResponse, error)
 	DeleteInteraction(ctx context.Context, in *DeleteInteractionRequest, opts ...grpc.CallOption) (*DeleteInteractionResponse, error)
@@ -116,8 +117,40 @@ func (c *interactionsServiceClient) GetInteraction(ctx context.Context, in *GetI
 	return out, nil
 }
 
+func (c *interactionsServiceClient) GetAllInteractions(ctx context.Context, in *GetAllInteractionsRequest, opts ...grpc.CallOption) (InteractionsService_GetAllInteractionsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_InteractionsService_serviceDesc.Streams[0], "/interactions_pb.InteractionsService/GetAllInteractions", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &interactionsServiceGetAllInteractionsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type InteractionsService_GetAllInteractionsClient interface {
+	Recv() (*GetInteractionResponse, error)
+	grpc.ClientStream
+}
+
+type interactionsServiceGetAllInteractionsClient struct {
+	grpc.ClientStream
+}
+
+func (x *interactionsServiceGetAllInteractionsClient) Recv() (*GetInteractionResponse, error) {
+	m := new(GetInteractionResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 func (c *interactionsServiceClient) GetInteractionDetails(ctx context.Context, in *GetInteractionDetailsRequest, opts ...grpc.CallOption) (InteractionsService_GetInteractionDetailsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_InteractionsService_serviceDesc.Streams[0], "/interactions_pb.InteractionsService/GetInteractionDetails", opts...)
+	stream, err := c.cc.NewStream(ctx, &_InteractionsService_serviceDesc.Streams[1], "/interactions_pb.InteractionsService/GetInteractionDetails", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -641,6 +674,7 @@ type InteractionsServiceServer interface {
 	// interactions
 	CreateInteraction(context.Context, *CreateInteractionRequest) (*CreateInteractionResponse, error)
 	GetInteraction(context.Context, *GetInteractionRequest) (*GetInteractionResponse, error)
+	GetAllInteractions(*GetAllInteractionsRequest, InteractionsService_GetAllInteractionsServer) error
 	GetInteractionDetails(*GetInteractionDetailsRequest, InteractionsService_GetInteractionDetailsServer) error
 	UpdateInteraction(context.Context, *UpdateInteractionRequest) (*UpdateInteractionResponse, error)
 	DeleteInteraction(context.Context, *DeleteInteractionRequest) (*DeleteInteractionResponse, error)
@@ -721,6 +755,9 @@ func (*UnimplementedInteractionsServiceServer) CreateInteraction(context.Context
 }
 func (*UnimplementedInteractionsServiceServer) GetInteraction(context.Context, *GetInteractionRequest) (*GetInteractionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInteraction not implemented")
+}
+func (*UnimplementedInteractionsServiceServer) GetAllInteractions(*GetAllInteractionsRequest, InteractionsService_GetAllInteractionsServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetAllInteractions not implemented")
 }
 func (*UnimplementedInteractionsServiceServer) GetInteractionDetails(*GetInteractionDetailsRequest, InteractionsService_GetInteractionDetailsServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetInteractionDetails not implemented")
@@ -927,6 +964,27 @@ func _InteractionsService_GetInteraction_Handler(srv interface{}, ctx context.Co
 		return srv.(InteractionsServiceServer).GetInteraction(ctx, req.(*GetInteractionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
+}
+
+func _InteractionsService_GetAllInteractions_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetAllInteractionsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(InteractionsServiceServer).GetAllInteractions(m, &interactionsServiceGetAllInteractionsServer{stream})
+}
+
+type InteractionsService_GetAllInteractionsServer interface {
+	Send(*GetInteractionResponse) error
+	grpc.ServerStream
+}
+
+type interactionsServiceGetAllInteractionsServer struct {
+	grpc.ServerStream
+}
+
+func (x *interactionsServiceGetAllInteractionsServer) Send(m *GetInteractionResponse) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 func _InteractionsService_GetInteractionDetails_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -2152,6 +2210,11 @@ var _InteractionsService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "GetAllInteractions",
+			Handler:       _InteractionsService_GetAllInteractions_Handler,
+			ServerStreams: true,
+		},
 		{
 			StreamName:    "GetInteractionDetails",
 			Handler:       _InteractionsService_GetInteractionDetails_Handler,

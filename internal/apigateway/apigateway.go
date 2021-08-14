@@ -135,6 +135,7 @@ func (g *APIGateway) InitV1Routes(r *gin.Engine) error {
 	interactionsGroup := v1.Group("/interactions")
 	{
 		interactionsGroup.POST("", g.interactionsClient.CreateInteraction)
+		interactionsGroup.GET("", g.interactionsClient.GetAllInteractions)
 		interactionsGroup.GET("/:interaction_id", g.interactionsClient.GetInteraction)
 		interactionsGroup.PUT("/:interaction_id", g.interactionsClient.UpdateInteraction)
 		interactionsGroup.PATCH("/:interaction_id", g.interactionsClient.PatchInteraction)

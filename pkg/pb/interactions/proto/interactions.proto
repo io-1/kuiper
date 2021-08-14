@@ -26,6 +26,7 @@ service InteractionsService {
   // interactions
   rpc CreateInteraction(CreateInteractionRequest) returns (CreateInteractionResponse);
   rpc GetInteraction(GetInteractionRequest) returns (GetInteractionResponse);
+  rpc GetAllInteractions(GetAllInteractionsRequest) returns (stream GetInteractionResponse);
   rpc GetInteractionDetails(GetInteractionDetailsRequest) returns (stream GetInteractionDetailsResponse);
   rpc UpdateInteraction(UpdateInteractionRequest) returns (UpdateInteractionResponse);
   rpc DeleteInteraction(DeleteInteractionRequest) returns (DeleteInteractionResponse);
