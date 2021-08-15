@@ -9,7 +9,7 @@ require (
 	github.com/appleboy/gorush v1.13.0 // indirect
 	github.com/axw/gocov v1.0.0 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.2.0
-	github.com/gin-gonic/gin v1.6.3
+	github.com/gin-gonic/gin v1.7.3
 	github.com/go-openapi/runtime v0.19.22
 	github.com/golang/mock v1.4.4
 	github.com/golang/protobuf v1.4.2
