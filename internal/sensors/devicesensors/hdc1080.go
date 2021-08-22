@@ -9,7 +9,7 @@ type HDC1080Measurement struct {
 }
 
 type HDC1080TemperatureMeasurement struct {
-	timestamp   time.Time
+	Timestamp   time.Time
 	Temperature float64
 }
 
@@ -19,7 +19,7 @@ type HDC1080TemperatureMeasurements struct {
 }
 
 type HDC1080HumidityMeasurement struct {
-	timestamp time.Time
+	Timestamp time.Time
 	Humidity  float64
 }
 

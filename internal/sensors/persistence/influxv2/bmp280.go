@@ -1,21 +1,14 @@
-package influxpersistence
+package influxv2
 
 import (
+	"context"
 	"time"
 
-	client "github.com/influxdata/influxdb1-client/v2"
+	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
-func (i InfluxPersistence) CreateBMP280Measurement(sensor *sensors.BMP280Measurement) error {
-	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
-		Database:  i.database,
-		Precision: "s",
-	})
-	if err != nil {
-		return err
-	}
-
+func (i *InfluxV2Persistence) CreateBMP280Measurement(ctx context.Context, sensor *sensors.BMP280Measurement) error {
 	pressureFloat, err := sensor.GetPressureFloat()
 	if err != nil {
 		return err
@@ -37,16 +30,15 @@ func (i InfluxPersistence) CreateBMP280Measurement(sensor *sensors.BMP280Measure
 		"temp":     temperatureFloat,
 	}
 
-	point, err := client.NewPoint(
+	writeAPI := i.client.WriteAPIBlocking(i.org, i.bucket)
+
+	p := influxdb2.NewPoint(
 		"bmp280_listener",
 		tags,
 		fields,
-		time.Now().UTC(),
-	)
+		time.Now().UTC())
 
-	bp.AddPoint(point)
-
-	err = i.client.Write(bp)
+	err = writeAPI.WritePoint(ctx, p)
 	if err != nil {
 		return err
 	}

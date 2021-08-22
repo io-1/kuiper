@@ -37,7 +37,7 @@ func (p MosquittoPubSub) NewHDC1080Listener(ctx context.Context, listenerName st
 		}
 
 		if err == nil {
-			err = p.persistence.CreateHDC1080Measurement(sensor)
+			err = p.persistence.CreateHDC1080Measurement(ctx, sensor)
 			p.logger.Infof("Logged sensor: %v", sensor)
 			if err != nil {
 				p.logger.Error(err.Error())

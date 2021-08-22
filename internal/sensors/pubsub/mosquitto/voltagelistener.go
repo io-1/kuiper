@@ -39,7 +39,7 @@ func (p MosquittoPubSub) NewVoltageListener(ctx context.Context, listenerName st
 		}
 
 		if err == nil {
-			err = p.persistence.CreateVoltageMeasurement(sensors)
+			err = p.persistence.CreateVoltageMeasurement(ctx, sensors)
 			p.logger.Infof("Logged sensor: %v", sensors)
 			if err != nil {
 				p.logger.Error(err.Error())

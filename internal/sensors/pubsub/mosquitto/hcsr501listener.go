@@ -39,7 +39,7 @@ func (p MosquittoPubSub) NewHCSR501Listener(ctx context.Context, listenerName st
 		}
 
 		if err == nil {
-			err = p.persistence.CreateHCSR501Measurement(sensor)
+			err = p.persistence.CreateHCSR501Measurement(ctx, sensor)
 			p.logger.Infof("Logged sensor: %v", sensor)
 			if err != nil {
 				p.logger.Error(err.Error())

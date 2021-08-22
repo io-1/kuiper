@@ -39,7 +39,7 @@ func (p MosquittoPubSub) NewMC38Listener(ctx context.Context, listenerName strin
 		}
 
 		if err == nil {
-			err = p.persistence.CreateMC38Measurement(sensor)
+			err = p.persistence.CreateMC38Measurement(ctx, sensor)
 			p.logger.Infof("Logged sensor: %v", sensor)
 			if err != nil {
 				p.logger.Error(err.Error())

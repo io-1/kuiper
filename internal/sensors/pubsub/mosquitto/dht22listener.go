@@ -39,7 +39,7 @@ func (p MosquittoPubSub) NewDHT22Listener(ctx context.Context, listenerName stri
 		}
 
 		if err == nil {
-			err = p.persistence.CreateDHT22Measurement(sensor)
+			err = p.persistence.CreateDHT22Measurement(ctx, sensor)
 			p.logger.Infof("Logged sensor: %v", sensor)
 			if err != nil {
 				p.logger.Error(err.Error())

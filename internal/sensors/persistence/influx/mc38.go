@@ -1,13 +1,14 @@
-package influxpersistence
+package influx
 
 import (
+	"context"
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
-func (i InfluxPersistence) CreateDHT22Measurement(sensor *sensors.DHT22Measurement) error {
+func (i InfluxPersistence) CreateMC38Measurement(ctx context.Context, sensor *sensors.MC38Measurement) error {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  i.database,
 		Precision: "s",
@@ -23,12 +24,11 @@ func (i InfluxPersistence) CreateDHT22Measurement(sensor *sensors.DHT22Measureme
 
 	// not indexed
 	fields := map[string]interface{}{
-		"humidity": sensor.Humidity,
-		"temp":     sensor.Temperature,
+		"state": sensor.State,
 	}
 
 	point, err := client.NewPoint(
-		"dht22_listener",
+		"mc83_listener",
 		tags,
 		fields,
 		time.Now().UTC(),

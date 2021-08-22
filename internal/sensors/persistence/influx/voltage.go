@@ -1,17 +1,23 @@
-package influxpersistence
+package influx
 
 import (
+	"context"
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
-func (i InfluxPersistence) CreateHCSR501Measurement(sensor *sensors.HCSR501Measurement) error {
+func (i InfluxPersistence) CreateVoltageMeasurement(ctx context.Context, sensor *sensors.VoltageMeasurement) error {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  i.database,
 		Precision: "s",
 	})
+	if err != nil {
+		return err
+	}
+
+	voltageFloat, err := sensor.GetVoltageFloat()
 	if err != nil {
 		return err
 	}
@@ -23,11 +29,11 @@ func (i InfluxPersistence) CreateHCSR501Measurement(sensor *sensors.HCSR501Measu
 
 	// not indexed
 	fields := map[string]interface{}{
-		"state": sensor.State,
+		"voltage": voltageFloat,
 	}
 
 	point, err := client.NewPoint(
-		"hcsr501_listener",
+		"voltage_listener",
 		tags,
 		fields,
 		time.Now().UTC(),

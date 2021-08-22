@@ -39,7 +39,7 @@ func (p MosquittoPubSub) NewBMP280Listener(ctx context.Context, listenerName str
 		}
 
 		if err == nil {
-			err = p.persistence.CreateBMP280Measurement(sensor)
+			err = p.persistence.CreateBMP280Measurement(ctx, sensor)
 			p.logger.Infof("Logged sensor: %v", sensor)
 			if err != nil {
 				p.logger.Error(err.Error())

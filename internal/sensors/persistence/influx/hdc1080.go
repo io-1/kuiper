@@ -1,6 +1,7 @@
-package influxpersistence
+package influx
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -8,7 +9,7 @@ import (
 	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
-func (i InfluxPersistence) CreateHDC1080Measurement(sensor *sensors.HDC1080Measurement) error {
+func (i InfluxPersistence) CreateHDC1080Measurement(ctx context.Context, sensor *sensors.HDC1080Measurement) error {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  i.database,
 		Precision: "s",
@@ -45,7 +46,7 @@ func (i InfluxPersistence) CreateHDC1080Measurement(sensor *sensors.HDC1080Measu
 	return nil
 }
 
-func (i InfluxPersistence) GetHDC1080TemperatureMeasurements(mac string, startTime, endTime time.Time) (sensors.HDC1080TemperatureMeasurements, error) {
+func (i InfluxPersistence) GetHDC1080TemperatureMeasurements(ctx context.Context, mac string, startTime, endTime time.Time) (sensors.HDC1080TemperatureMeasurements, error) {
 	query := fmt.Sprintf("select temp from hdc1080_listener where mac = '%s' and time => '%s' and time < '%s'", mac, startTime.String(), endTime.String())
 	q := client.NewQuery(query, i.database, "s")
 	response, err := i.client.Query(q)
@@ -62,7 +63,7 @@ func (i InfluxPersistence) GetHDC1080TemperatureMeasurements(mac string, startTi
 	return sensors.HDC1080TemperatureMeasurements{}, nil
 }
 
-func (i InfluxPersistence) GetHDC1080HumidityMeasurements(mac string, startTime, endTime time.Time) (sensors.HDC1080HumidityMeasurements, error) {
+func (i InfluxPersistence) GetHDC1080HumidityMeasurements(ctx context.Context, mac string, startTime, endTime time.Time) (sensors.HDC1080HumidityMeasurements, error) {
 	query := fmt.Sprintf("select humidity from hdc1080_listener where mac = '%s' and time => '%s' and time < '%s'", mac, startTime.String(), endTime.String())
 	q := client.NewQuery(query, i.database, "s")
 	response, err := i.client.Query(q)

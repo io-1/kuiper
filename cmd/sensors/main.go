@@ -10,7 +10,7 @@ import (
 
 	"github.com/io-1/kuiper/internal/logger"
 	"github.com/io-1/kuiper/internal/logger/logruslogger"
-	"github.com/io-1/kuiper/internal/sensors/persistence/influxpersistence"
+	"github.com/io-1/kuiper/internal/sensors/persistence/influx"
 	"github.com/io-1/kuiper/internal/sensors/pubsub/mosquitto"
 	"google.golang.org/grpc"
 
@@ -41,7 +41,11 @@ func init() {
 			log.Fatal(err.Error())
 		}
 
-		persistence, err := influxpersistence.NewInfluxPersistence(influxUrl)
+		// influxOrg := os.Getenv("INFLUX_ORG")
+		// influxToken := os.Getenv("INFLUX_TOKEN")
+
+		// persistence, err := influxv2.NewInfluxV2Persistence(influxUrl, influxOrg, influxToken, log)
+		persistence, err := influx.NewInfluxPersistence(influxUrl)
 		if err != nil {
 			log.Fatal(err.Error())
 		}

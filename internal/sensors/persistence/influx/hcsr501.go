@@ -1,13 +1,14 @@
-package influxpersistence
+package influx
 
 import (
+	"context"
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
-func (i InfluxPersistence) CreateStatsMeasurement(sensor *sensors.StatsMeasurement) error {
+func (i InfluxPersistence) CreateHCSR501Measurement(ctx context.Context, sensor *sensors.HCSR501Measurement) error {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  i.database,
 		Precision: "s",
@@ -23,13 +24,11 @@ func (i InfluxPersistence) CreateStatsMeasurement(sensor *sensors.StatsMeasureme
 
 	// not indexed
 	fields := map[string]interface{}{
-		"voltage": sensor.Voltage,
-		"connect": sensor.ConnectionTime,
-		"rssi":    sensor.Rssi,
+		"state": sensor.State,
 	}
 
 	point, err := client.NewPoint(
-		"stats_listener",
+		"hcsr501_listener",
 		tags,
 		fields,
 		time.Now().UTC(),

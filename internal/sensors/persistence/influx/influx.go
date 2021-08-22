@@ -1,4 +1,4 @@
-package influxpersistence
+package influx
 
 import (
 	"fmt"

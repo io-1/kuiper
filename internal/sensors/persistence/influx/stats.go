@@ -1,13 +1,14 @@
-package influxpersistence
+package influx
 
 import (
+	"context"
 	"time"
 
 	client "github.com/influxdata/influxdb1-client/v2"
 	sensors "github.com/io-1/kuiper/internal/sensors/devicesensors"
 )
 
-func (i InfluxPersistence) CreateKeypadMeasurement(sensor *sensors.KeypadMeasurement) error {
+func (i InfluxPersistence) CreateStatsMeasurement(ctx context.Context, sensor *sensors.StatsMeasurement) error {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database:  i.database,
 		Precision: "s",
@@ -15,6 +16,7 @@ func (i InfluxPersistence) CreateKeypadMeasurement(sensor *sensors.KeypadMeasure
 	if err != nil {
 		return err
 	}
+
 	// indexed
 	tags := map[string]string{
 		"mac": sensor.Mac,
@@ -22,11 +24,13 @@ func (i InfluxPersistence) CreateKeypadMeasurement(sensor *sensors.KeypadMeasure
 
 	// not indexed
 	fields := map[string]interface{}{
-		"id": sensor.ID,
+		"voltage": sensor.Voltage,
+		"connect": sensor.ConnectionTime,
+		"rssi":    sensor.Rssi,
 	}
 
 	point, err := client.NewPoint(
-		"keypad_listener",
+		"stats_listener",
 		tags,
 		fields,
 		time.Now().UTC(),

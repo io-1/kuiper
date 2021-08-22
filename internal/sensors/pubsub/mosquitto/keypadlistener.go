@@ -39,7 +39,7 @@ func (p MosquittoPubSub) NewKeypadListener(ctx context.Context, listenerName str
 		}
 
 		if err == nil {
-			err = p.persistence.CreateKeypadMeasurement(sensor)
+			err = p.persistence.CreateKeypadMeasurement(ctx, sensor)
 			p.logger.Infof("Logged sensor: %v", sensor)
 			if err != nil {
 				p.logger.Error(err.Error())
